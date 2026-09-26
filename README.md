@@ -43,7 +43,7 @@
 
 ## 快速导航
 
-- 📘 **完整架构与裁决规范 (v1.0-final)**：[`docs/TIM-PROFESSIONAL-WORKFLOW-PROPOSAL.md`](file:///Users/yuantian/Developer/tim-professional-workflow/docs/TIM-PROFESSIONAL-WORKFLOW-PROPOSAL.md)
-- 📝 **GPT-6 Pro 审查意见全文**：[`docs/TIM-PROFESSIONAL-WORKFLOW-PROPOSAL_REVIEW.md`](file:///Users/yuantian/Developer/tim-professional-workflow/docs/TIM-PROFESSIONAL-WORKFLOW-PROPOSAL_REVIEW.md)
-- ⚙️ **上游源同步脚本**：[`scripts/sync-upstreams.sh`](file:///Users/yuantian/Developer/tim-professional-workflow/scripts/sync-upstreams.sh)
-- 🔍 **下游版本漂移核验**：[`scripts/check-team-version.sh`](file:///Users/yuantian/Developer/tim-professional-workflow/scripts/check-team-version.sh)
+- 📘 **完整架构与裁决规范 (v1.0-final)**：[`docs/TIM-PROFESSIONAL-WORKFLOW-PROPOSAL.md`](docs/TIM-PROFESSIONAL-WORKFLOW-PROPOSAL.md)
+- 📝 **GPT-6 Pro 审查意见全文**：[`docs/TIM-PROFESSIONAL-WORKFLOW-PROPOSAL_REVIEW.md`](docs/TIM-PROFESSIONAL-WORKFLOW-PROPOSAL_REVIEW.md)
+- ⚙️ **上游源同步脚本**：[`scripts/sync-upstreams.sh`](scripts/sync-upstreams.sh)
+- 🔍 **下游版本漂移核验**：[`scripts/check-team-version.sh`](scripts/check-team-version.sh)

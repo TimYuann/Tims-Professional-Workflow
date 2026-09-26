@@ -6,10 +6,8 @@ author: "TIM / Antigravity"
 date: "2026-09-26"
 status: "Approved & Ready for V1 Implementation"
 related:
-  - "/Users/yuantian/Developer/tim-professional-workflow/AGENTS.md"
-  - "/Users/yuantian/Developer/tim-professional-workflow/README.md"
-  - "/Users/yuantian/Developer/orchestra-dsh/README.md"
-  - "/Users/yuantian/Developer/ekunai/Unified-Customs-Bonded-Intelligence-Platform/AGENTS.md"
+  - "../AGENTS.md"
+  - "../README.md"
 ---
 
 # TIM · Professional Workflow (Professional Teams & Engineering Kit)
