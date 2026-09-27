@@ -71,28 +71,30 @@ class Result:
     def __init__(self):
         self.checks = []
 
-    def add(self, cid, name, ok, detail="", misses=None):
-        self.checks.append((cid, name, ok, detail, misses or []))
+    def add(self, cid, name, ok, detail="", misses=None, skip=False):
+        self.checks.append((cid, name, ok, detail, misses or [], skip))
 
     @property
     def failed(self):
-        return [c for c in self.checks if not c[2]]
+        return [c for c in self.checks if not c[2] and not c[5]]
 
     def report(self, quiet=False):
         if not quiet:
             print("TIM · check-closure.py（只读闭包检查）")
             print(f"真源: {REGISTRY.relative_to(ROOT)}")
             print("-" * 76)
-            for cid, name, ok, detail, misses in self.checks:
-                print(f"[{'PASS' if ok else 'FAIL'}] {cid} {name:<22} {detail}")
+            for cid, name, ok, detail, misses, skip in self.checks:
+                tag = "SKIP" if skip else ("PASS" if ok else "FAIL")
+                print(f"[{tag}] {cid} {name:<22} {detail}")
                 for m in misses[:12]:
                     print(f"         ↳ {m}")
                 if len(misses) > 12:
                     print(f"         ↳ …另 {len(misses) - 12} 条")
-        npass = sum(1 for c in self.checks if c[2])
+        npass = sum(1 for c in self.checks if c[2] and not c[5])
+        nskip = sum(1 for c in self.checks if c[5])
         nfail = len(self.failed)
         print("-" * 76)
-        print(f"合计: {npass} 项通过 / {nfail} 项失败 / {len(self.checks)} 项检查")
+        print(f"合计: {npass} 项通过 / {nfail} 项失败 / {nskip} 项跳过 / {len(self.checks)} 项检查")
         return 0 if nfail == 0 else 1
 
 
@@ -353,8 +355,13 @@ def main():
         into = d.get("into")
         if into and into not in known:
             miss.append(f"{d['upstream']} 指向 {into}，但注册表里没有这个技能或原则")
-    r.add("C7", "上游处置完备", not miss,
-          f"文件系统 {len(actual)} 个上游 skill，处置表 {len(listed)} 条，一一对应", miss)
+    if not actual and not (ROOT / "upstreams").is_dir():
+        r.add("C7", "上游处置完备", True,
+              "本机没有 upstreams/（下游安装的常态）——上游处置是本库自身的属性，"
+              "不适用于下游，跳过而不是判 PASS", skip=True)
+    else:
+        r.add("C7", "上游处置完备", not miss,
+              f"文件系统 {len(actual)} 个上游 skill，处置表 {len(listed)} 条，一一对应", miss)
 
 
     # ── C8 角色文件里的技能表必须与注册表一致 ──────────────────
@@ -398,7 +405,8 @@ def main():
                 if src not in idx:
                     miss.append(f"{kind} {item['id']} 的来源 {src} 在 upstreams/ 里不存在")
     r.add("C9", "来源路径真实存在", not miss,
-          f"{len(idx)} 个上游 skill 索引，0 条失效来源", miss)
+          (f"{len(idx)} 个上游 skill 索引，0 条失效来源" if idx else
+           "本机没有 upstreams/，无法核对来源路径——跳过而不是判 PASS"), skip=not idx)
 
     # ── C10 处置表声称吸收，目标就必须真的列了它 ────────────────
     # 这一条曾经缺失：6 条 absorbed 处置在 upstreams/ 里对得上，
@@ -468,6 +476,28 @@ def main():
     r.add("C13", "判据不越权写他人产物", not miss,
           f"{len(phases)} 个阶段的 {sum(len(p.get('exit_criteria', [])) for p in phases)} 条判据"
           f"没有越权写", miss)
+
+    # ── C14 技能头部的产物声明必须与注册表一致 ─────────────────
+    # 抓的是这一类：头部写「产物：无」，产出节却写「A9 决策台账」。
+    # 它们回答的是同一个问题，答案必须一样。
+    miss = []
+    for sk in skills:
+        f = ROOT / "skills" / f"{sk['id']}.md"
+        if not f.is_file():
+            continue
+        m = re.search(r"^- 阶段：.*?　产物：(.+)$", f.read_text(encoding="utf-8"), re.M)
+        if not m:
+            miss.append(f"技能文件 {sk['id']}.md 的头部没有「产物：」声明行")
+            continue
+        # 只取第一个括号之前的部分：头部允许带解释，解释不是产物声明
+        raw = re.split(r"[（(]", m.group(1).strip())[0].strip()
+        declared = set(re.findall(r"A\d", raw)) if raw != "无" else set()
+        registered = set(sk.get("outputs") or [])
+        if declared != registered:
+            miss.append(f"技能 {sk['id']} 头部声明产物 {sorted(declared) or '无'}，"
+                        f"注册表登记 {sorted(registered) or '无'}")
+    r.add("C14", "技能头部产物声明与注册表一致", not miss,
+          f"{len(skills)} 个技能的头部声明与注册表 outputs 一致", miss)
 
     # ── 解耦检查 ───────────────────────────────────────────────
     miss = []

@@ -176,6 +176,17 @@ def artifacts_doc(reg):
     L.append("")
     L.append("其余产物类别的形状由 `driver` 按下游文档体系裁定——本库不定下游的目录结构。")
     L.append("")
+    L.append("### 每类产物的落盘形态")
+    L.append("")
+    L.append("同一个产物可以有几种落盘形态。**形态不是新产物**——它们回答的是「同样这几栏，")
+    L.append("换个落法」，不是「另一个东西」。把它们算成新产物，产物数就会从 9 涨到 20 出头，")
+    L.append("而且每一份都会和它的本体各自漂移。")
+    L.append("")
+    for a in reg["artifacts"]:
+        if a.get("embodiment"):
+            L.append(f"**{a['id']} {a['zh']}**　—　{a['embodiment']}")
+            L.append("")
+    L.append("")
     L.append("## 三条不可协商的落盘纪律")
     L.append("")
     L.append("1. **`persistent` 的产物必须有可追溯的落点。** 找不到位置就问 Owner，"

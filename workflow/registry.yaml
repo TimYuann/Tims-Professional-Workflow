@@ -35,6 +35,8 @@ artifacts:
   - non_goals
   - unknowns
   shape: 可合并的包
+  embodiment: >-
+    一个 task packet 里的诉求段。**外抛形态**：当某个决定不该由本会话做，诉求里的 `unknowns` 展开成一份可异步填写的问卷（`@to-questionnaire`）。问卷的答复回来并入 A1/A2，问卷本身不占编号。
   persistence: durable
   rationale: Owner 说不清晰的诉求是全部返工的源头；没有它，下游只能靠猜。
   notes:
@@ -55,6 +57,8 @@ artifacts:
   - evidence
   - gaps
   shape: 可合并的包
+  embodiment: >-
+    事实集可并入 task packet。它的**重建物化形态**是一份工作面快照：给下一个会话读的移交简报（`@handoff`）或上下文重建（`@context-reconstruction`）；**调研形态**是一份带锚点的研究文件（`@research`）。三者同源，落法由 driver 按下游惯例定。
   persistence: durable
   notes:
     claims: 每条结论 + 置信档位：直接（有人明确写了为什么）／推断／未验
@@ -75,11 +79,13 @@ artifacts:
   - consumers
   - freshness
   shape: 目录
+  embodiment: >-
+    **主形态**：一个索引加每个用户可见能力一页（`@feature-map`）。**执行形态**：同一份清单附上怎么驱动它的步骤与证据标准（`@verification-suite`）。**术语形态**：词汇表——一个词一条，只写词义（`@domain-modeling`）。**大工程的摘要形态**：按子系统分层的索引（`@context-management`）。四种都是 A3，不是四份独立文档。
   persistence: durable
   notes:
     capabilities: 系统对外提供哪些能力，每条挂到真实代码锚点
     consumers: 每条能力谁在用；没有消费者的能力是候选删除项
-    freshness: 上次与代码核对的时间。过期不更新的地图比没有地图更坏。只能由 architect 更新——verifier 发现偏差只能写进 A8.frame_alignment
+    freshness: 上次与代码核对的时间。过期不更新的地图比没有地图更坏。**建立与保鲜的分工是死的：feature-map（P1·architect）负责建，verification-suite（P5·verifier）只跑不改，偏差写进 A8.frame_alignment 交回 architect。verifier 不得自己重建能力清单。**
   rationale: 从代码里长出来的地图，不是人脑里的记忆。它给 P2 切片提供落点，给 P5 提供「该验什么」。
 - id: A4
   key: contract
@@ -97,6 +103,8 @@ artifacts:
   - done_definition
   - boundaries
   shape: 可合并的包
+  embodiment: >-
+    **主形态**：task packet 里的契约段。**规格形态**：落进仓库的规格文件或问题跟踪系统（`@spec-driven-development`）。**门槛形态**：仓库根目录一份的质量契约，含底线、带数字的强制项、只量不强制项、例外四段（`@constraint-driven-development`）。**长期形态**：难回头且有取舍的决定写成决策记录，逐编号、只追加不删（`@documentation-and-adrs`）。
   persistence: durable
   notes:
     what: 建什么。动词开头，能被第三方复述
@@ -116,6 +124,8 @@ artifacts:
   - edges
   - acceptance
   shape: 可合并的包
+  embodiment: >-
+    任务图随 task packet 落盘。**票据形态**是它在问题跟踪系统里的样子（`@to-tickets` / `@wayfinder` / `@triage`）。票据即图的另一种表示，不是第二份图。
   persistence: durable
   notes:
     slices: 每一片的边界；判据是「能不能独立验证」
@@ -135,10 +145,12 @@ artifacts:
   - runnable
   - known_gaps
   shape: 目录
+  embodiment: >-
+    **代码本身**就是 A6 的主体；`A6.subject` 指向它的 commit。工作过程中建出的**杠杆工具、改造脚本、生成器、闸门检查、流水线配置、测试、注释、一次性原型、会红的反馈回路**，全部是 A6 的组成部分——它们改的就是代码和配置。不要为它们另开编号，但每一样都要在 A6.change 里点名列出来。
   persistence: durable
   notes:
     subject: 候选的对象身份：commit sha 或 patch 指纹。没有它，下游无法证明「验证过的」就是「上线的」
-    change: 改了什么
+    change: 改了什么。**这一栏要点名列全工作过程建出的每一样东西**——杠杆工具、改造脚本、生成器、闸门检查、流水线配置、测试、注释、一次性原型、会红的反馈回路。它们不是独立产物，但漏列就等于这一轮没人对它们负责
     runnable: 怎么把它跑起来——真的能跑，不是「应该能跑」
     known_gaps: 知道自己没做什么。这一栏非空才有资格交给别人评价
   rationale: 候选是判断的输入，必须能被没写过它的人独立评价。**A6 必须 durable**——P4 要审它、P5 要验它、P6 要发它，三者都发生在别的会话里。它的 subject 指向 git 里的 commit，所以自述三栏即使不进版本库，身份也能从 git 恢复。
@@ -154,6 +166,8 @@ artifacts:
   - reason
   - conditions
   shape: 目录
+  embodiment: >-
+    裁决随评审目录落盘，一份候选一份。**多模型对抗的合成结论**（`@interrogate`）与**新鲜上下文质疑的复核记录**（`@doubt-driven-development`）都是 A7 的不同形态。
   persistence: durable
   notes:
     stance: 采纳／挑战／附条件通过
@@ -176,13 +190,15 @@ artifacts:
   - environment
   - verdict
   shape: 目录
+  embodiment: >-
+    凭据随评审目录落盘，一次验证一份。**未覆盖能力清单、文档漂移清单**是 A8 的副产品形态，不是独立产物（`@verification-suite` 的保鲜循环产出它们）。
   persistence: durable
   notes:
     claim: 证明了哪一条 A4.done_definition
     subject: 被验证对象的身份（commit sha / patch 指纹）。必须与 A6.subject 逐字一致，不一致即判 UNVERIFIED
     scope: 这次验证覆盖了 A3 的哪些能力条目
     observation: 实际观察到什么——跑出来的，不是推理出来的
-    frame_alignment: 本次验证中 A3 与代码不一致的条目。verifier 只记录不改写 A3——A3 的更新是 architect 的后续动作
+    frame_alignment: 本次验证中 A3 与代码不一致的条目，以及未覆盖能力清单。verifier 只记录不改写 A3——A3 的更新是 architect 的后续动作。这两张清单是本字段的产物形态，不是独立文档
     environment: 在什么环境、什么对象上跑的
     verdict: PASS／FAIL／UNVERIFIED。环境故障既不算 PASS，也不得直接判成产品缺陷
   rationale: 三态判定。环境故障不许冒充 PASS，也不许直接判成产品缺陷——两种都会污染下游的判断。
@@ -202,6 +218,8 @@ artifacts:
   - evidence
   - result
   shape: 单文件
+  embodiment: >-
+    **单文件**台账。**装配记录**（集合 A↔B 映射结果、冷启动三栏报告）是 A9 在装配时写的几行，不是独立文档。
   persistence: durable
   notes:
     actor: 谁写的（角色名 + 会话标识）。缺这一栏，多会话并发时无法归因
