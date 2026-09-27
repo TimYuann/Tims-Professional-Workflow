@@ -1,0 +1,1036 @@
+# TIM Professional Workflow · 唯一真源 (single source of truth)
+#
+# 本文件是机器可读的事实来源。人写的散文（阶段契约、角色、技能、原则）由本文件派生，
+# 或被本文件引用。**任何含义都不在两处各自设值。**
+#
+# 强制约束（由 scripts/check-closure.py 核对）：
+#   1. 本文件及全库「库内容」不得出现任何具体运行底座名称
+#   2. 每个上游 skill 必须在 upstream_dispositions 里恰好出现一次
+#   3. 每个产物类型必须有且仅有一个主产出角色
+#   4. 产出某产物的阶段，必须在自己的退出判据里校验它
+
+version: 2.0.0
+name: TIM Professional Workflow
+derived_views:
+  - workflow/phases/          # 阶段契约（由本文件 + roles/ 散文派生）
+  - workflow/ribbons/
+  - docs/artifacts.md         # 集合 A（由 artifacts 段派生）
+  - docs/closure-report.md    # 闭包报告（由 check-closure.py 生成）
+
+# ─────────────────────────────────────────────────────────────
+# 产物（集合 A）：工作流可能产出的全部东西
+# 产物不是文件，是「字段 + 谁产出 + 谁消费」。落到哪个路径由 driver 按集合 B 映射。
+# ─────────────────────────────────────────────────────────────
+artifacts:
+- id: A1
+  key: intent
+  zh: 诉求陈述
+  producer: voice
+  consumers:
+  - P1
+  - P2
+  fields:
+  - ask
+  - done_meaning
+  - non_goals
+  - unknowns
+  persistence: durable
+  rationale: Owner 说不清晰的诉求是全部返工的源头；没有它，下游只能靠猜。
+  notes:
+    ask: 要解决什么，写成第三方能原样复述的一句话
+    done_meaning: 做完之后世界什么样——不是「做完了」，是可观察的差别
+    non_goals: 明确不做什么。空着等于没想清楚
+    unknowns: 现在还不知道的，以及它挡住了哪一步
+- id: A2
+  key: findings
+  zh: 事实集
+  producer: scout
+  consumers:
+  - P1
+  - P4
+  - P5
+  fields:
+  - claims
+  - evidence
+  - gaps
+  persistence: durable
+  notes:
+    claims: 每条结论 + 置信档位：直接（有人明确写了为什么）／推断／未验
+    evidence: 对应锚点：文件行号、命令输出、或一次真实运行
+    gaps: 查过但没查到的——写清在哪里、用什么关键词查的
+  rationale: 三仓反复强调「没读过正文不算吸收」「记空结果」。事实集是唯一的反臆测底座。
+- id: A3
+  key: frame
+  zh: 能力地图
+  producer: architect
+  consumers:
+  - P1
+  - P2
+  - P5
+  - P6
+  fields:
+  - capabilities
+  - consumers
+  - freshness
+  persistence: durable
+  notes:
+    capabilities: 系统对外提供哪些能力，每条挂到真实代码锚点
+    consumers: 每条能力谁在用；没有消费者的能力是候选删除项
+    freshness: 上次与代码核对的时间。过期不更新的地图比没有地图更坏
+  rationale: 从代码里长出来的地图，不是人脑里的记忆。它给 P2 切片提供落点，给 P5 提供「该验什么」。
+- id: A4
+  key: contract
+  zh: 冻结契约
+  producer: architect
+  consumers:
+  - P2
+  - P3
+  - P4
+  - P5
+  - P6
+  fields:
+  - what
+  - why
+  - done_definition
+  - boundaries
+  persistence: durable
+  notes:
+    what: 建什么。动词开头，能被第三方复述
+    why: 为什么——业务理由，不是技术偏好
+    done_definition: 什么证据算完成。必须可判定：只凭它能给出 PASS/FAIL/UNVERIFIED
+    boundaries: 什么不做、什么不许改——包括不许为了变绿而削弱检查
+  rationale: 契约冻结后，BDD/TDD 那种「前提变了就改测试」才有唯一合法入口：改契约必须走变更流程，不许悄悄改判据。
+- id: A5
+  key: taskmap
+  zh: 任务图
+  producer: cartographer
+  consumers:
+  - P3
+  - P6
+  fields:
+  - slices
+  - edges
+  - acceptance
+  persistence: durable
+  notes:
+    slices: 每一片的边界；判据是「能不能独立验证」
+    edges: 依赖边。有边才能并行，没验收口径的并行结果无法汇合
+    acceptance: 每片的验收口径，必须能追溯到 A4.done_definition。外来项例外：它的验收口径追溯到条目自身声明的行为
+  rationale: 切片的质量决定并行的可行性。没有边，driver 只能串行；有边但没验收口径，并行出来的结果无法汇合。
+- id: A6
+  key: candidate
+  zh: 实现候选
+  producer: builder
+  consumers:
+  - P4
+  - P5
+  fields:
+  - change
+  - runnable
+  - known_gaps
+  persistence: session
+  notes:
+    change: 改了什么
+    runnable: 怎么把它跑起来——真的能跑，不是「应该能跑」
+    known_gaps: 知道自己没做什么。这一栏非空才有资格交给别人评价
+  rationale: 候选是判断的输入，必须能被没写过它的人独立评价。ephemeral/session 级，不进版本库。
+- id: A7
+  key: verdict
+  zh: 裁决
+  producer: adversary
+  consumers:
+  - P3
+  - P5
+  - P6
+  fields:
+  - stance
+  - reason
+  - conditions
+  persistence: durable
+  notes:
+    stance: 采纳／挑战／附条件通过
+    reason: 为什么。必须指向 A2 的证据或一次真实运行；「感觉不对」不是理由
+    conditions: 附条件通过时，条件是什么、由谁验收
+  rationale: 裁决与候选分离，才能保证审查者没有实现者的立场。没有 reason 的裁决等于没有裁决。
+- id: A8
+  key: evidence
+  zh: 验证凭据
+  producer: verifier
+  consumers:
+  - P6
+  fields:
+  - claim
+  - observation
+  - environment
+  - verdict
+  persistence: durable
+  notes:
+    claim: 证明了哪一条 A4.done_definition
+    observation: 实际观察到什么——跑出来的，不是推理出来的
+    environment: 在什么环境、什么对象上跑的
+    verdict: PASS／FAIL／UNVERIFIED。环境故障既不算 PASS，也不得直接判成产品缺陷
+  rationale: 三态判定。环境故障不许冒充 PASS，也不许直接判成产品缺陷——两种都会污染下游的判断。
+- id: A9
+  key: ledger
+  zh: 决策台账
+  producer: scribe
+  consumers:
+  - P6
+  fields:
+  - decision
+  - why
+  - evidence
+  - result
+  persistence: durable
+  notes:
+    decision: 决定做什么
+    why: 为什么
+    evidence: 凭什么
+    result: 结果如何
+  append_only: true
+  rationale: 全程唯一的常驻记录。Owner 的原话：自主执行的前提是全程记录不丢。
+
+
+# ─────────────────────────────────────────────────────────────
+# 阶段：只写判据，不绑定具体角色。角色是装配件。
+# ─────────────────────────────────────────────────────────────
+phases:
+  - id: P0
+    name: INTAKE
+    zh: 澄清
+    purpose: 把说不清的诉求变成第三方能复述的一句话。
+    required_inputs: []          # 开工时必须已在手
+    exit_criteria:
+      - A1.ask 能被一个没参与讨论的人原样复述
+      - A1.non_goals 非空
+      - A2.gaps 明确写出哪些还没查——空集合必须标「已查全」并给出查法，不允许留白
+    default_roles: [voice, scout]
+    produces: [A1, A2]
+
+  - id: P1
+    name: FRAME
+    zh: 定契约
+    purpose: 在写任何代码前，冻结「建什么、为什么、什么算完成、什么不做」。
+    required_inputs: [A1]
+    exit_criteria:
+      - A4.done_definition 是可判定的（第三方能只凭它判 PASS/FAIL）
+      - A4.boundaries 覆盖本次变更涉及的全部系统边界
+      - A3.capabilities 每条挂到真实代码锚点
+    default_roles: [architect, scout]
+    produces: [A3, A4]
+
+  - id: P2
+    name: PLAN
+    zh: 切片
+    purpose: 把契约变成有依赖边、每片可独立验证的任务图。
+    required_inputs: [A1, A3, A4]
+    exit_criteria:
+      - A5.slices 每片都能独立验证
+      - A5.acceptance 每片都能追溯到 A4.done_definition
+    default_roles: [cartographer]
+    produces: [A5]
+
+  - id: P3
+    name: BUILD
+    zh: 实现
+    purpose: 产出可被独立评价的实现候选。
+    required_inputs: [A4, A5]
+    exit_criteria:
+      - A6.runnable 是真的能跑的（不是「应该能跑」）
+      - A6.known_gaps 非空或明确标注无
+    default_roles: [builder]
+    produces: [A6]
+
+  - id: P4
+    name: CRITIQUE
+    zh: 挑战
+    purpose: 由没有产出该候选的人给出裁决。
+    required_inputs: [A2, A6]
+    exit_criteria:
+      - A7.reason 指向 A2 的证据或一次真实运行，不指向「感觉」
+    default_roles: [adversary]
+    hard_rules:
+      - 实现者不得对本候选给出裁决
+    produces: [A7]
+
+  - id: P5
+    name: PROVE
+    zh: 验证
+    purpose: 在真实目标上跑出凭据，并把能力地图与代码重新对齐。
+    required_inputs: [A3, A4, A6, A7]
+    exit_criteria:
+      - A8.verdict ∈ {PASS, FAIL, UNVERIFIED}
+      - A3.freshness 已更新
+    default_roles: [verifier]
+    hard_rules:
+      - 验证者不得是候选的实现者
+    produces: [A8]
+
+  - id: P6
+    name: SHIP
+    zh: 交付
+    purpose: 让变更真正到达用户，并且事后可查、可回滚。
+    required_inputs: [A3, A4, A5, A7, A8, A9]
+    exit_criteria:
+      - A8.verdict 是 PASS——UNVERIFIED 与 FAIL 都不许上线
+      - A9.result 记下了发布动作与回滚路径，且回滚路径已被确认可执行
+      - A3.freshness 指向本次上线后的对象
+    default_roles: [verifier, scribe]
+    hard_rules:
+      - 上线之后才发现问题，责任在 P5 的验证，不在 P6 的发布
+    produces: []
+
+# ─────────────────────────────────────────────────────────────
+# 横切带：不属于任何阶段，随装配带入
+# ─────────────────────────────────────────────────────────────
+ribbons:
+  - id: decision
+    zh: 决策与记忆
+    always: true
+    produces: [A9]
+    why: 自主执行的唯一前提是记录不丢。没有它，第二个会话无法重建第一个会话的判断依据。
+    skills: [decision-ledger, context-reconstruction]
+
+  - id: context
+    zh: 上下文纪律
+    always: true
+    why: 长任务里上下文是最先耗尽的资源；耗尽之后的判断质量断崖式下降。
+    skills: [build-the-lever]
+
+  - id: expression
+    zh: 表达与人类面
+    always: false
+    applies_to: [P0, P4, P6]
+    why: 对人说话和写给人读的东西，需要另一套标准；它服务于 Owner 的判断，不服务于机器。
+    skills: [writing-for-agents, technical-writing, teach]
+
+# ─────────────────────────────────────────────────────────────
+# 角色：可装配件。持有心智模型（原则）+ 按需取用的技能引用。
+# 角色文件**不内联任何技能正文**。
+# ─────────────────────────────────────────────────────────────
+roles:
+  - id: driver
+    zh: 装配者
+    mission: 判断这次要装配哪些角色、这些角色在下游的文档体系里落在哪、缺件就停下。
+    owns_artifacts: []
+    ribbons: [decision, context]
+    skills: [tier-sizing, document-mapping, coldstart]
+    principles: [p-guard-context, p-never-block-human, p-outcome-oriented]
+    forbidden:
+      - 不得亲自承担调查、设计、切片、实现（solo 模式除外）
+      - 不得决定业务取舍
+      - 不得把本库的纪律改写成下游的另一套
+
+  - id: voice
+    zh: 人类沟通面
+    mission: 把 Owner 说不清的东西逼成一句第三方能复述的话。
+    owns_artifacts: [A1]
+    ribbons: [expression]
+    skills: [grilling, interview-me, idea-refine, to-questionnaire]
+    principles: [p-experience-first, p-never-block-human]
+    forbidden:
+      - 不得替 Owner 决定业务取舍
+      - 不得在没有 A1 的情况下进入 P1
+
+  - id: scout
+    zh: 事实调查
+    mission: 找事实，不给结论。查过没查到的也要写下来。
+    owns_artifacts: [A2]
+    ribbons: [decision]
+    skills: [research, trace-paths, recall-context]
+    principles: [p-guard-context, p-minimize-reader-load]
+    forbidden:
+      - 不得在没有读正文的情况下声称已吸收或已理解
+      - 不得把「没人提过」当作「不存在」
+
+  - id: architect
+    zh: 建模与定契约
+    mission: 冻结「建什么、为什么、什么算完成、什么不做」，并让能力地图与代码对齐。
+    owns_artifacts: [A3, A4]
+    ribbons: []
+    skills: [spec-driven-development, constraint-driven-development, domain-modeling,
+             codebase-design, api-and-interface-design, feature-map, documentation-and-adrs]
+    principles: [p-foundational-thinking, p-model-the-domain, p-type-system-discipline,
+                 p-boundary-discipline, p-minimize-reader-load, p-redesign-from-first-principles,
+                 p-exhaust-the-design-space, p-migrate-callers-then-delete, p-outcome-oriented]
+    forbidden:
+      - 不得给出「写完了就算对」的判据
+      - 不得在 A3 与代码不一致时宣布 FRAME 完成
+
+  - id: cartographer
+    zh: 切片
+    mission: 把契约变成有依赖边、每片可独立验证的任务图。
+    owns_artifacts: [A5]
+    ribbons: []
+    skills: [wayfinder, to-tickets, task-breakdown, triage]
+    principles: [p-sequence-verifiable-units, p-subtract-before-add, p-build-the-lever]
+    forbidden:
+      - 不得切出无法独立验证的片
+      - 不得发明 A4 里没有的验收口径
+
+  - id: builder
+    zh: 实现
+    mission: 产出可被独立评价的候选，并且知道自己没做什么。
+    owns_artifacts: [A6]
+    ribbons: []
+    skills: [implement, tdd, incremental-implementation, prototype, debugging,
+             code-simplification, source-driven-development, deprecation-and-migration,
+             arena]
+    principles: [p-subtract-before-add, p-laziness-protocol, p-fix-root-causes,
+                 p-sequence-verifiable-units, p-test-behavior-not-implementation,
+                 p-make-operations-idempotent, p-separate-before-serializing,
+                 p-build-the-lever]
+    forbidden:
+      - 不得对自己产出的候选给出裁决
+      - 不得为让检查变绿而削弱检查
+
+  - id: adversary
+    zh: 独立挑战
+    mission: 由没有产出该候选的人给出带理由的裁决。
+    owns_artifacts: [A7]
+    ribbons: []
+    skills: [code-review, interrogate, doubt-driven-development, swarm]
+    principles: [p-attack-the-premise, p-laziness-protocol]
+    forbidden:
+      - 不得对自己产出的候选给出裁决
+      - 不得在没有证据的情况下宣布「不通过」
+
+  - id: verifier
+    zh: 独立验证
+    mission: 在真实目标上跑出凭据，并给三态判定。
+    owns_artifacts: [A8]
+    ribbons: []
+    skills: [verification-suite, browser-testing, performance-optimization,
+             security-and-hardening, observability-and-instrumentation,
+             shipping-and-launch, git-workflow-and-versioning, ci-cd-and-automation]
+    principles: [p-prove-it-works, p-boundary-discipline, p-make-operations-idempotent]
+    forbidden:
+      - 不得把自己写的验证套件当作通过依据（除非它先在没被它验证过的对象上通过）
+      - 不得把环境故障判成 PASS，也不得判成产品缺陷
+
+  - id: scribe
+    zh: 记录与移交
+    mission: 维护 append-only 决策台账，并让下一个会话能重建判断依据。
+    owns_artifacts: [A9]
+    ribbons: [decision]
+    skills: [decision-ledger, context-reconstruction, handoff]
+    principles: [p-encode-lessons-in-structure, p-minimize-reader-load]
+    forbidden:
+      - 不得修改或删除既有台账行
+      - 不得在台账里写入无法追溯到证据的结论
+
+# ─────────────────────────────────────────────────────────────
+# 原则：角色的心智模型构件。不是 skill，没有独立触发条件，没有产物。
+# 每条原则有唯一的 owner 角色；其他角色引用 id，不复制正文。
+# ─────────────────────────────────────────────────────────────
+principles:
+  - id: p-foundational-thinking
+    owner: architect
+    text: 写逻辑之前先定核心类型与数据结构，决定脚手架与特性的先后，并问清并发参与者共享什么。
+    sources: [pstack:principle-foundational-thinking]
+  - id: p-model-the-domain
+    owner: architect
+    text: 有状态逻辑或大量分支重复同一形状假设时，把领域编码进结构，而不是散落的条件判断。
+    sources: [pstack:principle-model-the-domain]
+  - id: p-type-system-discipline
+    owner: architect
+    text: 让非法状态不可表示；边界穷尽优于运行时检查。
+    sources: [pstack:principle-type-system-discipline]
+  - id: p-boundary-discipline
+    owner: architect
+    text: 校验集中在系统边界（外部输入、适配器、配置），不要在内部每层重复。
+    sources: [pstack:principle-boundary-discipline]
+  - id: p-minimize-reader-load
+    owner: architect
+    text: 审查难以追踪的代码时，数一数问题与答案之间隔了几层，收缩可变作用域。
+    sources: [pstack:principle-minimize-reader-load]
+  - id: p-redesign-from-first-principles
+    owner: architect
+    text: 把新需求当成一开始就存在的基本假设来重新设计，而不是打补丁。
+    sources: [pstack:principle-redesign-from-first-principles]
+  - id: p-exhaust-the-design-space
+    owner: architect
+    text: 面对无先例的交互或架构决策时，先造 2–3 个竞争原型再比选，不要一上来就押注。
+    sources: [pstack:principle-exhaust-the-design-space]
+  - id: p-migrate-callers-then-delete
+    owner: architect
+    text: 引入新内部 API 时，把调用方迁移与旧 API 删除放在同一波里，不保留兼容层。
+    sources: [pstack:principle-migrate-callers-then-delete-legacy-apis]
+  - id: p-outcome-oriented
+    owner: architect
+    text: 收敛到目标架构，不为了中间态平滑而保留过渡结构。
+    sources: [pstack:principle-outcome-oriented-execution]
+  - id: p-subtract-before-add
+    owner: builder
+    text: 加东西之前先删死代码、冗余校验和悬空引用。
+    sources: [pstack:principle-subtract-before-you-add]
+  - id: p-laziness-protocol
+    owner: builder
+    text: 偏向删除与最小变更；警惕为了未来假设而增加的抽象层。
+    sources: [pstack:principle-laziness-protocol]
+  - id: p-fix-root-causes
+    owner: builder
+    text: 先复现，再逐层追问为什么，修在根因上；不用空值守卫掩盖症状。
+    sources: [pstack:principle-fix-root-causes]
+  - id: p-sequence-verifiable-units
+    owner: builder
+    text: 把多步工作切成每步结束于可验证状态的小单元，再决定提交与 PR 的堆叠。
+    sources: [pstack:principle-sequence-verifiable-units]
+  - id: p-test-behavior-not-implementation
+    owner: builder
+    text: 像用户那样调用代码，断言他们观察到的结果，而不是断言内部实现。
+    sources: [pstack:principle-test-behavior-not-implementation]
+  - id: p-make-operations-idempotent
+    owner: builder
+    text: 在崩溃、重启、重试之间运行的操作，重跑必须收敛到同一终态。
+    sources: [pstack:principle-make-operations-idempotent]
+  - id: p-separate-before-serializing
+    owner: builder
+    text: 并发写同一份状态时先消除共享，实在消不掉再按结构串行化。
+    sources: [pstack:principle-separate-before-serializing-shared-state]
+  - id: p-build-the-lever
+    owner: builder
+    text: 非平凡的工作先造那个能做完或能证明它做完了的工具，而不是手做一遍。
+    sources: [pstack:principle-build-the-lever]
+  - id: p-prove-it-works
+    owner: verifier
+    text: 宣布完成之前，对真实产物验证——跑起来、读实际值、看真实 diff。
+    sources: [pstack:principle-prove-it-works]
+  - id: p-guard-context
+    owner: driver
+    text: 上下文快满时把批量内容路由出去，主线程只留摘要。
+    sources: [pstack:principle-guard-the-context-window]
+  - id: p-never-block-human
+    owner: driver
+    text: 可逆的事情不要停下来问；做完呈现结果，让人事后纠正。
+    sources: [pstack:principle-never-block-on-the-human]
+  - id: p-attack-the-premise
+    owner: adversary
+    text: 多个共享同一前提的修复先后倒在同一个关卡时，先做一次前提普查，再决定下一个修复。
+    sources: [pstack:principle-attack-the-premise]
+  - id: p-experience-first
+    owner: voice
+    text: 产品、体验、功能范围的取舍上，用户体验优先于实现方便。
+    sources: [pstack:principle-experience-first]
+  - id: p-encode-lessons-in-structure
+    owner: scribe
+    text: 第二次写下同一条指令时，把它编码成 lint、metadata 标记或一条可执行检查。
+    sources: [pstack:principle-encode-lessons-in-structure]
+
+# ─────────────────────────────────────────────────────────────
+# 技能：按需取用。角色只引用 id，正文在 skills/。
+# ─────────────────────────────────────────────────────────────
+skills:
+  # P0
+  - id: grilling
+    zh: 追问式对话
+    owner_role: voice
+    phase: P0
+    inputs: []
+    outputs: [A1]
+    summary: 用连续追问把一个模糊想法逼成能被第三方复述的诉求。
+    sources: [matt:grilling, matt:grill-me, matt:grill-with-docs]
+  - id: interview-me
+    zh: 意图提取
+    owner_role: voice
+    phase: P0
+    inputs: []
+    outputs: [A1]
+    summary: 一次一问地问到用户真正想要什么，而不是他以为自己应该要的。
+    sources: [addy:interview-me]
+  - id: idea-refine
+    zh: 发散收敛
+    owner_role: voice
+    phase: P0
+    inputs: []
+    outputs: [A1]
+    summary: 发散再收敛，把原始想法锐化成可执行概念。
+    sources: [addy:idea-refine]
+  - id: to-questionnaire
+    zh: 外抛问题
+    owner_role: voice
+    phase: P0
+    inputs: [A1]
+    outputs: []
+    summary: 当某个决定不该由你做时，把它写成一份别人能填的问卷，而不是卡住。
+    sources: [matt:to-questionnaire]
+  - id: research
+    zh: 一手资料调研
+    owner_role: scout
+    phase: P0
+    inputs: [A1]
+    outputs: [A2]
+    summary: 对着高可信一手来源查一个工程问题，把结论连同锚点落成文件。
+    sources: [matt:research]
+  - id: trace-paths
+    zh: 真实路径追踪
+    owner_role: scout
+    phase: P0
+    inputs: [A1]
+    outputs: [A2]
+    summary: 沿真实调用链读代码，不看 diff 摘要，不猜。
+    sources: [pstack:how, addy:debugging-and-error-recovery]
+  - id: recall-context
+    zh: 上下文重建
+    owner_role: scout
+    phase: P0
+    inputs: [A9]
+    outputs: [A2]
+    summary: 从历史会话、活状态和共享记录里重建自己最近的工作上下文。
+    sources: [pstack:recall]
+  # P1
+  - id: spec-driven-development
+    zh: 先写规格
+    owner_role: architect
+    phase: P1
+    inputs: [A1, A2]
+    outputs: [A4]
+    summary: 写代码前先写规格；规格是人与工程之间的事实来源。
+    sources: [addy:spec-driven-development]
+  - id: constraint-driven-development
+    zh: 质量契约
+    owner_role: architect
+    phase: P1
+    inputs: [A1]
+    outputs: [A4]
+    summary: 把项目的质量门槛写成一份契约，并拦住悄悄降低它的行为。
+    sources: [addy:constraint-driven-development]
+  - id: domain-modeling
+    zh: 领域建模
+    owner_role: architect
+    phase: P1
+    inputs: [A2]
+    outputs: [A4]
+    summary: 消解歧义的领域术语，记录被接受的词汇与模型决策。
+    sources: [matt:domain-modeling, pstack:principle-model-the-domain]
+  - id: codebase-design
+    zh: 深模块设计
+    owner_role: architect
+    phase: P1
+    inputs: [A2]
+    outputs: [A4]
+    summary: 用深模块的词汇设计边界与接口，目标是可测试与可替换。
+    sources: [matt:codebase-design]
+  - id: api-and-interface-design
+    zh: 接口设计
+    owner_role: architect
+    phase: P1
+    inputs: [A4]
+    outputs: [A4]
+    summary: 设计稳定的接口：正交、可演进、错误可判定。
+    sources: [addy:api-and-interface-design]
+  - id: feature-map
+    zh: 能力地图
+    owner_role: architect
+    phase: P1
+    inputs: [A2]
+    outputs: [A3]
+    summary: 从代码里盘出系统对外提供的能力，每条挂到真实锚点；此后持续与代码对齐。
+    sources: [pstack:create-verification-skill, pstack:maintain-verification-skill]
+  - id: documentation-and-adrs
+    zh: 决策记录
+    owner_role: architect
+    phase: P1
+    inputs: [A4]
+    outputs: []
+    summary: 把决定了什么的决策交出去记录，并为反复出现的歧义词定一个唯一写法。
+    note: 决策行由 scribe 追加进 A9，不在这里直接写；词汇表落在下游自己的领域文档里——
+      纪律是「一个词一个定义、定义在第一次用之前」，位置由 driver 按下游约定裁定。
+      这条技能不产出编号产物，正是因为它写的是下游已有的东西。
+    sources: [addy:documentation-and-adrs]
+  # P2
+  - id: wayfinder
+    zh: 决策票据地图
+    owner_role: cartographer
+    phase: P2
+    inputs: [A4]
+    outputs: [A5]
+    summary: 面对超出单个会话容量的工作时，画一张决策票据地图，一次只解一个。
+    sources: [matt:wayfinder]
+  - id: to-tickets
+    zh: 拆票
+    owner_role: cartographer
+    phase: P2
+    inputs: [A4]
+    outputs: [A5]
+    summary: 把规格或计划拆成子弹片，每片声明自己的阻塞边。
+    sources: [matt:to-tickets]
+  - id: task-breakdown
+    zh: 任务分解
+    owner_role: cartographer
+    phase: P2
+    inputs: [A4, A5]
+    outputs: [A5]
+    summary: 把工作拆成有序任务，每片可独立验证。
+    sources: [addy:planning-and-task-breakdown]
+  - id: triage
+    zh: 入口整备
+    owner_role: cartographer
+    phase: P2
+    inputs: [A2]
+    outputs: [A5]
+    summary: 把外来 issue / PR 过一遍状态机，分类、验证、必要时追问，产出可交给 agent 的简报。
+    sources: [matt:triage]
+  # P3
+  - id: implement
+    zh: 按契约实现
+    owner_role: builder
+    phase: P3
+    inputs: [A4, A5]
+    outputs: [A6]
+    summary: 按规格或票据实现一段工作，交付可运行的候选。
+    sources: [matt:implement]
+  - id: tdd
+    zh: 红绿重构
+    owner_role: builder
+    phase: P3
+    inputs: [A4, A5]
+    outputs: [A6]
+    summary: 用红-绿-重构驱动实现。禁止为了变绿而削弱检查。
+    sources: [matt:tdd, pstack:tdd, addy:test-driven-development]
+  - id: incremental-implementation
+    zh: 薄片增量
+    owner_role: builder
+    phase: P3
+    inputs: [A5]
+    outputs: [A6]
+    summary: 以薄的、可验证的片交付变更，每片结束于可运行状态。
+    sources: [addy:incremental-implementation]
+  - id: prototype
+    zh: 一次性原型
+    owner_role: builder
+    phase: P3
+    inputs: [A1]
+    outputs: [A6]
+    summary: 造一个用完即弃的原型来回答一个设计问题。
+    sources: [matt:prototype]
+  - id: debugging
+    zh: 根因定位
+    owner_role: builder
+    phase: P3
+    inputs: [A2]
+    outputs: [A6]
+    summary: 系统化的根因调试：复现、缩小、定位、修复、修在根上。
+    sources: [addy:debugging-and-error-recovery, matt:diagnosing-bugs]
+  - id: code-simplification
+    zh: 简化
+    owner_role: builder
+    phase: P3
+    inputs: [A6]
+    outputs: [A6]
+    summary: 为清晰而简化：删冗余、合并分支、去掉多余抽象。
+    sources: [addy:code-simplification]
+  - id: source-driven-development
+    zh: 源头驱动
+    owner_role: builder
+    phase: P3
+    inputs: [A2]
+    outputs: [A6]
+    summary: 每个实现决策都锚定在官方文档上，而不是记忆里的 API 用法。
+    sources: [addy:source-driven-development]
+  - id: deprecation-and-migration
+    zh: 弃用与迁移
+    owner_role: builder
+    phase: P3
+    inputs: [A4, A5]
+    outputs: [A6]
+    summary: 管理弃用路径与迁移顺序，调用方先迁、旧接口同波删。
+    sources: [addy:deprecation-and-migration]
+  # P4
+  - id: code-review
+    zh: 双轴审查
+    owner_role: adversary
+    phase: P4
+    inputs: [A6, A4]
+    outputs: [A7]
+    summary: 相对一个固定基点，沿标准轴与意图轴两条线审。
+    sources: [matt:code-review, addy:code-review-and-quality]
+  - id: interrogate
+    zh: 多模型对抗
+    owner_role: adversary
+    phase: P4
+    inputs: [A6]
+    outputs: [A7]
+    summary: 每个模型拿同一份提示与评分表，从独立角度挑战同一个变更。
+    sources: [pstack:interrogate]
+  - id: doubt-driven-development
+    zh: 新鲜上下文质疑
+    owner_role: adversary
+    phase: P4
+    inputs: [A7]
+    outputs: [A7]
+    summary: 每个非平凡决策在成立之前都过一次新鲜上下文的对抗审查。
+    sources: [addy:doubt-driven-development]
+  - id: arena
+    zh: 并行择优
+    owner_role: builder
+    phase: P3
+    inputs: [A4]
+    outputs: [A6]
+    summary: 同一个任务并行造 N 个候选，选一个基底，把落败者最强的部分嫁接上去。
+    sources: [pstack:arena]
+  - id: swarm
+    zh: 并行扇出
+    owner_role: adversary
+    phase: P4
+    inputs: [A5]
+    outputs: [A7]
+    summary: 扇出 N 个并行工人，排干后汇成一份报告。
+    sources: [pstack:swarm]
+  # P5
+  - id: verification-suite
+    zh: 验证套件
+    owner_role: verifier
+    phase: P5
+    inputs: [A3]
+    outputs: [A8]
+    summary: 维护一套像真实用户那样驱动系统的验证，并用它保鲜能力地图。
+    sources: [pstack:create-verification-skill, pstack:maintain-verification-skill]
+  - id: browser-testing
+    zh: 真实浏览器验证
+    owner_role: verifier
+    phase: P5
+    inputs: [A6]
+    outputs: [A8]
+    summary: 在真实浏览器里验证，而不是在模拟环境里推断。
+    sources: [addy:browser-testing-with-devtools]
+  - id: performance-optimization
+    zh: 性能验证
+    owner_role: verifier
+    phase: P5
+    inputs: [A3, A6]
+    outputs: [A8]
+    summary: 跨前端、后端、查询与数据库度量并定位性能。
+    sources: [addy:performance-optimization]
+  - id: security-and-hardening
+    zh: 安全加固
+    owner_role: verifier
+    phase: P5
+    inputs: [A6]
+    outputs: [A8]
+    summary: 对已知脆弱模式做加固验证。
+    sources: [addy:security-and-hardening, addy:frontend-ui-engineering]
+  - id: observability-and-instrumentation
+    zh: 可观测性
+    owner_role: verifier
+    phase: P5
+    inputs: [A6]
+    outputs: [A8]
+    summary: 让生产行为可见、可诊断。
+    sources: [addy:observability-and-instrumentation]
+  # P6
+  - id: shipping-and-launch
+    zh: 发布
+    owner_role: verifier
+    phase: P6
+    inputs: [A8]
+    outputs: []
+    summary: 把已验证的变更推到用户面前，并留好回滚路径。
+    sources: [addy:shipping-and-launch]
+  - id: git-workflow-and-versioning
+    zh: 版本与提交结构
+    owner_role: verifier
+    phase: P6
+    inputs: [A5]
+    outputs: []
+    summary: 组织提交、分支与版本，使每个提交可独立验证。
+    sources: [addy:git-workflow-and-versioning]
+  - id: ci-cd-and-automation
+    zh: 持续集成
+    owner_role: verifier
+    phase: P6
+    inputs: [A8]
+    outputs: []
+    summary: 把验证固化成流水线，让每次合并都自动过一遍。
+    sources: [addy:ci-cd-and-automation]
+  # 横切
+  - id: decision-ledger
+    zh: 决策台账
+    owner_role: scribe
+    phase: null
+    inputs: []
+    outputs: [A9]
+    summary: 一行一个决策（做了什么、为什么、证据、结果），append-only。
+    sources: [pstack:show-me-your-work]
+  - id: context-reconstruction
+    zh: 会话移交
+    owner_role: scribe
+    phase: null
+    inputs: [A9]
+    outputs: [A2]
+    summary: 把当前状态压成一份让下一个会话能接手的东西；并从复盘里回写经验。
+    sources: [matt:handoff, pstack:reflect]
+  - id: handoff
+    zh: 移交简报
+    owner_role: scribe
+    phase: null
+    inputs: [A9]
+    outputs: [A2]
+    summary: 换会话或换人时，写一份不含猜测的接手说明。
+    sources: [matt:handoff]
+  - id: writing-for-agents
+    zh: 写给 agent 看
+    owner_role: driver
+    phase: null
+    inputs: []
+    outputs: []
+    summary: 写指令、触发描述与项目约束时的写法。
+    sources: [matt:writing-for-agents]
+  - id: technical-writing
+    zh: 技术写作分层
+    owner_role: driver
+    phase: null
+    inputs: []
+    outputs: []
+    summary: 分层的技术写作标准：教程 / 参考 / 说明 / 决策。
+    sources: [pstack:technical-writing]
+  - id: teach
+    zh: 讲清楚
+    owner_role: driver
+    phase: null
+    inputs: [A2]
+    outputs: []
+    summary: 把一段工作讲成人能真正理解的样子。
+    sources: [pstack:teach, pstack:how, pstack:why]
+  - id: build-the-lever
+    zh: 造杠杆
+    owner_role: builder
+    phase: null
+    inputs: []
+    outputs: []
+    summary: 为重复或非平凡的工作造出那个能一次做完、或能证明它做完了的工具。
+    sources: [pstack:principle-build-the-lever]
+  - id: tier-sizing
+    zh: 档位判定
+    owner_role: driver
+    phase: null
+    inputs: [A1]
+    outputs: []
+    summary: 按任务体量决定装配哪些角色；小任务把多角色压进一个会话。
+    sources: []
+  - id: document-mapping
+    zh: 集合 A↔B 映射
+    owner_role: driver
+    phase: null
+    inputs: [A1]
+    outputs: []
+    summary: 把本工作流的产物类型映射到下游仓库自己的文档体系；纪律继承，位置可映射。
+    sources: []
+  - id: coldstart
+    zh: 冷启动
+    owner_role: driver
+    phase: null
+    inputs: []
+    outputs: []
+    summary: 在一个新仓库里装上本工作流：读什么、拷什么、裁定什么。
+    sources: []
+
+# ─────────────────────────────────────────────────────────────
+# 上游处置表：101 个 skill，每个恰好一次。由 check-closure.py 对文件系统核对。
+# 这取代旧库那份手写的 SOURCES.md——手写会错，这张表能被机器判真伪。
+# ─────────────────────────────────────────────────────────────
+upstream_dispositions:
+  # ── pstack (47)
+  - {upstream: pstack:figure-it-out, outcome: absorbed, into: tier-sizing, reason: 大改动需要一份可审计的剧本，落到装配判定}
+  - {upstream: pstack:bro, outcome: rejected, reason: 表达偏好，无产物，与表达带重叠且更弱}
+  - {upstream: pstack:interrogate, outcome: absorbed, into: interrogate, reason: 多模型对抗，直接对应独立挑战}
+  - {upstream: pstack:setup-pstack, outcome: rejected, reason: 上游私有配置，与工程方法无关}
+  - {upstream: pstack:swarm, outcome: absorbed, into: swarm, reason: 并行扇出汇总成裁决}
+  - {upstream: pstack:technical-writing, outcome: absorbed, into: technical-writing, reason: 分层写作标准直接可用}
+  - {upstream: pstack:why, outcome: absorbed, into: teach, reason: 历史意图考古并入讲清楚}
+  - {upstream: pstack:how, outcome: absorbed, into: trace-paths, reason: 真实路径追踪}
+  - {upstream: pstack:blast-radius, outcome: absorbed, into: trace-paths, reason: 影响面追踪 + 用跑出来的证据自证，属事实调查}
+  - {upstream: pstack:reflect, outcome: absorbed, into: context-reconstruction, reason: 复盘回写经验}
+  - {upstream: pstack:show-me-your-work, outcome: absorbed, into: decision-ledger, reason: append-only TSV 台账}
+  - {upstream: pstack:recall, outcome: absorbed, into: recall-context, reason: 上下文重建}
+  - {upstream: pstack:architect, outcome: absorbed, into: codebase-design, reason: 先定类型与模块结构，属建模}
+  - {upstream: pstack:automate-me, outcome: rejected, reason: 上游私有自动化指令}
+  - {upstream: pstack:teach, outcome: absorbed, into: teach, reason: 讲清楚}
+  - {upstream: pstack:arena, outcome: absorbed, into: arena, reason: 并行择优}
+  - {upstream: pstack:create-verification-skill, outcome: absorbed, into: verification-suite, reason: 项目本地验证套件}
+  - {upstream: pstack:maintain-verification-skill, outcome: absorbed, into: verification-suite, reason: 保鲜能力地图，与建套件合并}
+  - {upstream: pstack:no-comments, outcome: rejected, reason: 注释清理的专用人格，无独立产物}
+  - {upstream: pstack:unslop, outcome: rejected, reason: 文风清洗，表达带的弱化重复}
+  - {upstream: pstack:tdd, outcome: absorbed, into: tdd, reason: 与 matt:tdd 融合成一个}
+  - {upstream: pstack:typescript-best-practices, outcome: rejected, reason: 语言特定，属下游工程规范不是工作流内核}
+  - {upstream: pstack:poteto-mode, outcome: rejected, reason: 上游人格预设，与角色心智模型冲突}
+  - {upstream: pstack:make-bot-ui, outcome: rejected, reason: 特定产品形态的界面产出，与阶段无关}
+  - {upstream: pstack:principle-boundary-discipline, outcome: absorbed, into: p-boundary-discipline, reason: 拆进 architect 心智模型}
+  - {upstream: pstack:principle-model-the-domain, outcome: absorbed, into: p-model-the-domain, reason: 拆进 architect}
+  - {upstream: pstack:principle-fix-root-causes, outcome: absorbed, into: p-fix-root-causes, reason: 拆进 builder}
+  - {upstream: pstack:principle-encode-lessons-in-structure, outcome: absorbed, into: p-encode-lessons-in-structure, reason: 拆进 scribe}
+  - {upstream: pstack:principle-subtract-before-you-add, outcome: absorbed, into: p-subtract-before-add, reason: 拆进 builder}
+  - {upstream: pstack:principle-build-the-lever, outcome: absorbed, into: p-build-the-lever, reason: 拆进 builder，同时保留为横切技能}
+  - {upstream: pstack:principle-laziness-protocol, outcome: absorbed, into: p-laziness-protocol, reason: 拆进 builder 与 adversary 共用}
+  - {upstream: pstack:principle-foundational-thinking, outcome: absorbed, into: p-foundational-thinking, reason: 拆进 architect}
+  - {upstream: pstack:principle-type-system-discipline, outcome: absorbed, into: p-type-system-discipline, reason: 拆进 architect}
+  - {upstream: pstack:principle-never-block-on-the-human, outcome: absorbed, into: p-never-block-human, reason: 拆进 driver 与 voice}
+  - {upstream: pstack:principle-experience-first, outcome: absorbed, into: p-experience-first, reason: 拆进 voice}
+  - {upstream: pstack:principle-outcome-oriented-execution, outcome: absorbed, into: p-outcome-oriented, reason: 拆进 architect}
+  - {upstream: pstack:principle-redesign-from-first-principles, outcome: absorbed, into: p-redesign-from-first-principles, reason: 拆进 architect}
+  - {upstream: pstack:principle-minimize-reader-load, outcome: absorbed, into: p-minimize-reader-load, reason: 拆进 architect 与 scribe}
+  - {upstream: pstack:principle-exhaust-the-design-space, outcome: absorbed, into: p-exhaust-the-design-space, reason: 拆进 architect}
+  - {upstream: pstack:principle-migrate-callers-then-delete-legacy-apis, outcome: absorbed, into: p-migrate-callers-then-delete, reason: 拆进 architect}
+  - {upstream: pstack:principle-make-operations-idempotent, outcome: absorbed, into: p-make-operations-idempotent, reason: 拆进 builder 与 verifier}
+  - {upstream: pstack:principle-sequence-verifiable-units, outcome: absorbed, into: p-sequence-verifiable-units, reason: 拆进 builder 与 cartographer}
+  - {upstream: pstack:principle-test-behavior-not-implementation, outcome: absorbed, into: p-test-behavior-not-implementation, reason: 拆进 builder}
+  - {upstream: pstack:principle-prove-it-works, outcome: absorbed, into: p-prove-it-works, reason: 拆进 verifier}
+  - {upstream: pstack:principle-separate-before-serializing-shared-state, outcome: absorbed, into: p-separate-before-serializing, reason: 拆进 builder}
+  - {upstream: pstack:principle-attack-the-premise, outcome: absorbed, into: p-attack-the-premise, reason: 拆进 adversary}
+  - {upstream: pstack:principle-guard-the-context-window, outcome: absorbed, into: p-guard-context, reason: 拆进 driver}
+  # ── matt (29)
+  - {upstream: matt:research, outcome: absorbed, into: research, reason: 一手资料调研}
+  - {upstream: matt:domain-modeling, outcome: absorbed, into: domain-modeling, reason: 消解领域歧义}
+  - {upstream: matt:wayfinder, outcome: absorbed, into: wayfinder, reason: 决策票据地图}
+  - {upstream: matt:setup-matt-pocock-skills, outcome: rejected, reason: 上游安装脚本，属冷启动而非工作流阶段}
+  - {upstream: matt:diagnosing-bugs, outcome: absorbed, into: debugging, reason: 与 addy 调试融合}
+  - {upstream: matt:code-review, outcome: absorbed, into: code-review, reason: 双轴审查}
+  - {upstream: matt:to-tickets, outcome: absorbed, into: to-tickets, reason: 拆票}
+  - {upstream: matt:ask-matt, outcome: rejected, reason: 上游技能路由器，本库有装配判定取代它}
+  - {upstream: matt:wizard, outcome: rejected, reason: 生成交互脚本，特定用途，不在主链}
+  - {upstream: matt:improve-codebase-architecture, outcome: rejected, reason: 产出 HTML 报告，是任务不是阶段}
+  - {upstream: matt:to-spec, outcome: absorbed, into: spec-driven-development, reason: 把对话合成规格，与 SDD 同物}
+  - {upstream: matt:codebase-design, outcome: absorbed, into: codebase-design, reason: 深模块词汇}
+  - {upstream: matt:triage, outcome: absorbed, into: triage, reason: 入口整备}
+  - {upstream: matt:prototype, outcome: absorbed, into: prototype, reason: 一次性原型}
+  - {upstream: matt:resolving-merge-conflicts, outcome: rejected, reason: 版本控制冲突处理，属 builder 附属动作不是独立技能}
+  - {upstream: matt:grill-with-docs, outcome: absorbed, into: grilling, reason: 追问时顺带产出 ADR，并入}
+  - {upstream: matt:implement, outcome: absorbed, into: implement, reason: 按规格实现}
+  - {upstream: matt:tdd, outcome: absorbed, into: tdd, reason: 与 pstack:tdd 融合成一个}
+  - {upstream: matt:writing-for-agents, outcome: absorbed, into: writing-for-agents, reason: 写给 agent 看的写法}
+  - {upstream: matt:wait-what, outcome: rejected, reason: 单次重述，无产物}
+  - {upstream: matt:handoff, outcome: absorbed, into: handoff, reason: 移交简报}
+  - {upstream: matt:to-questionnaire, outcome: absorbed, into: to-questionnaire, reason: 外抛问题}
+  - {upstream: matt:teach, outcome: absorbed, into: teach, reason: 教会一个新概念}
+  - {upstream: matt:grill-me, outcome: absorbed, into: grilling, reason: 追问式对话}
+  - {upstream: matt:grilling, outcome: absorbed, into: grilling, reason: 追问的方法本体}
+  - {upstream: matt:setup-pre-commit, outcome: rejected, reason: 特定工具链安装，不属工作流}
+  - {upstream: matt:git-guardrails-claude-code, outcome: rejected, reason: 宿主特定钩子配置}
+  - {upstream: matt:migrate-to-shoehorn, outcome: rejected, reason: 特定库迁移，属下游工程规范}
+  - {upstream: matt:scaffold-exercises, outcome: rejected, reason: 教学脚手架，与工程推进无关}
+  # ── addy (25)
+  - {upstream: addy:idea-refine, outcome: absorbed, into: idea-refine, reason: 发散收敛}
+  - {upstream: addy:debugging-and-error-recovery, outcome: absorbed, into: debugging, reason: 根因定位}
+  - {upstream: addy:using-agent-skills, outcome: rejected, reason: 上游技能发现机制，本库由注册表取代}
+  - {upstream: addy:test-driven-development, outcome: absorbed, into: tdd, reason: 红绿重构}
+  - {upstream: addy:planning-and-task-breakdown, outcome: absorbed, into: task-breakdown, reason: 有序任务分解}
+  - {upstream: addy:incremental-implementation, outcome: absorbed, into: incremental-implementation, reason: 薄片增量}
+  - {upstream: addy:api-and-interface-design, outcome: absorbed, into: api-and-interface-design, reason: 稳定接口设计}
+  - {upstream: addy:ci-cd-and-automation, outcome: absorbed, into: ci-cd-and-automation, reason: 持续集成}
+  - {upstream: addy:context-engineering, outcome: absorbed, into: p-guard-context, reason: 上下文工程，拆进 driver 心智模型}
+  - {upstream: addy:frontend-ui-engineering, outcome: absorbed, into: security-and-hardening, reason: 可访问性与安全加固部分并入验证}
+  - {upstream: addy:shipping-and-launch, outcome: absorbed, into: shipping-and-launch, reason: 发布}
+  - {upstream: addy:spec-driven-development, outcome: absorbed, into: spec-driven-development, reason: 先写规格}
+  - {upstream: addy:constraint-driven-development, outcome: absorbed, into: constraint-driven-development, reason: 质量契约}
+  - {upstream: addy:code-review-and-quality, outcome: absorbed, into: code-review, reason: 多轴审查，与 matt 双轴融合}
+  - {upstream: addy:security-and-hardening, outcome: absorbed, into: security-and-hardening, reason: 安全加固}
+  - {upstream: addy:deprecation-and-migration, outcome: absorbed, into: deprecation-and-migration, reason: 弃用与迁移}
+  - {upstream: addy:observability-and-instrumentation, outcome: absorbed, into: observability-and-instrumentation, reason: 可观测性}
+  - {upstream: addy:interview-me, outcome: absorbed, into: interview-me, reason: 意图提取}
+  - {upstream: addy:code-simplification, outcome: absorbed, into: code-simplification, reason: 简化}
+  - {upstream: addy:doubt-driven-development, outcome: absorbed, into: doubt-driven-development, reason: 新鲜上下文质疑}
+  - {upstream: addy:source-driven-development, outcome: absorbed, into: source-driven-development, reason: 源头驱动}
+  - {upstream: addy:performance-optimization, outcome: absorbed, into: performance-optimization, reason: 性能验证}
+  - {upstream: addy:browser-testing-with-devtools, outcome: absorbed, into: browser-testing, reason: 真实浏览器验证}
+  - {upstream: addy:git-workflow-and-versioning, outcome: absorbed, into: git-workflow-and-versioning, reason: 版本与提交结构}
+  - {upstream: addy:documentation-and-adrs, outcome: absorbed, into: documentation-and-adrs, reason: 决策记录}

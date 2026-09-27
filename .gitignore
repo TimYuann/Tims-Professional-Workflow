@@ -1,8 +1,7 @@
-# Upstream raw clones (managed via scripts/sync-upstreams.sh, not committed into main git tree)
 upstreams/*/
 node_modules/
 .DS_Store
 *.log
-
 __pycache__/
 *.pyc
+.pi/

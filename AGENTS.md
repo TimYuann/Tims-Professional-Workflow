@@ -3,62 +3,76 @@ obsidian-note-type: agents-md
 target: any-agent
 project: tim-professional-workflow
 cwd: ~/Developer/tim-professional-workflow
-created: 2026-09-26
-updated: 2026-09-26
 ---
 
-# TIM · Professional Workflow
+# TIM · Professional Workflow — 本仓维护纪律
 
-全局可复用的 AI 工程能力库：**工程经验装进角色，流程薄到只有 Driver 读一份**。与业务解耦、与运行底座解耦、可独立版本化，由下游项目的多会话协作按需取用。
+本文件短、稳定、项目专属。全局行为规则见全局 `AGENTS.md`，不在此重复。
 
-## 核心原则
+## 这是什么
 
-1. **方法 > 流程**。流程只保证"谁在什么时候把什么交给谁、什么时候必须停、什么时候可以复用旧结论"；判断方法全部在角色文件里。
-2. **注入单元就是角色文件**。每个 `roles/<role>.md` 自包含：单独注入一个会话即可开工，不需要另外读别的文件才敢动手。
-3. **四层注入契约**。第 1 层工作纪律 + 第 2 层工作方法来自角色文件（工具无关、稳定不变）；第 3 层本轮工作流切片与第 4 层工具安排由 Driver 在注入时附加，**附加内容不得改变角色的纪律与方法边界**。
-4. **判断与实现永不合并**。实现某个候选的人，不得对该候选给出审查、验证或复核结论；任何档位都不放宽。
-5. **门禁按风险触发，不按文件数触发**。高风险条件见 `pipeline.md §2`；不满足条件就不给小事加仪式。
-6. **说人话**。面向人类 Owner 的汇报以"结果与后果"为主；需要时保留准确技术名词，但不用术语替代事实。
-7. **记录分歧与出处**。机制来自哪里、改写了什么、删了什么，写在 `SOURCES.md`；三仓立场不一致处逐条单选裁决，不写"综合两者"。
-8. **决定者、权威位置、写者分别点名。** 同一含义不在多处各自设值；**收件四步＝清点、核对、缺则退回、齐则开工**。角色单文件开工所需的安全规则可以有**登记的内联副本**，维护者改权威规则时要同步复核所有副本。不同角色对同一红灯的**不同用途**（诊断、实现、判据审查、独立验证）不算竞争定义。来源台账记录出处，不自动变成第二个规则仓库；生成视图不得手工维护。
+一套与工具无关的工程工作流：角色、技能、原则、产物契约、脚本。
+它提供工程经验，不提供调度。
 
-## 目录职责
+## 唯一真源
 
+`workflow/registry.yaml` 是机器可读的事实来源。
+
+**任何含义都不在两处各自设值。** 需要新增或修改语义时，改真源，
+然后 `python3 scripts/render.py` 重新生成派生视图。
+
+派生视图（`workflow/phases/`、`workflow/ribbons/`、`docs/artifacts.md`）
+**不得手工编辑**——手改会被 `render.py --check` 报出来，
+所以不存在「生成区和真源对不上、需要人去核对」这种状态。
+
+## 改动纪律
+
+1. **上游只读。** `upstreams/` 只作参考源，永不修改。
+   吸收的机制要**先读正文**；没读正文不算吸收。
+   上一版的 `NOT ABSORBED` 里就有一条是没读就标的。
+2. **处置表由文件系统核对。** 每个上游 skill 在
+   `upstream_dispositions` 里恰好一条。`check-closure.py` 直接对着
+   `upstreams/` 扫目录核对，**这不是人写的台账，所以不会对不上**。
+3. **原则正文只有一处。** 一条原则有唯一的 owner 角色；
+   其他角色引用它的 id。想复用一条原则，就引用，不要复制文字。
+   上一版把 23 条原则回填进九个角色正文，于是同一件事在九个地方
+   被写成互相矛盾的说法——这正是 `check-consistency.py` 要拦的。
+4. **角色不内联技能。** 角色文件讲「这个人是谁、怎么想、不能做什么」；
+   技能正文在 `skills/`，按需引用。
+5. **产物不是文件。** 产物是一组字段 + 产出方 + 消费者 + 存活期。
+   落在下游哪个路径由 `driver` 按集合 B 裁定；纪律由本库定义。
+   不要在本库里规定下游的目录结构。
+
+## 改动之后
+
+```bash
+python3 scripts/render.py
+python3 scripts/check-closure.py
+python3 scripts/check-consistency.py
 ```
-tim-professional-workflow/
-├── AGENTS.md        本仓治理与操作纪律（本文件）
-├── README.md        概览：给谁用、底座需要哪 4 个原语、三档位怎么选
-├── VERSION          版本单一来源（SemVer，唯一）
-├── pipeline.md      Driver 唯一读的流程：交付链/档位/硬边界/依赖/并行/写窗/停止/证据复用/汇合/授权
-├── closure.md       闭环矩阵：字段级闭环 + 每条可跳过路径的职责移交
-├── SOURCES.md       上游吸收台账 + 冲突裁决表 + 引文审计处置 + NOT ABSORBED 清单
-├── identity.md      对象身份的维护者规范（唯一真源）
-├── roles/           10 个角色文件（driver/oracle/investigator/architect/planner/
-│                    implementer/reviewer/verifier/integrator/ledger-custodian）
-├── scripts/
-│   ├── check-library.py        只读自检：结构、闭环、矩阵、身份、死链、版本单一来源、底座解耦
-│   ├── ws-identity.sh          无版本历史时的对象身份（ws:v1）
-│   ├── identity-selftest.sh    身份实现的正负夹具（可失败）
-│   ├── log-decision.sh         append-only 决策台账 logger
-│   ├── decision-log-template.tsv  台账表头
-│   └── sync-upstreams.sh       Layer 1：上游同步与 diff 摘要
-├── docs/            设计背景、历史评审、归档
-│   ├── TIM-PROFESSIONAL-WORKFLOW-PROPOSAL.md         设计背景（非权威）
-│   ├── TIM-PROFESSIONAL-WORKFLOW-PROPOSAL_REVIEW.md  历史评审
-│   ├── TIM-PROFESSIONAL-WORKFLOW-PROPOSAL_REVIEW_R2.md 历史评审（Owner 未跟踪文件）
-│   └── archive/     被替换掉的旧载体（workflows/ 与旧 skills/），保留供追溯，不再被引用
-└── upstreams/       只读原始克隆（受 .gitignore 保护）
-    ├── cursor-plugins/          含 pstack
-    ├── mattpocock-skills/
-    └── addyosmani-agent-skills/
-```
 
-## 本仓工作边界与操作纪律
+三个都只读或幂等，非零退出即失败。**不要修脚本来让它过。**
+先问是哪条断言不成立，再决定改真源还是改断言。
 
-1. **只读上游绝不修改**：`upstreams/` 只作参考源；机制吸纳后落在 `roles/`、`scripts/`，并在 `SOURCES.md` 登记来源文件与行号。吸纳前必须读正文——**没读过正文不算吸收**。
-2. **两层同步**：Layer 1 用 `scripts/sync-upstreams.sh` 拉取上游并生成 diff 摘要。Layer 2：本库发布版本以 `VERSION` 为单一来源，发布标签与该值对齐；下游必须**按固定 commit 引用** release——不许跟随可变分支、不许执行期跟踪可变目录、不许用复制品；并确保**本次实际读取的对象与 pinned commit 一致（checkout 必须干净）**：固定 commit 只锁 Git 对象，**不自动锁执行中实际读取的工作区**。**本库当前不提供漂移检测脚本**；绑定格式与消费者确立后，由下游绑定负责人落实快照核验。
-3. **证据绑定对象与三态判定**：验证结论绑定精确的提交对象与运行环境；结论只有 `PASS` / `FAIL` / `UNVERIFIED` 三态，环境故障严禁冒充 `PASS`，也不得直接判成产品缺陷。
-4. **按因归属返工**：不把所有失败推给实现者。实现偏差 → Implementer；设计内在矛盾 → Architect；切片或依赖问题 → Planner；验证夹具或环境问题 → Investigator / Verifier；业务取舍 → 独立复核或 Owner。
-5. **底座解耦**：本库内容只声明"需要什么能力、需要达到什么效果"。具体运行方式由 Driver 附加的第 4 层提供，不写进本库。
-6. **改动先自检**：改本库的角色/契约/来源时，维护者跑 `python3 scripts/check-library.py` 并在交付中附其输出；它只兜**结构与确定性回归**，**不是角色工作流的 PASS，也不检验某次交接物的真实值**——某次交接由收件人按角色文件 §2 核实。上下文压缩后先重读角色/当前任务与最后接收的实际产物；只有继续改本库时才重跑库级检查。
-7. **证据与摘要一致**：报告里的每一句都要能在证据里找到对应；找不到就删掉或改成"未验证"。
+## 硬边界（任何档位都不放宽）
+
+1. 提出候选的人不得给这个候选下结论。
+2. 不得为让检查变绿而削弱检查。
+3. 验证只有三态：`PASS` / `FAIL` / `UNVERIFIED`。
+   环境故障既不算 `PASS`，也不判成产品缺陷。
+4. `A9` 台账只追加。不修改、不删除既有行。
+
+## 检查器判不了什么
+
+- 方法本身是否真的有效。
+- 退出判据是否合理、是否可判定。
+- 下游是否真的照做了。
+- 某一次跳过是否真的合规。
+
+这些交给人审。**检查器全绿不等于这套东西好用**——它只证明结构没塌。
+
+## 新增检查的保留判据
+
+要能说清它保护的是哪条**真实断言**、给一个会红的反例、
+说清常见合法变体为什么不会误报、以及谁负责维护它。
+四条缺一条就别加。本库的检查器是从旧版的 26 项里收敛到 8 + 7 的。
