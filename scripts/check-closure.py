@@ -499,6 +499,113 @@ def main():
     r.add("C14", "技能头部产物声明与注册表一致", not miss,
           f"{len(skills)} 个技能的头部声明与注册表 outputs 一致", miss)
 
+    # ── C15 每个产物字段都必须有产出方 ─────────────────────────
+    # 这一条是这一版最贵的教训。v2.0.1 给 A6/A8 加了 subject/scope/frame_alignment
+    # 三个字段来解决「P6 无法证明验证对象就是上线对象」，
+    # 但没有任何一个技能或角色说「谁填这三个字段」——
+    # 于是 P5 的退出判据永远无法满足，只能判 UNVERIFIED，
+    # 而 P6 第一道闸门要求 PASS，**链在 P5→P6 之间断掉**。
+    # 声明字段 ≠ 有人产出字段。
+    # 只管「出现在某阶段退出判据里的字段」：判据要判它，就一定得有人产出它。
+    # 不要求每栏都写「由 X 填」（那只是套话）——改为**真交叉核对**：
+    # 这一栏必须在产出方的角色文件、或它拥有的某个技能正文里被明确要求填。
+    # v2.0.1 就是在这里断的：subject / scope / frame_alignment 三个字段
+    # 出现在 P5 的退出判据里，但全库没有一个文件说谁填它们。
+    field_re2 = re.compile(r"\b(A\d+)\.([a-z_]+)")
+    gated = set()
+    for ph in phases:
+        for crit in ph.get("exit_criteria", []):
+            gated.update(field_re2.findall(crit))
+
+    def producer_text(producer):
+        """产出方「自己说的话」：它的角色文件 + 它拥有的技能的正文。"""
+        buf = []
+        f = ROOT / "roles" / f"{producer}.md"
+        if f.is_file():
+            buf.append(f.read_text(encoding="utf-8"))
+        for s_ in skills:
+            if s_.get("owner_role") == producer:
+                sf = ROOT / "skills" / f"{s_['id']}.md"
+                if sf.is_file():
+                    buf.append(sf.read_text(encoding="utf-8"))
+        return "\n".join(buf)
+
+    miss = []
+    for aid, fld in sorted(gated):
+        a = a_by_id.get(aid)
+        if not a or fld not in a.get("fields", []):
+            continue                        # C4 负责报未定义字段
+        note = (a.get("notes") or {}).get(fld, "")
+        who = re.search(r"由\s*`([a-z-]+)`\s*填", note)
+        if who:
+            if who.group(1) != a.get("producer"):
+                miss.append(f"{aid}.{fld} 声明由 `{who.group(1)}` 填，"
+                            f"但它的主产出方是 `{a.get('producer')}`")
+            continue
+        producer = a.get("producer")
+        if f"`{fld}`" not in producer_text(producer):
+            miss.append(f"{aid}.{fld} 出现在阶段退出判据里，但产出方 `{producer}` "
+                        f"的角色文件与它拥有的技能正文里都没出现这一栏——"
+                        f"没人被要求填它，判据永远无法满足，链会断")
+    r.add("C15", "被判据校验的字段产出方真的会说填", not miss,
+          f"{len(gated)} 个被阶段判据校验的字段，产出方正文里都点名列出了", miss)
+
+    # ── C16 每个阶段都必须有「记台账」的判据 ────────────────────
+    # A9 是常驻产物，但 v2.0.1 的 P0–P5 没有任何一条判据提到它，
+    # 于是台账可以一路空着走到 P6，「全程记录不丢」就是句空话。
+    miss = []
+    for ph in phases:
+        if not any("A9." in c for c in ph.get("exit_criteria", [])):
+            miss.append(f"{ph['id']} 的退出判据里没有一道要求记 A9——"
+                        f"这一阶段可能悄悄什么都不记就过去了")
+    r.add("C16", "每阶段都要求记台账", not miss,
+          f"{len(phases)} 个阶段都有 A9 判据", miss)
+
+    # ── C17 阶段判据不得要求一个不在本阶段装配里的角色去做某事 ──
+    # P6 曾要求「architect 更新 A3.freshness」，而 architect 不在 P6 的装配里。
+    # C13 只认「已更新/已刷新」这几个动词，「已由 architect 指向」它没抓住。
+    miss = []
+    for ph in phases:
+        equipped = set(ph.get("default_roles", []))
+        for crit in ph.get("exit_criteria", []):
+            for rid, role in r_by_id.items():
+                if rid in equipped:
+                    continue
+                # 「由 X 做的」这种委托式措辞：X 不在装配里就落不了地
+                for m in re.finditer(rf"由\s*`?{re.escape(rid)}`?\s*(填|更新|写|记|产出|建|追加|维护)", crit):
+                    miss.append(f"{ph['id']} 的判据要求 `{rid}` 做某事，"
+                                f"但 `{rid}` 不在它的装配 {sorted(equipped)} 里")
+    r.add("C17", "判据里的委托落在装配内", not miss,
+          f"{sum(len(p.get('exit_criteria', [])) for p in phases)} 条判据里的角色委托都能落地", miss)
+
+    # ── C18 技能不得依赖它自己产不出、且由更早阶段才产出的产物 ──
+    # 判档循环：tier-sizing.inputs 曾经是 [A1]，而 A1 由 P0 产出，
+    # 但 P0 开工前就得先判档决定装谁——用结果定前提。
+    miss = []
+    produces_at = {}
+    for ph in phases:
+        for aid in ph.get("produces", []):
+            produces_at.setdefault(aid, []).append(ph["id"])
+    # 只有「第一阶段开工之前就要跑」的技能受这条约束——
+    # 判档与冷启动。teach / document-mapping 这类在 P0 之后跑的 driver 技能
+    # 依赖 A1/A2 是对的：那时候产物已经在了。
+    first_phase = phases[0]["id"] if phases else None
+    pre_phase_skills = {s["id"] for s in skills
+                        if s.get("owner_role") == "driver"
+                        and s.get("phase") is None
+                        and s["id"] in ("tier-sizing", "coldstart")}
+    for s in skills:
+        if s["id"] not in pre_phase_skills:
+            continue
+        for need in s.get("inputs", []):
+            src = produces_at.get(need, [])
+            if src:
+                miss.append(f"技能 {s['id']} 在 {first_phase} 开工之前就要跑，"
+                            f"却依赖 {need}——而 {need} 由 {'/'.join(src)} 产出。"
+                            f"用结果定前提，成环")
+    r.add("C18", "开工前的技能不依赖开工后才有的产物", not miss,
+          f"{len(pre_phase_skills)} 个开工前技能不依赖任何阶段产物", miss)
+
     # ── 解耦检查 ───────────────────────────────────────────────
     miss = []
     targets = [f for f in (ROOT / n for n in SCAN_FILES) if f.is_file()]

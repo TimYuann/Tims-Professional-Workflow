@@ -54,7 +54,7 @@
 
 ### A6 · 实现候选
 
-- `subject` — 候选的对象身份：commit sha 或 patch 指纹。没有它，下游无法证明「验证过的」就是「上线的」
+- `subject` — 候选的对象身份：commit sha 或 patch 指纹。**由 `builder` 填**：P3 开工时记基线 commit，交付时记结果 commit。P5 验证的对象必须与它逐字一致。没有它，下游无法证明「验证过的」就是「上线的」
 - `change` — 改了什么。**这一栏要点名列全工作过程建出的每一样东西**——杠杆工具、改造脚本、生成器、闸门检查、流水线配置、测试、注释、一次性原型、会红的反馈回路。它们不是独立产物，但漏列就等于这一轮没人对它们负责
 - `runnable` — 怎么把它跑起来——真的能跑，不是「应该能跑」
 - `known_gaps` — 知道自己没做什么。这一栏非空才有资格交给别人评价
@@ -68,10 +68,10 @@
 ### A8 · 验证凭据
 
 - `claim` — 证明了哪一条 A4.done_definition
-- `subject` — 被验证对象的身份（commit sha / patch 指纹）。必须与 A6.subject 逐字一致，不一致即判 UNVERIFIED
-- `scope` — 这次验证覆盖了 A3 的哪些能力条目
+- `subject` — 被验证对象的身份（commit sha / patch 指纹）。**由 `verifier` 填，且必须与 `A6.subject` 逐字一致**。不一致说明验的不是最终候选，判 UNVERIFIED
+- `scope` — 这次验证覆盖了 A3 的哪些能力条目。**由 `verifier` 填**，逐条列出能力 id
 - `observation` — 实际观察到什么——跑出来的，不是推理出来的
-- `frame_alignment` — 本次验证中 A3 与代码不一致的条目，以及未覆盖能力清单。verifier 只记录不改写 A3——A3 的更新是 architect 的后续动作。这两张清单是本字段的产物形态，不是独立文档
+- `frame_alignment` — 本次验证中 A3 与代码不一致的条目，以及未覆盖能力清单。**由 `verifier` 填**。verifier 只记录不改写 A3——A3 的更新是 architect 的后续动作。这两张清单是本字段的产物形态，不是独立文档
 - `environment` — 在什么环境、什么对象上跑的
 - `verdict` — PASS／FAIL／UNVERIFIED。环境故障既不算 PASS，也不得直接判成产品缺陷
 
