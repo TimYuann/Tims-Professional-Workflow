@@ -1,0 +1,331 @@
+# 上游锁文件 · 随 release 分发
+#
+# 101 个上游 skill 的清单 + 内容 sha256 + 每仓 pin 的 commit。
+# 它是「处置表」与「上游实物」之间那本可随包分发的账：
+#   - 没有 upstreams/ 时，用它核对 registry 的处置表与 sources（干净 clone 也成立）
+#   - 有 upstreams/ 时，check-closure 会逐条比 sha256 并核 pin，把漂移抓出来
+# 由 scripts/sync-upstreams.sh 重新生成，不要手工编辑。
+#
+# 生成方式：见 scripts/sync-upstreams.sh
+
+schema: tpw-upstreams-lock/1
+why: 处置表的可核对性不能依赖 upstreams/ 目录——那三个只读克隆被 .gitignore 挡着，从不随 release 分发。干净 clone 出来 C7/C9 必然红，而 coldstart
+  又要求把检查器复制到下游且不依赖本库运行时路径。**这份锁文件就是那本可随包分发的账。**
+verify: 有 upstreams/ 时逐条比 sha256 并核 pin；没有时只用它核对处置表与 sources。
+repos:
+  pstack:
+    path: upstreams/cursor-plugins/pstack
+    commit: ecc249f1e306fc64ddf83c7bed16cacf7c2239db
+    date: '2026-09-25'
+  matt:
+    path: upstreams/mattpocock-skills
+    commit: c55ee46073ed923f86ce59a5eb3b6d895095d1b7
+    date: '2026-09-18'
+  addy:
+    path: upstreams/addyosmani-agent-skills
+    commit: 2686b620fc1fed2e8f60c704839c766b8594c6b6
+    date: '2026-09-25'
+skills:
+  addy:api-and-interface-design:
+    path: upstreams/addyosmani-agent-skills/skills/api-and-interface-design/SKILL.md
+    sha256: 5dafd0c44a3aabf1
+  addy:browser-testing-with-devtools:
+    path: upstreams/addyosmani-agent-skills/skills/browser-testing-with-devtools/SKILL.md
+    sha256: 4e3aacd6a380cd25
+  addy:ci-cd-and-automation:
+    path: upstreams/addyosmani-agent-skills/skills/ci-cd-and-automation/SKILL.md
+    sha256: a6ed8ed56456b01f
+  addy:code-review-and-quality:
+    path: upstreams/addyosmani-agent-skills/skills/code-review-and-quality/SKILL.md
+    sha256: d4ec6843e78a8ab2
+  addy:code-simplification:
+    path: upstreams/addyosmani-agent-skills/skills/code-simplification/SKILL.md
+    sha256: f0c5ed754057eb0c
+  addy:constraint-driven-development:
+    path: upstreams/addyosmani-agent-skills/skills/constraint-driven-development/SKILL.md
+    sha256: 06479d4305f286d2
+  addy:context-engineering:
+    path: upstreams/addyosmani-agent-skills/skills/context-engineering/SKILL.md
+    sha256: 8b736cb9e55b82b2
+  addy:debugging-and-error-recovery:
+    path: upstreams/addyosmani-agent-skills/skills/debugging-and-error-recovery/SKILL.md
+    sha256: 21f3960f5d7ae2cc
+  addy:deprecation-and-migration:
+    path: upstreams/addyosmani-agent-skills/skills/deprecation-and-migration/SKILL.md
+    sha256: 6a624f942e09c698
+  addy:documentation-and-adrs:
+    path: upstreams/addyosmani-agent-skills/skills/documentation-and-adrs/SKILL.md
+    sha256: 87ae44a0c7bb3eef
+  addy:doubt-driven-development:
+    path: upstreams/addyosmani-agent-skills/skills/doubt-driven-development/SKILL.md
+    sha256: 6fa1fcd8420c28da
+  addy:frontend-ui-engineering:
+    path: upstreams/addyosmani-agent-skills/skills/frontend-ui-engineering/SKILL.md
+    sha256: 549044e9bd8d7fe9
+  addy:git-workflow-and-versioning:
+    path: upstreams/addyosmani-agent-skills/skills/git-workflow-and-versioning/SKILL.md
+    sha256: b7465d187935c525
+  addy:idea-refine:
+    path: upstreams/addyosmani-agent-skills/skills/idea-refine/SKILL.md
+    sha256: 79e773058963adc7
+  addy:incremental-implementation:
+    path: upstreams/addyosmani-agent-skills/skills/incremental-implementation/SKILL.md
+    sha256: df66536610071727
+  addy:interview-me:
+    path: upstreams/addyosmani-agent-skills/skills/interview-me/SKILL.md
+    sha256: ace4b675999bb504
+  addy:observability-and-instrumentation:
+    path: upstreams/addyosmani-agent-skills/skills/observability-and-instrumentation/SKILL.md
+    sha256: e7fcb0820306d462
+  addy:performance-optimization:
+    path: upstreams/addyosmani-agent-skills/skills/performance-optimization/SKILL.md
+    sha256: 00694d0c69bbde67
+  addy:planning-and-task-breakdown:
+    path: upstreams/addyosmani-agent-skills/skills/planning-and-task-breakdown/SKILL.md
+    sha256: ed0f90cc5951ddd4
+  addy:security-and-hardening:
+    path: upstreams/addyosmani-agent-skills/skills/security-and-hardening/SKILL.md
+    sha256: 2e3fc60eed5aba97
+  addy:shipping-and-launch:
+    path: upstreams/addyosmani-agent-skills/skills/shipping-and-launch/SKILL.md
+    sha256: af610cf4892db7ea
+  addy:source-driven-development:
+    path: upstreams/addyosmani-agent-skills/skills/source-driven-development/SKILL.md
+    sha256: c59faf851377f0ee
+  addy:spec-driven-development:
+    path: upstreams/addyosmani-agent-skills/skills/spec-driven-development/SKILL.md
+    sha256: f7129bca8742bad7
+  addy:test-driven-development:
+    path: upstreams/addyosmani-agent-skills/skills/test-driven-development/SKILL.md
+    sha256: 7c0c6ac057c19d7f
+  addy:using-agent-skills:
+    path: upstreams/addyosmani-agent-skills/skills/using-agent-skills/SKILL.md
+    sha256: 30787ef2c77bf1a4
+  matt:ask-matt:
+    path: upstreams/mattpocock-skills/skills/engineering/ask-matt/SKILL.md
+    sha256: b25d86fb36b1d294
+  matt:code-review:
+    path: upstreams/mattpocock-skills/skills/engineering/code-review/SKILL.md
+    sha256: 47f4e52c21694def
+  matt:codebase-design:
+    path: upstreams/mattpocock-skills/skills/engineering/codebase-design/SKILL.md
+    sha256: 2c20617f87ec8af6
+  matt:diagnosing-bugs:
+    path: upstreams/mattpocock-skills/skills/engineering/diagnosing-bugs/SKILL.md
+    sha256: 77f3cf31bc99b2f4
+  matt:domain-modeling:
+    path: upstreams/mattpocock-skills/skills/engineering/domain-modeling/SKILL.md
+    sha256: 327a2b50620e2fd7
+  matt:git-guardrails-claude-code:
+    path: upstreams/mattpocock-skills/skills/misc/git-guardrails-claude-code/SKILL.md
+    sha256: 69b291d655626a01
+  matt:grill-me:
+    path: upstreams/mattpocock-skills/skills/productivity/grill-me/SKILL.md
+    sha256: caaf8b8de1684f96
+  matt:grill-with-docs:
+    path: upstreams/mattpocock-skills/skills/engineering/grill-with-docs/SKILL.md
+    sha256: 7de372c13488f1ee
+  matt:grilling:
+    path: upstreams/mattpocock-skills/skills/productivity/grilling/SKILL.md
+    sha256: 10ff989e7498b23b
+  matt:handoff:
+    path: upstreams/mattpocock-skills/skills/productivity/handoff/SKILL.md
+    sha256: 7c62de979fdc7ac3
+  matt:implement:
+    path: upstreams/mattpocock-skills/skills/engineering/implement/SKILL.md
+    sha256: 6d3fd9e83b8f36e5
+  matt:improve-codebase-architecture:
+    path: upstreams/mattpocock-skills/skills/engineering/improve-codebase-architecture/SKILL.md
+    sha256: d1ac25511a936ff4
+  matt:migrate-to-shoehorn:
+    path: upstreams/mattpocock-skills/skills/misc/migrate-to-shoehorn/SKILL.md
+    sha256: de4da4c11d924fac
+  matt:prototype:
+    path: upstreams/mattpocock-skills/skills/engineering/prototype/SKILL.md
+    sha256: 714de632d116bb73
+  matt:research:
+    path: upstreams/mattpocock-skills/skills/engineering/research/SKILL.md
+    sha256: 985569f15739c713
+  matt:resolving-merge-conflicts:
+    path: upstreams/mattpocock-skills/skills/engineering/resolving-merge-conflicts/SKILL.md
+    sha256: 9d8114f8ef0b31f5
+  matt:scaffold-exercises:
+    path: upstreams/mattpocock-skills/skills/misc/scaffold-exercises/SKILL.md
+    sha256: 75f5c9d771606fb9
+  matt:setup-matt-pocock-skills:
+    path: upstreams/mattpocock-skills/skills/engineering/setup-matt-pocock-skills/SKILL.md
+    sha256: 2bcd89e97777cdb7
+  matt:setup-pre-commit:
+    path: upstreams/mattpocock-skills/skills/misc/setup-pre-commit/SKILL.md
+    sha256: c9819d7f1e3b1980
+  matt:tdd:
+    path: upstreams/mattpocock-skills/skills/engineering/tdd/SKILL.md
+    sha256: cb01f66bebfaa25f
+  matt:teach:
+    path: upstreams/mattpocock-skills/skills/productivity/teach/SKILL.md
+    sha256: a32df9dcdfc0c4fd
+  matt:to-questionnaire:
+    path: upstreams/mattpocock-skills/skills/productivity/to-questionnaire/SKILL.md
+    sha256: b5eb929842ee0e93
+  matt:to-spec:
+    path: upstreams/mattpocock-skills/skills/engineering/to-spec/SKILL.md
+    sha256: 43ad9cf318e5e7d3
+  matt:to-tickets:
+    path: upstreams/mattpocock-skills/skills/engineering/to-tickets/SKILL.md
+    sha256: 5c9fba69845c2519
+  matt:triage:
+    path: upstreams/mattpocock-skills/skills/engineering/triage/SKILL.md
+    sha256: 623a2ed692bdc77d
+  matt:wait-what:
+    path: upstreams/mattpocock-skills/skills/productivity/wait-what/SKILL.md
+    sha256: e3f44e3ccbc0e7b6
+  matt:wayfinder:
+    path: upstreams/mattpocock-skills/skills/engineering/wayfinder/SKILL.md
+    sha256: fee6e1d0c50f0e73
+  matt:wizard:
+    path: upstreams/mattpocock-skills/skills/engineering/wizard/SKILL.md
+    sha256: bdf31d48211ea559
+  matt:writing-for-agents:
+    path: upstreams/mattpocock-skills/skills/productivity/writing-for-agents/SKILL.md
+    sha256: 551adca942227b44
+  pstack:architect:
+    path: upstreams/cursor-plugins/pstack/skills/architect/SKILL.md
+    sha256: 691cd39f52c7b613
+  pstack:arena:
+    path: upstreams/cursor-plugins/pstack/skills/arena/SKILL.md
+    sha256: e3a1f6c49a08b7e0
+  pstack:automate-me:
+    path: upstreams/cursor-plugins/pstack/skills/automate-me/SKILL.md
+    sha256: 1510979b0b71b542
+  pstack:blast-radius:
+    path: upstreams/cursor-plugins/pstack/skills/blast-radius/SKILL.md
+    sha256: 5f02db9101ccf26c
+  pstack:bro:
+    path: upstreams/cursor-plugins/pstack/skills/bro/SKILL.md
+    sha256: aa329d0ceeeecb68
+  pstack:create-verification-skill:
+    path: upstreams/cursor-plugins/pstack/skills/create-verification-skill/SKILL.md
+    sha256: 644f2551403c1bca
+  pstack:figure-it-out:
+    path: upstreams/cursor-plugins/pstack/skills/figure-it-out/SKILL.md
+    sha256: 0eb9485f0e7d84fe
+  pstack:how:
+    path: upstreams/cursor-plugins/pstack/skills/how/SKILL.md
+    sha256: d31805589c7f6a63
+  pstack:interrogate:
+    path: upstreams/cursor-plugins/pstack/skills/interrogate/SKILL.md
+    sha256: 59d498c3e9848a24
+  pstack:maintain-verification-skill:
+    path: upstreams/cursor-plugins/pstack/skills/maintain-verification-skill/SKILL.md
+    sha256: 515c0eaa054b3f6b
+  pstack:make-bot-ui:
+    path: upstreams/cursor-plugins/pstack/skills/make-bot-ui/SKILL.md
+    sha256: 3624c8ef16cf2e48
+  pstack:no-comments:
+    path: upstreams/cursor-plugins/pstack/skills/no-comments/SKILL.md
+    sha256: 5c5b0882297d704c
+  pstack:poteto-mode:
+    path: upstreams/cursor-plugins/pstack/skills/poteto-mode/SKILL.md
+    sha256: 7645c9ee27ef9798
+  pstack:principle-attack-the-premise:
+    path: upstreams/cursor-plugins/pstack/skills/principle-attack-the-premise/SKILL.md
+    sha256: c87bd7536f772f8a
+  pstack:principle-boundary-discipline:
+    path: upstreams/cursor-plugins/pstack/skills/principle-boundary-discipline/SKILL.md
+    sha256: 62ac2862c2caa22d
+  pstack:principle-build-the-lever:
+    path: upstreams/cursor-plugins/pstack/skills/principle-build-the-lever/SKILL.md
+    sha256: 458b269eab8e95a1
+  pstack:principle-encode-lessons-in-structure:
+    path: upstreams/cursor-plugins/pstack/skills/principle-encode-lessons-in-structure/SKILL.md
+    sha256: 77044c83a9ac6df7
+  pstack:principle-exhaust-the-design-space:
+    path: upstreams/cursor-plugins/pstack/skills/principle-exhaust-the-design-space/SKILL.md
+    sha256: 8583310d7297b782
+  pstack:principle-experience-first:
+    path: upstreams/cursor-plugins/pstack/skills/principle-experience-first/SKILL.md
+    sha256: 58903529d733b1c1
+  pstack:principle-fix-root-causes:
+    path: upstreams/cursor-plugins/pstack/skills/principle-fix-root-causes/SKILL.md
+    sha256: ba4cd38da1dcc8fe
+  pstack:principle-foundational-thinking:
+    path: upstreams/cursor-plugins/pstack/skills/principle-foundational-thinking/SKILL.md
+    sha256: 864b827e8199d946
+  pstack:principle-guard-the-context-window:
+    path: upstreams/cursor-plugins/pstack/skills/principle-guard-the-context-window/SKILL.md
+    sha256: d2cef147862576e3
+  pstack:principle-laziness-protocol:
+    path: upstreams/cursor-plugins/pstack/skills/principle-laziness-protocol/SKILL.md
+    sha256: 9006579e9e3f3395
+  pstack:principle-make-operations-idempotent:
+    path: upstreams/cursor-plugins/pstack/skills/principle-make-operations-idempotent/SKILL.md
+    sha256: 540738217c3da7bf
+  pstack:principle-migrate-callers-then-delete-legacy-apis:
+    path: upstreams/cursor-plugins/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md
+    sha256: 09978915a4a11990
+  pstack:principle-minimize-reader-load:
+    path: upstreams/cursor-plugins/pstack/skills/principle-minimize-reader-load/SKILL.md
+    sha256: 42551c5dc74cd578
+  pstack:principle-model-the-domain:
+    path: upstreams/cursor-plugins/pstack/skills/principle-model-the-domain/SKILL.md
+    sha256: bbadbb9a723fac3f
+  pstack:principle-never-block-on-the-human:
+    path: upstreams/cursor-plugins/pstack/skills/principle-never-block-on-the-human/SKILL.md
+    sha256: f2764bb9338cbfc7
+  pstack:principle-outcome-oriented-execution:
+    path: upstreams/cursor-plugins/pstack/skills/principle-outcome-oriented-execution/SKILL.md
+    sha256: 10eb91633aa57035
+  pstack:principle-prove-it-works:
+    path: upstreams/cursor-plugins/pstack/skills/principle-prove-it-works/SKILL.md
+    sha256: ec79a15025bac8d3
+  pstack:principle-redesign-from-first-principles:
+    path: upstreams/cursor-plugins/pstack/skills/principle-redesign-from-first-principles/SKILL.md
+    sha256: a1c7fd0a96b40e12
+  pstack:principle-separate-before-serializing-shared-state:
+    path: upstreams/cursor-plugins/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md
+    sha256: 05294b40448e927c
+  pstack:principle-sequence-verifiable-units:
+    path: upstreams/cursor-plugins/pstack/skills/principle-sequence-verifiable-units/SKILL.md
+    sha256: 2ccbbacc56ace5af
+  pstack:principle-subtract-before-you-add:
+    path: upstreams/cursor-plugins/pstack/skills/principle-subtract-before-you-add/SKILL.md
+    sha256: a983a50e732c1ed3
+  pstack:principle-test-behavior-not-implementation:
+    path: upstreams/cursor-plugins/pstack/skills/principle-test-behavior-not-implementation/SKILL.md
+    sha256: 87e40efe4e486f7e
+  pstack:principle-type-system-discipline:
+    path: upstreams/cursor-plugins/pstack/skills/principle-type-system-discipline/SKILL.md
+    sha256: c83da8031ffb4c86
+  pstack:recall:
+    path: upstreams/cursor-plugins/pstack/skills/recall/SKILL.md
+    sha256: d265b0e5b6dc5b89
+  pstack:reflect:
+    path: upstreams/cursor-plugins/pstack/skills/reflect/SKILL.md
+    sha256: 36efa48cc4ec2ba6
+  pstack:setup-pstack:
+    path: upstreams/cursor-plugins/pstack/skills/setup-pstack/SKILL.md
+    sha256: 125dd0c8f588782c
+  pstack:show-me-your-work:
+    path: upstreams/cursor-plugins/pstack/skills/show-me-your-work/SKILL.md
+    sha256: bcff5f7f9fd23f92
+  pstack:swarm:
+    path: upstreams/cursor-plugins/pstack/skills/swarm/SKILL.md
+    sha256: e28057fbbd111325
+  pstack:tdd:
+    path: upstreams/cursor-plugins/pstack/skills/tdd/SKILL.md
+    sha256: eeb868e2dfebee52
+  pstack:teach:
+    path: upstreams/cursor-plugins/pstack/skills/teach/SKILL.md
+    sha256: bd286e5a6290673b
+  pstack:technical-writing:
+    path: upstreams/cursor-plugins/pstack/skills/technical-writing/SKILL.md
+    sha256: 10c74685e1639cc4
+  pstack:typescript-best-practices:
+    path: upstreams/cursor-plugins/pstack/skills/typescript-best-practices/SKILL.md
+    sha256: 28f9e61710e205f6
+  pstack:unslop:
+    path: upstreams/cursor-plugins/pstack/skills/unslop/SKILL.md
+    sha256: 195411d320b5b328
+  pstack:why:
+    path: upstreams/cursor-plugins/pstack/skills/why/SKILL.md
+    sha256: 2a852ec868092010

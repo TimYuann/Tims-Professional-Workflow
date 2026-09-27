@@ -41,7 +41,14 @@ DIRS = {
 
 # 本库只承认这四个脚本。出现别的就是上一版残留或临时产物——
 # 不在 S1 的比对范围内，但必须被发现，否则它们会像 v2.0.0 里那样躺着。
-KNOWN_SCRIPTS = {"check-closure.py", "check-consistency.py", "render.py", "ledger.sh"}
+KNOWN_SCRIPTS = {
+    "check-closure.py",       # 闭包检查
+    "check-consistency.py",   # 一致性与互斥检查
+    "render.py",              # 派生视图生成 / 核对
+    "ledger.sh",              # A9 台账追加工具
+    "sync-upstreams.sh",      # 上游同步 + 重生成锁文件
+    "_render-lock.py",        # 被 sync-upstreams.sh 调用的锁文件生成器
+}
 
 # 「不得 / 必须」识别。只在受控动词 + 重叠宾语上配对才算互斥。
 NEG = re.compile(r"(不得|禁止|不可以|不许|不能|不应)")

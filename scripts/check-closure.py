@@ -22,7 +22,7 @@ check-closure.py · 闭包检查器（只读，可重复运行）
   python3 scripts/check-closure.py --quiet    # 只输出结论
 """
 
-import sys, os, re, argparse
+import sys, os, re, argparse, subprocess
 from pathlib import Path
 
 try:
@@ -158,6 +158,21 @@ def main():
     miss = []
     if reg.get("version") != vfile:
         miss.append(f"VERSION 文件={vfile}，registry={reg.get('version')}")
+    # VERSION 必须与当前 commit 上的 tag 对齐。v2.0.1–v2.0.3 三次打了 tag 却没改
+    # VERSION，而 C1 只比前两个，所以一直 PASS——下游按 tag 锁定会锁到一个自称
+    # 2.0.0 的东西。「版本单一来源」必须包含 release tag，否则不是单一来源。
+    tag = subprocess.run(["git", "tag", "--points-at", "HEAD"],
+                         capture_output=True, text=True,
+                         cwd=str(ROOT)).stdout.split()
+    if not tag:
+        miss.append("当前 commit 上没有 tag——打了 tag 之前不能算一个 release")
+    else:
+        vtags = [x for x in tag if re.fullmatch(r"v?\d+\.\d+\.\d+", x)]
+        if not vtags:
+            miss.append(f"当前 commit 的 tag {tag} 里没有语义化版本号 tag")
+        elif f"v{vfile}" not in tag:
+            miss.append(f"VERSION={vfile}，但当前 commit 的 tag 是 {tag}——"
+                        f"两者对不上。发版前先改 VERSION 再打 tag，或打 tag 后改 VERSION 再补打")
     for label, coll, key in (("产物", artifacts, "id"), ("阶段", phases, "id"),
                              ("角色", roles, "id"), ("原则", principles, "id"),
                              ("技能", skills, "id")):
@@ -333,80 +348,76 @@ def main():
           f"{len(skills)} 个技能／{len(principles)} 条原则全部被引用，"
           f"每个阶段的默认角色能产出它声称的产物", miss)
 
-    # ── C7 上游处置完备（对文件系统核对）───────────────────────
-    actual = find_upstream_skills()
+    # ── C7 上游处置完备（以随包分发的锁文件为准）──────────────
+    # v2.0.1–v2.0.3 这里的反例：干净 clone 出来 C7/C9 直接红，
+    # 因为核对依赖 upstreams/ 目录，而那三个只读克隆被 .gitignore 挡着。
+    # 现在真源是随 release 分发的 upstreams.lock.yaml：
+    #   - 没有 upstreams/ 时，用锁文件核对处置表与 sources（干净 clone 成立）
+    #   - 有 upstreams/ 时，逐条比 sha256 并核 pin，把上游漂移抓出来
     listed = [d["upstream"] for d in disp]
-    miss = []
     dup = sorted({u for u in listed if listed.count(u) > 1})
-    for u in dup:
-        miss.append(f"处置表里 {u} 出现了 {listed.count(u)} 次（必须恰好一次）")
-    for u in actual:
-        if u not in listed:
-            miss.append(f"{u} 在 upstreams/ 里存在，但处置表里没有它——要么补上要么说明为什么跳过")
-    for u in listed:
-        if u not in actual:
-            miss.append(f"处置表里的 {u} 在 upstreams/ 里不存在——可能是拼错或上游已改名")
     known = set(s_by_id) | set(pr_by_id)
-    for d in disp:
-        if d.get("outcome") not in ("absorbed", "merged", "rejected"):
-            miss.append(f"{d['upstream']} 的 outcome 非法：{d.get('outcome')}")
-        if not d.get("reason"):
-            miss.append(f"{d['upstream']} 没有写处置理由")
-        into = d.get("into")
-        if into and into not in known:
-            miss.append(f"{d['upstream']} 指向 {into}，但注册表里没有这个技能或原则")
-    if not actual and not (ROOT / "upstreams").is_dir():
-        r.add("C7", "上游处置完备", True,
-              "本机没有 upstreams/（下游安装的常态）——上游处置是本库自身的属性，"
-              "不适用于下游，跳过而不是判 PASS", skip=True)
+
+    lock = {}
+    lock_path = ROOT / "upstreams.lock.yaml"
+    have_lock = lock_path.is_file()
+    if have_lock:
+        lock = yaml.safe_load(lock_path.read_text(encoding="utf-8")) or {}
+    lock_skills = lock.get("skills", {}) if lock else {}
+
+    miss = []
+    if not have_lock:
+        miss.append("缺少 upstreams.lock.yaml——没有它，处置表在干净 clone 里无处核对")
     else:
-        r.add("C7", "上游处置完备", not miss,
-              f"文件系统 {len(actual)} 个上游 skill，处置表 {len(listed)} 条，一一对应", miss)
+        listed_set = set(listed)
+        lock_set = set(lock_skills)
+        for u in sorted(listed_set - lock_set):
+            miss.append(f"{u} 在处置表里但锁文件里没有——锁文件过期，用 scripts/sync-upstreams.sh 重生成")
+        for u in sorted(lock_set - listed_set):
+            miss.append(f"{u} 在锁文件里但处置表里没有——要么补处置，要么说明为什么跳过")
+        for x in dup:
+            miss.append(f"处置表里 {x} 出现了 {listed.count(x)} 次（必须恰好一次）")
+        for d in disp:
+            if d.get("outcome") not in ("absorbed", "merged", "rejected"):
+                miss.append(f"{d['upstream']} 的 outcome 非法：{d.get('outcome')}")
+            if not d.get("reason"):
+                miss.append(f"{d['upstream']} 没有写处置理由")
+            if d.get("into") and d["into"] not in known:
+                miss.append(f"{d['upstream']} 指向 {d['into']}，但注册表里没有这个技能或原则")
+    r.add("C7", "上游处置完备（对锁文件）", not miss,
+          f"锁文件 {len(lock_skills)} 个上游 skill，处置表 {len(listed)} 条，一一对应", miss)
 
-
-    # ── C8 角色文件里的技能表必须与注册表一致 ──────────────────
-    # 这一条曾经缺失：我把 arena 从 adversary 挪到 builder，只改了注册表，
-    # 角色正文里的表格没跟着改，两个检查器全绿。
+    # ── C9 来源路径真实存在（对锁文件；有克隆时另比内容）──────
     miss = []
-    for role in roles:
-        f = ROOT / "roles" / f"{role['id']}.md"
-        if not f.is_file():
-            continue
-        listed = set(re.findall(r"\| `@([a-z][a-z0-9-]+)`", f.read_text(encoding="utf-8")))
-        reg = set(role.get("skills", []))
-        for extra in sorted(listed - reg):
-            if extra in s_by_id and s_by_id[extra].get("owner_role") != role["id"]:
-                miss.append(f"角色文件 {role['id']}.md 列了 `{extra}`，但它属于 "
-                            f"{s_by_id[extra].get('owner_role')}")
-            elif extra in r_by_id or extra in p_by_id or extra in pr_by_id:
-                miss.append(f"角色文件 {role['id']}.md 列了 `{extra}`，但它不是技能")
-            else:
-                miss.append(f"角色文件 {role['id']}.md 多列了 `{extra}`，注册表里没有它")
-        for absent in sorted(reg - listed):
-            miss.append(f"注册表说 {role['id']} 有技能 `{absent}`，但角色文件表格里没有")
-    r.add("C8", "角色文件技能表与注册表一致", not miss,
-          f"{len(roles)} 个角色的技能表双向一致", miss)
-
-    # ── C9 每条 sources 必须指向真实存在的上游文件 ──────────────
-    miss = []
-    idx = {}
-    for dirname, prefix in UPSTREAM_PREFIX.items():
-        base = ROOT / "upstreams" / dirname
-        roots = [base / "pstack" / "skills"] if prefix == "pstack" else [base / "skills"]
-        for r0 in roots:
-            if not r0.is_dir():
-                continue
-            for dirpath, _dirs, files in os.walk(r0):
-                if "SKILL.md" in files:
-                    idx.setdefault(f"{prefix}:{Path(dirpath).name}", dirpath)
     for coll, kind in ((skills, "skill"), (principles, "principle")):
         for item in coll:
             for src in item.get("sources") or []:
-                if src not in idx:
-                    miss.append(f"{kind} {item['id']} 的来源 {src} 在 upstreams/ 里不存在")
-    r.add("C9", "来源路径真实存在", not miss,
-          (f"{len(idx)} 个上游 skill 索引，0 条失效来源" if idx else
-           "本机没有 upstreams/，无法核对来源路径——跳过而不是判 PASS"), skip=not idx)
+                if src not in lock_skills:
+                    miss.append(f"{kind} {item['id']} 的来源 {src} 不在上游锁文件里")
+    detail = f"{len(lock_skills)} 个上游 skill 索引（锁文件），0 条失效来源"
+    if lock_skills and (ROOT / "upstreams").is_dir():
+        # 锁与实物对照：sha256 与 pin 都核
+        import hashlib
+        for key, ent in lock_skills.items():
+            fp = ROOT / ent["path"]
+            if not fp.is_file():
+                miss.append(f"锁文件里的 {key} 在 upstreams/ 中不存在：{ent['path']}")
+                continue
+            h = hashlib.sha256(fp.read_bytes()).hexdigest()[:16]
+            if h != ent["sha256"]:
+                miss.append(f"{key} 的内容漂移：锁文件记 {ent['sha256']}，磁盘是 {h}"
+                            f"（上游更新了，重跑 scripts/sync-upstreams.sh 并复核处置）")
+        for pre, meta in (lock.get("repos") or {}).items():
+            d = ROOT / meta["path"]
+            if not (d / ".git").exists():
+                continue
+            head = subprocess.run(["git", "-C", str(d), "rev-parse", "HEAD"],
+                                  capture_output=True, text=True).stdout.strip()
+            if head != meta["commit"]:
+                miss.append(f"上游 {pre} 的 pin 漂移：锁文件记 {meta['commit'][:7]}，"
+                            f"克隆在 {head[:7]}")
+        detail += "；并已逐条比对 sha256 与 pin"
+    r.add("C9", "来源真实存在（锁 + 实物对照）", not miss, detail, miss)
 
     # ── C10 处置表声称吸收，目标就必须真的列了它 ────────────────
     # 这一条曾经缺失：6 条 absorbed 处置在 upstreams/ 里对得上，

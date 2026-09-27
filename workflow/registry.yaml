@@ -9,7 +9,7 @@
 #   3. 每个产物类型必须有且仅有一个主产出角色
 #   4. 产出某产物的阶段，必须在自己的退出判据里校验它
 
-version: 2.0.0
+version: 2.0.4
 name: TIM Professional Workflow
 derived_views:
   - workflow/phases/          # 阶段契约（由本文件 + roles/ 散文派生）
