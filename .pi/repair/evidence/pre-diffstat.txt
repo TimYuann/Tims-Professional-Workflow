@@ -1,0 +1,15 @@
+ .gitignore                    |   3 +
+ AGENTS.md                     | 114 ++++++--------
+ README.md                     | 119 ++++++++------
+ VERSION                       |   2 +-
+ roles/architect.md            | 248 +++++++++++++++++++++++++----
+ roles/driver.md               | 355 +++++++++++++++++++++++++++++++++++-------
+ roles/implementer.md          | 244 +++++++++++++++++++++++++----
+ roles/integrator.md           | 229 +++++++++++++++++++++++----
+ roles/investigator.md         | 218 ++++++++++++++++++++++----
+ roles/oracle.md               | 251 ++++++++++++++++++++++++-----
+ roles/planner.md              | 212 +++++++++++++++++++++----
+ roles/reviewer.md             | 295 +++++++++++++++++++++++++++++------
+ roles/verifier.md             | 258 ++++++++++++++++++++++++++----
+ scripts/check-team-version.sh |   8 +-
+ 14 files changed, 2108 insertions(+), 448 deletions(-)

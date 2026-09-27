@@ -1,0 +1,22 @@
+A1      | roles/planner.md         | 141    | 写判据时先从 Owner 的结果句提出至少一个合理但错误的实现或边界读法
+A1      | roles/planner.md         | 142    | `make check` 只说明运行入口
+A1      | roles/driver.md          | 68     | 一组可判否的正/反对照
+A1      | roles/driver.md          | 104    | 该片的验证命令与判否条件，以及能把
+A1      | roles/driver.md          | 172    | 发卡前核对 `verification`
+B2      | identity.md              | 36     | 编排/工具运行时产物不自动全局豁免
+B2      | roles/driver.md          | 64,206 | 仅作全树比对例外的运行时路径
+B2      | roles/driver.md          | 206    | 首个写入前**声明并指名具体路径
+B2      | roles/integrator.md      | 72     | 各自正确的范围声明
+B3      | pipeline.md              | 108    | 位置未失效
+B3      | roles/reviewer.md        | 50,108 | 需保留到哪个交付/复核点、原产者
+B3      | roles/reviewer.md        | 51,108 | 只算**临时证据**
+B3      | roles/reviewer.md        | 108    | 不得静默搬到范围外目录
+B3      | roles/verifier.md        | 47     | 需保留到哪个交付点、原产者
+B3      | roles/verifier.md        | 49     | 变异读数只存在于临时位置时
+B3      | roles/verifier.md        | 51     | 因临时证据失效或未获准稳定保管而**不可复用**
+B3      | roles/driver.md          | 207    | 现在可取回 + 保管到所需时间 + 搬迁有授权
+B3      | roles/driver.md          | 276    | 不得把未获保管授权的临时证据写成将来可复用
+SOURCES | SOURCES.md               | 120    | principle-test-behavior-not-implementation
+SOURCES | SOURCES.md               | 485    | ### 9.1 本库自定：范围例外与证据寿命
+SOURCES | SOURCES.md               | 204,1120 | @一组可判否的正/反对照
+SOURCES | SOURCES.md               | 110,765 | @不得静默搬到范围外目录

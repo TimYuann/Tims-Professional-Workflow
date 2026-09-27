@@ -1,0 +1,27 @@
+B1 回归确认（零改；ROOT=/Users/yuantian/Developer/tim-professional-workflow）
+
+[现行落点核对] 计划称这些已经是 Driver 代产完整 slice-plan，不重复修
+  [PASS] closure.md 主链第 3 行存在 :: 1 行
+  [PASS] 第 3 行跳过时由 Driver 代产完整 slice-plan
+      行文: | 3 | 切片 | `roles/planner.md` | `caller_usage` `data_shapes` `alternatives` `invariants` `change_cost` `chosen_shape` `approved_by` `bound_contract` | 1→`symptom` `root_cause` `confidence` `coverage` | `slices` `dependencies` `verification` `scope` `stop_condition` | 单片、无依赖、判据显然 | `roles/driver.md` 
+  [PASS] driver §3 声明 slice-plan 产出
+  [PASS] driver §3 限定「单片、无依赖」才代产 :: 只在「单片、无依赖」时由 Driver 代产。
+  [PASS] pipeline §11 有 Driver→slice-plan→Implementer 边
+  [PASS] implementer §4.0 缺件先停
+
+[场景 1] 只有 task-card、没有 slice-plan
+  [PASS] 实现者零写入
+  [PASS] 实现者停止开工 :: 5 行
+  [PASS] 点名要 Driver/Planner 补
+      读数: 缺 slice-plan → 停止开工 + 零写入 + 向 Driver（或 Planner）点名缺件
+
+[场景 2] Driver 合法代产全字段 slice-plan
+  [PASS] 代产切片含五字段（slices/verification/scope 可见）
+  [PASS] 实现者仍核 auth_record
+      读数: 收据齐 + 授权有效 → 开工（不因代产者身份改变而降低核对）
+
+[零改证据] 与上一轮结束时逐字一致
+  [PASS] closure.md 未被本项改动 :: c653f80fa317798b
+  [PASS] scripts/ws-identity.sh 未被本项改动 :: 7bf666ab013cc21b
+
+B1 结论: 回归成立、零产物修改

@@ -1,0 +1,67 @@
+R1 | roles/driver.md | 262 | ### 4.9 推进前说明
+R1 | roles/driver.md | 153 | 交叉提示
+R1 | pipeline.md | 127 | 推进前说明不产生授权
+R2 | AGENTS.md | 23 | 决定者、权威位置、写者分别点名
+R2 | roles/driver.md | 16 | **收件四步
+R2 | roles/oracle.md | 16 | **收件四步
+R2 | roles/investigator.md | 16 | **收件四步
+R2 | roles/architect.md | 16 | **收件四步
+R2 | roles/planner.md | 16 | **收件四步
+R2 | roles/implementer.md | 16 | **收件四步
+R2 | roles/reviewer.md | 16 | **收件四步
+R2 | roles/verifier.md | 16 | **收件四步
+R2 | roles/verifier.md | 18 | 本轮任务必须说明运行目标及期望环境
+R2 | roles/integrator.md | 16 | **收件四步
+R2 | roles/ledger-custodian.md | 24 | **收件四步
+R2 | SOURCES.md | 476 | ## 9. 本库自定的内联规则
+R3 | roles/verifier.md | 46 | | `environment` |
+R3 | roles/verifier.md | 47 | | `commands` |
+R3 | roles/verifier.md | 49 | | `falsification` |
+R3 | roles/verifier.md | 51 | | `uncovered` |
+R3 | roles/verifier.md | 86 | **我自建过前提时**：
+R3 | roles/verifier.md | 237 | 我自建的前提要进仓
+R3 | roles/driver.md | 171 | 环境阻塞按**资源可用**
+R3 | roles/driver.md | 311 | | 环境阻塞（缺种子数据
+R3 | roles/investigator.md | 204 | 交**具名阻塞**
+R4 | roles/investigator.md | 54 | 0. 遇到**意外**的测试失败
+R4 | roles/investigator.md | 59 | 拿不到环境、脱敏现场或插桩许可
+R4 | roles/investigator.md | 213 | 阻断交付（合法停机
+R4 | roles/implementer.md | 171 | 有正确接缝时，把红→绿检查保留为回归保护
+R5 | roles/verifier.md | 33 | 副收据 `investigation-report`
+R5 | roles/verifier.md | 98 | 确认红→绿
+R5 | roles/verifier.md | 186 | 不适用：判定"报告过的缺陷是否真的被修"
+R5 | roles/verifier.md | 243 | 报告过的 bugfix 另有旧基线的红→绿实际对应
+R5 | roles/reviewer.md | 179 | 判据证伪**，不是再写一轮产品实现
+R6 | roles/architect.md | 201 | ### 4.9 术语冲突
+R6 | roles/architect.md | 209 | 裁定权 = 项目 Owner 本人
+R6 | roles/investigator.md | 95 | **保留原症状用词**
+R6 | roles/reviewer.md | 141 | 不由审查方替业务定名
+R6 | roles/planner.md | 107 | 未决词义不得由切片自行定名
+R6 | roles/implementer.md | 99 | 不自行定名
+R6 | roles/driver.md | 310 | | 领域含义待定
+R6 | SOURCES.md | 179 | domain-modeling/SKILL.md:41-64
+R7 | roles/investigator.md | 177 | ### 4.8 性能症状
+R7 | roles/investigator.md | 215 | 性能结论边界
+R7 | roles/verifier.md | 158 | 同一命令 / 预热 / 缓存 / 样本条件
+R7 | roles/verifier.md | 159 | 没有授权阈值不得自设门
+R7 | roles/verifier.md | 160 | 记录保留与放弃的尝试
+R7 | roles/implementer.md | 152 | **绩效分支**
+R7 | roles/implementer.md | 190 | 绩效回退 = 新候选
+R7 | SOURCES.md | 241 | performance-optimization/SKILL.md:30-39,73-121
+R8 | roles/reviewer.md | 217 | 两轮是本库硬规定
+R8 | roles/driver.md | 212 | ### 4.5 停止与归因
+R8 | roles/planner.md | 162 | 审查链的轮次上限不在这里写
+R8 | roles/planner.md | 125 | 授权门槛**（需来源与可失败命令）
+R8 | roles/planner.md | 88 | 文件数本身不是必须拆的门
+R8 | pipeline.md | 95 | 两种不同事件，不是通用轮次表
+R8 | roles/architect.md | 164 | 带依据的比较输入，不是准入门
+R8 | roles/planner.md | - | | **我不可以**：改变模块接口契约
+R8 | roles/investigator.md | 152 | 换前提或引入新证据后重开的尝试
+R8 | SOURCES.md | 373 | Owner D2 裁定（2026-09-26）
+R9 | AGENTS.md | 59 | 本库当前不提供漂移检测脚本
+R9 | AGENTS.md | 63 | 不是角色工作流的 PASS
+R9 | README.md | 59 | sync-upstreams.sh（上游同步）
+R9 | README.md | 72 | 它判不了
+R9 | README.md | 74 | 新增库级检查的保留判据
+R9 | SOURCES.md | 472 | 已删除**（Owner D4 裁定
+R9 | scripts/check-library.py | 32 | 同义重复（同一含义的措辞

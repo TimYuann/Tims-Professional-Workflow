@@ -1,0 +1,1 @@
+total=51000 expected=49500 fee=1500 ratio_result=49470

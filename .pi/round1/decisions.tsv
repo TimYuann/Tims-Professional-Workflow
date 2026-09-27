@@ -1,0 +1,5 @@
+ts	phase	decision	why	evidence	result
+2026-09-26T13:47:52Z	装配	按 Owner 决定取消 skills/ 载体，经验写进 roles/*.md	注入单元等于角色文件，单独注入即可开工	roles/*.md, pipeline.md	9/9 角色文件已建
+2026-09-26T13:47:52Z	裁决	集成冲突改为允许安全退出	上游同一句里取一侧/不许发明/永不退出三者互斥	SOURCES.md §4.7	已裁决并写入角色文件
+2026-09-26T13:47:52Z	版本	VERSION 收敛为 1.0.0	三处版本并存；单一来源是 VERSION	VERSION	check-library.py 通过
+2026-09-26T13:47:52Z	脚本	check-library.py 做负控制：人为植入 6 处缺陷	自检必须能抓到真问题	6 处人为破坏 → 6 项 FAIL	抓出=6/6，退出码 1

@@ -1,0 +1,30 @@
+C3 证据寿命对照（临时根=/tmp/f-repair2-94011；禁区=/tmp/f-review-probes）
+  [PASS] 临时根不是 /tmp/f-review-probes :: /tmp/f-repair2-94011
+  禁区是否仍存在（只读观察，不写入）: 存在
+
+--- 1) 冻结判据引 /tmp 时立即可运行 ---
+$ cd /tmp/f-repair2-94011 && python3 -m pytest -q test_pricing_base.py
+........                                                                 [100%]
+8 passed in 0.03s
+[退出码] 0
+  [PASS] 此刻可运行且 8 passed :: rc=0
+
+--- 2) 规则是否要求写明保留点、且把 /tmp 定为临时证据 ---
+  [PASS] pipeline.md §8 位置未失效
+  [PASS] reviewer §4.1 第 8 步临时证据
+  [PASS] reviewer §4.1 禁止静默搬迁
+  [PASS] verifier §3 commands 保留点/原产者
+  [PASS] driver §4.4 第 6 步三问
+  [PASS] driver §4.8 第 7 步不得写成可复用
+
+--- 3) 临时证据消失后，按同一冻结判据复用 ---
+$ cd /tmp/f-repair2-94011 && python3 -m pytest -q test_pricing_base.py   # 目录已删除
+ERROR: file or directory not found: test_pricing_base.py
+[退出码] 4
+  [PASS] 复用失败（不得再发 PASS） :: rc=4
+
+--- 4) 能重建的最小输入经 hash 核对后可按新对象重做 ---
+  [PASS] 重建输入 hash 与冻结判据记录一致 :: 76b08069dc5197b9
+  注：重建的是**输入**；原本未保留的变异原始读数不能因此说成还在。
+
+C3 结论: 全部通过
