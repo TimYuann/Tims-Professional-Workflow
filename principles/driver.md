@@ -14,7 +14,7 @@
 
 其他持有它的角色：`driver`、`scout`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-guard-the-context-window/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-guard-the-context-window/SKILL.md`
 
 ## p-never-block-human
 
@@ -22,4 +22,4 @@
 
 其他持有它的角色：`driver`、`voice`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-never-block-on-the-human/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-never-block-on-the-human/SKILL.md`

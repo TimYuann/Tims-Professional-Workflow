@@ -39,6 +39,10 @@ DIRS = {
     "ribbons": ROOT / "workflow" / "ribbons",
 }
 
+# 本库只承认这四个脚本。出现别的就是上一版残留或临时产物——
+# 不在 S1 的比对范围内，但必须被发现，否则它们会像 v2.0.0 里那样躺着。
+KNOWN_SCRIPTS = {"check-closure.py", "check-consistency.py", "render.py", "ledger.sh"}
+
 # 「不得 / 必须」识别。只在受控动词 + 重叠宾语上配对才算互斥。
 NEG = re.compile(r"(不得|禁止|不可以|不许|不能|不应)")
 REQ = re.compile(r"(必须|应当|应该|要|需要|每次|一定)")
@@ -156,9 +160,16 @@ def main():
             miss.append(f"原则 {missing} 在 principles/ 里没有对应的 ## 段落")
         for orphan in sorted(declared - set(pr_by_id)):
             miss.append(f"principles/ 里的 {orphan} 不在注册表中")
+    sd = ROOT / "scripts"
+    if sd.is_dir():
+        for f in sorted(sd.iterdir()):
+            if f.is_file() and f.name not in KNOWN_SCRIPTS and f.name != ".DS_Store":
+                miss.append(f"scripts/{f.name} 不在本库承认的四个脚本内——"
+                            f"上一版残留或临时产物，删掉或登记")
     r.add("S1", "无游离文件", not miss,
           f"角色 {len(expect['roles'])}／技能 {len(expect['skills'])}／"
-          f"阶段 {len(expect['phases'])}／横切带 {len(expect['ribbons'])} 与注册表对齐", miss)
+          f"阶段 {len(expect['phases'])}／横切带 {len(expect['ribbons'])} 与注册表对齐，"
+          f"scripts/ 无残留", miss)
 
     # ── S2 引用可解析 ───────────────────────────────────────────
     known = (set(r_by_id) | set(s_by_id) | set(pr_by_id) | set(p_by_id) | set(a_by_id)
@@ -197,27 +208,30 @@ def main():
         for i in set(ids):
             if ids.count(i) > 1:
                 miss.append(f"{f.relative_to(ROOT)} 重复定义 {i}（出现 {ids.count(i)} 次）")
-    r.add("S3", "文件内无权限互斥", not miss,
-          f"扫描 {len(md_files)} 个文件的「动作+宾语」否定/要求配对，0 处互斥", miss)
+    r.add("S3", "文件内权限互斥（词形级）", not miss,
+          f"扫描 {len(md_files)} 个文件的「动作+宾语」否定/要求配对，0 处互斥。"
+          f"边界：只抓同一文件内同动词同宾语；同义改写与跨文件冲突抓不到，"
+          f"那部分靠独立审查与人审", miss)
 
     # ── S4 硬规则一致 ───────────────────────────────────────────
     miss = []
     for ph in reg.get("phases", []):
         for rule in ph.get("hard_rules", []):
-            m = re.search(r"([a-z]+)", rule)
-            if not m:
-                continue
-            who = m.group(1)
-            if who not in r_by_id:
-                continue
-            if who in ph.get("default_roles", []):
+            # 角色可能以 id 或中文名出现在硬规则里，两种都要认
+            who = None
+            for rid, role in r_by_id.items():
+                if rid in rule or (role.get("zh") and role["zh"] in rule):
+                    who = rid
+                    break
+            if who and who in ph.get("default_roles", []):
                 miss.append(f"互斥：阶段 {ph['id']} 的硬规则说「{rule}」，"
                             f"但 {who} 正在该阶段的默认角色里")
     # 同一角色在注册表里被两个阶段同时赋予互斥职责
     for rid, role in r_by_id.items():
-        forb = set(role.get("forbidden", []))
-        if len(forb) != len(list(forb)):
-            miss.append(f"{rid} 的 forbidden 列表里有重复项")
+        raw = role.get("forbidden", [])
+        dup = {x for x in raw if raw.count(x) > 1}
+        if dup:
+            miss.append(f"{rid} 的 forbidden 列表里有重复项：{sorted(dup)}")
     r.add("S4", "硬规则不互斥", not miss,
           f"{sum(len(p.get('hard_rules', [])) for p in reg.get('phases', []))} 条阶段硬规则与 "
           f"{sum(len(x.get('forbidden', [])) for x in reg.get('roles', []))} 条角色硬边界不打架", miss)
@@ -235,7 +249,7 @@ def main():
             continue
         if ph:
             equipped = set(p_by_id[ph].get("default_roles", []))
-            rb_carriers = {rb["id"] for rb in ribbons if sk in rb.get("skills", [])}
+            rb_carriers = {rb["id"] for rb in ribbons if sid in rb.get("skills", [])}
             if owner not in equipped and not rb_carriers:
                 miss.append(f"技能 {sid} 归 {owner} 且标在 {ph}，但 {ph} 的默认角色里"
                             f"没有 {owner}，也没有横切带携带它——不知道谁在什么时候用它")
@@ -257,19 +271,28 @@ def main():
 
     # ── S6 持久性一致 ───────────────────────────────────────────
     miss = []
+    LIVE_ACROSS = ("durable",)
     for ph in reg.get("phases", []):
         for need in ph.get("required_inputs", []):
             a = a_by_id.get(need)
-            if a and a.get("persistence") == "ephemeral":
-                miss.append(f"{ph['id']} 依赖 {need}，但它被声明为 ephemeral"
-                            f"（活不过当前会话的东西不能作为阶段输入）")
+            if a and a.get("persistence") not in LIVE_ACROSS:
+                miss.append(f"{ph['id']} 依赖 {need}，但它的 persistence 是 "
+                            f"{a.get('persistence')}——活不过当前会话的东西不能作为阶段输入")
     for sid, sk in s_by_id.items():
         for out in sk.get("outputs", []):
             a = a_by_id.get(out)
-            if a and a.get("persistence") == "ephemeral" and sk.get("phase") == "P6":
-                miss.append(f"技能 {sid} 在交付阶段产出 {out}，但它是 ephemeral")
+            if a and a.get("persistence") not in LIVE_ACROSS and sk.get("phase") == "P6":
+                miss.append(f"技能 {sid} 在交付阶段产出 {out}，但它的 persistence 是 "
+                            f"{a.get('persistence')}")
+    # 声明为 session 级的产物，不得被任何角色说成「长期留档」
+    for rid, role in r_by_id.items():
+        for a in role.get("owns_artifacts", []):
+            art = a_by_id.get(a)
+            if art and art.get("persistence") == "session" and rid != art.get("producer"):
+                miss.append(f"{rid} 声称拥有 session 级的 {a}，但它的主产出方是 "
+                            f"{art.get('producer')}")
     r.add("S6", "产物持久性一致", not miss,
-          f"{len(a_by_id)} 类产物的 persistence 与各阶段依赖相容", miss)
+          f"{len(a_by_id)} 类产物的 persistence 与各阶段依赖、各角色归属相容", miss)
 
     # ── S7 横切带一致 ───────────────────────────────────────────
     miss = []

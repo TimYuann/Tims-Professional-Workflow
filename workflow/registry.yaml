@@ -34,6 +34,7 @@ artifacts:
   - done_meaning
   - non_goals
   - unknowns
+  shape: 可合并的包
   persistence: durable
   rationale: Owner 说不清晰的诉求是全部返工的源头；没有它，下游只能靠猜。
   notes:
@@ -53,6 +54,7 @@ artifacts:
   - claims
   - evidence
   - gaps
+  shape: 可合并的包
   persistence: durable
   notes:
     claims: 每条结论 + 置信档位：直接（有人明确写了为什么）／推断／未验
@@ -72,11 +74,12 @@ artifacts:
   - capabilities
   - consumers
   - freshness
+  shape: 目录
   persistence: durable
   notes:
     capabilities: 系统对外提供哪些能力，每条挂到真实代码锚点
     consumers: 每条能力谁在用；没有消费者的能力是候选删除项
-    freshness: 上次与代码核对的时间。过期不更新的地图比没有地图更坏
+    freshness: 上次与代码核对的时间。过期不更新的地图比没有地图更坏。只能由 architect 更新——verifier 发现偏差只能写进 A8.frame_alignment
   rationale: 从代码里长出来的地图，不是人脑里的记忆。它给 P2 切片提供落点，给 P5 提供「该验什么」。
 - id: A4
   key: contract
@@ -93,6 +96,7 @@ artifacts:
   - why
   - done_definition
   - boundaries
+  shape: 可合并的包
   persistence: durable
   notes:
     what: 建什么。动词开头，能被第三方复述
@@ -111,12 +115,13 @@ artifacts:
   - slices
   - edges
   - acceptance
+  shape: 可合并的包
   persistence: durable
   notes:
     slices: 每一片的边界；判据是「能不能独立验证」
-    edges: 依赖边。有边才能并行，没验收口径的并行结果无法汇合
+    edges: 依赖边。**图里没有路径依赖的那些节点才是可并行的**；有边的按拓扑序串行。没有验收口径的并行结果无法汇合，所以 edges 与 acceptance 缺一不可
     acceptance: 每片的验收口径，必须能追溯到 A4.done_definition。外来项例外：它的验收口径追溯到条目自身声明的行为
-  rationale: 切片的质量决定并行的可行性。没有边，driver 只能串行；有边但没验收口径，并行出来的结果无法汇合。
+  rationale: 切片的质量决定并行的可行性。**并行的是图里没有路径依赖的那些节点**——有依赖边只能按拓扑序串行。但没有验收口径的并行结果无法汇合，所以 edges 与 acceptance 缺一不可。
 - id: A6
   key: candidate
   zh: 实现候选
@@ -125,33 +130,37 @@ artifacts:
   - P4
   - P5
   fields:
+  - subject
   - change
   - runnable
   - known_gaps
-  persistence: session
+  shape: 目录
+  persistence: durable
   notes:
+    subject: 候选的对象身份：commit sha 或 patch 指纹。没有它，下游无法证明「验证过的」就是「上线的」
     change: 改了什么
     runnable: 怎么把它跑起来——真的能跑，不是「应该能跑」
     known_gaps: 知道自己没做什么。这一栏非空才有资格交给别人评价
-  rationale: 候选是判断的输入，必须能被没写过它的人独立评价。ephemeral/session 级，不进版本库。
+  rationale: 候选是判断的输入，必须能被没写过它的人独立评价。**A6 必须 durable**——P4 要审它、P5 要验它、P6 要发它，三者都发生在别的会话里。它的 subject 指向 git 里的 commit，所以自述三栏即使不进版本库，身份也能从 git 恢复。
 - id: A7
   key: verdict
   zh: 裁决
   producer: adversary
   consumers:
-  - P3
   - P5
   - P6
   fields:
   - stance
   - reason
   - conditions
+  shape: 目录
   persistence: durable
   notes:
     stance: 采纳／挑战／附条件通过
     reason: 为什么。必须指向 A2 的证据或一次真实运行；「感觉不对」不是理由
     conditions: 附条件通过时，条件是什么、由谁验收
   rationale: 裁决与候选分离，才能保证审查者没有实现者的立场。没有 reason 的裁决等于没有裁决。
+  rework: 附条件通过时回到 P3 重做，走新一轮 P3→P4。这条返工边**刻意不建成消费关系**——它是阶段图上的回边，建进 consumers 会让线性可达性检查失效。
 - id: A8
   key: evidence
   zh: 验证凭据
@@ -160,13 +169,20 @@ artifacts:
   - P6
   fields:
   - claim
+  - subject
+  - scope
   - observation
+  - frame_alignment
   - environment
   - verdict
+  shape: 目录
   persistence: durable
   notes:
     claim: 证明了哪一条 A4.done_definition
+    subject: 被验证对象的身份（commit sha / patch 指纹）。必须与 A6.subject 逐字一致，不一致即判 UNVERIFIED
+    scope: 这次验证覆盖了 A3 的哪些能力条目
     observation: 实际观察到什么——跑出来的，不是推理出来的
+    frame_alignment: 本次验证中 A3 与代码不一致的条目。verifier 只记录不改写 A3——A3 的更新是 architect 的后续动作
     environment: 在什么环境、什么对象上跑的
     verdict: PASS／FAIL／UNVERIFIED。环境故障既不算 PASS，也不得直接判成产品缺陷
   rationale: 三态判定。环境故障不许冒充 PASS，也不许直接判成产品缺陷——两种都会污染下游的判断。
@@ -177,12 +193,21 @@ artifacts:
   consumers:
   - P6
   fields:
+  - actor
+  - run
+  - subject
+  - phase
   - decision
   - why
   - evidence
   - result
+  shape: 单文件
   persistence: durable
   notes:
+    actor: 谁写的（角色名 + 会话标识）。缺这一栏，多会话并发时无法归因
+    run: 本次运行的标识。并发追加靠它区分谁写的哪一行
+    subject: 这条决策关于哪个对象：commit、文件路径或契约条目
+    phase: 在哪个阶段做出
     decision: 决定做什么
     why: 为什么
     evidence: 凭什么
@@ -211,9 +236,9 @@ phases:
     name: FRAME
     zh: 定契约
     purpose: 在写任何代码前，冻结「建什么、为什么、什么算完成、什么不做」。
-    required_inputs: [A1]
+    required_inputs: [A1, A2]
     exit_criteria:
-      - A4.done_definition 是可判定的（第三方能只凭它判 PASS/FAIL）
+      - A4.done_definition 是可判定的（第三方能只凭它给出 PASS / FAIL / UNVERIFIED 三态之一）
       - A4.boundaries 覆盖本次变更涉及的全部系统边界
       - A3.capabilities 每条挂到真实代码锚点
     default_roles: [architect, scout]
@@ -245,39 +270,40 @@ phases:
     name: CRITIQUE
     zh: 挑战
     purpose: 由没有产出该候选的人给出裁决。
-    required_inputs: [A2, A6]
+    required_inputs: [A2, A4, A6]
     exit_criteria:
       - A7.reason 指向 A2 的证据或一次真实运行，不指向「感觉」
     default_roles: [adversary]
     hard_rules:
-      - 实现者不得对本候选给出裁决
+      - 实现者不得对本候选给出裁决（solo 档除外——见 roles/driver.md「档位」一节的豁免与补偿）
     produces: [A7]
 
   - id: P5
     name: PROVE
     zh: 验证
     purpose: 在真实目标上跑出凭据，并把能力地图与代码重新对齐。
-    required_inputs: [A3, A4, A6, A7]
+    required_inputs: [A2, A3, A4, A6, A7]
     exit_criteria:
       - A8.verdict ∈ {PASS, FAIL, UNVERIFIED}
-      - A3.freshness 已更新
+      - A8.subject 与 A6.subject 逐字一致——不一致说明验证的不是最终候选，判 UNVERIFIED
+      - A8.frame_alignment 已显式记录（写「无」也要写出来）
     default_roles: [verifier]
     hard_rules:
-      - 验证者不得是候选的实现者
+      - 验证者不得是候选的实现者（solo 档除外——见 roles/driver.md「档位」一节的豁免与补偿）
     produces: [A8]
 
   - id: P6
     name: SHIP
     zh: 交付
     purpose: 让变更真正到达用户，并且事后可查、可回滚。
-    required_inputs: [A3, A4, A5, A7, A8, A9]
+    required_inputs: [A3, A4, A5, A6, A7, A8, A9]
     exit_criteria:
       - A8.verdict 是 PASS——UNVERIFIED 与 FAIL 都不许上线
       - A9.result 记下了发布动作与回滚路径，且回滚路径已被确认可执行
-      - A3.freshness 指向本次上线后的对象
+      - A3.freshness 已由 architect 指向本次上线后的对象（verifier 只记录偏差，更新是 architect 的动作）
     default_roles: [verifier, scribe]
     hard_rules:
-      - 上线之后才发现问题，责任在 P5 的验证，不在 P6 的发布
+      - 上线之后出问题按因归属：验证没覆盖到 → P5；部署配置或目标环境 → P6；判据本身错 → P1。不许一律推给 P5
     produces: []
 
 # ─────────────────────────────────────────────────────────────
@@ -295,7 +321,7 @@ ribbons:
     zh: 上下文纪律
     always: true
     why: 长任务里上下文是最先耗尽的资源；耗尽之后的判断质量断崖式下降。
-    skills: [build-the-lever]
+    skills: [build-the-lever, context-management]
 
   - id: expression
     zh: 表达与人类面
@@ -314,7 +340,8 @@ roles:
     mission: 判断这次要装配哪些角色、这些角色在下游的文档体系里落在哪、缺件就停下。
     owns_artifacts: []
     ribbons: [decision, context]
-    skills: [tier-sizing, document-mapping, coldstart]
+    skills: [tier-sizing, document-mapping, coldstart,
+             writing-for-agents, technical-writing, teach, context-management]
     principles: [p-guard-context, p-never-block-human, p-outcome-oriented]
     forbidden:
       - 不得亲自承担调查、设计、切片、实现（solo 模式除外）
@@ -569,7 +596,7 @@ skills:
     inputs: [A1]
     outputs: [A2]
     summary: 沿真实调用链读代码，不看 diff 摘要，不猜。
-    sources: [pstack:how, addy:debugging-and-error-recovery]
+    sources: [pstack:how, addy:debugging-and-error-recovery, pstack:blast-radius]
   - id: recall-context
     zh: 上下文重建
     owner_role: scout
@@ -586,7 +613,7 @@ skills:
     inputs: [A1, A2]
     outputs: [A4]
     summary: 写代码前先写规格；规格是人与工程之间的事实来源。
-    sources: [addy:spec-driven-development]
+    sources: [addy:spec-driven-development, matt:to-spec]
   - id: constraint-driven-development
     zh: 质量契约
     owner_role: architect
@@ -610,7 +637,7 @@ skills:
     inputs: [A2]
     outputs: [A4]
     summary: 用深模块的词汇设计边界与接口，目标是可测试与可替换。
-    sources: [matt:codebase-design]
+    sources: [matt:codebase-design, pstack:architect]
   - id: api-and-interface-design
     zh: 接口设计
     owner_role: architect
@@ -891,7 +918,7 @@ skills:
     inputs: [A2]
     outputs: []
     summary: 把一段工作讲成人能真正理解的样子。
-    sources: [pstack:teach, pstack:how, pstack:why]
+    sources: [pstack:teach, pstack:how, pstack:why, matt:teach]
   - id: build-the-lever
     zh: 造杠杆
     owner_role: builder
@@ -900,6 +927,15 @@ skills:
     outputs: []
     summary: 为重复或非平凡的工作造出那个能一次做完、或能证明它做完了的工具。
     sources: [pstack:principle-build-the-lever]
+  - id: context-management
+    zh: 上下文预算管理
+    owner_role: driver
+    phase: null
+    inputs: []
+    outputs: []
+    summary: 把会话上下文当预算管——分层装载、给文件标信任级别、75% 就开始裁剪、上下文冲突时怎么办。
+    sources: [addy:context-engineering]
+
   - id: tier-sizing
     zh: 档位判定
     owner_role: driver
@@ -908,6 +944,8 @@ skills:
     outputs: []
     summary: 按任务体量决定装配哪些角色；小任务把多角色压进一个会话。
     sources: []
+    origin: library
+    note: 本库原创——上游三仓没有对应物。参考了若干 rejected skill 的思路，未复制其实现。
   - id: document-mapping
     zh: 集合 A↔B 映射
     owner_role: driver
@@ -916,6 +954,8 @@ skills:
     outputs: []
     summary: 把本工作流的产物类型映射到下游仓库自己的文档体系；纪律继承，位置可映射。
     sources: []
+    origin: library
+    note: 本库原创——上游三仓没有对应物。参考了若干 rejected skill 的思路，未复制其实现。
   - id: coldstart
     zh: 冷启动
     owner_role: driver
@@ -924,6 +964,8 @@ skills:
     outputs: []
     summary: 在一个新仓库里装上本工作流：读什么、拷什么、裁定什么。
     sources: []
+    origin: library
+    note: 本库原创——上游三仓没有对应物。参考了若干 rejected skill 的思路，未复制其实现。
 
 # ─────────────────────────────────────────────────────────────
 # 上游处置表：101 个 skill，每个恰好一次。由 check-closure.py 对文件系统核对。
@@ -931,7 +973,7 @@ skills:
 # ─────────────────────────────────────────────────────────────
 upstream_dispositions:
   # ── pstack (47)
-  - {upstream: pstack:figure-it-out, outcome: absorbed, into: tier-sizing, reason: 大改动需要一份可审计的剧本，落到装配判定}
+  - {upstream: pstack:figure-it-out, outcome: rejected, into: null, reason: 「无窄剧本时先设计可审计 playbook + 假设循环」已被 wayfinder 的决策票据地图覆盖；tier-sizing 只取「按体量判档」这一层，不构成对它的吸收}
   - {upstream: pstack:bro, outcome: rejected, reason: 表达偏好，无产物，与表达带重叠且更弱}
   - {upstream: pstack:interrogate, outcome: absorbed, into: interrogate, reason: 多模型对抗，直接对应独立挑战}
   - {upstream: pstack:setup-pstack, outcome: rejected, reason: 上游私有配置，与工程方法无关}
@@ -1017,7 +1059,7 @@ upstream_dispositions:
   - {upstream: addy:incremental-implementation, outcome: absorbed, into: incremental-implementation, reason: 薄片增量}
   - {upstream: addy:api-and-interface-design, outcome: absorbed, into: api-and-interface-design, reason: 稳定接口设计}
   - {upstream: addy:ci-cd-and-automation, outcome: absorbed, into: ci-cd-and-automation, reason: 持续集成}
-  - {upstream: addy:context-engineering, outcome: absorbed, into: p-guard-context, reason: 上下文工程，拆进 driver 心智模型}
+  - {upstream: addy:context-engineering, outcome: absorbed, into: context-management, reason: 拆成两条：p-guard-context 保留「批量内容路由出去」这条原则；context-management 承载 5 层上下文层级、文件信任级别、可重启会话边界、压缩优先于丢弃、75% 裁剪阈值、上下文冲突处理}
   - {upstream: addy:frontend-ui-engineering, outcome: absorbed, into: security-and-hardening, reason: 可访问性与安全加固部分并入验证}
   - {upstream: addy:shipping-and-launch, outcome: absorbed, into: shipping-and-launch, reason: 发布}
   - {upstream: addy:spec-driven-development, outcome: absorbed, into: spec-driven-development, reason: 先写规格}

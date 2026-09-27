@@ -72,13 +72,13 @@
 
 | 技能 | 什么时候用 |
 |---|---|
-| `@spec-driven-development` | 写 `A4` 的主流程。 |
-| `@constraint-driven-development` | 把质量门槛写成可执行的契约，而不是口头共识。 |
-| `@feature-map` | 建 / 保鲜 `A3`。 |
-| `@domain-modeling` | 术语有歧义时，先把词义钉死。 |
-| `@codebase-design` | 设计模块边界与接口时。 |
-| `@api-and-interface-design` | 涉及对外接口时。 |
-| `@documentation-and-adrs` | 需要把决定写下来并留下理由时。 |
+| `@spec-driven-development` 先写规格 | 写 `A4` 的主流程。 |
+| `@constraint-driven-development` 质量契约 | 把质量门槛写成可执行的契约，而不是口头共识。 |
+| `@domain-modeling` 领域建模 | 术语有歧义时，先把词义钉死。 |
+| `@codebase-design` 深模块设计 | 设计模块边界与接口时。 |
+| `@api-and-interface-design` 接口设计 | 涉及对外接口时。 |
+| `@feature-map` 能力地图 | 建 / 保鲜 `A3`。 |
+| `@documentation-and-adrs` 决策记录 | 需要把决定写下来并留下理由时。 |
 
 ## 怎么开工
 

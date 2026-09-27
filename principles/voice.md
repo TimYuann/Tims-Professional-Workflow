@@ -14,4 +14,4 @@
 
 其他持有它的角色：`voice`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-experience-first/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-experience-first/SKILL.md`

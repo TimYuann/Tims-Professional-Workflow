@@ -130,6 +130,7 @@ def ribbon_doc(rb, reg):
 
 
 def artifacts_doc(reg):
+    a_by_id = {a["id"]: a for a in reg["artifacts"]}
     L = ["# 集合 A · 工作流的全部产物", "",
          "一个**产物**不是一份文件，是「一组字段 + 谁产出 + 谁消费 + 活多久」。",
          "它落在下游仓库的哪个路径，由 `driver` 按集合 B 裁定——",
@@ -151,6 +152,30 @@ def artifacts_doc(reg):
         for f in a["fields"]:
             L.append(f"- `{f}` — {a.get('notes', {}).get(f, '')}")
         L.append("")
+    L.append("## 落盘形状：每类产物该是文件还是目录")
+    L.append("")
+    L.append("产物不是文件也不是目录——它是「字段 + 产出方 + 消费者 + 存活期」。"
+             "但它最终要落在磁盘上，形状必须定死，否则装配者各自发明，"
+             "一个小任务就能建出八九个文件。")
+    L.append("")
+    L.append("| 形状 | 产物 | 为什么 |")
+    L.append("|---|---|---|")
+    for shape, ids, why in [
+        ("单文件", ["A9"], "append-only。拆成每任务一个就断了「全程记录不丢」，"
+                            "也没法跨任务重建判断依据。"),
+        ("目录", ["A3"], "项目级、跨任务复用、持续增量。合成单文件就成了没人更新的巨型文档。"),
+        ("目录", ["A6", "A7", "A8"], "不同片、不同轮会持续产出候选与裁决。"
+                                     "而且三者必须物理隔离——实现者不能在自己的文件里写裁决。"),
+        ("可合并的包", ["A1", "A2", "A4", "A5"],
+         "同一次任务、同一批读者，没有隔离理由。可合成一个 task packet。"),
+    ]:
+        names = "、".join(f"{i} {a_by_id[i]['zh']}" for i in ids if i in a_by_id)
+        L.append(f"| **{shape}** | {names} | {why} |")
+    L.append("")
+    L.append("**硬约束只有三条**：`A6`/`A7`/`A8` 互不同文件；`A9` 谁都不能合并；其余可随意合并。")
+    L.append("")
+    L.append("其余产物类别的形状由 `driver` 按下游文档体系裁定——本库不定下游的目录结构。")
+    L.append("")
     L.append("## 三条不可协商的落盘纪律")
     L.append("")
     L.append("1. **`persistent` 的产物必须有可追溯的落点。** 找不到位置就问 Owner，"
@@ -167,51 +192,49 @@ def artifacts_doc(reg):
 
 
 def closure_doc(reg):
+    """闭包报告。每一列都要如实对���口径——上一版把「产出阶段」填进
+    「在哪一步被校验」那一列，列名与值不符，比没有这一列更坏。"""
     a_by_id = {a["id"]: a for a in reg["artifacts"]}
-    p_by_id = {p["id"]: p for p in reg["phases"]}
-    r_by_id = {r["id"]: r for r in reg["roles"]}
     rb_produced = {a for rb in reg["ribbons"] if rb.get("always") for a in rb.get("produces", [])}
-    aid_list = [a["id"] for a in reg["artifacts"]]
-
-    L = ["# 闭包报告", "",
-         "这份报告回答一个问题：**这套工作流通不通？**",
-         "它由 `workflow/registry.yaml` 派生，由 `check-closure.py` 核对。",
-         "", "## 产物链", "",
-         "| 产物 | 谁产出 | 谁消费 | 在哪一步被校验 |",
-         "|---|---|---|---|"]
-
+    producer_phase = {}
+    for ph in reg["phases"]:
+        for aid in ph.get("produces", []):
+            producer_phase.setdefault(aid, ph["id"])
     validated_at = {}
     for ph in reg["phases"]:
         for crit in ph.get("exit_criteria", []):
-            for aid in {x.split(".")[0] for x in crit.split() if x[:2] in ("A1", "A2", "A3",
-                         "A4", "A5", "A6", "A7", "A8", "A9") and "." in x}:
-                validated_at.setdefault(aid, ph["id"])
-    for aid in aid_list:
-        a = a_by_id[aid]
-        if aid in rb_produced:
-            who = "常驻横切带"
-        else:
-            owner_ph = next((q["id"] for q in reg["phases"] if aid in q.get("produces", [])), None)
-            who = owner_ph if owner_ph else "**没有任何阶段产出它**"
-        L.append(f"| **{aid} {a['zh']}** | `{a['producer']}` | "
-                 f"{'、'.join(a['consumers'])} | {who} |")
+            for tok in crit.split():
+                if len(tok) > 2 and tok[:2] in ("A1","A2","A3","A4","A5","A6","A7","A8","A9") and "." in tok:
+                    aid = tok.split(".")[0]
+                    if ph["id"] not in validated_at.setdefault(aid, []):
+                        validated_at[aid].append(ph["id"])
 
-    L += ["", "## 阶段链", "", "| 阶段 | 开工需要 | 产出 | 默认装配 |", "|---|---|---|---|"]
+    L = ["# 闭包报告", "",
+         "这份报告回答一个问题：**这套工作流通不通？**",
+         "由 `workflow/registry.yaml` 派生，被 `check-closure.py` 的 C2/C3/C4 核对。", "",
+         "## 产物链", "",
+         "| 产物 | 落盘形状 | 谁产出 | 谁消费 | 在哪一步被校验 |", "|---|---|---|---|---|"]
+    for a in reg["artifacts"]:
+        aid = a["id"]
+        made = "常驻横切带" if aid in rb_produced else producer_phase.get(aid, "**没有任何阶段产出它**")
+        checks = "、".join(validated_at.get(aid, [])) or "**无任何阶段校验它**"
+        L.append(f"| **{aid} {a['zh']}** | {a.get('shape','未声明')} | `{a['producer']}` | "
+                 f"{'、'.join(a['consumers'])} | {checks} |")
+    L += ["", "三条读法：", "",
+          "- **「谁产出」是唯一性断言**：每个产物只有一个主产出角色（C2/C5 核对）。",
+          "- **「在哪一步被校验」是闭合性断言**：产出它的阶段必须在自己的退出判据里校验它，"
+          "否则下游拿到的是一份没人验证过的东西（C4 核对）。",
+          "- 写成**粗体**的空值不是排版问题：表示有断言未成立，检查器会红。", "",
+          "## 阶段链", "",
+          "| 阶段 | 开工需要 | 产出 | 默认装配 | 硬规则 |", "|---|---|---|---|---|"]
     for ph in reg["phases"]:
-        L.append(f"| **{ph['id']} {ph['name']}** | "
-                 f"{'、'.join(ph.get('required_inputs', [])) or '—'} | "
-                 f"{'、'.join(ph.get('produces', [])) or '—'} | "
-                 f"{'、'.join(ph.get('default_roles', []))} |")
-
-    L += ["", "## 闭包的三条断言", "",
-          "1. **每个产物有且只有一个产出方**，且被至少一个阶段消费。",
-          "2. **每个阶段开工所需的产物，在它之前已经被产出**"
-          "（或由常驻横切带从第一个阶段起就在写）。",
-          "3. **产出某产物的阶段，必须在自己的退出判据里校验它**——"
-          "否则下游拿到的是一份没人验证过的东西。", "",
-          "第 3 条是上一版最缺的一条：上一版有阶段、有产物、有收据，",
-          "但没有任何一处要求「产出它的阶段必须当场验证它」。",
-          "结果就是下游拿着上游没验过的东西继续干活。", "",
+        L.append(f"| **{ph['id']} {ph['name']}** | {'、'.join(ph.get('required_inputs', [])) or '—'} | "
+                 f"{'、'.join(ph.get('produces', [])) or '—'} | {'、'.join(ph.get('default_roles', []))} | "
+                 f"{'；'.join(ph.get('hard_rules', [])) or '—'} |")
+    L += ["", "## 返工回边", "",
+          "`A7` 附条件通过时回到 `P3` 重做，走新一轮 P3→P4。",
+          "这条边**刻意不建成消费关系**——它是阶段图上的回边，"
+          "建进 `consumers` 会让线性可达性检查失效。", "",
           "---", "", BEGIN, "<!-- 本文件由 workflow/registry.yaml 派生 -->", END, ""]
     return "\n".join(L)
 

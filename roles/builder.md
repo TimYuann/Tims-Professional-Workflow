@@ -65,14 +65,15 @@
 
 | 技能 | 什么时候用 |
 |---|---|
-| `@implement` | 按 `A4` / `A5` 实现一段工作的主流程。 |
-| `@tdd` | 有明确判据、且有便宜的本地验证目标时。 |
-| `@incremental-implementation` | 需要以薄的、可验证的片交付时。 |
-| `@prototype` | 造个用完就扔的东西回答一个设计问题。 |
-| `@debugging` | 行为不符合预期，先定位根因。 |
-| `@code-simplification` | 实现了，但还能更简单。 |
-| `@source-driven-development` | 对某个 API 的用法没有把握时。 |
-| `@deprecation-and-migration` | 引入新接口、旧调用方还在时。 |
+| `@implement` 按契约实现 | 按 `A4` / `A5` 实现一段工作的主流程。 |
+| `@tdd` 红绿重构 | 有明确判据、且有便宜的本地验证目标时。 |
+| `@incremental-implementation` 薄片增量 | 需要以薄的、可验证的片交付时。 |
+| `@prototype` 一次性原型 | 造个用完就扔的东西回答一个设计问题。 |
+| `@debugging` 根因定位 | 行为不符合预期，先定位根因。 |
+| `@code-simplification` 简化 | 实现了，但还能更简单。 |
+| `@source-driven-development` 源头驱动 | 对某个 API 的用法没有把握时。 |
+| `@deprecation-and-migration` 弃用与迁移 | 引入新接口、旧调用方还在时。 |
+| `@arena` 并行择优 | 见 `skills/arena.md` 的「什么时候用」。 |
 
 ## 怎么开工
 

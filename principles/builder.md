@@ -14,7 +14,7 @@
 
 其他持有它的角色：`cartographer`、`builder`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-subtract-before-you-add/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-subtract-before-you-add/SKILL.md`
 
 ## p-laziness-protocol
 
@@ -22,7 +22,7 @@
 
 其他持有它的角色：`builder`、`adversary`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-laziness-protocol/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-laziness-protocol/SKILL.md`
 
 ## p-fix-root-causes
 
@@ -30,7 +30,7 @@
 
 其他持有它的角色：`builder`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-fix-root-causes/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-fix-root-causes/SKILL.md`
 
 ## p-sequence-verifiable-units
 
@@ -38,7 +38,7 @@
 
 其他持有它的角色：`cartographer`、`builder`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-sequence-verifiable-units/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-sequence-verifiable-units/SKILL.md`
 
 ## p-test-behavior-not-implementation
 
@@ -46,7 +46,7 @@
 
 其他持有它的角色：`builder`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-test-behavior-not-implementation/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-test-behavior-not-implementation/SKILL.md`
 
 ## p-make-operations-idempotent
 
@@ -54,7 +54,7 @@
 
 其他持有它的角色：`builder`、`verifier`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-make-operations-idempotent/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-make-operations-idempotent/SKILL.md`
 
 ## p-separate-before-serializing
 
@@ -62,7 +62,7 @@
 
 其他持有它的角色：`builder`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md`
 
 ## p-build-the-lever
 
@@ -70,4 +70,4 @@
 
 其他持有它的角色：`cartographer`、`builder`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-build-the-lever/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-build-the-lever/SKILL.md`

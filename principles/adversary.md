@@ -14,4 +14,4 @@
 
 其他持有它的角色：`adversary`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-attack-the-premise/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-attack-the-premise/SKILL.md`

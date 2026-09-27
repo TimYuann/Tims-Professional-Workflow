@@ -14,4 +14,4 @@
 
 其他持有它的角色：`scribe`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-encode-lessons-in-structure/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-encode-lessons-in-structure/SKILL.md`

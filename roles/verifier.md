@@ -74,14 +74,14 @@
 
 | 技能 | 什么时候用 |
 |---|---|
-| `@verification-suite` | 建一套像真实用户那样驱动系统的验证，并用它保鲜 `A3`。 |
-| `@browser-testing` | 目标是有界面的东西时。 |
-| `@performance-optimization` | 判据里有性能项时。 |
-| `@security-and-hardening` | 判据里有安全项时。 |
-| `@observability-and-instrumentation` | `P6` 上线后需要可诊断时。 |
-| `@shipping-and-launch` | `P6` 推给用户时。 |
-| `@git-workflow-and-versioning` | 提交与版本结构要能回滚时。 |
-| `@ci-cd-and-automation` | 要把这次验证固化成流水线时。 |
+| `@verification-suite` 验证套件 | 建一套像真实用户那样驱动系统的验证，并用它保鲜 `A3`。 |
+| `@browser-testing` 真实浏览器验证 | 目标是有界面的东西时。 |
+| `@performance-optimization` 性能验证 | 判据里有性能项时。 |
+| `@security-and-hardening` 安全加固 | 判据里有安全项时。 |
+| `@observability-and-instrumentation` 可观测性 | `P6` 上线后需要可诊断时。 |
+| `@shipping-and-launch` 发布 | `P6` 推给用户时。 |
+| `@git-workflow-and-versioning` 版本与提交结构 | 提交与版本结构要能回滚时。 |
+| `@ci-cd-and-automation` 持续集成 | 要把这次验证固化成流水线时。 |
 
 ## 怎么开工
 

@@ -356,13 +356,126 @@ def main():
     r.add("C7", "上游处置完备", not miss,
           f"文件系统 {len(actual)} 个上游 skill，处置表 {len(listed)} 条，一一对应", miss)
 
+
+    # ── C8 角色文件里的技能表必须与注册表一致 ──────────────────
+    # 这一条曾经缺失：我把 arena 从 adversary 挪到 builder，只改了注册表，
+    # 角色正文里的表格没跟着改，两个检查器全绿。
+    miss = []
+    for role in roles:
+        f = ROOT / "roles" / f"{role['id']}.md"
+        if not f.is_file():
+            continue
+        listed = set(re.findall(r"\| `@([a-z][a-z0-9-]+)`", f.read_text(encoding="utf-8")))
+        reg = set(role.get("skills", []))
+        for extra in sorted(listed - reg):
+            if extra in s_by_id and s_by_id[extra].get("owner_role") != role["id"]:
+                miss.append(f"角色文件 {role['id']}.md 列了 `{extra}`，但它属于 "
+                            f"{s_by_id[extra].get('owner_role')}")
+            elif extra in r_by_id or extra in p_by_id or extra in pr_by_id:
+                miss.append(f"角色文件 {role['id']}.md 列了 `{extra}`，但它不是技能")
+            else:
+                miss.append(f"角色文件 {role['id']}.md 多列了 `{extra}`，注册表里没有它")
+        for absent in sorted(reg - listed):
+            miss.append(f"注册表说 {role['id']} 有技能 `{absent}`，但角色文件表格里没有")
+    r.add("C8", "角色文件技能表与注册表一致", not miss,
+          f"{len(roles)} 个角色的技能表双向一致", miss)
+
+    # ── C9 每条 sources 必须指向真实存在的上游文件 ──────────────
+    miss = []
+    idx = {}
+    for dirname, prefix in UPSTREAM_PREFIX.items():
+        base = ROOT / "upstreams" / dirname
+        roots = [base / "pstack" / "skills"] if prefix == "pstack" else [base / "skills"]
+        for r0 in roots:
+            if not r0.is_dir():
+                continue
+            for dirpath, _dirs, files in os.walk(r0):
+                if "SKILL.md" in files:
+                    idx.setdefault(f"{prefix}:{Path(dirpath).name}", dirpath)
+    for coll, kind in ((skills, "skill"), (principles, "principle")):
+        for item in coll:
+            for src in item.get("sources") or []:
+                if src not in idx:
+                    miss.append(f"{kind} {item['id']} 的来源 {src} 在 upstreams/ 里不存在")
+    r.add("C9", "来源路径真实存在", not miss,
+          f"{len(idx)} 个上游 skill 索引，0 条失效来源", miss)
+
+    # ── C10 处置表声称吸收，目标就必须真的列了它 ────────────────
+    # 这一条曾经缺失：6 条 absorbed 处置在 upstreams/ 里对得上，
+    # 但目标技能的 sources 里根本没有它——台账在追一个没发生的事。
+    miss = []
+    for d in disp:
+        into = d.get("into")
+        if d.get("outcome") != "absorbed":
+            if into:
+                miss.append(f"{d['upstream']} 判为 {d['outcome']}，却仍指向 {into}")
+            continue
+        if not into:
+            miss.append(f"{d['upstream']} 判为 absorbed 却没有指向任何技能或原则")
+            continue
+        tgt = s_by_id.get(into) or pr_by_id.get(into)
+        if not tgt:
+            miss.append(f"{d['upstream']} 指向不存在的 {into}")
+        elif d["upstream"] not in (tgt.get("sources") or []):
+            miss.append(f"假链接：{d['upstream']} 声称吸收进 {into}，"
+                        f"但 {into} 的 sources 里没有它")
+    r.add("C10", "处置与来源双向咬合", not miss,
+          f"{len(disp)} 条处置与目标 sources 双向一致", miss)
+
+    # ── C11 consumers 必须真的被 required_inputs 接住 ───────────
+    # 允许「同阶段自产自消」（P1 消费自己产出的 A3），那是自我校验。
+    miss = []
+    for a in artifacts:
+        for c in a.get("consumers", []):
+            ph = p_by_id.get(c)
+            if not ph:
+                continue
+            if a["id"] in ph.get("required_inputs", []):
+                continue
+            if a["id"] in ph.get("produces", []):
+                continue      # 同阶段产出并校验，合法
+            miss.append(f"{a['id']} 声明被 {c} 消费，但 {c} 既不 required 它、也不自己产出它"
+                        f"——消费声明与实际装配对不上")
+    r.add("C11", "消费声明与装配咬合", not miss,
+          f"{sum(len(a.get('consumers', [])) for a in artifacts)} 条消费声明全部被阶段接住", miss)
+
+    # ── C12 sources 为空的必须显式标 origin: library ───────────
+    miss = []
+    for s_ in skills:
+        if not s_.get("sources") and s_.get("origin") != "library":
+            miss.append(f"技能 {s_['id']} 没有来源也没标 origin: library"
+                        f"——读者无法分辨它是「上游没有对应物」还是「忘了写来源」")
+    r.add("C12", "原创技能显式标注", not miss,
+          f"{sum(1 for x in skills if x.get('origin') == 'library')} 个原创技能已标注", miss)
+
+    # ── C13 越权写：阶段判据不得要求更新别阶段产出的产物 ───────
+    # 判据里说「已更新/已刷新/已保鲜」的是**写**，「可判定/非空/一致」的是**验**。
+    # 写一个自己没有产出权的产物 = 角色越权，A3.freshness 被 verifier 更新就是这么来的。
+    UPDATE_VERBS = ("已更新", "已刷新", "已保鲜", "已写入", "已补上", "已对齐", "已同步")
+    miss = []
+    for ph in phases:
+        own = set(ph.get("produces", []))
+        for crit in ph.get("exit_criteria", []):
+            if not any(v in crit for v in UPDATE_VERBS):
+                continue
+            for aid in re.findall(r"\b(A\d+)\.", crit):
+                if aid not in own:
+                    prod = a_by_id.get(aid, {}).get("producer")
+                    equipped = set(ph.get("default_roles", []))
+                    miss.append(f"{ph['id']} 的判据要求更新 {aid}，但它的主产出方是 "
+                                f"{prod}，不在 {ph['id']} 的默认角色 {sorted(equipped)} 里"
+                                f"——越权写。验证偏差请写进本阶段自己产出的证据字段")
+    r.add("C13", "判据不越权写他人产物", not miss,
+          f"{len(phases)} 个阶段的 {sum(len(p.get('exit_criteria', [])) for p in phases)} 条判据"
+          f"没有越权写", miss)
+
     # ── 解耦检查 ───────────────────────────────────────────────
     miss = []
     targets = [f for f in (ROOT / n for n in SCAN_FILES) if f.is_file()]
     for d in SCAN_DIRS:
         p = ROOT / d
         if p.is_dir():
-            targets += [f for f in sorted(p.rglob("*")) if f.suffix in (".md", ".yaml", ".yml", ".py")]
+            targets += [f for f in sorted(p.rglob("*")) if f.suffix in (".md", ".yaml", ".yml", ".py", ".sh")]
     for f in targets:
         try:
             text = f.read_text(encoding="utf-8")

@@ -14,7 +14,7 @@
 
 其他持有它的角色：`architect`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-foundational-thinking/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-foundational-thinking/SKILL.md`
 
 ## p-model-the-domain
 
@@ -22,7 +22,7 @@
 
 其他持有它的角色：`architect`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-model-the-domain/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-model-the-domain/SKILL.md`
 
 ## p-type-system-discipline
 
@@ -30,7 +30,7 @@
 
 其他持有它的角色：`architect`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-type-system-discipline/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-type-system-discipline/SKILL.md`
 
 ## p-boundary-discipline
 
@@ -38,7 +38,7 @@
 
 其他持有它的角色：`architect`、`verifier`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-boundary-discipline/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-boundary-discipline/SKILL.md`
 
 ## p-minimize-reader-load
 
@@ -46,7 +46,7 @@
 
 其他持有它的角色：`scout`、`architect`、`scribe`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-minimize-reader-load/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-minimize-reader-load/SKILL.md`
 
 ## p-redesign-from-first-principles
 
@@ -54,7 +54,7 @@
 
 其他持有它的角色：`architect`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-redesign-from-first-principles/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-redesign-from-first-principles/SKILL.md`
 
 ## p-exhaust-the-design-space
 
@@ -62,7 +62,7 @@
 
 其他持有它的角色：`architect`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-exhaust-the-design-space/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-exhaust-the-design-space/SKILL.md`
 
 ## p-migrate-callers-then-delete
 
@@ -70,7 +70,7 @@
 
 其他持有它的角色：`architect`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md`
 
 ## p-outcome-oriented
 
@@ -78,4 +78,4 @@
 
 其他持有它的角色：`driver`、`architect`
 
-来源：`upstreams/pstack/cursor-plugins/pstack/skills/principle-outcome-oriented-execution/SKILL.md`
+来源：`upstreams/cursor-plugins/pstack/skills/principle-outcome-oriented-execution/SKILL.md`
