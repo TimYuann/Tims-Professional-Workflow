@@ -9,7 +9,7 @@
 #   3. 每个产物类型必须有且仅有一个主产出角色
 #   4. 产出某产物的阶段，必须在自己的退出判据里校验它
 
-version: 2.0.4
+version: 2.0.5
 name: TIM Professional Workflow
 derived_views:
   - workflow/phases/          # 阶段契约（由本文件 + roles/ 散文派生）
@@ -245,10 +245,10 @@ phases:
     purpose: 把说不清的诉求变成第三方能复述的一句话。
     required_inputs: []          # 开工时必须已在手
     exit_criteria:
-      - A1.ask 能被一个没参与讨论的人原样复述
-      - A1.non_goals 非空
-      - A2.gaps 明确写出哪些还没查——空集合必须标「已查全」并给出查法，不允许留白
-      - A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么
+      - "verify: A1.ask 能被一个没参与讨论的人原样复述"
+      - "verify: A1.non_goals 非空"
+      - "verify: A2.gaps 明确写出哪些还没查——空集合必须标「已查全」并给出查法，不允许留白"
+      - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
     driver_seat_note: driver 在 P0 之前判档。它不产出本阶段任何产物，所以不进 default_roles，
       但它是本阶段的前置条件。
     default_roles: [voice, scout]
@@ -260,10 +260,10 @@ phases:
     purpose: 在写任何代码前，冻结「建什么、为什么、什么算完成、什么不做」。
     required_inputs: [A1, A2]
     exit_criteria:
-      - A4.done_definition 是可判定的（第三方能只凭它给出 PASS / FAIL / UNVERIFIED 三态之一）
-      - A4.boundaries 覆盖本次变更涉及的全部系统边界
-      - A3.capabilities 每条挂到真实代码锚点
-      - A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么
+      - "verify: A4.done_definition 是可判定的（第三方能只凭它给出 PASS / FAIL / UNVERIFIED 三态之一）"
+      - "verify: A4.boundaries 覆盖本次变更涉及的全部系统边界"
+      - "verify: A3.capabilities 每条挂到真实代码锚点"
+      - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
     default_roles: [architect, scout]
     produces: [A3, A4]
 
@@ -273,9 +273,9 @@ phases:
     purpose: 把契约变成有依赖边、每片可独立验证的任务图。
     required_inputs: [A1, A3, A4]
     exit_criteria:
-      - A5.slices 每片都能独立验证
-      - A5.acceptance 每片都能追溯到 A4.done_definition
-      - A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么
+      - "verify: A5.slices 每片都能独立验证"
+      - "verify: A5.acceptance 每片都能追溯到 A4.done_definition"
+      - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
     default_roles: [cartographer]
     produces: [A5]
 
@@ -285,9 +285,9 @@ phases:
     purpose: 产出可被独立评价的实现候选。
     required_inputs: [A4, A5]
     exit_criteria:
-      - A6.runnable 是真的能跑的（不是「应该能跑」）
-      - A6.known_gaps 非空或明确标注无
-      - A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么
+      - "verify: A6.runnable 是真的能跑的（不是「应该能跑」）"
+      - "verify: A6.known_gaps 非空或明确标注无"
+      - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
     default_roles: [builder]
     produces: [A6]
 
@@ -297,8 +297,8 @@ phases:
     purpose: 由没有产出该候选的人给出裁决。
     required_inputs: [A2, A4, A6]
     exit_criteria:
-      - A7.reason 指向 A2 的证据或一次真实运行，不指向「感觉」
-      - A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么
+      - "verify: A7.reason 指向 A2 的证据或一次真实运行，不指向「感觉」"
+      - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
     default_roles: [adversary]
     hard_rules:
       - 实现者不得对本候选给出裁决（solo 档除外——见 roles/driver.md「档位」一节的豁免与补偿）
@@ -310,10 +310,10 @@ phases:
     purpose: 在真实目标上跑出凭据，并把能力地图与代码重新对齐。
     required_inputs: [A2, A3, A4, A6, A7]
     exit_criteria:
-      - A8.verdict ∈ {PASS, FAIL, UNVERIFIED}
-      - A8.subject 与 A6.subject 逐字一致——不一致说明验证的不是最终候选，判 UNVERIFIED
-      - A8.frame_alignment 已显式记录（写「无」也要写出来）
-      - A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么
+      - "verify: A8.verdict ∈ {PASS, FAIL, UNVERIFIED}"
+      - "verify: A8.subject 与 A6.subject 逐字一致——不一致说明验证的不是最终候选，判 UNVERIFIED"
+      - "verify: A8.frame_alignment 已显式记录（写「无」也要写出来）"
+      - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
     default_roles: [verifier]
     hard_rules:
       - 验证者不得是候选的实现者（solo 档除外——见 roles/driver.md「档位」一节的豁免与补偿）
@@ -325,9 +325,9 @@ phases:
     purpose: 让变更真正到达用户，并且事后可查、可回滚。
     required_inputs: [A3, A4, A5, A6, A7, A8, A9]
     exit_criteria:
-      - A8.verdict 是 PASS——UNVERIFIED 与 FAIL 都不许上线
-      - A9.result 记下了发布动作与回滚路径，且回滚路径已被确认可执行
-      - A8.frame_alignment 非空——上线时如果能力地图与代码有偏差，必须已经记下来；地图的更新是**下一次 P1** 的活，不在 P6 的判据里（P6 没装 architect，要求它更新是越权）
+      - "verify: A8.verdict 是 PASS——UNVERIFIED 与 FAIL 都不许上线"
+      - "verify: A9.result 记下了发布动作与回滚路径，且回滚路径已被确认可执行"
+      - "verify: A8.frame_alignment 非空——上线时如果能力地图与代码有偏差，必须已经记下来；地图的更新是**下一次 P1** 的活，不在 P6 的判据里（P6 没装 architect，要求它更新是越权）"
     default_roles: [verifier, scribe]
     hard_rules:
       - 上线之后出问题按因归属：验证没覆盖到 → P5；部署配置或目标环境 → P6；判据本身错 → P1。不许一律推给 P5

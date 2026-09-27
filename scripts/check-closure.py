@@ -266,8 +266,10 @@ def main():
         # 否则下游拿到的是一份没人验证过的东西。
         owners = [p_by_id[q] for q in produced_by.get(a["id"], set()) if q in p_by_id]
         for ph in owners:
-            if not any(x.split(".")[0] == a["id"] for x in ph.get("exit_criteria", [])
-                       if field_re.search(x)):
+            # 用正则抽取字段名，不用 x.split(".")[0]——判据现在带 write:/verify: 前缀，
+            # 整句首段是 "verify: A1" 而不是 "A1"，那种写法会永远比不上
+            if not any(a["id"] in [m[0] for m in field_re.findall(x)]
+                       for x in ph.get("exit_criteria", [])):
                 miss.append(f"{a['id']} 由 {ph['id']} 产出，但 {ph['id']} 的退出判据里"
                             f"没有校验它——下游会拿到一份没被验证过的产物")
     r.add("C4", "判据可判定", not miss,
@@ -467,26 +469,41 @@ def main():
     r.add("C12", "原创技能显式标注", not miss,
           f"{sum(1 for x in skills if x.get('origin') == 'library')} 个原创技能已标注", miss)
 
-    # ── C13 越权写：阶段判据不得要求更新别阶段产出的产物 ───────
-    # 判据里说「已更新/已刷新/已保鲜」的是**写**，「可判定/非空/一致」的是**验**。
-    # 写一个自己没有产出权的产物 = 角色越权，A3.freshness 被 verifier 更新就是这么来的。
-    UPDATE_VERBS = ("已更新", "已刷新", "已保鲜", "已写入", "已补上", "已对齐", "已同步")
+    # ── C13 越权写：判据逐条声明 write / verify，不靠猜中文动词 ──
+    # 上一版这里有一个受控动词表（已更新/已刷新/已保鲜/…）。二审给了两个反例：
+    #   绕过：把措辞换成「已修订」「重建完成」就不报了；
+    #   误报：「A8.frame_alignment 已写入，且 A3.freshness 与该记录一致」只是在
+    #        **验证** A3，却因为同句出现「已写入」被判成越权写。
+    # 靠措辞猜权限，永远既能绕又会误报。改成**显式声明**：每条判据以
+    # `write:` 或 `verify:` 开头，声明它到底要什么。措辞不再参与判定。
     miss = []
     for ph in phases:
         own = set(ph.get("produces", []))
+        equipped = set(ph.get("default_roles", []))
         for crit in ph.get("exit_criteria", []):
-            if not any(v in crit for v in UPDATE_VERBS):
+            if not isinstance(crit, str) or not (crit.startswith("write: ") or
+                                                 crit.startswith("verify: ")):
+                miss.append(f"{ph['id']} 有一条判据没声明动作：{str(crit)[:50]}"
+                            f"——必须以 `write: ` 或 `verify: ` 开头，措辞不参与判定")
+                continue
+            if not crit.startswith("write: "):
                 continue
             for aid in re.findall(r"\b(A\d+)\.", crit):
-                if aid not in own:
-                    prod = a_by_id.get(aid, {}).get("producer")
-                    equipped = set(ph.get("default_roles", []))
-                    miss.append(f"{ph['id']} 的判据要求更新 {aid}，但它的主产出方是 "
-                                f"{prod}，不在 {ph['id']} 的默认角色 {sorted(equipped)} 里"
-                                f"——越权写。验证偏差请写进本阶段自己产出的证据字段")
-    r.add("C13", "判据不越权写他人产物", not miss,
-          f"{len(phases)} 个阶段的 {sum(len(p.get('exit_criteria', [])) for p in phases)} 条判据"
-          f"没有越权写", miss)
+                if aid in own:
+                    continue
+                prod = a_by_id.get(aid, {}).get("producer")
+                miss.append(f"{ph['id']} 声明要写 {aid}，但它不由本阶段产出"
+                            f"（主产出方 `{prod}`，本阶段产出 {sorted(own)}）"
+                            f"——越权写。验证偏差请写进本阶段自己产出的证据字段")
+            for rid in r_by_id:
+                if rid in equipped:
+                    continue
+                if re.search(rf"由\s*`?{re.escape(rid)}`?\s*(填|更新|写|记|产出|建|追加|维护)", crit):
+                    miss.append(f"{ph['id']} 的判据要求 `{rid}` 做某事，"
+                                f"但 `{rid}` 不在它的装配 {sorted(equipped)} 里")
+    r.add("C13", "越权写由显式声明判定", not miss,
+          f"{sum(len(p.get('exit_criteria', [])) for p in phases)} 条判据全部显式声明了 "
+          f"write/verify，没有越权", miss)
 
     # ── C14 技能头部的产物声明必须与注册表一致 ─────────────────
     # 抓的是这一类：头部写「产物：无」，产出节却写「A9 决策台账」。
@@ -571,23 +588,6 @@ def main():
                         f"这一阶段可能悄悄什么都不记就过去了")
     r.add("C16", "每阶段都要求记台账", not miss,
           f"{len(phases)} 个阶段都有 A9 判据", miss)
-
-    # ── C17 阶段判据不得要求一个不在本阶段装配里的角色去做某事 ──
-    # P6 曾要求「architect 更新 A3.freshness」，而 architect 不在 P6 的装配里。
-    # C13 只认「已更新/已刷新」这几个动词，「已由 architect 指向」它没抓住。
-    miss = []
-    for ph in phases:
-        equipped = set(ph.get("default_roles", []))
-        for crit in ph.get("exit_criteria", []):
-            for rid, role in r_by_id.items():
-                if rid in equipped:
-                    continue
-                # 「由 X 做的」这种委托式措辞：X 不在装配里就落不了地
-                for m in re.finditer(rf"由\s*`?{re.escape(rid)}`?\s*(填|更新|写|记|产出|建|追加|维护)", crit):
-                    miss.append(f"{ph['id']} 的判据要求 `{rid}` 做某事，"
-                                f"但 `{rid}` 不在它的装配 {sorted(equipped)} 里")
-    r.add("C17", "判据里的委托落在装配内", not miss,
-          f"{sum(len(p.get('exit_criteria', [])) for p in phases)} 条判据里的角色委托都能落地", miss)
 
     # ── C18 技能不得依赖它自己产不出、且由更早阶段才产出的产物 ──
     # 判档循环：tier-sizing.inputs 曾经是 [A1]，而 A1 由 P0 产出，
