@@ -1,0 +1,31 @@
+被测对象: /Users/yuantian/Developer/tim-professional-workflow/scripts/ledger.sh
+工作区:   /Users/yuantian/Developer/tim-professional-workflow/.pi/review-v4/work-20260928T125222-71295
+运行 ID:  20260928T125222-71295
+
+PASS  C01 绝对 /tmp 路径 → 拒写
+PASS  C02 /private/tmp 绝对路径 → 拒写
+PASS  C03 绝对 /var/tmp 路径 → 拒写
+PASS  C04 相对路径经单级软链指向 /tmp → 拒写
+PASS  C05 相对路径经多级软链指向 /tmp → 拒写
+PASS  C06 父目录是软链、目标尚不存在 → 拒写
+PASS  C07 含 . / .. 的相对路径 → 拒写
+PASS  C08 TMPDIR 指向别处 → 按该处拒写
+PASS  C09 TMPDIR 带尾斜杠 → 拒写
+PASS  C10 TMPDIR 经软链 → 按真实位置拒写
+PASS  C12 末级软链指向 /tmp（文件已存在）→ 拒写且原文件未被追加
+PASS  C13 末级悬空软链指向 /tmp → 拒写且不创建
+PASS  C20 软链成环 → 拒写（退出码 4，区别于临时目录的 3）
+PASS  C19 /TMP（大小写不敏感文件系统）→ 拒写
+PASS  C24 祖先目录无权限穿过 → 拒写（退出码 4）
+PASS  C11 TMPDIR 之外 → 正常写入
+PASS  C14 末级软链指向稳定位置 → 正常写入
+PASS  C15 正常绝对路径 → 写入成功
+PASS  C16 正常相对路径 → 写入成功
+PASS  C17 目录名叫 tmp 但位置稳定 → 正常写入（修掉旧的词面误报）
+PASS  C18 多级软链指向稳定位置 → 正常写入
+PASS  C21 末级软链指向稳定位置（文件尚不存在）→ 正常写入
+PASS  C23 悬空软链到稳定位置但目标的父目录不存在 → 闸放行，打开失败（rc=1，非 3）
+PASS  C22 不存在组件 + .. 回到稳定位置 → 正常写入
+
+合计: 24 通过 / 0 失败 / 0 跳过
+判定: PASS

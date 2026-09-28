@@ -69,10 +69,15 @@ REGISTRY = ROOT / "workflow" / "registry.yaml"
 #     `pin` 是普通英文词，都不是品牌）。所以要么「分隔符 + 一个字母」，
 #     要么「后面根本不是字母、也不是路径分隔符」——中文里「用 某品牌名 写」
 #     这种不带分隔符的写法属于后者，仍然抓住；而本库自己的目录名
-#     `.pi/injection/` 属于路径分隔符，放过去（否则它会被自己的品牌名规则打中）。
+#     `scripts/injection/` 属于路径分隔符，放过去（否则它会被自己的品牌名规则打中）。
 #
 # 本文件自己也在扫描范围内，所以这段说明故意不写真实底座名。
 #
+# 同样原因的第二处：`scripts/injection/` 是**自测工具**，它必须复刻黑名单
+# 字面量才能测 D1 自己（`probes.py` 的正则、`suite.py` 的注入载荷、
+# `harness.py` 的 ignore 模式）。**它不是库内容，也不随包分发**——
+# 下游拿不到它，所以它里面的底座名不构成「库把工作流绑死在某个底座上」。
+# 豁免精确到 `scripts/injection` 这一棵子树，不扩大到 `scripts/` 其余部分。
 # 维护者：本库维护者（新增一条 = 你要能说清它保护了哪条真实说法）。
 DECOUPLING_PATTERNS = [
     (r"(?<![A-Za-z0-9-])herdr(?![-])", "终端工作区管理器"),
@@ -93,14 +98,17 @@ DECOUPLING_PATTERNS = [
 
 # 只扫「库内容」。docs/ 下的 history/ 与 archive/ 记的是「曾经发生过什么」——
 # 它们是历史材料与被替换掉的旧载体，不构成对下游的指令，因此**只**豁免这两棵子树。
+# scripts/injection 是自测工具，同样豁免（理由见上面黑名单处的注释）。
 # docs/ 其余部分（coldstart / artifacts / ledger / downstream-mapping / closure-report）
 # 是**当前**契约的下游说明，与 roles/ skills/ 同级，纳入扫描。
 # D1 走 rglob，所以这两棵子树里的文件靠 decoupling_exempt() 逐个排除。
 SCAN_DIRS = ("workflow", "roles", "skills", "principles", "scripts", "docs")
 SCAN_FILES = ("README.md", "AGENTS.md", "VERSION")
 
-# D1 豁免的子树（相对 ROOT）。只豁免这两棵，其余 docs 一律进扫描。
-SCAN_EXEMPT_SUBTREES = ("docs/history", "docs/archive")
+# D1 豁免的子树（相对 ROOT）。只豁免这三棵，其余 docs 一律进扫描。
+#   docs/history, docs/archive —— 历史材料，不构成对下游的指令
+#   scripts/injection       —— 自测工具，必须含它所测的黑名字面量，不随包分发
+SCAN_EXEMPT_SUBTREES = ("docs/history", "docs/archive", "scripts/injection")
 
 
 def decoupling_exempt(rel) -> bool:
@@ -1114,7 +1122,7 @@ def main():
                 ctx = lines[line - 1].strip()[:90]
                 miss.append(f"{f.relative_to(ROOT)}:{line} 出现具体底座（{label}）→ {ctx}")
     r.add("D1", "底座解耦（已知名黑名单·大小写不敏感）", not miss,
-          f"扫描 {len(targets)} 个库内容文件（含 docs/，只豁免 history/ 与 archive/），"
+          f"扫描 {len(targets)} 个库内容文件（含 docs/，只豁免 history/、archive/ 与自测工具 scripts/injection/），"
           f"0 处命中已知底座名。边界：黑名单是人工枚举的 {len(DECOUPLING_PATTERNS)} 条"
           f"已知名称，不是穷尽清单——别名、缩写、厂商代号抓不到", miss)
 

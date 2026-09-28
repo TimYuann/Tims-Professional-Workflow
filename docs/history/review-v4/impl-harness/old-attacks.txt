@@ -1,0 +1,5 @@
+== A/B attacks · mode=old ==
+A1-noop-append         目标文件 sha 76b769e5e2a4→2bd638556e0b（已变）  判定：漏报（新增红=∅）
+A2-c13-to-skip         目标文件 sha 4547435a8e06→3bd1a3c9dafc（已变）  判定：漏报（新增红=∅）
+A3-summary-lie         目标文件 sha 4547435a8e06→eb9f463ad392（已变）  判定：漏报（新增红=∅）
+A4-silent-checker      目标文件 sha 4547435a8e06→14c75fb904c5（已变）  判定：漏报（新增红=∅）

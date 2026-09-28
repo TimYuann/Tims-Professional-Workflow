@@ -4,4 +4,5 @@ node_modules/
 *.log
 __pycache__/
 *.pyc
+# pi 的运行时目录（loop 状态、context map、agent job）——工具自己的，不是项目内容
 .pi/

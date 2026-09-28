@@ -82,7 +82,7 @@ TPW_ACTOR=builder scripts/ledger.sh .decisions/ledger.tsv P3 abc1234 \
 （三个临时目录根解析不出来时只警告并跳过那一条，不拒写——两种失败的处置不同。）
 
 **它抓不到什么**：下面四条都在本机实跑构造过，不是设想；
-反例脚本在 `.pi/review-v4/probe3/`，输出在同行目录的 `evidence-*.txt`。
+反例脚本在 `docs/history/review-v4/probe3/`，输出在同行目录的 `evidence-*.txt`。
 
 - **解析与打开之间的窗口（TOCTOU）**：判完到 `exec 7>>` 之间，末级软链或某一级
   目录被换成指向临时目录的软链，闸看不见。已构造成功：40 次尝试里 9 次把字节
@@ -131,7 +131,7 @@ TPW_ACTOR=builder scripts/ledger.sh .decisions/ledger.tsv P3 abc1234 \
 | 名为 `tmp` 但不在临时目录下的目录 | 正常写入（不再按词面误报） |
 | 路径无法解析（软链成环、祖先目录无权限穿过） | 拒绝（退出码 4），并在 stderr 说明原因 |
 
-以上两段由本库工作区（`.pi/`，不分发）的两个夹具在 macOS 15.6 实跑覆盖：
+以上两段由本库工作区（`docs/history/`，不分发）的两个夹具在 macOS 15.6 实跑覆盖：
 并发行来自 `stress-ledger-concurrency.sh`，临时目录行来自
 `test-ledger-tmpdir.sh`（24 个用例）。同一套临时目录夹具打在**修复前的基线**
 （`baseline-v2.0.6-ledger.sh`，与 v2.0.6 的 `scripts/ledger.sh` 逐字节相同）上

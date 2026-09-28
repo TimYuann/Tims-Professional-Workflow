@@ -1,0 +1,15 @@
+被测对象: /Users/yuantian/Developer/tim-professional-workflow/scripts/ledger.sh
+夹具:     10 轮 × 100 并发（每轮全新台账，首次追加）
+
+round  1: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round  2: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round  3: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round  4: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round  5: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round  6: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round  7: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round  8: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round  9: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+round 10: OK    rows=100  headers=1  badcols=0  unique=100  actors=3  failed_proc=0
+
+STRESS PASS: 10 轮 × 100 并发，0 丢行 / 0 重复表头 / 0 列错乱 / 0 重复 decision

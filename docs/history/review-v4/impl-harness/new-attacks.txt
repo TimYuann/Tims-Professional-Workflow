@@ -1,0 +1,6 @@
+== A/B attacks · mode=new ==
+A1-noop-append         目标文件 sha 76b769e5e2a4→2bd638556e0b（已变）  判定：负对照通过（probe=假 → 拒绝记成指控）
+A2-c13-to-skip         目标文件 sha d4061a5dde7f→70ed97af5fa2（已变）  判定：UNVERIFIED（gone=∅ skip=['C13']）
+  ↳ 落地复核：[SKIP] C13 越权写由显式声明判定             25 条判据全部显式声明了 write/verify，没有越权 ／ 合计: 18 项通过 / 0 项失败 / 1 项跳过 / 19 项检查
+A3-summary-lie         目标文件 sha d4061a5dde7f→67381e5da1df（已变）  判定：UNVERIFIED（SummaryMismatch: check-closure.py 合计行与逐行明细不一致：合计 (99, 0, 0, 99)，明细 (19, 0, 0, 19)（PASS/）
+A4-silent-checker      目标文件 sha d4061a5dde7f→14c75fb904c5（已变）  判定：UNVERIFIED（SummaryMismatch: check-closure.py 的「合计」行出现 0 次（必须有且只有一次）——多脚本输出被合并统计过？拒绝判定）

@@ -61,8 +61,16 @@ scripts/
   render.py            派生视图生成 / 核对
   ledger.sh            决策台账（A9）的追加工具
 upstreams/             三份只读上游克隆，受 .gitignore 保护
-.pi/                   本库自己的工作痕迹，不属于交付物
+scripts/injection/     故障注入台（本库自己的质量工具，不随包分发）
+docs/history/          本库开发过程的存档：调查、修复计划、审计报告
+docs/archive/          已归档的历史轮次
 ```
+
+> **`.pi/` 是编码工具自己的运行时目录**（loop 状态、context map、agent job），
+> 在 `.gitignore` 里，**不是项目文件的存放地**。
+> 本库的开发过程文件一律落在 `docs/history/`，且必须是 markdown——
+> 检查器会扫它，那是刻意的：过程文件里出现旧 id、旧工具名是正常的，
+> 不该让它们混进库内容参与下游指令的一致性判断。
 
 ---
 
@@ -191,7 +199,7 @@ python3 scripts/render.py --check       #     派生视图是否与真源逐字�
 测于 **`tag v2.0.7`**（checkout 这个 tag 重跑即可复现）／参考树干净／基线 0 失败。
 不写 commit 短哈希是故意的：写进去就要再提交一次，提交又换了 commit，指向不回去。
 **tag 才是稳定句柄**——这正是 v2.0.6 那轮栽过的坑。
-跑法：`python3 .pi/injection/suite.py --subject HEAD`（不带参数就是干净基线）。
+跑法：`python3 scripts/injection/suite.py --subject HEAD`（不带参数就是干净基线）。
 
 每一行都有**语义后置条件**（`probe`）：注入完先确认缺陷真的落地，再看有没有检查项变红。
 `probe=假` 的行**不记成任何指控**——包括不记成「漏报」。这一条是上一轮注入台被攻破 4 条的补丁。

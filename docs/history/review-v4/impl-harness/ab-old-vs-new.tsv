@@ -1,0 +1,35 @@
+# 同一被审对象（29a50e4 / v2.0.6）上的新旧注入台判定并排
+# 旧台=prev-r3（冻结件+仅路径补丁，--fixture-tag）；新台=v2（无夹具）
+
+tag	旧台判定	旧台新增红	旧台期望	新台判定	新台probe	新台新增红	新台期望
+c10-into-drops-target	✔ 抓住	C10	C10	PASS	真	C10	C10
+c10-second-target	✔ 抓住	C10,C20	C10	PASS	真	C10,C20	C10,C20
+c11-reverse	✔ 抓住	C11	C11	PASS	真	C11	C11
+c13-no-prefix	✔ 抓住	C13	C13	PASS	真	C13	C13
+c15-declared-untaught	✔ 抓住	C15	C15	PASS	真	C15	C15
+c15-undeclared-untaught	✔ 抓住	C15	C15	PASS	真	C15	C15
+c20-drop-source	✔ 抓住	C20	C20	PASS	真	C20	C20
+c20-ghost-path	✔ 抓住	C20	C20	PASS	真	C20	C20
+c20-shape-mix	✔ 抓住	C20	C20	PASS	真	C20	C20
+c3-orphan-phase	✔ 抓住	C3	C3,C6,S1	PASS	真	C3	C3
+c4-ghost-field	✔ 抓住	C4	C4	PASS	真	C4	C4
+c7-into-not-list	✔ 抓住	C10,C7	C7	PASS	真	C10,C7	C7
+c9-lock-corrupt-NO-upstreams	-	-	-	FAIL	真	-	C9
+c9-lock-corrupt-WITH-upstreams	-	-	-	PASS	真	C9	C9
+d1-docs	✔ 抓住	D1	D1	PASS	真	D1	D1
+d1-ledger-env	✔ 抓住	D1	D1	PASS	真	D1	D1
+d1-self-file	✔ 抓住	D1	D1	PASS	真	D1	D1
+d1-uppercase	✔ 抓住	D1	D1	PASS	真	D1	D1
+judge-undeclared	✔ 抓住	C13,C4	C13,C4	PASS	真	C13,C4	C13,C4
+noop-append	-	-	-	负对照通过	假	-	（不期望红）
+orphan-ribbon	✔ 抓住	C19	C19,C6,S1	PASS	真	C19	C19
+role-contract-drift	设计内	-	（不期望红）	负对照通过	假	-	（不期望红）
+s1-nested-dir	✔ 抓住	S1	S1	PASS	真	S1	S1
+s2-fragment-link	✔ 抓住	S2	S2	PASS	真	S2	S2
+s3-one-sentence	✔ 抓住	S3	S3	PASS	真	S3	S3
+s4-role-body	设计内	-	（不期望红）	设计内	真	-	（不期望红）
+s4-separation	✔ 抓住	S4	S4	PASS	真	S4	S4
+s5-unknown-output	✔ 抓住	S5	S5	PASS	真	S5	S5
+s7-bad-applies-to	✔ 抓住	S7	S7	PASS	真	S7	S7
+skill-src-drift	✔ 抓住	C20	C20	PASS	真	C20	C20
+version-drift	✔ 抓住	C1	C1	PASS	真	C1	C1
