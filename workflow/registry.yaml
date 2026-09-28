@@ -51,11 +51,44 @@ provenance_policy:
     - 表格表头与分隔行
     - 空行与代码块
   # 今天的实际覆盖级别。**没到目标级的，如实写 UNVERIFIED，不许假装到了。**
+  #
+  # `enforced_by` **不是**用一张字符串指派表来「证明」有覆盖——「指向存在」不等于
+  # 「覆盖」。这张表是**维护者的显式声明**，由 C22 核对两件事：
+  #   1. 指到的检查项真的存在；
+  #   2. 那个检查项的断言真的落在所声明的载体上（不是「有个检查存在」就算数）。
+  # 做不到第 2 条的，就不许写 enforced。
   current:
-    skills:      {level: file,   status: enforced,  carrier: skills/*.md 的 `## 来源` 段}
-    principles:  {level: clause, status: enforced,  carrier: principles/*.md 每条原则的 `来源：` 行}
-    roles:       {level: none,   status: UNVERIFIED, gap: 角色正文逐段链接原则/技能/A-P 契约或原创决定的映射尚未建立}
-    scripts:     {level: none,   status: UNVERIFIED, gap: 脚本逐段链接它所实现的规则/测试/设计决定的映射尚未建立}
+    skills:
+      level: file
+      status: enforced
+      enforced_by: C20
+      carrier: skills/*.md 的 `## 来源` 段（三形态互斥：absorbed 逐条列路径 / borrowed 散文借鉴 / original 显式声明）
+    principles:
+      level: clause
+      status: enforced
+      enforced_by: C21
+      carrier: principles/*.md 每条 `## p-*` 段落内的「来源：」行
+    roles:
+      level: none
+      status: UNVERIFIED
+      owner: 维护者 / driver
+      gap: 角色正文逐段链接原则/技能/A-P 契约或原创决定的映射尚未建立
+      due: "在下一页声称达到 `target_granularity: paragraph` 之前补齐并经独立核验；不补齐就永远不能说达到段落级"
+    scripts:
+      level: none
+      status: UNVERIFIED
+      owner: 维护者 / driver
+      gap: 脚本逐段链接它所实现的规则/测试/设计决定的映射尚未建立
+      due: 同上
+  # 已知的能力上限。**写到脸上，不让人从「enforced」推断出比它更强的保证。**
+  known_limits:
+    - >-
+      即使 `principles` 建成检查，它也只到**条款级**（一条原则一���来源），
+      **不等于** Owner 要求的**段落级**（每一个实质正文段落各有归属）。
+      `skills` 同理，到的是**文件级**。两项距离 `target_granularity` 都还有一级。
+    - >-
+      任何一条 `enforced` 都只证明**锚点存在且与注册表一致**，
+      不证明**语义忠实**（「这段正文真的来自那段上游」）。后者不可机械核验，只能人审。
   # 已知的、本政策明确不覆盖的东西。写下来是为了让下一个人不必重新发现：
   not_covered:
     - >-
