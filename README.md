@@ -184,51 +184,63 @@ python3 scripts/render.py --check       #     派生视图是否与真源逐字�
 
 ### 故障注入：检查器是不是摆设
 
-**28 条真实故障逐条注入并复测：26 条变红，0 条漏报，2 条「设计内不报」。**
-测于 `eaa8eb2`／`tag v2.0.6`／工作树干净／基线 0 失败。
-跑法：`python3 .pi/injection/suite.py`（不带参数就是干净基线）。
+**31 行逐条注入并复测：真抓住 27 ／ 漏报 1 ／ 设计内不报 1 ／ 负对照通过 2 ／ UNVERIFIED 0。**
+测于 `15a9b67`／`tag v2.0.7`／参考树干净／基线 0 失败。
+跑法：`python3 .pi/injection/suite.py --subject HEAD`（不带参数就是干净基线）。
 
-| 注入 | 抓到 |
-|---|---|
-| `c3-orphan-phase` | C3 |
-| `c4-ghost-field` | C4 |
-| `c10-second-target` | C10,C20 |
-| `c11-reverse` | C11 |
-| `c13-no-prefix` | C13 |
-| `d1-uppercase` | D1 |
-| `d1-ledger-env` | D1 |
-| `d1-docs` | D1 |
-| `s1-nested-dir` | S1 |
-| `s2-fragment-link` | S2 |
-| `s3-one-sentence` | S3 |
-| `s4-role-body` | **设计内不报**（边界写在检查器输出里） |
-| `s5-unknown-output` | S5 |
-| `s7-bad-applies-to` | S7 |
-| `orphan-ribbon` | C19 |
-| `skill-src-drift` | C20 |
-| `role-contract-drift` | **设计内不报**（边界写在检查器输出里） |
-| `version-drift` | C1 |
-| `judge-undeclared` | C13,C4 |
-| `c15-declared-untaught` | C15 |
-| `c15-undeclared-untaught` | C15 |
-| `c20-shape-mix` | C20 |
-| `c20-ghost-path` | C20 |
-| `c20-drop-source` | C20 |
-| `d1-self-file` | D1 |
-| `s4-separation` | S4 |
-| `c7-into-not-list` | C10,C7 |
-| `c10-into-drops-target` | C10 |
+每一行都有**语义后置条件**（`probe`）：注入完先确认缺陷真的落地，再看有没有检查项变红。
+`probe=假` 的行**不记成任何指控**——包括不记成「漏报」。这一条是上一轮注入台被攻破 4 条的补丁。
 
-**两条「设计内不报」是声明的边界，不是疏漏**：
-`s4-role-body`——S4 不读角色正文，「实现者」↔`builder`、「下结论」↔「给出裁决」
+**唯一的漏报是真的漏报，写在这里不藏**：`c9-lock-corrupt-NO-upstreams`——在没有 `upstreams/` 的树里
+篡改锁文件的 sha256，`C9` 不红。缺陷确实落地（`probe=真`），因为那种树上没有实物可比，
+**从树内就是判不出来的**；`C9` 靠输出自曝「不证明锁文件与真实上游一致」。
+有 `upstreams/` 时同一条注入会被抓住（`c9-lock-corrupt-WITH-upstreams`）。
+**这条该判「无解」还是「该换个断言」，我留给独立复审判——不自己收口。**
+
+| 注入 | 判定 | 抓到 | 期望 |
+|---|---|---|---|
+| `c3-orphan-phase` | 抓住了 | C3 | C3 |
+| `c4-ghost-field` | 抓住了 | C4 | C4 |
+| `c10-second-target` | 抓住了 | C10,C20 | C10,C20 |
+| `c11-reverse` | 抓住了 | C11 | C11 |
+| `c13-no-prefix` | 抓住了 | C13 | C13 |
+| `d1-uppercase` | 抓住了 | D1 | D1 |
+| `d1-ledger-env` | 抓住了 | D1 | D1 |
+| `d1-docs` | 抓住了 | D1 | D1 |
+| `s1-nested-dir` | 抓住了 | S1 | S1 |
+| `s2-fragment-link` | 抓住了 | S2 | S2 |
+| `s3-one-sentence` | 抓住了 | S3 | S3 |
+| `s4-role-body` | 设计内不报 | — | （不期望红） |
+| `s5-unknown-output` | 抓住了 | S5 | S5 |
+| `s7-bad-applies-to` | 抓住了 | S7 | S7 |
+| `orphan-ribbon` | 抓住了 | C19 | C19 |
+| `skill-src-drift` | 抓住了 | C20 | C20 |
+| `role-contract-drift` | 负对照通过 | — | （不期望红） |
+| `version-drift` | 抓住了 | C1 | C1 |
+| `judge-undeclared` | 抓住了 | C13,C4 | C13,C4 |
+| `c15-declared-untaught` | 抓住了 | C15 | C15 |
+| `c15-undeclared-untaught` | 抓住了 | C15 | C15 |
+| `c20-shape-mix` | 抓住了 | C20 | C20 |
+| `c20-ghost-path` | 抓住了 | C20 | C20 |
+| `c20-drop-source` | 抓住了 | C20 | C20 |
+| `d1-self-file` | 抓住了 | D1 | D1 |
+| `s4-separation` | 抓住了 | S4 | S4 |
+| `c7-into-not-list` | 抓住了 | C10,C7 | C7 |
+| `c10-into-drops-target` | 抓住了 | C10 | C10 |
+| `noop-append` | 负对照通过 | — | （不期望红） |
+| `c9-lock-corrupt-WITH-upstreams` | 抓住了 | C9 | C9 |
+| `c9-lock-corrupt-NO-upstreams` | **漏报** | — | C9 |
+**`s4-role-body` 的「设计内不报」是声明的边界，不是疏漏**：
+S4 不读角色正文，「实现者」↔`builder`、「下结论」↔「给出裁决」
 是中文语义映射，没有确定性规则能变成断言；这条边界写在 S4 自己的输出里。
-`role-contract-drift`——C15 只保证「被判据校验的字段，产出方的合同里有人被要求填」，
-不保证每个文件都提到。
+`role-contract-drift` 现在是**负对照**——它被期望不红，注入台确认 `probe=假`
+（改完之后该字段仍然有人被要求填，缺陷没落地）之后**拒绝把它记成任何指控，包括漏报**。
 
-**这个表是 v2.0.6 重新生成的。** v2.0.1 那版写着「21/21 变红」，
+**这个表是 v2.0.7 在打 tag 之后重跑的**，不是沿用上一版。v2.0.1 那版写着「21/21 变红」，
 后来在 v2.0.5 的代码上重跑，**多数全绿**——那张表当时就是假的，只是没人去重测。
-生成它的注入台自己也出过 8 条「什么都没改」的注入，
+v2.0.6 那一版的台又出过 8 条「什么都没改」的注入，
 **一个没改到文件的注入和「检查器漏报」在输出上一模一样**。
+现在每一行都带语义后置条件，**坏注入在判「漏报」之前就被挡住了**。
 所以表下面那三条纪律不是补充说明，是这张表能信的前提。
 
 ### 这一版最贵的一条教训
