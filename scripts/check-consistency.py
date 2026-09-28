@@ -101,28 +101,39 @@ def clause_spans(sentence):
 
 
 class Result:
+    """三态结果集。schema 与 check-closure.py 一致：
+    通过 / 失败 / 跳过 / 检查。本脚本当前没有依赖环境的 SKIP 分支
+    （不读 git、不要求网络），skip 参数为保持两个检查器同 schema 而保留——
+    「合计」行少一栏会让下游 harness 的解析对不上账（round-3 §6.8）。
+    """
+
     def __init__(self):
         self.checks = []
 
-    def add(self, cid, name, ok, detail="", misses=None):
-        self.checks.append((cid, name, ok, detail, misses or []))
+    def add(self, cid, name, ok, detail="", misses=None, skip=False):
+        self.checks.append((cid, name, ok, detail, misses or [], skip))
+
+    @property
+    def failed(self):
+        return [c for c in self.checks if not c[2] and not c[5]]
 
     def report(self, quiet=False):
         if not quiet:
             print("TIM · check-consistency.py（只读一致性与互斥检查）")
             print(f"真源: {REGISTRY.relative_to(ROOT)}")
             print("-" * 76)
-            for cid, name, ok, detail, misses in self.checks:
-                print(f"[{'PASS' if ok else 'FAIL'}] {cid} {name:<20} {detail}")
+            for cid, name, ok, detail, misses, skip in self.checks:
+                tag = "SKIP" if skip else ("PASS" if ok else "FAIL")
+                print(f"[{tag}] {cid} {name:<20} {detail}")
                 for m in misses[:10]:
                     print(f"         ↳ {m}")
                 if len(misses) > 10:
                     print(f"         ↳ …另 {len(misses) - 10} 条")
-        npass = sum(1 for c in self.checks if c[2])
-        nfail = sum(1 in [0] for c in self.checks if not c[2])
-        nfail = len(self.checks) - npass
+        npass = sum(1 for c in self.checks if c[2] and not c[5])
+        nskip = sum(1 for c in self.checks if c[5])
+        nfail = len(self.failed)
         print("-" * 76)
-        print(f"合计: {npass} 项通过 / {nfail} 项失败 / {len(self.checks)} 项检查")
+        print(f"合计: {npass} 项通过 / {nfail} 项失败 / {nskip} 项跳过 / {len(self.checks)} 项检查")
         return 0 if nfail == 0 else 1
 
 
@@ -389,7 +400,10 @@ def main():
           f"只引用已定义的阶段/角色；{len(sep)} 组职责分离不共场；"
           f"{sum(len(x.get('forbidden', [])) for x in reg.get('roles', []))} 条角色硬边界无重复。"
           f"边界：硬规则的中文语义（如「solo 档除外」的豁免）抓不到——"
-          f"本检查只看它引用的 id 与它维护的分离约束", miss)
+          f"本检查只看它引用的 id 与它维护的分离约束。"
+          f"边界：S4 不读角色正文；「实现者」↔`builder`、「下结论」↔「给出裁决」"
+          f"是中文语义映射，没有确定性规则能把它变成断言——角色正文里写反硬边界"
+          f"的散文抓不到（s4-role-body）。", miss)
 
     # ── S5 技能三角一致 ─────────────────────────────────────────
     miss = []

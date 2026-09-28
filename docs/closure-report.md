@@ -14,7 +14,7 @@
 | **A5 任务图** | 可合并的包 | `cartographer` | P3、P6 | P2 |
 | **A6 实现候选** | 目录 | `builder` | P4、P5、P6 | P3、P5 |
 | **A7 裁决** | 目录 | `adversary` | P5、P6 | P4 |
-| **A8 验证凭据** | 目录 | `verifier` | P6 | P5、P6 |
+| **A8 验证凭据** | 目录 | `verifier` | P6 | P1、P5、P6 |
 | **A9 决策台账** | 单文件 | `scribe` | P6 | P0、P1、P2、P3、P4、P5、P6 |
 
 三条读法：

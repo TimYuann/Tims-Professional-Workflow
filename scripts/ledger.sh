@@ -34,7 +34,8 @@
 #   - 不判断一条决策该不该记
 #   - 不检查 evidence 是否真实存在（只能靠写的人自觉，所以复核时必须抽查）
 #   - 不做汇总、统计、格式化
-#   - 不写入临时目录（需要留档的东西落在临时目录等于没写）
+#   - 不写入临时目录（按真实路径判，定义与边界见 docs/ledger.md「临时目录判定」；
+#     需要留档的东西落在临时目录等于没写）
 
 set -euo pipefail
 
@@ -54,12 +55,118 @@ for pair in "阶段:$phase" "对象:$subject" "决定:$decision" "为什么:$why
   fi
 done
 
-case "$ledger" in
-  */tmp/*|/tmp/*|/var/tmp/*|/private/tmp/*)
-    echo "拒绝写入临时目录：需要留档的东西落在临时目录等于没写" >&2
-    exit 3
-    ;;
-esac
+# ── 临时目录闸：按真实路径判，不按输入的字符串判 ─────────────────
+#
+# 上一版这里是 `case "$ledger" in */tmp/*|...)`，只匹配词面。真实绕过：
+# cd 到别处，用相对路径 tmpalias/evil/x.tsv 写，tmpalias 是指向 /tmp 的
+# 软链——字符串里没有 /tmp 这个词，文件却真落进了 /tmp。
+#
+# 判定必须建立在实际会打开的路径上：
+#   1. 跟随每一级软链，包括末级本身是软链、以及指向尚不存在目标的悬空软链
+#      （追加打开会跟着软链走）
+#   2. 末级尚不存在时，从最近的已存在祖先往上解析
+#   3. 折叠 . 与 ..：脚本在打开前先 mkdir -p，中间目录会被创建，.. 因此真的生效
+# macOS 自带的 realpath 对不存在的路径直接失败，readlink -f 同样；
+# 所以这里用 readlink 跟随软链 + cd/pwd -P 拿物理路径（POSIX 能力，不依赖 GNU）。
+#
+# 解析失败（软链成环、无权限进入祖先目录等）时不猜：拒写，退出码 4。
+# 宁可让人看见「这条没写成」，也不赌一个可能落在临时目录的路径。
+real_path() {
+  local p="$1" hops=0
+  case "$p" in
+    /*) ;;
+    *) p="$PWD/$p" ;;
+  esac
+  # 去掉末尾斜杠；$TMPDIR 在 macOS 上默认就带尾斜杠
+  while [ "$p" != "/" ] && [ "${p%/}" != "$p" ]; do
+    p="${p%/}"
+  done
+  local cur suffix parent target real
+  while :; do
+    cur="$p"; suffix=""
+    # 最近一个「存在，或本身是软链」的祖先。悬空软链也必须停下：
+    # exec 7>> 会跟着它走，它指向哪里就是往哪里写。
+    while [ ! -e "$cur" ] && [ ! -L "$cur" ]; do
+      parent="$(dirname "$cur")"
+      [ "$parent" = "$cur" ] && break
+      suffix="/$(basename "$cur")$suffix"
+      cur="$parent"
+    done
+    if [ -L "$cur" ]; then
+      hops=$((hops + 1))
+      [ "$hops" -le 64 ] || return 1
+      target="$(readlink "$cur")" || return 1
+      parent="$(dirname "$cur")"
+      case "$target" in
+        /*) p="${target}${suffix}" ;;
+        *)  p="${parent%/}/${target}${suffix}" ;;
+      esac
+      continue
+    fi
+    if [ -e "$cur" ]; then
+      if [ -d "$cur" ]; then
+        real="$(cd -- "$cur" && pwd -P)" || return 1
+      else
+        parent="$(dirname "$cur")"
+        real="$(cd -- "$parent" && pwd -P)" || return 1
+        real="${real%/}/$(basename "$cur")"
+      fi
+      normalize_path "${real}${suffix}"
+      return 0
+    fi
+    return 1
+  done
+}
+
+# 纯文本折叠 . 与 ..。只用在「已解析的真实前缀 + 尚不存在的后缀」上：
+# 前缀里已无软链，后缀里的组件都还不存在，所以文本折叠是安全的。
+# 不能拿它处理含软链的原始路径——那样 /a/link/.. 会折叠成 /a，而实际是 link 目标之父。
+normalize_path() {
+  local p="$1" out="" comp
+  local -a parts
+  IFS='/' read -r -a parts <<< "$p"
+  for comp in "${parts[@]}"; do
+    case "$comp" in
+      ""|".") ;;
+      "..") out="${out%/*}" ;;
+      *) out="${out}/${comp}" ;;
+    esac
+  done
+  [ -n "$out" ] || out="/"
+  printf '%s\n' "$out"
+}
+
+# $1 是否在 $2 之下（含相等）。按路径分量比，所以 /tmpfoo 不在 /tmp 下。
+is_under() {
+  [ "$1" = "$2" ] || [ "${1#"$2"/}" != "$1" ]
+}
+
+resolved_ledger="$(real_path "$ledger")" || {
+  echo "拒绝写入：无法解析台账路径的真实路径（软链成环或权限不足）：$ledger" >&2
+  echo "不猜；见 docs/ledger.md「临时目录判定」" >&2
+  exit 4
+}
+
+tmp_hit=""
+for root in /tmp /var/tmp "${TMPDIR:-}"; do
+  [ -n "$root" ] || continue
+  resolved_root="$(real_path "$root")" || {
+    echo "警告：无法解析临时目录的真实路径，本条不参与判定：$root" >&2
+    continue
+  }
+  if is_under "$resolved_ledger" "$resolved_root"; then
+    tmp_hit="${root} → ${resolved_root}"
+    break
+  fi
+done
+
+if [ -n "$tmp_hit" ]; then
+  echo "拒绝写入临时目录：需要留档的东西落在临时目录等于没写" >&2
+  echo "  台账：$ledger" >&2
+  echo "  真实路径：$resolved_ledger" >&2
+  echo "  命中：$tmp_hit" >&2
+  exit 3
+fi
 
 mkdir -p "$(dirname "$ledger")"
 lockdir="${ledger}.lock"

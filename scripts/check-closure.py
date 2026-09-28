@@ -145,6 +145,18 @@ SKIP_DIRS = {"node_modules", "deprecated", "in-progress", "templates", "assets",
              "commands", "evals", "hooks", "schemas", "scripts"}
 
 
+# 每个检查项声明的**实际受检载体**（类目, 锚点）。这是给 C22 用的：
+# provenance_policy 里写 `enforced_by: C20` 不能只证明「有个叫 C20 的检查
+# 存在」——「指向存在」不等于「覆盖」。检查项自己在这里声明它核的是哪一类
+# 文件的哪一段，C22 再核这份声明与 policy 的类目对不对得上。
+# 维护者：新增 enforced_by 绑定前先在这里登记；登记意味着你确认这条检查真的
+# 读那类文件的那个锚点。变更检查实现时同步改这里，并重跑 C22 的反例。
+CHECK_COVERS = {
+    "C20": ("skills", "## 来源"),
+    "C21": ("principles", "来源："),
+}
+
+
 class Result:
     def __init__(self):
         self.checks = []
@@ -239,18 +251,27 @@ def main():
     # VERSION 必须与当前 commit 上的 tag 对齐。v2.0.1–v2.0.3 三次打了 tag 却没改
     # VERSION，而 C1 只比前两个，所以一直 PASS——下游按 tag 锁定会锁到一个自称
     # 2.0.0 的东西。「版本单一来源」必须包含 release tag，否则不是单一来源。
-    tag = subprocess.run(["git", "tag", "--points-at", "HEAD"],
-                         capture_output=True, text=True,
-                         cwd=str(ROOT)).stdout.split()
-    if not tag:
-        miss.append("当前 commit 上没有 tag——打了 tag 之前不能算一个 release")
-    else:
-        vtags = [x for x in tag if re.fullmatch(r"v?\d+\.\d+\.\d+", x)]
-        if not vtags:
-            miss.append(f"当前 commit 的 tag {tag} 里没有语义化版本号 tag")
-        elif f"v{vfile}" not in tag:
-            miss.append(f"VERSION={vfile}，但当前 commit 的 tag 是 {tag}——"
-                        f"两者对不上。发版前先改 VERSION 再打 tag，或打 tag 后改 VERSION 再补打")
+    # 无 git 元数据（例如 `git archive` 导出、或装到下游的裸目录）时 tag 核对
+    # 无从进行。那是环境故障，按本库硬边界 3 判 UNVERIFIED（渲染为 SKIP）：
+    # 既不冒充 PASS，也不判成产品缺陷。旧版把它当「没打 tag」判 FAIL——那是在
+    # 用一句假话把「没查」说成「查出来是坏的」。
+    git_meta = subprocess.run(["git", "rev-parse", "--git-dir"],
+                              capture_output=True, text=True,
+                              cwd=str(ROOT)).returncode == 0
+    tag_checked = git_meta
+    if git_meta:
+        tag = subprocess.run(["git", "tag", "--points-at", "HEAD"],
+                             capture_output=True, text=True,
+                             cwd=str(ROOT)).stdout.split()
+        if not tag:
+            miss.append("当前 commit 上没有 tag——打了 tag 之前不能算一个 release")
+        else:
+            vtags = [x for x in tag if re.fullmatch(r"v?\d+\.\d+\.\d+", x)]
+            if not vtags:
+                miss.append(f"当前 commit 的 tag {tag} 里没有语义化版本号 tag")
+            elif f"v{vfile}" not in tag:
+                miss.append(f"VERSION={vfile}，但当前 commit 的 tag 是 {tag}——"
+                            f"两者对不上。发版前先改 VERSION 再打 tag，或打 tag 后改 VERSION 再补打")
     for label, coll, key in (("产物", artifacts, "id"), ("阶段", phases, "id"),
                              ("角色", roles, "id"), ("原则", principles, "id"),
                              ("技能", skills, "id")):
@@ -258,9 +279,13 @@ def main():
         dup = {i for i in ids if ids.count(i) > 1}
         if dup:
             miss.append(f"{label} id 重复: {sorted(dup)}")
-    r.add("C1", "结构与版本单一来源", not miss,
-          f"版本 {vfile}，产物 {len(artifacts)}／阶段 {len(phases)}／角色 {len(roles)}"
-          f"／原则 {len(principles)}／技能 {len(skills)}", miss)
+    c1_detail = (f"版本 {vfile}，产物 {len(artifacts)}／阶段 {len(phases)}／角色 {len(roles)}"
+                 f"／原则 {len(principles)}／技能 {len(skills)}")
+    if not tag_checked:
+        c1_detail += ("；无 git 元数据（如 `git archive` 导出），未核对 VERSION 与 "
+                      "release tag 的对齐——按三态判 UNVERIFIED，不判 FAIL")
+    r.add("C1", "结构与版本单一来源", not miss, c1_detail, miss,
+          skip=(not tag_checked and not miss))
 
     # ── C2 产物闭合 ────────────────────────────────────────────
     miss = []
@@ -531,16 +556,21 @@ def main():
     r.add("C7", "上游处置完备（对锁文件）", not miss,
           f"锁文件 {len(lock_skills)} 个上游 skill，处置表 {len(listed)} 条，一一对应", miss)
 
-    # ── C9 来源路径真实存在（对锁文件；有克隆时另比内容）──────
+    # ── C9 来源声明与锁文件一致（有实物时校验内容）────────────
+    # 名字必须说清能力边界：无 upstreams/ 时只核锁文件，**不做实物对照**，
+    # 输出要自曝这一点，不把它说成「已核」。旧版在缺 .git 时跳过 pin 比对，
+    # 却照样写「并已逐条比对 sha256 与 pin」——把「没核」说成「核过了」。
     miss = []
     for coll, kind in ((skills, "skill"), (principles, "principle")):
         for item in coll:
             for src in item.get("sources") or []:
                 if src not in lock_skills:
                     miss.append(f"{kind} {item['id']} 的来源 {src} 不在上游锁文件里")
-    detail = f"{len(lock_skills)} 个上游 skill 索引（锁文件），0 条失效来源"
-    if lock_skills and (ROOT / "upstreams").is_dir():
-        # 锁与实物对照：sha256 与 pin 都核
+    has_upstreams = (ROOT / "upstreams").is_dir()
+    pin_unchecked = []          # pin 没核的原因（缺 .git 元数据等）
+    repos_n = 0
+    if lock_skills and has_upstreams:
+        # 锁与实物对照：逐条比 sha256；有 git 元数据的仓另比 pin
         import hashlib
         for key, ent in lock_skills.items():
             fp = ROOT / ent["path"]
@@ -551,17 +581,54 @@ def main():
             if h != ent["sha256"]:
                 miss.append(f"{key} 的内容漂移：锁文件记 {ent['sha256']}，磁盘是 {h}"
                             f"（上游更新了，重跑 scripts/sync-upstreams.sh 并复核处置）")
-        for pre, meta in (lock.get("repos") or {}).items():
+        repos = lock.get("repos") or {}
+        repos_n = len(repos)
+        if not repos:
+            pin_unchecked.append("锁文件未登记 repos")
+        for pre, meta in repos.items():
             d = ROOT / meta["path"]
-            if not (d / ".git").exists():
+            # 不能只看 `d/.git` 存在与否：pstack 是 cursor-plugins 仓库的子目录，
+            # 它自己没有 .git，但 git 元数据经父仓可达。也不能只信 rev-parse：
+            # 把 pstack 单独拷进另一个 git 检出时，rev-parse 会找到**外层**仓库，
+            # 把外层 HEAD 当上游 pin（B4 控制台实测过这个假 FAIL）。
+            # 判据：解析出的仓库顶层必须落在 upstreams/ 内，才是上游自己的元数据。
+            probe = subprocess.run(["git", "-C", str(d), "rev-parse", "--show-toplevel"],
+                                   capture_output=True, text=True)
+            top = probe.stdout.strip()
+            up_root = (ROOT / "upstreams").resolve()
+            top_s, up_s = str(Path(top).resolve()) if top else "", str(up_root)
+            if probe.returncode != 0 or not (
+                    top_s == up_s or top_s.startswith(up_s + os.sep)):
+                pin_unchecked.append(f"上游 {pre} 没有可信的 git 元数据"
+                                     f"（该路径上没有属于 upstreams/ 的仓库）")
                 continue
             head = subprocess.run(["git", "-C", str(d), "rev-parse", "HEAD"],
                                   capture_output=True, text=True).stdout.strip()
             if head != meta["commit"]:
                 miss.append(f"上游 {pre} 的 pin 漂移：锁文件记 {meta['commit'][:7]}，"
                             f"克隆在 {head[:7]}")
-        detail += "；并已逐条比对 sha256 与 pin"
-    r.add("C9", "来源真实存在（锁 + 实物对照）", not miss, detail, miss)
+    if miss:
+        # 有真实不一致时 FAIL 优先，SKIP 不得替它掩盖
+        detail = (f"{len(lock_skills)} 个上游 skill 索引（锁文件）；"
+                  f"发现 {len(miss)} 条不一致（明细见下）")
+        r.add("C9", "来源声明与锁文件一致（有实物时校验内容）", False, detail, miss)
+    elif not has_upstreams:
+        detail = (f"{len(lock_skills)} 个上游 skill 索引（锁文件），0 条失效来源。"
+                  f"PASS（锁文件核对）：registry.sources 均在随包 upstreams.lock.yaml；"
+                  f"未发现 upstreams/，未做上游实物 sha256/pin 对照；"
+                  f"不证明锁文件与真实上游一致。")
+        r.add("C9", "来源声明与锁文件一致（有实物时校验内容）", True, detail)
+    elif pin_unchecked:
+        detail = (f"{len(lock_skills)} 个上游 skill 索引（锁文件），0 条失效来源；"
+                  f"upstreams/ 存在，sha256 已比对；未核 pin：{'；'.join(pin_unchecked)}"
+                  f"——实物核对不完整，按三态判 UNVERIFIED（SKIP），不判成产品缺陷。")
+        r.add("C9", "来源声明与锁文件一致（有实物时校验内容）", True, detail, None,
+              skip=True)
+    else:
+        detail = (f"{len(lock_skills)} 个上游 skill 索引（锁文件），0 条失效来源。"
+                  f"PASS（锁文件＋实物核对）：来源在锁文件中；上游文件 sha256 与 "
+                  f"{repos_n} 仓 pin 均与锁文件一致。")
+        r.add("C9", "来源声明与锁文件一致（有实物时校验内容）", True, detail)
 
     # ── C10 处置表声称吸收，目标就必须真的列了它（双向）────────
     # 这一条曾经缺失：6 条 absorbed 处置在 upstreams/ 里对得上，
@@ -645,8 +712,10 @@ def main():
         if not s_.get("sources") and s_.get("origin") != "library":
             miss.append(f"技能 {s_['id']} 没有来源也没标 origin: library"
                         f"——读者无法分辨它是「上游没有对应物」还是「忘了写来源」")
-    r.add("C12", "原创技能显式标注", not miss,
-          f"{sum(1 for x in skills if x.get('origin') == 'library')} 个原创技能已标注", miss)
+    r.add("C12", "无吸收来源技能显式标注", not miss,
+          f"{sum(1 for x in skills if x.get('origin') == 'library')} 个技能没有吸收来源"
+          f"（registry.sources 为空）并标了 origin: library；该计数与 C20 的非吸收"
+          f"形态数（借鉴＋纯原创）对账，两者由交叉断言保证相等", miss)
 
     # ── C13 越权写：判据逐条声明 write / verify，不靠猜中文动词 ──
     # 上一版这里有一个受控动词表（已更新/已刷新/已保鲜/…）。二审给了两个反例：
@@ -682,7 +751,9 @@ def main():
                                 f"但 `{rid}` 不在它的装配 {sorted(equipped)} 里")
     r.add("C13", "越权写由显式声明判定", not miss,
           f"{sum(len(p.get('exit_criteria', [])) for p in phases)} 条判据全部显式声明了 "
-          f"write/verify，没有越权", miss)
+          f"write/verify，没有越权。"
+          f"边界：仅核阶段退出判据的 write:/verify: 显式声明；不读取角色正文，"
+          f"正文与 registry 的写权冲突须人审。", miss)
 
     # ── C14 技能头部的产物声明必须与注册表一致 ─────────────────
     # 抓的是这一类：头部写「产物：无」，产出节却写「A9 决策台账」。
@@ -762,7 +833,12 @@ def main():
                         + "——没人被要求填它，判据永远无法满足，链会断")
     r.add("C15", "被判据校验的字段：声明的人与产出合同都成立", not miss,
           f"{len(gated)} 个被阶段判据校验的字段，"
-          f"声明的责任人与产出方正文里的填法两两对齐", miss)
+          f"声明的责任人与产出方正文里的填法两两对齐。"
+          f"边界：taught 只验字段名在产出方（角色文件 + 它拥有的技能正文）里出现，"
+          f"不验是否在教——把真实教学删掉、只留一句语义无关提及的情形抓不到，"
+          f"属语义、由人审。"
+          f"边界：不保证字段名在角色文件与技能文件之间逐字一致——某一份改名、"
+          f"另一份仍列着（role-contract-drift）不算缺陷。", miss)
 
     # ── C16 每个阶段都必须有「记台账」的判据 ────────────────────
     # A9 是常驻产物，但 v2.0.1 的 P0–P5 没有任何一条判据提到它，
@@ -878,6 +954,14 @@ def main():
                         f"又声称「本库原创」——两者互斥，只能选一个")
             continue
         shapes[shape] += 1
+        # 交叉断言：正文形态与 registry.origin 必须说的是同一件事。
+        # C12 只管「sources 为空 → origin: library」；这一条补上反向——
+        # 吸收形态的技能不得标 origin: library。缺了它，round-3 §6.5 那类
+        # 「C12 说 3 个原创、C20 说 0 个原创／3 个借鉴」的对不上账会全绿。
+        if shape == "absorbed" and sk.get("origin") == "library":
+            miss.append(f"技能 {sid} 的来源段是吸收形态（逐条列了 {len(bare)} 条上游路径），"
+                        f"但 registry 标了 origin: library——正文说吸收、注册表说库内，"
+                        f"两个标签必须指向同一件事（与 C12 对账）")
         for p in set(UP_PATH_RE.findall(sec)):
             if p not in path2id:
                 miss.append(f"技能 {sid} 的来源段提到 {p}，但它不在上游锁文件里"
@@ -903,7 +987,72 @@ def main():
                             f"但 registry 没标 origin: library（C12 的要求）")
     r.add("C20", "技能来源段与注册表形态一致", not miss,
           f"{shapes['absorbed']} 个吸收／{shapes['borrowed']} 个借鉴／"
-          f"{shapes['original']} 个原创，来源段与 registry.sources 逐条一致", miss)
+          f"{shapes['original']} 个纯原创（形态 original）；其中 "
+          f"{shapes['borrowed'] + shapes['original']} 个标 origin: library，"
+          f"与 C12 的计数对账（交叉断言：吸收形态不得标 origin: library）", miss)
+
+    # ── C21 原则来源与注册表完全相等 ───────────────────────────
+    # provenance_policy 承诺 principles 的覆盖载体是「每条 `## p-*` 段内的
+    # `来源：` 行」，但此前没有任何检查器读它（round-3 的 C1/C2 注入双绿）。
+    # C21 把承诺变成断言：正文里反查出来的上游 id 集合必须与 registry.sources
+    # **完全相等**——拒幽灵路径、拒缺失、拒串线、拒重复。
+    # 形态分三支：有路径 + 「本库原创」= 借鉴；有路径不声明原创 = 吸收；
+    # 无路径 + 声明原创 = original，必须给内部锚点。未来合法的多来源按集合比。
+    miss = []
+    pr_sections = {}          # pid -> (file, 该段落正文)
+    for f in sorted((ROOT / "principles").glob("*.md")):
+        text = f.read_text(encoding="utf-8")
+        heads = list(re.finditer(r"^##\s+(p-[a-z0-9-]+)\s*$", text, re.M))
+        for i, m in enumerate(heads):
+            end = heads[i + 1].start() if i + 1 < len(heads) else len(text)
+            pr_sections[m.group(1)] = (f, text[m.end():end])
+    for pid in sorted(set(pr_by_id) - set(pr_sections)):
+        miss.append(f"原则 {pid} 在 registry 里，但 principles/ 里没有对应的 `## {pid}` 段落")
+    for pid in sorted(set(pr_sections) - set(pr_by_id)):
+        miss.append(f"principles/ 里的 `## {pid}` 不在 registry 里——孤段")
+    path2id_pr = {v.get("path"): k for k, v in lock_skills.items() if v.get("path")}
+    PR_PATH_RE = re.compile(r"upstreams/[A-Za-z0-9_./-]+/SKILL\.md")
+    for pid in sorted(set(pr_sections) & set(pr_by_id)):
+        f, sec = pr_sections[pid]
+        rel = f.relative_to(ROOT)
+        src_lines = re.findall(r"^来源：(.+)$", sec, re.M)
+        paths = [p for line in src_lines for p in PR_PATH_RE.findall(line)]
+        claimed_original = "本库原创" in sec
+        declared = set(pr_by_id[pid].get("sources") or [])
+        if not src_lines:
+            miss.append(f"{rel} 的 {pid} 没有「来源：」行——来源无处可核")
+            continue
+        if len(paths) != len(set(paths)):
+            miss.append(f"{rel} 的 {pid} 的来源有重复路径——同一个上游列了两遍")
+        got = set()
+        for p in paths:
+            uid = path2id_pr.get(p)
+            if uid is None:
+                miss.append(f"{rel} 的 {pid} 的来源 {p} 不在上游锁文件里——幽灵路径")
+            else:
+                got.add(uid)
+        if not paths and claimed_original:
+            # 完全原创分支：显式声明 original，且必须给内部锚点
+            if declared:
+                miss.append(f"{rel} 的 {pid} 声明「本库原创」，但 registry.sources 非空 "
+                            f"{sorted(declared)}——一边说原创一边挂着上游")
+            if not re.search(r"A\d+|`@[a-zA-Z0-9-]+`|\]\([^)]+\)|p-[a-z0-9-]+", sec):
+                miss.append(f"{rel} 的 {pid} 声明「本库原创」但正文里找不到内部锚点"
+                            f"（契约 A*、技能 @id、相对链接或原则 p-*）——原创必须有内部出处")
+        elif not paths:
+            miss.append(f"{rel} 的 {pid} 的来源行里没有任何上游路径，也没声明「本库原创」"
+                        f"——不属于三类形态中的任何一类")
+        elif got != declared:
+            only_file = sorted(got - declared)
+            only_reg = sorted(declared - got)
+            miss.append(f"{rel} 的 {pid} 的来源与 registry.sources 不一致："
+                        f"只在正文里 {only_file or '无'}，只在注册表里 {only_reg or '无'}"
+                        f"——串线、缺失或多列都算")
+    r.add("C21", "原则来源与注册表完全相等", not miss,
+          f"{len(pr_sections)} 条原则的「来源：」行反查出的上游 id 与 registry.sources "
+          f"逐条相等（拒幽灵路径、缺失、串线、重复）。"
+          f"边界：只证锚点存在且与注册表一致，不证段落语义忠实——"
+          f"「这条原则的正文真的来自那段上游」不可机械核验，由人审。", miss)
 
     # ── 解耦检查 D1 ──────────────────────────────────────────
     # 名字里的「已知底座名黑名单」是承诺的一部分：这张表是**人工枚举**的，
@@ -941,6 +1090,69 @@ def main():
           f"扫描 {len(targets)} 个库内容文件（含 docs/，只豁免 history/ 与 archive/），"
           f"0 处命中已知底座名。边界：黑名单是人工枚举的 {len(DECOUPLING_PATTERNS)} 条"
           f"已知名称，不是穷尽清单——别名、缩写、厂商代号抓不到", miss)
+
+    # ── C22 来源政策的 enforced_by 绑定真实载体 ───────────────
+    # 这是「检查检查器」的元检查。`provenance_policy.current[*].enforced_by`
+    # 如果只证明「检查项存在」，那它就只是一张字符串指派表——「指向存在」
+    # 不等于「覆盖」。所以每个检查项在 CHECK_COVERS 里声明它实际核的载体
+    # 类目，C22 核四件事：
+    #   1. enforced_by 指到的检查项真的在本次运行中注册；
+    #   2. 该检查声明的载体类目与 policy 里那一条的类目一致；
+    #   3. 状态本身合规：enforced 必须有可核粒度；UNVERIFIED 必须带 owner 与 due；
+    #   4. level 不得超过该类别实际可核的上限（known_limits 的机械影子）。
+    policy = reg.get("provenance_policy") or {}
+    current = policy.get("current") or {}
+    registered = {c[0] for c in r.checks}
+    LEVEL_RANK = {"none": 0, "file": 1, "clause": 2, "paragraph": 3}
+    LEVEL_CAP = {"skills": "file", "principles": "clause"}
+    miss = []
+    if not current:
+        miss.append("provenance_policy.current 缺失——来源政策的实际覆盖级别无处可核")
+    for cat, ent in sorted(current.items()):
+        ent = ent or {}
+        status = ent.get("status")
+        level = ent.get("level")
+        if status == "enforced":
+            cid = ent.get("enforced_by")
+            if not cid:
+                miss.append(f"provenance_policy.current.{cat} 标 enforced 却没写 enforced_by"
+                            f"——没有承载体，enforced 就是一句空话")
+            elif cid not in registered:
+                miss.append(f"provenance_policy.current.{cat} 的 enforced_by={cid} "
+                            f"不是本次运行中注册的检查项——指向不存在的检查")
+            elif cid not in CHECK_COVERS:
+                miss.append(f"检查项 {cid} 没有在 CHECK_COVERS 里声明它核的载体类目"
+                            f"——「指向存在」不等于「覆盖」，无法证明它的断言落在 "
+                            f"provenance_policy.current.{cat} 上")
+            elif CHECK_COVERS[cid][0] != cat:
+                miss.append(f"provenance_policy.current.{cat} 声称由 {cid} 覆盖，"
+                            f"但 {cid} 的 CHECK_COVERS 声明它核的是 "
+                            f"{CHECK_COVERS[cid][0]}——绑定的不是同一个对象")
+            if level in (None, "none"):
+                miss.append(f"provenance_policy.current.{cat} 标 enforced 但 level={level}"
+                            f"——没到任何可核粒度就不能声称执行")
+        elif status == "UNVERIFIED":
+            for k in ("owner", "due"):
+                if not ent.get(k):
+                    miss.append(f"provenance_policy.current.{cat} 标 UNVERIFIED 却没写 {k}"
+                                f"——无限期的静态标签不是待办，必须有责任人与到期条件")
+        else:
+            miss.append(f"provenance_policy.current.{cat} 的 status={status!r} 非法"
+                        f"——只承认 enforced / UNVERIFIED")
+        if level not in LEVEL_RANK:
+            miss.append(f"provenance_policy.current.{cat} 的 level={level!r} 非法"
+                        f"——只承认 none / file / clause / paragraph")
+        else:
+            cap = LEVEL_CAP.get(cat)
+            if cap and LEVEL_RANK[level] > LEVEL_RANK[cap]:
+                miss.append(f"provenance_policy.current.{cat} 的 level={level} 高于实际可核的 "
+                            f"{cap}——known_limits 明写条款级不能当段落级，写高了就是假声明")
+    covers = "；".join(f"{k}→{v[0]}/{v[1]}" for k, v in sorted(CHECK_COVERS.items()))
+    r.add("C22", "来源政策的 enforced_by 绑定真实载体", not miss,
+          f"provenance_policy.current 共 {len(current)} 条；enforced 的绑定经 CHECK_COVERS "
+          f"核对（{covers}）；UNVERIFIED 条目均带 owner 与 due。"
+          f"边界：CHECK_COVERS 是维护者的声明——C22 证明「声明的类目」与 policy 一致，"
+          f"不证明检查实现真的读了那些文件；后者靠 C20/C21 的故障注入反例。", miss)
 
     return r.report(args.quiet)
 
