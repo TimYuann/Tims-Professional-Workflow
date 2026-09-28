@@ -42,6 +42,16 @@ cwd: ~/Developer/tim-professional-workflow
 5. **产物不是文件。** 产物是一组字段 + 产出方 + 消费者 + 存活期。
    落在下游哪个路径由 `driver` 按集合 B 裁定；纪律由本库定义。
    不要在本库里规定下游的目录结构。
+6. **角色是装配出来的，不是直接读的。** 原则正文只在 `principles/<owner>.md`；
+   角色文件里只有引用与 `trigger`（这个角色何时加载它），不复述原则的意思。
+   起会话前用 `python3 scripts/compose-role.py <角色>` 拿到拼好的 prompt，
+   `python3 scripts/compose-role.py --check` 验结构。直接发角色文件正文
+   会让里面的原则引用变成未定义符号。
+7. **多 agent 协作走「起独立会话 + 会话间消息」，不走进程内子代理。**
+   子代理与主会话共享一个进程与一份上下文，没有独立身份，
+   跨轮交接、独立重开、彼此发消息都做不了。
+   每层用同一个名字：本仓叫什么、那个会话就叫什么。
+   **不要因为某个封装工具看起来更方便就换过去。**
 
 ## 改动之后
 
@@ -49,6 +59,7 @@ cwd: ~/Developer/tim-professional-workflow
 python3 scripts/render.py
 python3 scripts/check-closure.py
 python3 scripts/check-consistency.py
+python3 scripts/compose-role.py --check
 ```
 
 三个都只读或幂等，非零退出即失败。**不要修脚本来让它过。**
@@ -61,6 +72,10 @@ python3 scripts/check-consistency.py
 3. 验证只有三态：`PASS` / `FAIL` / `UNVERIFIED`。
    环境故障既不算 `PASS`，也不判成产品缺陷。
 4. `A9` 台账只追加。不修改、不删除既有行。
+5. **本库的 Driver 停在「逻辑编排层」。** 它定义 control semantics——
+   谁该上场、哪个 artifact 够不够格、退给谁、什么时候停。
+   它**不定义 execution mechanics**——进程、并发上限、WIP、队列、锁、
+   重试、资源治理都属下游 runtime。下游 harness 也管这些。
 
 ## 检查器判不了什么
 
