@@ -112,12 +112,18 @@ if [ ! -s "$ledger" ]; then
   printf 'actor\trun\tsubject\tphase\tdecision\twhy\tevidence\tresult\n' >&7
 fi
 
-# 会话标识：优先用外部注入的，其次用本进程与终端组合出来的
-actor="${TPW_ACTOR:-${PI_AGENT_NAME:-${HERDR_AGENT:-}}}"
+# 会话标识：只认本工作流自己的环境变量。
+#
+# 这里**故意不读**任何以具体工具命名的环境变量。在一个自称工具解耦的库里，
+# 读一个叫「某个工作区管理器」或「某个 agent」的变量，就是把耦合写进了脚本——
+# 名字本身就是契约，别的工具一换名就静默失效，而静默失效在台账里表现为
+# 「actor 栏全是空」，没人会去查。取不到就退到进程号，**并让取不到这件事可见**。
+actor="${TPW_ACTOR:-}"
 if [ -z "$actor" ]; then
-  actor="pid:$$@${TERM_SESSION_ID:-notty}"
+  # 没注入 actor：台账会照样写，但归因不到人。见 docs/ledger.md「必须注入 TPW_ACTOR」。
+  actor="unattributed:pid:$$"
 fi
-run="${TPW_RUN:-$(date -u +%Y%m%dT%H%M%SZ)-${PPID:-$$}}"
+run="${TPW_RUN:-$(date -u +%Y%m%dT%H%M%SZ)-pid:$$}"
 
 # 字段里的制表符与换行会破坏列对齐，换成空格
 clean() { printf '%s' "$1" | tr '\t\n' '  '; }

@@ -9,13 +9,65 @@
 #   3. 每个产物类型必须有且仅有一个主产出角色
 #   4. 产出某产物的阶段，必须在自己的退出判据里校验它
 
-version: 2.0.5
+version: 2.0.6
 name: TIM Professional Workflow
 derived_views:
   - workflow/phases/          # 阶段契约（由本文件 + roles/ 散文派生）
   - workflow/ribbons/
   - docs/artifacts.md         # 集合 A（由 artifacts 段派生）
   - docs/closure-report.md    # 闭包报告（由 check-closure.py 生成）
+
+# ─────────────────────────────────────────────────────────────
+# 来源政策（provenance policy）
+#
+# Owner 的要求是「每一段话有来源」。本段把这句话写成机器可核的形式，
+# 并**如实写下今天到哪一级**——不到就是不到，不偷降。
+#
+# 粒度：目标级是「每一个实质正文段落」。实质正文 = 事实陈述、规则、方法、
+# 解释；豁免的只有模板性标题与表头（见 excludes）。
+#
+# 三种形态，**互斥**，每个实质段落必须归其中之一：
+#   absorbed   吸收自某个上游 skill。正文里必须能解析出上游 passage 锚点。
+#   borrowed   借鉴思路但没复制实现。上游 passage 锚点 + 写明借鉴的是哪一句。
+#   original   本库原创。必须给**内部**锚点：某条契约、某次决定、某个需求。
+#
+# 职责分工，三者不可互相顶替：
+#   作者   逐段填写归属。这是人的活，机器代替不了。
+#   审查人 核**语义忠实**——这段话是不是真从那段上游来的。
+#   检查器 只核三件机械的事：**段落覆盖**（没有漏标的段）、
+#         **锚点存在**（写的路径/锚点解析得到）、**形态合法**（三选一且不混用）。
+#   **检查器不得声称「路径存在」等于「语义忠实」。** 它看不见语义，
+#   声称了就是假检查——本库已经吃过一次，见 README 纪律段。
+#
+# 段落级映射写在各文件自己的 sidecar 里，**本文件只放政策，不复制正文**。
+# ─────────────────────────────────────────────────────────────
+provenance_policy:
+  target_granularity: paragraph        # 目标级，不是当前级
+  applies_to: [skills, principles, roles, scripts]
+  forms: [absorbed, borrowed, original]
+  # 每个实质正文段落都要归入三形态之一。豁免的只有这些：
+  excludes:
+    - 模板性标题（文件顶部的标题与一句话摘要行）
+    - 表格表头与分隔行
+    - 空行与代码块
+  # 今天的实际覆盖级别。**没到目标级的，如实写 UNVERIFIED，不许假装到了。**
+  current:
+    skills:      {level: file,   status: enforced,  carrier: skills/*.md 的 `## 来源` 段}
+    principles:  {level: clause, status: enforced,  carrier: principles/*.md 每条原则的 `来源：` 行}
+    roles:       {level: none,   status: UNVERIFIED, gap: 角色正文逐段链接原则/技能/A-P 契约或原创决定的映射尚未建立}
+    scripts:     {level: none,   status: UNVERIFIED, gap: 脚本逐段链接它所实现的规则/测试/设计决定的映射尚未建立}
+  # 已知的、本政策明确不覆盖的东西。写下来是为了让下一个人不必重新发现：
+  not_covered:
+    - >-
+      `roles/` 里的 `principles` / `skills` 关联是**依赖关系**（谁的心智模型、谁能调什么），
+      **不是「角色每一段主张的来源证明」**。角色文件说「不得自己给自己下结论」，
+      它的来源是硬边界与阶段硬规则，不是某个上游 skill。
+    - >-
+      `scripts/` 是工具而不是 agent 的工作合同。给它们虚构上游 `sources` 字段
+      会把「这段代码实现了哪条规则」错记成「这段代码抄了哪个上游」。
+    - >-
+      段落级的**语义忠实**永远不可机械核验，只能由审查人承担。
+      本政策不假装检查器能做这件事。
 
 # ─────────────────────────────────────────────────────────────
 # 产物（集合 A）：工作流可能产出的全部东西
@@ -100,16 +152,24 @@ artifacts:
   fields:
   - what
   - why
+  - scope
   - done_definition
   - boundaries
   shape: 可合并的包
   embodiment: >-
-    **主形态**：task packet 里的契约段。**规格形态**：落进仓库的规格文件或问题跟踪系统（`@spec-driven-development`）。**门槛形态**：仓库根目录一份的质量契约，含底线、带数字的强制项、只量不强制项、例外四段（`@constraint-driven-development`）。**长期形态**：难回头且有取舍的决定写成决策记录，逐编号、只追加不删（`@documentation-and-adrs`）。
+    **主形态**：task packet 里的契约段。**规格形态**：落进仓库的规格文件或问题跟踪系统（`@spec-driven-development`）。**项目级质量契约形态（`scope: project`）**：仓库根目录一份，底线、带数字的强制项、只量不强制项、例外四段（`@constraint-driven-development`）——它是**不可暗降的下限**，常驻、不随任务消失。**长期形态**：难回头且有取舍的决定写成决策记录，逐编号、只追加不删（`@documentation-and-adrs`）。**设计草图与被否决的备选形状**（含落选理由）同样进契约段——它们是 `A4` 的一部分而不是草稿（`@codebase-design`）。
   persistence: durable
   notes:
     what: 建什么。动词开头，能被第三方复述
     why: 为什么——业务理由，不是技术偏好
-    done_definition: 什么证据算完成。必须可判定：只凭它能给出 PASS/FAIL/UNVERIFIED
+    scope: >-
+      这一份契约是**项目级**还是**任务级**，取 `project` / `task`。**由 `architect` 填，两种填法都要在
+      `roles/architect.md` 与对应技能正文里教出来。** 这一栏不是分类标签，它是**优先级声明**：
+      `project` 级质量契约是不可暗降的下限；`task` 级 `done_definition` 只能**补充或收紧**它，
+      永远不能放宽。要放宽必须走显式例外（写清谁批、批到什么时候），不许在任务契约里悄悄降档。
+      **两层的分工**：`project` 级回答「这个仓库一直要满足什么」，
+      `task` 级回答「这一片做完世界什么样、什么证据算完成」。
+    done_definition: 什么证据算完成。必须可判定：只凭它能给出 PASS/FAIL/UNVERIFIED。两层各自的写法见 `scope`
     boundaries: 什么不做、什么不许改——包括不许为了变绿而削弱检查
   rationale: 契约冻结后，BDD/TDD 那种「前提变了就改测试」才有唯一合法入口：改契约必须走变更流程，不许悄悄改判据。
 - id: A5
@@ -139,6 +199,7 @@ artifacts:
   consumers:
   - P4
   - P5
+  - P6
   fields:
   - subject
   - change
@@ -146,7 +207,7 @@ artifacts:
   - known_gaps
   shape: 目录
   embodiment: >-
-    **代码本身**就是 A6 的主体；`A6.subject` 指向它的 commit。工作过程中建出的**杠杆工具、改造脚本、生成器、闸门检查、流水线配置、测试、注释、一次性原型、会红的反馈回路**，全部是 A6 的组成部分——它们改的就是代码和配置。不要为它们另开编号，但每一样都要在 A6.change 里点名列出来。
+    **代码本身**就是 A6 的主体；`A6.subject` 指向它的 commit。工作过程中建出的**杠杆工具、改造脚本、生成器、闸门检查、流水线配置、测试、注释、一次性原型、会红的反馈回路**，全部是 A6 的组成部分——它们改的就是代码和配置。不要为它们另开编号，但每一样都要在 A6.change 里点名列出来。**逐项归位**：**功能开关**连同它的到期日进 change——开关本身是代码、到期日是决定（`@incremental-implementation`）；**迁移与回退脚本**（`@deprecation-and-migration`）；**流水线与合并保护配置**（`@ci-cd-and-automation`）；**一次性原型分支**（`@prototype`）；**闸门与反馈回路**（`@tdd`、`@build-the-lever`）。
   persistence: durable
   notes:
     subject: 候选的对象身份：commit sha 或 patch 指纹。**由 `builder` 填**：P3 开工时记基线 commit，交付时记结果 commit。P5 验证的对象必须与它逐字一致。没有它，下游无法证明「验证过的」就是「上线的」
@@ -191,7 +252,7 @@ artifacts:
   - verdict
   shape: 目录
   embodiment: >-
-    凭据随评审目录落盘，一次验证一份。**未覆盖能力清单、文档漂移清单**是 A8 的副产品形态，不是独立产物（`@verification-suite` 的保鲜循环产出它们）。
+    凭据随评审目录落盘，一次验证一份。**未覆盖能力清单、文档漂移清单**是 A8 的副产品形态，不是独立产物（`@verification-suite` 的保鲜循环产出它们）。**其余验证类交付物一律是 A8 的字段或副产物，不另出文件**：**浏览器测试计划与前后截图**（`@browser-testing`——计划进 `claim`/`scope`，截图进 `observation`）；**性能基线与尝试记录**（`@performance-optimization`——数字进 `observation`，留或回滚的决定进 `A9`）；**依赖审计结论**（`@security-and-hardening`）；**信号对照表与值班问题清单**（`@observability-and-instrumentation`——清单进 `frame_alignment`）；**流水线的自证记录**（`@ci-cd-and-automation`——人为制造的红灯实测进 `observation`）。
   persistence: durable
   notes:
     claim: 证明了哪一条 A4.done_definition
@@ -219,7 +280,7 @@ artifacts:
   - result
   shape: 单文件
   embodiment: >-
-    **单文件**台账。**装配记录**（集合 A↔B 映射结果、冷启动三栏报告）是 A9 在装配时写的几行，不是独立文档。
+    **单文件**台账。**装配记录**（集合 A↔B 映射结果、冷启动三栏报告）是 A9 在装配时写的几行，不是独立文档（`@document-mapping`）。**发布记录同样是台账行，不另出编号**（`@shipping-and-launch`：事前清单、分档记录、回滚路径、上线观测、事后记录各占一行，结果写进 `result`；原始 git 历史仍属 `A6`）。**长期决策记录**（`@documentation-and-adrs`）是同一张台账的加长形态，追加索引与身份，不另立编号。
   persistence: durable
   notes:
     actor: 谁写的（角色名 + 会话标识）。缺这一栏，多会话并发时无法归因
@@ -232,6 +293,11 @@ artifacts:
     result: 结果如何
   append_only: true
   rationale: 全程唯一的常驻记录。Owner 的原话：自主执行的前提是全程记录不丢。
+  rework: >-
+    `A8.verdict` 是 `FAIL` 时回到 **P3** 重做，走新一轮 P3→P4→P5。这条返工边
+    **刻意不建成消费关系**——它是阶段图上的回边，建进 `consumers` 会让线性可达性检查失效
+    （与 `A7` 的返工边同理）。`UNVERIFIED` 不走返工边：它表示这一层没验到，
+    处理方式是补环境或补授权后重跑 `P5`，不是退回重做。
 
 
 # ─────────────────────────────────────────────────────────────
@@ -260,7 +326,9 @@ phases:
     purpose: 在写任何代码前，冻结「建什么、为什么、什么算完成、什么不做」。
     required_inputs: [A1, A2]
     exit_criteria:
+      - "verify: A4.what 能被一个没参与讨论的人原样复述，且动词开头"
       - "verify: A4.done_definition 是可判定的（第三方能只凭它给出 PASS / FAIL / UNVERIFIED 三态之一）"
+      - "verify: A4.scope 已声明是 project 还是 task；标 task 时它只收紧不放宽 project 级门槛，放宽的地方另有带审批人与期限的显式例外"
       - "verify: A4.boundaries 覆盖本次变更涉及的全部系统边界"
       - "verify: A3.capabilities 每条挂到真实代码锚点"
       - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
@@ -1014,104 +1082,104 @@ upstream_dispositions:
   # ── pstack (47)
   - {upstream: pstack:figure-it-out, outcome: rejected, into: null, reason: 「无窄剧本时先设计可审计 playbook + 假设循环」已被 wayfinder 的决策票据地图覆盖；tier-sizing 只取「按体量判档」这一层，不构成对它的吸收}
   - {upstream: pstack:bro, outcome: rejected, reason: 表达偏好，无产物，与表达带重叠且更弱}
-  - {upstream: pstack:interrogate, outcome: absorbed, into: interrogate, reason: 多模型对抗，直接对应独立挑战}
+  - {upstream: pstack:interrogate, outcome: absorbed, into: [interrogate], reason: 多模型对抗，直接对应独立挑战}
   - {upstream: pstack:setup-pstack, outcome: rejected, reason: 上游私有配置，与工程方法无关}
-  - {upstream: pstack:swarm, outcome: absorbed, into: swarm, reason: 并行扇出汇总成裁决}
-  - {upstream: pstack:technical-writing, outcome: absorbed, into: technical-writing, reason: 分层写作标准直接可用}
-  - {upstream: pstack:why, outcome: absorbed, into: teach, reason: 历史意图考古并入讲清楚}
-  - {upstream: pstack:how, outcome: absorbed, into: trace-paths, reason: 真实路径追踪}
-  - {upstream: pstack:blast-radius, outcome: absorbed, into: trace-paths, reason: 影响面追踪 + 用跑出来的证据自证，属事实调查}
-  - {upstream: pstack:reflect, outcome: absorbed, into: context-reconstruction, reason: 复盘回写经验}
-  - {upstream: pstack:show-me-your-work, outcome: absorbed, into: decision-ledger, reason: append-only TSV 台账}
-  - {upstream: pstack:recall, outcome: absorbed, into: recall-context, reason: 上下文重建}
-  - {upstream: pstack:architect, outcome: absorbed, into: codebase-design, reason: 先定类型与模块结构，属建模}
+  - {upstream: pstack:swarm, outcome: absorbed, into: [swarm], reason: 并行扇出汇总成裁决}
+  - {upstream: pstack:technical-writing, outcome: absorbed, into: [technical-writing], reason: 分层写作标准直接可用}
+  - {upstream: pstack:why, outcome: absorbed, into: [teach], reason: 历史意图考古并入讲清楚}
+  - {upstream: pstack:how, outcome: absorbed, into: [trace-paths, teach], reason: 真实路径追踪}
+  - {upstream: pstack:blast-radius, outcome: absorbed, into: [trace-paths], reason: 影响面追踪 + 用跑出来的证据自证，属事实调查}
+  - {upstream: pstack:reflect, outcome: absorbed, into: [context-reconstruction], reason: 复盘回写经验}
+  - {upstream: pstack:show-me-your-work, outcome: absorbed, into: [decision-ledger], reason: append-only TSV 台账}
+  - {upstream: pstack:recall, outcome: absorbed, into: [recall-context], reason: 上下文重建}
+  - {upstream: pstack:architect, outcome: absorbed, into: [codebase-design], reason: 先定类型与模块结构，属建模}
   - {upstream: pstack:automate-me, outcome: rejected, reason: 上游私有自动化指令}
-  - {upstream: pstack:teach, outcome: absorbed, into: teach, reason: 讲清楚}
-  - {upstream: pstack:arena, outcome: absorbed, into: arena, reason: 并行择优}
-  - {upstream: pstack:create-verification-skill, outcome: absorbed, into: verification-suite, reason: 项目本地验证套件}
-  - {upstream: pstack:maintain-verification-skill, outcome: absorbed, into: verification-suite, reason: 保鲜能力地图，与建套件合并}
+  - {upstream: pstack:teach, outcome: absorbed, into: [teach], reason: 讲清楚}
+  - {upstream: pstack:arena, outcome: absorbed, into: [arena], reason: 并行择优}
+  - {upstream: pstack:create-verification-skill, outcome: absorbed, into: [verification-suite, feature-map], reason: 项目本地验证套件}
+  - {upstream: pstack:maintain-verification-skill, outcome: absorbed, into: [verification-suite, feature-map], reason: 保鲜能力地图，与建套件合并}
   - {upstream: pstack:no-comments, outcome: rejected, reason: 注释清理的专用人格，无独立产物}
   - {upstream: pstack:unslop, outcome: rejected, reason: 文风清洗，表达带的弱化重复}
-  - {upstream: pstack:tdd, outcome: absorbed, into: tdd, reason: 与 matt:tdd 融合成一个}
+  - {upstream: pstack:tdd, outcome: absorbed, into: [tdd], reason: 与 matt:tdd 融合成一个}
   - {upstream: pstack:typescript-best-practices, outcome: rejected, reason: 语言特定，属下游工程规范不是工作流内核}
   - {upstream: pstack:poteto-mode, outcome: rejected, reason: 上游人格预设，与角色心智模型冲突}
   - {upstream: pstack:make-bot-ui, outcome: rejected, reason: 特定产品形态的界面产出，与阶段无关}
-  - {upstream: pstack:principle-boundary-discipline, outcome: absorbed, into: p-boundary-discipline, reason: 拆进 architect 心智模型}
-  - {upstream: pstack:principle-model-the-domain, outcome: absorbed, into: p-model-the-domain, reason: 拆进 architect}
-  - {upstream: pstack:principle-fix-root-causes, outcome: absorbed, into: p-fix-root-causes, reason: 拆进 builder}
-  - {upstream: pstack:principle-encode-lessons-in-structure, outcome: absorbed, into: p-encode-lessons-in-structure, reason: 拆进 scribe}
-  - {upstream: pstack:principle-subtract-before-you-add, outcome: absorbed, into: p-subtract-before-add, reason: 拆进 builder}
-  - {upstream: pstack:principle-build-the-lever, outcome: absorbed, into: p-build-the-lever, reason: 拆进 builder，同时保留为横切技能}
-  - {upstream: pstack:principle-laziness-protocol, outcome: absorbed, into: p-laziness-protocol, reason: 拆进 builder 与 adversary 共用}
-  - {upstream: pstack:principle-foundational-thinking, outcome: absorbed, into: p-foundational-thinking, reason: 拆进 architect}
-  - {upstream: pstack:principle-type-system-discipline, outcome: absorbed, into: p-type-system-discipline, reason: 拆进 architect}
-  - {upstream: pstack:principle-never-block-on-the-human, outcome: absorbed, into: p-never-block-human, reason: 拆进 driver 与 voice}
-  - {upstream: pstack:principle-experience-first, outcome: absorbed, into: p-experience-first, reason: 拆进 voice}
-  - {upstream: pstack:principle-outcome-oriented-execution, outcome: absorbed, into: p-outcome-oriented, reason: 拆进 architect}
-  - {upstream: pstack:principle-redesign-from-first-principles, outcome: absorbed, into: p-redesign-from-first-principles, reason: 拆进 architect}
-  - {upstream: pstack:principle-minimize-reader-load, outcome: absorbed, into: p-minimize-reader-load, reason: 拆进 architect 与 scribe}
-  - {upstream: pstack:principle-exhaust-the-design-space, outcome: absorbed, into: p-exhaust-the-design-space, reason: 拆进 architect}
-  - {upstream: pstack:principle-migrate-callers-then-delete-legacy-apis, outcome: absorbed, into: p-migrate-callers-then-delete, reason: 拆进 architect}
-  - {upstream: pstack:principle-make-operations-idempotent, outcome: absorbed, into: p-make-operations-idempotent, reason: 拆进 builder 与 verifier}
-  - {upstream: pstack:principle-sequence-verifiable-units, outcome: absorbed, into: p-sequence-verifiable-units, reason: 拆进 builder 与 cartographer}
-  - {upstream: pstack:principle-test-behavior-not-implementation, outcome: absorbed, into: p-test-behavior-not-implementation, reason: 拆进 builder}
-  - {upstream: pstack:principle-prove-it-works, outcome: absorbed, into: p-prove-it-works, reason: 拆进 verifier}
-  - {upstream: pstack:principle-separate-before-serializing-shared-state, outcome: absorbed, into: p-separate-before-serializing, reason: 拆进 builder}
-  - {upstream: pstack:principle-attack-the-premise, outcome: absorbed, into: p-attack-the-premise, reason: 拆进 adversary}
-  - {upstream: pstack:principle-guard-the-context-window, outcome: absorbed, into: p-guard-context, reason: 拆进 driver}
+  - {upstream: pstack:principle-boundary-discipline, outcome: absorbed, into: [p-boundary-discipline], reason: 拆进 architect 心智模型}
+  - {upstream: pstack:principle-model-the-domain, outcome: absorbed, into: [p-model-the-domain, domain-modeling], reason: 拆进 architect}
+  - {upstream: pstack:principle-fix-root-causes, outcome: absorbed, into: [p-fix-root-causes], reason: 拆进 builder}
+  - {upstream: pstack:principle-encode-lessons-in-structure, outcome: absorbed, into: [p-encode-lessons-in-structure], reason: 拆进 scribe}
+  - {upstream: pstack:principle-subtract-before-you-add, outcome: absorbed, into: [p-subtract-before-add], reason: 拆进 builder}
+  - {upstream: pstack:principle-build-the-lever, outcome: absorbed, into: [p-build-the-lever, build-the-lever], reason: 拆进 builder，同时保留为横切技能}
+  - {upstream: pstack:principle-laziness-protocol, outcome: absorbed, into: [p-laziness-protocol], reason: 拆进 builder 与 adversary 共用}
+  - {upstream: pstack:principle-foundational-thinking, outcome: absorbed, into: [p-foundational-thinking], reason: 拆进 architect}
+  - {upstream: pstack:principle-type-system-discipline, outcome: absorbed, into: [p-type-system-discipline], reason: 拆进 architect}
+  - {upstream: pstack:principle-never-block-on-the-human, outcome: absorbed, into: [p-never-block-human], reason: 拆进 driver 与 voice}
+  - {upstream: pstack:principle-experience-first, outcome: absorbed, into: [p-experience-first], reason: 拆进 voice}
+  - {upstream: pstack:principle-outcome-oriented-execution, outcome: absorbed, into: [p-outcome-oriented], reason: 拆进 architect}
+  - {upstream: pstack:principle-redesign-from-first-principles, outcome: absorbed, into: [p-redesign-from-first-principles], reason: 拆进 architect}
+  - {upstream: pstack:principle-minimize-reader-load, outcome: absorbed, into: [p-minimize-reader-load], reason: 拆进 architect 与 scribe}
+  - {upstream: pstack:principle-exhaust-the-design-space, outcome: absorbed, into: [p-exhaust-the-design-space], reason: 拆进 architect}
+  - {upstream: pstack:principle-migrate-callers-then-delete-legacy-apis, outcome: absorbed, into: [p-migrate-callers-then-delete], reason: 拆进 architect}
+  - {upstream: pstack:principle-make-operations-idempotent, outcome: absorbed, into: [p-make-operations-idempotent], reason: 拆进 builder 与 verifier}
+  - {upstream: pstack:principle-sequence-verifiable-units, outcome: absorbed, into: [p-sequence-verifiable-units], reason: 拆进 builder 与 cartographer}
+  - {upstream: pstack:principle-test-behavior-not-implementation, outcome: absorbed, into: [p-test-behavior-not-implementation], reason: 拆进 builder}
+  - {upstream: pstack:principle-prove-it-works, outcome: absorbed, into: [p-prove-it-works], reason: 拆进 verifier}
+  - {upstream: pstack:principle-separate-before-serializing-shared-state, outcome: absorbed, into: [p-separate-before-serializing], reason: 拆进 builder}
+  - {upstream: pstack:principle-attack-the-premise, outcome: absorbed, into: [p-attack-the-premise], reason: 拆进 adversary}
+  - {upstream: pstack:principle-guard-the-context-window, outcome: absorbed, into: [p-guard-context], reason: 拆进 driver}
   # ── matt (29)
-  - {upstream: matt:research, outcome: absorbed, into: research, reason: 一手资料调研}
-  - {upstream: matt:domain-modeling, outcome: absorbed, into: domain-modeling, reason: 消解领域歧义}
-  - {upstream: matt:wayfinder, outcome: absorbed, into: wayfinder, reason: 决策票据地图}
+  - {upstream: matt:research, outcome: absorbed, into: [research], reason: 一手资料调研}
+  - {upstream: matt:domain-modeling, outcome: absorbed, into: [domain-modeling], reason: 消解领域歧义}
+  - {upstream: matt:wayfinder, outcome: absorbed, into: [wayfinder], reason: 决策票据地图}
   - {upstream: matt:setup-matt-pocock-skills, outcome: rejected, reason: 上游安装脚本，属冷启动而非工作流阶段}
-  - {upstream: matt:diagnosing-bugs, outcome: absorbed, into: debugging, reason: 与 addy 调试融合}
-  - {upstream: matt:code-review, outcome: absorbed, into: code-review, reason: 双轴审查}
-  - {upstream: matt:to-tickets, outcome: absorbed, into: to-tickets, reason: 拆票}
+  - {upstream: matt:diagnosing-bugs, outcome: absorbed, into: [debugging], reason: 与 addy 调试融合}
+  - {upstream: matt:code-review, outcome: absorbed, into: [code-review], reason: 双轴审查}
+  - {upstream: matt:to-tickets, outcome: absorbed, into: [to-tickets], reason: 拆票}
   - {upstream: matt:ask-matt, outcome: rejected, reason: 上游技能路由器，本库有装配判定取代它}
   - {upstream: matt:wizard, outcome: rejected, reason: 生成交互脚本，特定用途，不在主链}
   - {upstream: matt:improve-codebase-architecture, outcome: rejected, reason: 产出 HTML 报告，是任务不是阶段}
-  - {upstream: matt:to-spec, outcome: absorbed, into: spec-driven-development, reason: 把对话合成规格，与 SDD 同物}
-  - {upstream: matt:codebase-design, outcome: absorbed, into: codebase-design, reason: 深模块词汇}
-  - {upstream: matt:triage, outcome: absorbed, into: triage, reason: 入口整备}
-  - {upstream: matt:prototype, outcome: absorbed, into: prototype, reason: 一次性原型}
+  - {upstream: matt:to-spec, outcome: absorbed, into: [spec-driven-development], reason: 把对话合成规格，与 SDD 同物}
+  - {upstream: matt:codebase-design, outcome: absorbed, into: [codebase-design], reason: 深模块词汇}
+  - {upstream: matt:triage, outcome: absorbed, into: [triage], reason: 入口整备}
+  - {upstream: matt:prototype, outcome: absorbed, into: [prototype], reason: 一次性原型}
   - {upstream: matt:resolving-merge-conflicts, outcome: rejected, reason: 版本控制冲突处理，属 builder 附属动作不是独立技能}
-  - {upstream: matt:grill-with-docs, outcome: absorbed, into: grilling, reason: 追问时顺带产出 ADR，并入}
-  - {upstream: matt:implement, outcome: absorbed, into: implement, reason: 按规格实现}
-  - {upstream: matt:tdd, outcome: absorbed, into: tdd, reason: 与 pstack:tdd 融合成一个}
-  - {upstream: matt:writing-for-agents, outcome: absorbed, into: writing-for-agents, reason: 写给 agent 看的写法}
+  - {upstream: matt:grill-with-docs, outcome: absorbed, into: [grilling], reason: 追问时顺带产出 ADR，并入}
+  - {upstream: matt:implement, outcome: absorbed, into: [implement], reason: 按规格实现}
+  - {upstream: matt:tdd, outcome: absorbed, into: [tdd], reason: 与 pstack:tdd 融合成一个}
+  - {upstream: matt:writing-for-agents, outcome: absorbed, into: [writing-for-agents], reason: 写给 agent 看的写法}
   - {upstream: matt:wait-what, outcome: rejected, reason: 单次重述，无产物}
-  - {upstream: matt:handoff, outcome: absorbed, into: handoff, reason: 移交简报}
-  - {upstream: matt:to-questionnaire, outcome: absorbed, into: to-questionnaire, reason: 外抛问题}
-  - {upstream: matt:teach, outcome: absorbed, into: teach, reason: 教会一个新概念}
-  - {upstream: matt:grill-me, outcome: absorbed, into: grilling, reason: 追问式对话}
-  - {upstream: matt:grilling, outcome: absorbed, into: grilling, reason: 追问的方法本体}
+  - {upstream: matt:handoff, outcome: absorbed, into: [handoff, context-reconstruction], reason: 移交简报}
+  - {upstream: matt:to-questionnaire, outcome: absorbed, into: [to-questionnaire], reason: 外抛问题}
+  - {upstream: matt:teach, outcome: absorbed, into: [teach], reason: 教会一个新概念}
+  - {upstream: matt:grill-me, outcome: absorbed, into: [grilling], reason: 追问式对话}
+  - {upstream: matt:grilling, outcome: absorbed, into: [grilling], reason: 追问的方法本体}
   - {upstream: matt:setup-pre-commit, outcome: rejected, reason: 特定工具链安装，不属工作流}
   - {upstream: matt:git-guardrails-claude-code, outcome: rejected, reason: 宿主特定钩子配置}
   - {upstream: matt:migrate-to-shoehorn, outcome: rejected, reason: 特定库迁移，属下游工程规范}
   - {upstream: matt:scaffold-exercises, outcome: rejected, reason: 教学脚手架，与工程推进无关}
   # ── addy (25)
-  - {upstream: addy:idea-refine, outcome: absorbed, into: idea-refine, reason: 发散收敛}
-  - {upstream: addy:debugging-and-error-recovery, outcome: absorbed, into: debugging, reason: 根因定位}
+  - {upstream: addy:idea-refine, outcome: absorbed, into: [idea-refine], reason: 发散收敛}
+  - {upstream: addy:debugging-and-error-recovery, outcome: absorbed, into: [debugging, trace-paths], reason: 根因定位}
   - {upstream: addy:using-agent-skills, outcome: rejected, reason: 上游技能发现机制，本库由注册表取代}
-  - {upstream: addy:test-driven-development, outcome: absorbed, into: tdd, reason: 红绿重构}
-  - {upstream: addy:planning-and-task-breakdown, outcome: absorbed, into: task-breakdown, reason: 有序任务分解}
-  - {upstream: addy:incremental-implementation, outcome: absorbed, into: incremental-implementation, reason: 薄片增量}
-  - {upstream: addy:api-and-interface-design, outcome: absorbed, into: api-and-interface-design, reason: 稳定接口设计}
-  - {upstream: addy:ci-cd-and-automation, outcome: absorbed, into: ci-cd-and-automation, reason: 持续集成}
-  - {upstream: addy:context-engineering, outcome: absorbed, into: context-management, reason: 拆成两条：p-guard-context 保留「批量内容路由出去」这条原则；context-management 承载 5 层上下文层级、文件信任级别、可重启会话边界、压缩优先于丢弃、75% 裁剪阈值、上下文冲突处理}
-  - {upstream: addy:frontend-ui-engineering, outcome: absorbed, into: user-interface-engineering, reason: 组件架构、状态选档、设计系统遵循、响应式、加载/空/错态、收尾闸门全部并入 P3 实现侧；P5 的界面验证由 browser-testing 承担，不重复认领}
-  - {upstream: addy:shipping-and-launch, outcome: absorbed, into: shipping-and-launch, reason: 发布}
-  - {upstream: addy:spec-driven-development, outcome: absorbed, into: spec-driven-development, reason: 先写规格}
-  - {upstream: addy:constraint-driven-development, outcome: absorbed, into: constraint-driven-development, reason: 质量契约}
-  - {upstream: addy:code-review-and-quality, outcome: absorbed, into: code-review, reason: 多轴审查，与 matt 双轴融合}
-  - {upstream: addy:security-and-hardening, outcome: absorbed, into: security-and-hardening, reason: 安全加固}
-  - {upstream: addy:deprecation-and-migration, outcome: absorbed, into: deprecation-and-migration, reason: 弃用与迁移}
-  - {upstream: addy:observability-and-instrumentation, outcome: absorbed, into: observability-and-instrumentation, reason: 可观测性}
-  - {upstream: addy:interview-me, outcome: absorbed, into: interview-me, reason: 意图提取}
-  - {upstream: addy:code-simplification, outcome: absorbed, into: code-simplification, reason: 简化}
-  - {upstream: addy:doubt-driven-development, outcome: absorbed, into: doubt-driven-development, reason: 新鲜上下文质疑}
-  - {upstream: addy:source-driven-development, outcome: absorbed, into: source-driven-development, reason: 源头驱动}
-  - {upstream: addy:performance-optimization, outcome: absorbed, into: performance-optimization, reason: 性能验证}
-  - {upstream: addy:browser-testing-with-devtools, outcome: absorbed, into: browser-testing, reason: 真实浏览器验证}
-  - {upstream: addy:git-workflow-and-versioning, outcome: absorbed, into: git-workflow-and-versioning, reason: 版本与提交结构}
-  - {upstream: addy:documentation-and-adrs, outcome: absorbed, into: documentation-and-adrs, reason: 决策记录}
+  - {upstream: addy:test-driven-development, outcome: absorbed, into: [tdd], reason: 红绿重构}
+  - {upstream: addy:planning-and-task-breakdown, outcome: absorbed, into: [task-breakdown], reason: 有序任务分解}
+  - {upstream: addy:incremental-implementation, outcome: absorbed, into: [incremental-implementation], reason: 薄片增量}
+  - {upstream: addy:api-and-interface-design, outcome: absorbed, into: [api-and-interface-design], reason: 稳定接口设计}
+  - {upstream: addy:ci-cd-and-automation, outcome: absorbed, into: [ci-cd-and-automation], reason: 持续集成}
+  - {upstream: addy:context-engineering, outcome: absorbed, into: [context-management], reason: 拆成两条：p-guard-context 保留「批量内容路由出去」这条原则；context-management 承载 5 层上下文层级、文件信任级别、可重启会话边界、压缩优先于丢弃、75% 裁剪阈值、上下文冲突处理}
+  - {upstream: addy:frontend-ui-engineering, outcome: absorbed, into: [user-interface-engineering], reason: 组件架构、状态选档、设计系统遵循、响应式、加载/空/错态、收尾闸门全部并入 P3 实现侧；P5 的界面验证由 browser-testing 承担，不重复认领}
+  - {upstream: addy:shipping-and-launch, outcome: absorbed, into: [shipping-and-launch], reason: 发布}
+  - {upstream: addy:spec-driven-development, outcome: absorbed, into: [spec-driven-development], reason: 先写规格}
+  - {upstream: addy:constraint-driven-development, outcome: absorbed, into: [constraint-driven-development], reason: 质量契约}
+  - {upstream: addy:code-review-and-quality, outcome: absorbed, into: [code-review], reason: 多轴审查，与 matt 双轴融合}
+  - {upstream: addy:security-and-hardening, outcome: absorbed, into: [security-and-hardening], reason: 安全加固}
+  - {upstream: addy:deprecation-and-migration, outcome: absorbed, into: [deprecation-and-migration], reason: 弃用与迁移}
+  - {upstream: addy:observability-and-instrumentation, outcome: absorbed, into: [observability-and-instrumentation], reason: 可观测性}
+  - {upstream: addy:interview-me, outcome: absorbed, into: [interview-me], reason: 意图提取}
+  - {upstream: addy:code-simplification, outcome: absorbed, into: [code-simplification], reason: 简化}
+  - {upstream: addy:doubt-driven-development, outcome: absorbed, into: [doubt-driven-development], reason: 新鲜上下文质疑}
+  - {upstream: addy:source-driven-development, outcome: absorbed, into: [source-driven-development], reason: 源头驱动}
+  - {upstream: addy:performance-optimization, outcome: absorbed, into: [performance-optimization], reason: 性能验证}
+  - {upstream: addy:browser-testing-with-devtools, outcome: absorbed, into: [browser-testing], reason: 真实浏览器验证}
+  - {upstream: addy:git-workflow-and-versioning, outcome: absorbed, into: [git-workflow-and-versioning], reason: 版本与提交结构}
+  - {upstream: addy:documentation-and-adrs, outcome: absorbed, into: [documentation-and-adrs], reason: 决策记录}

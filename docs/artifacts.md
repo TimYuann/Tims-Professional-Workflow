@@ -13,7 +13,7 @@
 | A3 | **能力地图** `frame` | `architect` | P1、P2、P5、P6 | `durable` | 从代码里长出来的地图，不是人脑里的记忆。它给 P2 切片提供落点，给 P5 提供「该验什么」。 |
 | A4 | **冻结契约** `contract` | `architect` | P2、P3、P4、P5、P6 | `durable` | 契约冻结后，BDD/TDD 那种「前提变了就改测试」才有唯一合法入口：改契约必须走变更流程，不许悄悄改判据。 |
 | A5 | **任务图** `taskmap` | `cartographer` | P3、P6 | `durable` | 切片的质量决定并行的可行性。**并行的是图里没有路径依赖的那些节点**——有依赖边只能按拓扑序串行。但没有验收口径的并行结果无法汇合，所以 edges 与 acceptance 缺一不可。 |
-| A6 | **实现候选** `candidate` | `builder` | P4、P5 | `durable` | 候选是判断的输入，必须能被没写过它的人独立评价。**A6 必须 durable**——P4 要审它、P5 要验它、P6 要发它，三者都发生在别的会话里。它的 subject 指向 git 里的 commit，所以自述三栏即使不进版本库，身份也能从 git 恢复。 |
+| A6 | **实现候选** `candidate` | `builder` | P4、P5、P6 | `durable` | 候选是判断的输入，必须能被没写过它的人独立评价。**A6 必须 durable**——P4 要审它、P5 要验它、P6 要发它，三者都发生在别的会话里。它的 subject 指向 git 里的 commit，所以自述三栏即使不进版本库，身份也能从 git 恢复。 |
 | A7 | **裁决** `verdict` | `adversary` | P5、P6 | `durable` | 裁决与候选分离，才能保证审查者没有实现者的立场。没有 reason 的裁决等于没有裁决。 |
 | A8 | **验证凭据** `evidence` | `verifier` | P6 | `durable` | 三态判定。环境故障不许冒充 PASS，也不许直接判成产品缺陷——两种都会污染下游的判断。 |
 | A9 | **决策台账** `ledger` | `scribe` | P6 | `durable` append-only | 全程唯一的常驻记录。Owner 的原话：自主执行的前提是全程记录不丢。 |
@@ -43,7 +43,8 @@
 
 - `what` — 建什么。动词开头，能被第三方复述
 - `why` — 为什么——业务理由，不是技术偏好
-- `done_definition` — 什么证据算完成。必须可判定：只凭它能给出 PASS/FAIL/UNVERIFIED
+- `scope` — 这一份契约是**项目级**还是**任务级**，取 `project` / `task`。**由 `architect` 填，两种填法都要在 `roles/architect.md` 与对应技能正文里教出来。** 这一栏不是分类标签，它是**优先级声明**： `project` 级质量契约是不可暗降的下限；`task` 级 `done_definition` 只能**补充或收紧**它， 永远不能放宽。要放宽必须走显式例外（写清谁批、批到什么时候），不许在任务契约里悄悄降档。 **两层的分工**：`project` 级回答「这个仓库一直要满足什么」， `task` 级回答「这一片做完世界什么样、什么证据算完成」。
+- `done_definition` — 什么证据算完成。必须可判定：只凭它能给出 PASS/FAIL/UNVERIFIED。两层各自的写法见 `scope`
 - `boundaries` — 什么不做、什么不许改——包括不许为了变绿而削弱检查
 
 ### A5 · 任务图
@@ -113,17 +114,17 @@
 
 **A3 能力地图**　—　**主形态**：一个索引加每个用户可见能力一页（`@feature-map`）。**执行形态**：同一份清单附上怎么驱动它的步骤与证据标准（`@verification-suite`）。**术语形态**：词汇表——一个词一条，只写词义（`@domain-modeling`）。**大工程的摘要形态**：按子系统分层的索引（`@context-management`）。四种都是 A3，不是四份独立文档。
 
-**A4 冻结契约**　—　**主形态**：task packet 里的契约段。**规格形态**：落进仓库的规格文件或问题跟踪系统（`@spec-driven-development`）。**门槛形态**：仓库根目录一份的质量契约，含底线、带数字的强制项、只量不强制项、例外四段（`@constraint-driven-development`）。**长期形态**：难回头且有取舍的决定写成决策记录，逐编号、只追加不删（`@documentation-and-adrs`）。
+**A4 冻结契约**　—　**主形态**：task packet 里的契约段。**规格形态**：落进仓库的规格文件或问题跟踪系统（`@spec-driven-development`）。**项目级质量契约形态（`scope: project`）**：仓库根目录一份，底线、带数字的强制项、只量不强制项、例外四段（`@constraint-driven-development`）——它是**不可暗降的下限**，常驻、不随任务消失。**长期形态**：难回头且有取舍的决定写成决策记录，逐编号、只追加不删（`@documentation-and-adrs`）。**设计草图与被否决的备选形状**（含落选理由）同样进契约段——它们是 `A4` 的一部分而不是草稿（`@codebase-design`）。
 
 **A5 任务图**　—　任务图随 task packet 落盘。**票据形态**是它在问题跟踪系统里的样子（`@to-tickets` / `@wayfinder` / `@triage`）。票据即图的另一种表示，不是第二份图。
 
-**A6 实现候选**　—　**代码本身**就是 A6 的主体；`A6.subject` 指向它的 commit。工作过程中建出的**杠杆工具、改造脚本、生成器、闸门检查、流水线配置、测试、注释、一次性原型、会红的反馈回路**，全部是 A6 的组成部分——它们改的就是代码和配置。不要为它们另开编号，但每一样都要在 A6.change 里点名列出来。
+**A6 实现候选**　—　**代码本身**就是 A6 的主体；`A6.subject` 指向它的 commit。工作过程中建出的**杠杆工具、改造脚本、生成器、闸门检查、流水线配置、测试、注释、一次性原型、会红的反馈回路**，全部是 A6 的组成部分——它们改的就是代码和配置。不要为它们另开编号，但每一样都要在 A6.change 里点名列出来。**逐项归位**：**功能开关**连同它的到期日进 change——开关本身是代码、到期日是决定（`@incremental-implementation`）；**迁移与回退脚本**（`@deprecation-and-migration`）；**流水线与合并保护配置**（`@ci-cd-and-automation`）；**一次性原型分支**（`@prototype`）；**闸门与反馈回路**（`@tdd`、`@build-the-lever`）。
 
 **A7 裁决**　—　裁决随评审目录落盘，一份候选一份。**多模型对抗的合成结论**（`@interrogate`）与**新鲜上下文质疑的复核记录**（`@doubt-driven-development`）都是 A7 的不同形态。
 
-**A8 验证凭据**　—　凭据随评审目录落盘，一次验证一份。**未覆盖能力清单、文档漂移清单**是 A8 的副产品形态，不是独立产物（`@verification-suite` 的保鲜循环产出它们）。
+**A8 验证凭据**　—　凭据随评审目录落盘，一次验证一份。**未覆盖能力清单、文档漂移清单**是 A8 的副产品形态，不是独立产物（`@verification-suite` 的保鲜循环产出它们）。**其余验证类交付物一律是 A8 的字段或副产物，不另出文件**：**浏览器测试计划与前后截图**（`@browser-testing`——计划进 `claim`/`scope`，截图进 `observation`）；**性能基线与尝试记录**（`@performance-optimization`——数字进 `observation`，留或回滚的决定进 `A9`）；**依赖审计结论**（`@security-and-hardening`）；**信号对照表与值班问题清单**（`@observability-and-instrumentation`——清单进 `frame_alignment`）；**流水线的自证记录**（`@ci-cd-and-automation`——人为制造的红灯实测进 `observation`）。
 
-**A9 决策台账**　—　**单文件**台账。**装配记录**（集合 A↔B 映射结果、冷启动三栏报告）是 A9 在装配时写的几行，不是独立文档。
+**A9 决策台账**　—　**单文件**台账。**装配记录**（集合 A↔B 映射结果、冷启动三栏报告）是 A9 在装配时写的几行，不是独立文档（`@document-mapping`）。**发布记录同样是台账行，不另出编号**（`@shipping-and-launch`：事前清单、分档记录、回滚路径、上线观测、事后记录各占一行，结果写进 `result`；原始 git 历史仍属 `A6`）。**长期决策记录**（`@documentation-and-adrs`）是同一张台账的加长形态，追加索引与身份，不另立编号。
 
 
 ## 三条不可协商的落盘纪律

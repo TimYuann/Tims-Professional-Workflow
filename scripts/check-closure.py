@@ -8,13 +8,25 @@ check-closure.py · 闭包检查器（只读，可重复运行）
 
   C1 结构        registry 可解析，VERSION 单一来源
   C2 产物闭合    每个产物类型有且仅有一个产出角色；每个产物至少被一个阶段消费
-  C3 阶段可达    从 P0 出发每个阶段可达；阶段开工所需产物在其之前已被产出
-  C4 判据可判定   阶段退出判据引用的产物字段真实存在
+  C3 阶段无孤儿   每个阶段至少一条依赖边（进或出）；所需产物在其之前已产出
+  C4 判据可判定   判据里每个 `<X>.<y>` 引用都能解析；A* 字段真实存在
   C5 角色装配件   角色声明的产物/技能/原则都存在；技能与原则反向指认一致
-  C6 引用完整     每个技能/原则/横切带被至少一个角色或阶段引用（无孤儿）
-  C7 上游处置完备 upstreams/ 下每个 SKILL.md 在处置表里恰好出现一次
+  C6 引用完整     每个技能/原则被至少一个角色或阶段引用（无孤儿）
+  C7 上游处置完备 锁文件里每个上游 SKILL.md 在处置表里恰好出现一次
+  C9 来源存在     registry.sources 每条都在上游锁文件里；有克隆时另比 sha256/pin
+  C10 处置咬合     处置→来源，正向与反向都成立
+  C11 消费咬合     消费者→装配，正向与反向都成立
+  C12 原创标注     无来源的技能必须显式标 origin: library
+  C13 越权写       判据显式声明 write/verify，没有越权
+  C14 头部一致     技能头部声明的产物与注册表 outputs 一致
+  C15 字段有人填   被判据校验的字段，产出方正文里点名列出了
+  C16 台账不断     每阶段都有一道记 A9 的判据
+  C18 无前置成环   开工前要跑的技能不依赖开工后才有的产物
+  C19 横切带无孤儿 每条横切带被至少一个角色挂载
+  C20 来源段一致   技能正文「## 来源」段与 registry.sources 形态与内容一致
+  D1 底座解耦     按**已知名**黑名单扫库内容（黑名单有限枚举，不是穷尽）
 
-它判不了：判据本身是否合理、方法是否有效、下游是否真的照做。
+它判不了：判据本身是否合理、方法是否有效、下游是否真的照做、黑名单外的别名。
 这些交给 check-consistency.py 与人审。
 
 用法:
@@ -34,27 +46,93 @@ ROOT = Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "workflow" / "registry.yaml"
 
 # 运行底座名称黑名单：本库只声明"需要什么能力"，不写"用什么跑"。
+#
+# 边界为什么不用 `\b`：Python 的 `\b` 只认「词字符 vs 非词字符」，而
+#   - 汉字是词字符，所以中文与底座名紧邻时，左边根本没有边界；
+#   - `_` 也是词字符，所以下划线连写的 SCREAMING_SNAKE 变量名右边根本没有边界；
+#   - 驼峰的右边界同理（`xxxPane` 里的 `xxx` 后面紧跟大写字母，也不是边界）。
+# 三者都是真绕过（旧版全漏）。改用显式字符类。**14 条统一两种形状**：
+#
+#   形状 A（13 条，唯一名称用）：
+#       (?<![A-Za-z0-9-])名字(?![-])
+#     左边界挡「字母 / 数字 / 连字符」；**右边界只挡连字符**。
+#     为什么右边只挡连字符：`cursor-plugins` 是**另一个名字**（上游仓库目录名），
+#     全库 50 多个技能的「## 来源」段都写着它，放过去是必须的；
+#     而驼峰与下划线写法是**同一个名字**（SCREAMING_SNAKE 环境变量、
+#     驼峰面板名），必须抓住，所以右边界不能挡字母和 `_`。
+#
+#   形状 B（品牌名用，名字只有两个字母，单独处理）：
+#       (?<![A-Za-z0-9-])[Pp][Ii](?:[ _-][A-Za-z]|(?![A-Za-z]))
+#     分隔符可选会把 `pip` / `pin` / `pip3` 全打进来（`pip` 是包管理器、
+#     `pin` 是普通英文词，都不是品牌）。所以要么「分隔符 + 一个字母」，
+#     要么「后面根本不是字母、也不是路径分隔符」——中文里「用 某品牌名 写」
+#     这种不带分隔符的写法属于后者，仍然抓住；而本库自己的目录名
+#     `.pi/injection/` 属于路径分隔符，放过去（否则它会被自己的品牌名规则打中）。
+#
+# 本文件自己也在扫描范围内，所以这段说明故意不写真实底座名。
+#
+# 维护者：本库维护者（新增一条 = 你要能说清它保护了哪条真实说法）。
 DECOUPLING_PATTERNS = [
-    (r"\bherdr\b", "终端工作区管理器"),
-    (r"\bpi[- ]?intercom\b", "会话总线"),
-    (r"\bclaude\b(?![\w-])", "某编码 agent"),
-    (r"\bcodex\b(?![\w-])", "某编码 agent"),
-    (r"\bcursor\b(?![\w-])", "某编辑器"),
-    (r"\bantigravity\b", "某编辑器"),
-    (r"\bgemini\b(?![\w-])", "某模型"),
-    (r"\bopenai\b", "某厂商"),
-    (r"\banthropic\b", "某厂商"),
-    (r"\bopencode\b", "某编码 agent"),
-    (r"\bwindsurf\b", "某编辑器"),
-    (r"\bglasp\b", "某应用容器"),
-    (r"\btmux\b", "某终端复用器"),
-    (r"\b[Pp][Ii] [A-Za-z]", "某品牌名"),
+    (r"(?<![A-Za-z0-9-])herdr(?![-])", "终端工作区管理器"),
+    (r"(?<![A-Za-z0-9-])pi[-_ ]?intercom(?![-])", "会话总线"),
+    (r"(?<![A-Za-z0-9-])claude(?![-])", "某编码 agent"),
+    (r"(?<![A-Za-z0-9-])codex(?![-])", "某编码 agent"),
+    (r"(?<![A-Za-z0-9-])cursor(?![-])", "某编辑器"),
+    (r"(?<![A-Za-z0-9-])antigravity(?![-])", "某编辑器"),
+    (r"(?<![A-Za-z0-9-])gemini(?![-])", "某模型"),
+    (r"(?<![A-Za-z0-9-])openai(?![-])", "某厂商"),
+    (r"(?<![A-Za-z0-9-])anthropic(?![-])", "某厂商"),
+    (r"(?<![A-Za-z0-9-])opencode(?![-])", "某编码 agent"),
+    (r"(?<![A-Za-z0-9-])windsurf(?![-])", "某编辑器"),
+    (r"(?<![A-Za-z0-9-])glasp(?![-])", "某应用容器"),
+    (r"(?<![A-Za-z0-9-])tmux(?![-])", "某终端复用器"),
+    (r"(?<![A-Za-z0-9-])[Pp][Ii](?:[ _-][A-Za-z]|(?![A-Za-z0-9/._-]))", "某品牌名"),
 ]
 
-# 只扫「库内容」。docs/ 是历史材料与外部评审，archive/ 是被替换掉的旧载体——
-# 它们记录曾经发生过什么，不构成对下游的指令，因此豁免。
-SCAN_DIRS = ("workflow", "roles", "skills", "principles", "scripts")
+# 只扫「库内容」。docs/ 下的 history/ 与 archive/ 记的是「曾经发生过什么」——
+# 它们是历史材料与被替换掉的旧载体，不构成对下游的指令，因此**只**豁免这两棵子树。
+# docs/ 其余部分（coldstart / artifacts / ledger / downstream-mapping / closure-report）
+# 是**当前**契约的下游说明，与 roles/ skills/ 同级，纳入扫描。
+# D1 走 rglob，所以这两棵子树里的文件靠 decoupling_exempt() 逐个排除。
+SCAN_DIRS = ("workflow", "roles", "skills", "principles", "scripts", "docs")
 SCAN_FILES = ("README.md", "AGENTS.md", "VERSION")
+
+# D1 豁免的子树（相对 ROOT）。只豁免这两棵，其余 docs 一律进扫描。
+SCAN_EXEMPT_SUBTREES = ("docs/history", "docs/archive")
+
+
+def decoupling_exempt(rel) -> bool:
+    """rel 是相对 ROOT 的路径或纯相对 Path。True = 该文件在 D1 豁免范围内。"""
+    parts = tuple(rel.parts) if hasattr(rel, "parts") else tuple(rel.split("/"))
+    for x in SCAN_EXEMPT_SUBTREES:
+        head = tuple(x.split("/"))
+        if parts[:len(head)] == head:
+            return True
+    return False
+
+
+def decoupling_pattern_lines():
+    """DECOUPLING_PATTERNS 字面量在**本文件**里占的行号集合（1-based）。
+
+    D1 扫库内容时会把本文件也扫进去，所以黑名单自己那几行必须排除。
+    排除范围精确到这几行——不是整个文件。v2.0.5 之前是
+    `if f.name == "check-closure.py": continue`，把整个检查器从 D1 里摘了出去，
+    于是往本文件里写一个真实底座名也不会红。
+    """
+    try:
+        lines = Path(__file__).read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return set()
+    start = next((i for i, l in enumerate(lines)
+                  if l.startswith("DECOUPLING_PATTERNS")), None)
+    if start is None:
+        return set()
+    out = set()
+    for i in range(start, len(lines)):
+        out.add(i + 1)
+        if lines[i].rstrip() == "]":
+            break
+    return out
 
 # 上游仓库目录名 -> 处置表里的前缀
 UPSTREAM_PREFIX = {
@@ -245,14 +323,59 @@ def main():
         if ph["id"] in seen:
             miss.append(f"阶段 id 重复 {ph['id']}")
         seen.add(ph["id"])
-    r.add("C3", "阶段可达且依赖闭合", not miss,
-          f"{len(phases)} 个阶段按序可达，每个阶段所需产物在上游已产出", miss)
 
-    # ── C4 退出判据引用的字段真实存在 ──────────────────────────
-    field_re = re.compile(r"\b(A\d+)\.([a-z_]+)")
+    # 孤儿阶段：一个阶段必须有**至少一条**依赖边——要么它要东西（进边），
+    # 要么它产的东西被别人要（出边）。两头都没有的阶段，谁也不等它、它也不等谁，
+    # 它可以被整条流程绕过去还不动任何东西。这是 C3 一直缺的断言：
+    # 「按序可达」只查了「所需产物在上游已产出」，一个 required_inputs 为空、
+    # produces 也为空的阶段完美地通过了那条断言。
+    # 入口阶段（P0）天生没有进边，豁免；它必须有出边。
+    consumers_of_artifact = {}
+    for a in artifacts:
+        for c in a.get("consumers", []):
+            consumers_of_artifact.setdefault(c, set()).add(a["id"])
+    orphan = []
+    for i, ph in enumerate(phases):
+        pid = ph["id"]
+        inbound = bool(ph.get("required_inputs"))
+        outbound = set()
+        for out in ph.get("produces", []):
+            for q in a_by_id.get(out, {}).get("consumers", []) or []:
+                if q != pid:
+                    outbound.add(q)
+        if not inbound and not outbound:
+            orphan.append(f"{pid}（required_inputs 为空，也没有下游阶段消费它产的东西）")
+        elif i == 0 and not outbound:
+            orphan.append(f"{pid} 是入口阶段，却没有任何下游阶段消费它产的东西")
+    miss += [f"孤儿阶段：{x}——没有人等它，它也不产出任何人等的东西，"
+             f"可以绕开整条流程而不动任何东西" for x in orphan]
+    r.add("C3", "阶段可达、依赖闭合且无孤儿", not miss,
+          f"{len(phases)} 个阶段按序可达、所需产物在上游已产出，"
+          f"{len(phases) - len(orphan)}/{len(phases)} 个阶段至少有一条依赖边（无孤儿）", miss)
+
+    # ── C4 退出判据引用的东西全部可解析 ────────────────────────
+    # 字段名允许大写：旧正则 `[a-z_]+` 让 `A6.GHOST` 整条不匹配，
+    # 同句里只要另有一个真字段（`A6.runnable`）就能滑过去。大写字段名同样是
+    # 字段名，「小写」不是任何一条纪律的一部分。
+    field_re = re.compile(r"\b(A\d+)\.([A-Za-z_][A-Za-z0-9_]*)")
+    # 判据里任何 `<X>.<y>` 形状的引用，X 必须在已知 id 集合里。
+    # 旧版只认 `A\d+.小写`，于是 `A6.GHOST` 这种大写伪字段根本不进正则，
+    # 同句里只要另有一个真字段（`A6.runnable`）就能整句滑过去。
+    # 判据不可判定 = 判据说了假话，必须报。
+    ref_re = re.compile(r"\b([A-Za-z][A-Za-z0-9_-]{0,40})\.([A-Za-z_][A-Za-z0-9_]{0,40})\b")
+    known_ids = (set(a_by_id) | set(p_by_id) | set(r_by_id) | set(pr_by_id)
+                 | set(s_by_id) | {x["id"] for x in ribbons}
+                 | {x["zh"] for x in roles if x.get("zh")})
+    unresolvable = 0
     miss = []
     for ph in phases:
         for crit in ph.get("exit_criteria", []):
+            for x, y in ref_re.findall(crit):
+                if x not in known_ids:
+                    unresolvable += 1
+                    miss.append(f"{ph['id']} 判据里的 `{x}.{y}` 无法解析："
+                                f"{x} 不是任何已定义的产物/阶段/角色/技能/原则/横切带 id"
+                                f"——判据指向了一个不存在的东西，不可判定")
             for aid, fld in field_re.findall(crit):
                 if aid not in a_by_id:
                     miss.append(f"{ph['id']} 判据引用未定义产物 {aid}")
@@ -272,8 +395,9 @@ def main():
                        for x in ph.get("exit_criteria", [])):
                 miss.append(f"{a['id']} 由 {ph['id']} 产出，但 {ph['id']} 的退出判据里"
                             f"没有校验它——下游会拿到一份没被验证过的产物")
-    r.add("C4", "判据可判定", not miss,
-          f"{sum(len(p.get('exit_criteria', [])) for p in phases)} 条退出判据全部指向真实字段", miss)
+    r.add("C4", "判据可判定（引用全部可解析）", not miss,
+          f"{sum(len(p.get('exit_criteria', [])) for p in phases)} 条退出判据，"
+          f"{unresolvable} 处无法解析的引用，全部 A*.field 都指向真实字段", miss)
 
     # ── C5 角色装配件一致性 ────────────────────────────────────
     miss = []
@@ -384,8 +508,26 @@ def main():
                 miss.append(f"{d['upstream']} 的 outcome 非法：{d.get('outcome')}")
             if not d.get("reason"):
                 miss.append(f"{d['upstream']} 没有写处置理由")
-            if d.get("into") and d["into"] not in known:
-                miss.append(f"{d['upstream']} 指向 {d['into']}，但注册表里没有这个技能或原则")
+            # `into` 是**列表**。旧 schema 里它是标量，于是「一个上游同时被
+            # 吸收进两处」这件事根本无处记录——而真实情况就是这样（7 条）。
+            # 列表化之后，“一个上游一条处置”不变（C7 仍要求恰好一次），
+            # 变的是一条处置可以指向多个目标。
+            into = d.get("into")
+            if d.get("outcome") == "absorbed":
+                if not isinstance(into, list):
+                    miss.append(f"{d['upstream']} 判为 absorbed，但 into 不是列表："
+                                f"{into!r}（schema 要求 into: [目标, ...]）")
+                elif not into:
+                    miss.append(f"{d['upstream']} 判为 absorbed 但 into 是空列表"
+                                f"——它到底被吸收进了哪里")
+                else:
+                    for t in into:
+                        if t not in known:
+                            miss.append(f"{d['upstream']} 指向 {t}，"
+                                        f"但注册表里没有这个技能或原则")
+            elif into:
+                miss.append(f"{d['upstream']} 判为 {d.get('outcome')}，"
+                            f"却仍指向 {into}——只有 absorbed 才能有目标")
     r.add("C7", "上游处置完备（对锁文件）", not miss,
           f"锁文件 {len(lock_skills)} 个上游 skill，处置表 {len(listed)} 条，一一对应", miss)
 
@@ -421,27 +563,47 @@ def main():
         detail += "；并已逐条比对 sha256 与 pin"
     r.add("C9", "来源真实存在（锁 + 实物对照）", not miss, detail, miss)
 
-    # ── C10 处置表声称吸收，目标就必须真的列了它 ────────────────
+    # ── C10 处置表声称吸收，目标就必须真的列了它（双向）────────
     # 这一条曾经缺失：6 条 absorbed 处置在 upstreams/ 里对得上，
     # 但目标技能的 sources 里根本没有它——台账在追一个没发生的事。
     miss = []
+    claim = {}          # upstream -> set(into)
     for d in disp:
-        into = d.get("into")
+        if d.get("outcome") == "absorbed":
+            for into in d.get("into") or []:
+                claim.setdefault(d["upstream"], set()).add(into)
+    for d in disp:
         if d.get("outcome") != "absorbed":
-            if into:
-                miss.append(f"{d['upstream']} 判为 {d['outcome']}，却仍指向 {into}")
+            if d.get("into"):
+                miss.append(f"{d['upstream']} 判为 {d['outcome']}，却仍指向 {d['into']}")
             continue
-        if not into:
+        if not d.get("into"):
             miss.append(f"{d['upstream']} 判为 absorbed 却没有指向任何技能或原则")
             continue
-        tgt = s_by_id.get(into) or pr_by_id.get(into)
-        if not tgt:
-            miss.append(f"{d['upstream']} 指向不存在的 {into}")
-        elif d["upstream"] not in (tgt.get("sources") or []):
-            miss.append(f"假链接：{d['upstream']} 声称吸收进 {into}，"
-                        f"但 {into} 的 sources 里没有它")
+        # 正向：into 里的**每一个**目标，sources 里都必须有它
+        for into in d["into"]:
+            tgt = s_by_id.get(into) or pr_by_id.get(into)
+            if not tgt:
+                miss.append(f"{d['upstream']} 指向不存在的 {into}")
+            elif d["upstream"] not in (tgt.get("sources") or []):
+                miss.append(f"假链接：{d['upstream']} 声称吸收进 {into}，"
+                            f"但 {into} 的 sources 里没有它")
+    # 反向：某目标的 sources 里出现过的上游，必须有一条 absorbed 处置的
+    # into 列表**包含该目标**。旧版只查正向，反向不查的后果是：同一个上游
+    # 可以被第二个技能白认领——它确实来自那里，但「读没读正文」「处置理由」
+    # 这些只写了一份，另一份白拿。
+    for coll, kind in ((skills, "技能"), (principles, "原则")):
+        for item in coll:
+            for src in item.get("sources") or []:
+                if item["id"] not in claim.get(src, set()):
+                    owner = sorted(claim.get(src, set())) or ["无"]
+                    miss.append(f"反向假链接：{kind} {item['id']} 的 sources 里有 {src}，"
+                                f"但处置表里 {src} 的 absorbed 指向 {owner}"
+                                f"——认领了来源却没在台账里登记")
     r.add("C10", "处置与来源双向咬合", not miss,
-          f"{len(disp)} 条处置与目标 sources 双向一致", miss)
+          f"{len(disp)} 条处置与目标 sources 双向一致"
+          f"（正向：into 里的每个目标都得列它；反向：sources 里的每个上游"
+          f"都得有指向该目标的 absorbed 处置）", miss)
 
     # ── C11 consumers 必须真的被 required_inputs 接住 ───────────
     # 允许「同阶段自产自消」（P1 消费自己产出的 A3），那是自我校验。
@@ -457,8 +619,25 @@ def main():
                 continue      # 同阶段产出并校验，合法
             miss.append(f"{a['id']} 声明被 {c} 消费，但 {c} 既不 required 它、也不自己产出它"
                         f"——消费声明与实际装配对不上")
-    r.add("C11", "消费声明与装配咬合", not miss,
-          f"{sum(len(a.get('consumers', [])) for a in artifacts)} 条消费声明全部被阶段接住", miss)
+    # ── 反向：阶段要的东西，产物必须声明这个阶段在消费 ──
+    # 旧版只查 consumers→装配。反向不查的后果：阶段照样把 A6 列进 required_inputs，
+    # 但 A6.consumers 里没有它——台账与装配各说各话，而正向检查一条都不报。
+    # 「自己产自己又要」（同阶段自产自消）在本库不存在，保留对称豁免以免把
+    # 「产出方当场自验」这种合法形态判红；真出现时 C4 仍会要求它校验该字段。
+    for ph in phases:
+        for need in ph.get("required_inputs", []) or []:
+            a = a_by_id.get(need)
+            if not a:
+                continue                       # C3 负责报未定义产物
+            if need in (ph.get("produces") or []):
+                continue
+            if ph["id"] not in (a.get("consumers") or []):
+                miss.append(f"{ph['id']} 开工需要 {need}，但 {need}.consumers "
+                            f"{a.get('consumers')} 里没有 {ph['id']}"
+                            f"——阶段要它，产物却没登记谁消费它")
+    r.add("C11", "消费声明与装配双向咬合", not miss,
+          f"{sum(len(a.get('consumers', [])) for a in artifacts)} 条消费声明全部被阶段接住，"
+          f"且每个阶段的 required_inputs 都在对应产物的 consumers 里", miss)
 
     # ── C12 sources 为空的必须显式标 origin: library ───────────
     miss = []
@@ -519,7 +698,7 @@ def main():
             continue
         # 只取第一个括号之前的部分：头部允许带解释，解释不是产物声明
         raw = re.split(r"[（(]", m.group(1).strip())[0].strip()
-        declared = set(re.findall(r"A\d", raw)) if raw != "无" else set()
+        declared = set(re.findall(r"\bA\d+\b", raw)) if raw != "无" else set()  # \b：否则 A404 会被读成 A4，报错信息会骗下一个人
         registered = set(sk.get("outputs") or [])
         if declared != registered:
             miss.append(f"技能 {sk['id']} 头部声明产物 {sorted(declared) or '无'}，"
@@ -539,7 +718,7 @@ def main():
     # 这一栏必须在产出方的角色文件、或它拥有的某个技能正文里被明确要求填。
     # v2.0.1 就是在这里断的：subject / scope / frame_alignment 三个字段
     # 出现在 P5 的退出判据里，但全库没有一个文件说谁填它们。
-    field_re2 = re.compile(r"\b(A\d+)\.([a-z_]+)")
+    field_re2 = re.compile(r"\b(A\d+)\.([A-Za-z_][A-Za-z0-9_]*)")
     gated = set()
     for ph in phases:
         for crit in ph.get("exit_criteria", []):
@@ -564,19 +743,26 @@ def main():
         if not a or fld not in a.get("fields", []):
             continue                        # C4 负责报未定义字段
         note = (a.get("notes") or {}).get(fld, "")
-        who = re.search(r"由\s*`([a-z-]+)`\s*填", note)
-        if who:
-            if who.group(1) != a.get("producer"):
-                miss.append(f"{aid}.{fld} 声明由 `{who.group(1)}` 填，"
-                            f"但它的主产出方是 `{a.get('producer')}`")
-            continue
         producer = a.get("producer")
-        if f"`{fld}`" not in producer_text(producer):
+        taught = f"`{fld}`" in producer_text(producer)
+        # 「声明的责任人」与「实际的产出合同」**两者都必须成立**。
+        # 旧版在这里有个短路：notes 写了「由 `X` 填」就 continue，正文到底教没教
+        # 没人管。于是在 notes 里写一句「由 `builder` 填」就是一张免死金牌——
+        # 角色正文与技能正文一个字不提这个字段，判据照样永远无法满足。
+        # 声明只是声明；只有产出方的合同里真的教了填法，链才接得上。
+        who = re.search(r"由\s*`([a-z-]+)`\s*填", note)
+        if who and who.group(1) != producer:
+            miss.append(f"{aid}.{fld} 声明由 `{who.group(1)}` 填，"
+                        f"但它的主产出方是 `{producer}`")
+        if not taught:
             miss.append(f"{aid}.{fld} 出现在阶段退出判据里，但产出方 `{producer}` "
-                        f"的角色文件与它拥有的技能正文里都没出现这一栏——"
-                        f"没人被要求填它，判据永远无法满足，链会断")
-    r.add("C15", "被判据校验的字段产出方真的会说填", not miss,
-          f"{len(gated)} 个被阶段判据校验的字段，产出方正文里都点名列出了", miss)
+                        f"的角色文件与它拥有的技能正文里都没出现这一栏"
+                        + ("（notes 已经声明了填人，但光声明不算教过）"
+                           if who else "")
+                        + "——没人被要求填它，判据永远无法满足，链会断")
+    r.add("C15", "被判据校验的字段：声明的人与产出合同都成立", not miss,
+          f"{len(gated)} 个被阶段判据校验的字段，"
+          f"声明的责任人与产出方正文里的填法两两对齐", miss)
 
     # ── C16 每个阶段都必须有「记台账」的判据 ────────────────────
     # A9 是常驻产物，但 v2.0.1 的 P0–P5 没有任何一条判据提到它，
@@ -617,28 +803,144 @@ def main():
     r.add("C18", "开工前的技能不依赖开工后才有的产物", not miss,
           f"{len(pre_phase_skills)} 个开工前技能不依赖任何阶段产物", miss)
 
-    # ── 解耦检查 ───────────────────────────────────────────────
+    # ── C19 横切带无孤儿 ───────────────────────────────────────
+    # C6 查孤儿技能与孤儿原则，漏了横切带。v2.0.5 的反例：一条 always:false
+    # 的横切带挂在一个不参与任何阶段的角色身上，于是它既不常驻、适用范围
+    # 也无人经过，而 S7 只看“携带它的角色参与了哪些阶段”，一条都不报。
+    # 编号用 C19：它属于 C6 的孤儿家族，但不开在 C6 里——两条断言的
+    # 保护对象不同（一个说技能/原则，一个说横切带），合在一起会让失败原因
+    # 看不出是哪一类对象出的问题。C17 在 v2.0.2 收敛时退役，编号空洞有历史
+    # 原因，不复用。
+    miss = []
+    worn = {rb_id for role in roles for rb_id in role.get("ribbons", [])}
+    rb_ids = {x["id"] for x in ribbons}
+    for rb in ribbons:
+        rid = rb["id"]
+        if rid not in worn:
+            miss.append(f"横切带 {rid} 没有任何角色挂载——孤儿。"
+                        f"没人装配它，它宣称的纪律就不会生效")
+        bad = [s for s in rb.get("skills", []) if s not in s_by_id]
+        if bad:
+            miss.append(f"横切带 {rid} 引用不存在的技能 {bad}")
+    for role in roles:
+        for rb_id in role.get("ribbons", []):
+            if rb_id not in rb_ids:
+                miss.append(f"角色 {role['id']} 挂载了未定义的横切带 {rb_id}")
+    r.add("C19", "横切带无孤儿", not miss,
+          f"{len(ribbons)} 条横切带全部被至少一个角色挂载，携带的技能与挂载引用全部可解析", miss)
+
+    # ── C20 技能正文的「## 来源」段与注册表一致 ─────────────────
+    # C9 只核 registry.sources 里的每条 id 都在锁文件里，**不核技能文件自己
+    # 写了什么**。v2.0.5 的已知漏洞：50 个技能正文的来源段是散文，纯人读；
+    # 在那里多列一个 registry 没有的上游，全库全绿。
+    #
+    # 来源段只有三种形态，**互斥**，混用即 FAIL：
+    #   (a) 吸收  逐行列出 `upstreams/<repo>/<path>/SKILL.md`。
+    #           → registry.sources 非空，且逐条双向相等（不多不少）。
+    #   (b) 借鉴  散文写「本库原创。参考了 `upstreams/...` 的……思路」，未复制其实现。
+    #           → registry.sources 为空且 origin: library。提到了路径的，
+    #             每条路径仍必须在锁文件里（不许引用不存在的上游）。
+    #   (c) 原创  只写「本库原创。」，不提到任何上游路径。
+    #           → registry.sources 为空且 origin: library。
+    # 写 (a) 又写「本库原创」= 混用；写了 (a) 却没登记 sources = 假链接。
+    # 维护者：本库维护者。改来源时同改两处，并重新确认形态。
+    UP_PATH_RE = re.compile(r"upstreams/[A-Za-z0-9_./-]+/SKILL\.md")
+    BARE_PATH_RE = re.compile(r"^upstreams/[A-Za-z0-9_./-]+/SKILL\.md$")
+    path2id = {v.get("path"): k for k, v in lock_skills.items() if v.get("path")}
+    shapes = {"absorbed": 0, "borrowed": 0, "original": 0}
+    miss = []
+    for sk in skills:
+        sid = sk["id"]
+        f = ROOT / "skills" / f"{sid}.md"
+        if not f.is_file():
+            continue                              # S1 负责报缺文件
+        m = re.search(r"^##\s+来源\s*$", f.read_text(encoding="utf-8"), re.M)
+        if not m:
+            miss.append(f"技能 {sid} 正文没有「## 来源」段——三类形态都判不了，"
+                        f"读者无法分辨它是吸收、借鉴还是原创")
+            continue
+        rest = f.read_text(encoding="utf-8")[m.end():]
+        nxt = re.search(r"^##\s+", rest, re.M)
+        sec = rest[:nxt.start()] if nxt else rest
+        claimed_original = "本库原创" in sec
+        listed = [l.strip().lstrip("-*").strip().strip("`").strip()
+                  for l in sec.splitlines() if l.strip()]
+        bare = [x for x in listed if BARE_PATH_RE.match(x)]
+        shape = ("borrowed" if claimed_original and UP_PATH_RE.search(sec)
+                 else "original" if claimed_original
+                 else "absorbed" if bare else None)
+        if shape is None:
+            miss.append(f"技能 {sid} 的来源段既没逐条列路径，也没声明「本库原创」"
+                        f"——不属于三类形态中的任何一类")
+            continue
+        if shape == "absorbed" and claimed_original:
+            miss.append(f"技能 {sid} 的来源段混用形态：既逐条列了 {len(bare)} 条上游路径，"
+                        f"又声称「本库原创」——两者互斥，只能选一个")
+            continue
+        shapes[shape] += 1
+        for p in set(UP_PATH_RE.findall(sec)):
+            if p not in path2id:
+                miss.append(f"技能 {sid} 的来源段提到 {p}，但它不在上游锁文件里"
+                            f"——引用了一个不存在（或未登记）的上游")
+        srcs = set(sk.get("sources") or [])
+        if shape == "absorbed":
+            got = {path2id.get(x) for x in bare}
+            unknown = sorted(x for x in got if x is None)
+            if unknown:
+                miss.append(f"技能 {sid} 的来源段列了 {len(unknown)} 条锁文件里没有的路径")
+            if got != srcs:
+                only_file = sorted(x for x in got - srcs if x)
+                only_reg = sorted(srcs - got)
+                miss.append(f"技能 {sid} 的来源段与注册表不一致："
+                            f"只在正文里 {only_file or '无'}，只在注册表里 {only_reg or '无'}")
+        else:
+            if srcs:
+                miss.append(f"技能 {sid} 正文声明「本库原创」"
+                            f"（{shape} 形态），但 registry.sources 非空 {sorted(srcs)}"
+                            f"——一边说原创一边挂着上游")
+            if sk.get("origin") != "library":
+                miss.append(f"技能 {sid} 是{shape}形态（无吸收来源），"
+                            f"但 registry 没标 origin: library（C12 的要求）")
+    r.add("C20", "技能来源段与注册表形态一致", not miss,
+          f"{shapes['absorbed']} 个吸收／{shapes['borrowed']} 个借鉴／"
+          f"{shapes['original']} 个原创，来源段与 registry.sources 逐条一致", miss)
+
+    # ── 解耦检查 D1 ──────────────────────────────────────────
+    # 名字里的「已知底座名黑名单」是承诺的一部分：这张表是**人工枚举**的，
+    # 不是穷尽清单。详情见 DECOUPLING_PATTERNS 上面的边界说明。
     miss = []
     targets = [f for f in (ROOT / n for n in SCAN_FILES) if f.is_file()]
     for d in SCAN_DIRS:
         p = ROOT / d
-        if p.is_dir():
-            targets += [f for f in sorted(p.rglob("*")) if f.suffix in (".md", ".yaml", ".yml", ".py", ".sh")]
+        if p.is_dir() and not decoupling_exempt(d):
+            targets += [f for f in sorted(p.rglob("*"))
+                        if f.suffix in (".md", ".yaml", ".yml", ".py", ".sh")
+                        and f.is_file()
+                        and not decoupling_exempt(f.relative_to(ROOT))]
+    self_lines = decoupling_pattern_lines()
     for f in targets:
         try:
             text = f.read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
             continue
+        lines = text.splitlines()
         for pat, label in DECOUPLING_PATTERNS:
-            for m in re.finditer(pat, text):
-                # 本检查器自身的黑名单不参与判定
-                if f.name == "check-closure.py":
-                    continue
+            # 大小写不敏感：把底座名写成全大写说的是同一件事，
+            # 靠大小写差异绕过一条底座禁令没有任何语义价值。
+            # 本行故意不点名任何具体底座——本文件也在 D1 的扫描范围内，
+            # 写进来就会把自己判红（v2.0.5 之前整个文件被 skip，那种做法
+            # 恰好让「往检查器里写底座名」永远不会红）。
+            for m in re.finditer(pat, text, re.I):
                 line = text[:m.start()].count("\n") + 1
-                ctx = text.splitlines()[line - 1].strip()[:90]
+                # 只排除黑名单字面量那几行（精确到行号），不是整个文件
+                if f == Path(__file__).resolve() and line in self_lines:
+                    continue
+                ctx = lines[line - 1].strip()[:90]
                 miss.append(f"{f.relative_to(ROOT)}:{line} 出现具体底座（{label}）→ {ctx}")
-    r.add("D1", "底座解耦", not miss,
-          f"扫描 {len(targets)} 个库内容文件，0 处具体运行底座名称", miss)
+    r.add("D1", "底座解耦（已知名黑名单·大小写不敏感）", not miss,
+          f"扫描 {len(targets)} 个库内容文件（含 docs/，只豁免 history/ 与 archive/），"
+          f"0 处命中已知底座名。边界：黑名单是人工枚举的 {len(DECOUPLING_PATTERNS)} 条"
+          f"已知名称，不是穷尽清单——别名、缩写、厂商代号抓不到", miss)
 
     return r.report(args.quiet)
 
