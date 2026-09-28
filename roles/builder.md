@@ -74,6 +74,7 @@
 | `@code-simplification` 简化 | 实现了，但还能更简单。 |
 | `@source-driven-development` 源头驱动 | 对某个 API 的用法没有把握时。 |
 | `@deprecation-and-migration` 弃用与迁移 | 引入新接口、旧调用方还在时。 |
+| `@user-interface-engineering` 界面工程 | 改动会渲染给人看：页面、组件、布局、样式、交互、可见状态。 |
 | `@arena` 并行择优 | 见 `skills/arena.md` 的「什么时候用」。 |
 
 ## 怎么开工

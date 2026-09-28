@@ -54,3 +54,4 @@
 
 - upstreams/mattpocock-skills/skills/engineering/tdd/SKILL.md
 - upstreams/cursor-plugins/pstack/skills/tdd/SKILL.md
+- upstreams/addyosmani-agent-skills/skills/test-driven-development/SKILL.md

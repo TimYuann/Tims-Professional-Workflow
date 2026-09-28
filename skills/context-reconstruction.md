@@ -52,4 +52,3 @@ A2 事实集。移交件用它的三个字段，缺一不可：
 
 upstreams/mattpocock-skills/skills/productivity/handoff/SKILL.md
 upstreams/cursor-plugins/pstack/skills/reflect/SKILL.md
-upstreams/cursor-plugins/pstack/skills/recall/SKILL.md

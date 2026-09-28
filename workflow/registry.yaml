@@ -429,7 +429,7 @@ roles:
     ribbons: []
     skills: [implement, tdd, incremental-implementation, prototype, debugging,
              code-simplification, source-driven-development, deprecation-and-migration,
-             arena]
+             arena, user-interface-engineering]
     principles: [p-subtract-before-add, p-laziness-protocol, p-fix-root-causes,
                  p-sequence-verifiable-units, p-test-behavior-not-implementation,
                  p-make-operations-idempotent, p-separate-before-serializing,
@@ -815,6 +815,14 @@ skills:
     outputs: [A7]
     summary: 每个非平凡决策在成立之前都过一次新鲜上下文的对抗审查。
     sources: [addy:doubt-driven-development]
+  - id: user-interface-engineering
+    zh: 界面工程
+    owner_role: builder
+    phase: P3
+    inputs: [A3, A4, A5]
+    outputs: [A6]
+    summary: 组件结构、状态选档、设计系统遵循、响应式与状态齐备，外加一条不许跳的收尾闸门。
+    sources: [addy:frontend-ui-engineering]
   - id: arena
     zh: 并行择优
     owner_role: builder
@@ -863,7 +871,7 @@ skills:
     inputs: [A6]
     outputs: [A8]
     summary: 对已知脆弱模式做加固验证。
-    sources: [addy:security-and-hardening, addy:frontend-ui-engineering]
+    sources: [addy:security-and-hardening]
   - id: observability-and-instrumentation
     zh: 可观测性
     owner_role: verifier
@@ -1091,7 +1099,7 @@ upstream_dispositions:
   - {upstream: addy:api-and-interface-design, outcome: absorbed, into: api-and-interface-design, reason: 稳定接口设计}
   - {upstream: addy:ci-cd-and-automation, outcome: absorbed, into: ci-cd-and-automation, reason: 持续集成}
   - {upstream: addy:context-engineering, outcome: absorbed, into: context-management, reason: 拆成两条：p-guard-context 保留「批量内容路由出去」这条原则；context-management 承载 5 层上下文层级、文件信任级别、可重启会话边界、压缩优先于丢弃、75% 裁剪阈值、上下文冲突处理}
-  - {upstream: addy:frontend-ui-engineering, outcome: absorbed, into: security-and-hardening, reason: 可访问性与安全加固部分并入验证}
+  - {upstream: addy:frontend-ui-engineering, outcome: absorbed, into: user-interface-engineering, reason: 组件架构、状态选档、设计系统遵循、响应式、加载/空/错态、收尾闸门全部并入 P3 实现侧；P5 的界面验证由 browser-testing 承担，不重复认领}
   - {upstream: addy:shipping-and-launch, outcome: absorbed, into: shipping-and-launch, reason: 发布}
   - {upstream: addy:spec-driven-development, outcome: absorbed, into: spec-driven-development, reason: 先写规格}
   - {upstream: addy:constraint-driven-development, outcome: absorbed, into: constraint-driven-development, reason: 质量契约}
