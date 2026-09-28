@@ -46,7 +46,10 @@ workflow/
 roles/                 9 个角色：装配者 / 人类沟通面 / 事实调查 / 建模与定契约 /
                        切片 / 实现 / 独立挑战 / 独立验证 / 记录与移交
 skills/                50 个技能，按需取用，正文不在角色文件里
-principles/            23 条原则，按所属角色分组；不是技能，没有触发条件
+principles/            23 条原则，正文只在这里，按所属角色分组；不是技能。
+                       角色文件里只有 principle 引用（形如 `@p-type-system-discipline`）与「这个角色何时加载它」的
+                       trigger，**不复述原则的意思**。装角色用
+                       `scripts/compose-role.py <角色>`，不要直接发角色文件正文。
 docs/
   artifacts.md         集合 A：工作流的全部产物（生成）
   downstream-mapping.md 集合 A ↔ 下游文档体系 的映射规则

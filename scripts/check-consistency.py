@@ -49,6 +49,7 @@ KNOWN_SCRIPTS = {
     "ledger.sh",              # A9 台账追加工具
     "sync-upstreams.sh",      # 上游同步 + 重生成锁文件
     "_render-lock.py",        # 被 sync-upstreams.sh 调用的锁文件生成器
+    "compose-role.py",        # 角色 prompt 装配器 + 原则结构检查
 }
 
 # 「不得 / 必须」识别。只在受控动词 + 重叠宾语上配对才算互斥。
