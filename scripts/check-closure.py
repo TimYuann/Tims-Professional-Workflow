@@ -294,7 +294,9 @@ def main():
     if not tag_checked:
         c1_detail += ("；无本库自己的 git 元数据（如 `git archive` 导出，"
                       "或副本装在下游仓库里），未核对 VERSION 与 release tag 的对齐"
-                      "——按三态判 UNVERIFIED，不判 FAIL")
+                      "——按三态判 UNVERIFIED，不判 FAIL。"
+                      "本库的 release 身份只能由本库自己的仓库或外层发布流程保证；"
+                      "本树内不可判")
     r.add("C1", "结构与版本单一来源", not miss, c1_detail, miss,
           skip=(not tag_checked and not miss))
 
