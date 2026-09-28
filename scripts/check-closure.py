@@ -253,13 +253,21 @@ def main():
     # VERSION 必须与当前 commit 上的 tag 对齐。v2.0.1–v2.0.3 三次打了 tag 却没改
     # VERSION，而 C1 只比前两个，所以一直 PASS——下游按 tag 锁定会锁到一个自称
     # 2.0.0 的东西。「版本单一来源」必须包含 release tag，否则不是单一来源。
-    # 无 git 元数据（例如 `git archive` 导出、或装到下游的裸目录）时 tag 核对
-    # 无从进行。那是环境故障，按本库硬边界 3 判 UNVERIFIED（渲染为 SKIP）：
-    # 既不冒充 PASS，也不判成产品缺陷。旧版把它当「没打 tag」判 FAIL——那是在
-    # 用一句假话把「没查」说成「查出来是坏的」。
-    git_meta = subprocess.run(["git", "rev-parse", "--git-dir"],
-                              capture_output=True, text=True,
-                              cwd=str(ROOT)).returncode == 0
+    # 无本库自己的 git 元数据时 tag 核对无从进行。三种真实形状：
+    #   - `git archive` 导出（整棵树没有 .git）
+    #   - 装进下游仓库的副本（**外层**有 .git，但那是下游仓库的 HEAD 与 tag，
+    #     与本库的 VERSION 无关）
+    #   - 裸目录
+    # 都是环境故障，按本库硬边界 3 判 UNVERIFIED（渲染为 SKIP）：既不冒充
+    # PASS，也不判成产品缺陷。旧版只看 `rev-parse --git-dir` 是否成功，于是把
+    # 「副本装在下游仓库里」判成「当前 commit 上没有 tag」——用一句假话把
+    # 「没查」说成「查出来是坏的」。判据改为「git 顶层必须是 ROOT 自己」：
+    # 只有本库的仓库才有权回答「这个 commit 上有没有 release tag」。
+    probe = subprocess.run(["git", "rev-parse", "--show-toplevel"],
+                           capture_output=True, text=True, cwd=str(ROOT))
+    top = probe.stdout.strip()
+    git_meta = bool(probe.returncode == 0 and top
+                    and Path(top).resolve() == ROOT.resolve())
     tag_checked = git_meta
     if git_meta:
         tag = subprocess.run(["git", "tag", "--points-at", "HEAD"],
@@ -284,8 +292,9 @@ def main():
     c1_detail = (f"版本 {vfile}，产物 {len(artifacts)}／阶段 {len(phases)}／角色 {len(roles)}"
                  f"／原则 {len(principles)}／技能 {len(skills)}")
     if not tag_checked:
-        c1_detail += ("；无 git 元数据（如 `git archive` 导出），未核对 VERSION 与 "
-                      "release tag 的对齐——按三态判 UNVERIFIED，不判 FAIL")
+        c1_detail += ("；无本库自己的 git 元数据（如 `git archive` 导出，"
+                      "或副本装在下游仓库里），未核对 VERSION 与 release tag 的对齐"
+                      "——按三态判 UNVERIFIED，不判 FAIL")
     r.add("C1", "结构与版本单一来源", not miss, c1_detail, miss,
           skip=(not tag_checked and not miss))
 
