@@ -486,13 +486,22 @@ fragment 的判据 `:26-28` 逐字：
 
 ### 二、两处按现有判据直接落笔（BATCH-C2 ②③）
 
-**② `setup-ts-deep-modules` 的 dependency-cruiser —— 不是悬案，判据现成。**
-`AGENTS.md` 硬边界第 6 条**逐字**把「重试、资源治理」与构建期依赖排除在
-execution mechanics 之外，而候选 `:243` 自己已经写了「不是本库 runtime」。
-**判据在手上却并列为「不判」，那是把已答的问题记成未答。**
-⇒ 处置：**范围外**。dependency-cruiser 属下游构建期依赖治理，不属本库；
-本库可取的是「原则 → 会红的门禁」这个转化，但那要在本库自己的判据里落地，
-**不得引用下游工具名当门禁**。
+**② `setup-ts-deep-modules` 的 dependency-cruiser —— 工具实现与可迁移方法分开判。**
+
+> ⚠️ **更正（Oracle 指出，driver 核原文后确认）**：本节原写
+> 「`AGENTS.md` 硬边界第 6 条**逐字**把「重试、资源治理」与构建期依赖排除在
+> execution mechanics 之外」——**这是假的**。该条逐字列举的是
+> **进程、并发上限、WIP、队列、锁、重试、资源治理**，**「构建期依赖」不在其中**。
+> **「逐字」是我给一段并不存在的文字加的限定词。**
+
+**处置不变，但理由换成两条可核的**：
+- **工具实现 → 范围外。** dependency-cruiser 本身是下游构建期依赖治理工具，
+  本库既不引用它也不定义它。**这是对我们自己库的判断，不是「上游这么说」**——
+  上游原文我只读了能逐字引用的部分。
+- **可迁移方法 → 候选吸收。** 「原则 → 会红的门禁」这个转化值得取，
+  但**必须落在本库自己的判据里**（registry 退出判据 / 检查器断言），
+  **不得引用下游工具名当门禁**。这是硬边界第 6 条的正确用法：
+  它约束的是**本库不引入执行机制**，不是替我裁定某个工具属不属于执行机制。
 
 **③ `implement-spec` 拆分 —— 不是裁量，是同一性判断。**
 判据「原则正文只有一处」本文件 `:77` 已用过并据此推出「沿用已有」；
@@ -507,7 +516,27 @@ worktree／branch／merger 子代理与探索-实现分离，本库 grep 确认�
 
 ### 三、仍需 Oracle 定取向的一处（BATCH-C2 ①）
 
-**`loop-me` `:18`「Mandate nothing structural」**——这一条是**取向定义题**，
-不是判据题。本库现有取向是「纪律由本库定义」（`AGENTS.md` 唯一真源段），
-而 loop-me 主张工作流本身不强制任何结构。**二者是否可并存，取决于 Owner 要哪种取向**，
-driver 不自裁。**在裁定前该项标 `UNVERIFIED`，不记吸收也不记拒绝。**
+**`loop-me` `:18`「Mandate nothing structural」—— 原判「取向定义题、需 Owner 选定」是错的，已撤回。**
+
+> ⚠️ **更正（Oracle 完整读过 33 行原文后指出，driver 复核确认）**：
+> 我原先只摘了「**Mandate nothing structural**」半句就当成独立主张。
+> **原文同一段的完整限定是**：
+> `A shared language, **reached for only when a workflow calls for it**: never a checklist.
+> **Mandate nothing structural**: a workflow needs no AI, no checkpoint, and no schedule
+> unless the grilling shows it does.`
+> 且它位于 `## Vocabulary` 段，该段自我限定为**按需取用的共享词表**。
+
+**所以它约束的是「被设计的工作流不预设 AI/checkpoint/schedule」，
+不是「本库不得定义工程纪律」。** 两者不冲突，**不需要 Owner 重新选本库取向**，
+本条不是阻塞。
+
+**改按具体机制／当前边界作候选处置**：
+- **机制**：需求澄清阶段先问清「这个工作流要不要 AI／要不要人审点／要不要定时」，
+  由回答决定结构，**不先摆一套结构再往上套**。
+- **与本库重叠**：`A1.non_goals` 已是同一机制的位置——`P0` 追问「不做什么」，
+  `coldstart.md` 自检清单也含「`A1.non_goals` 已被追问过」。
+- **候选处置**：**沿用已有**（`A1.non_goals`），可补的是具体表述——
+  「不预设结构，由回答决定结构」这一句值得写进 `A1.non_goals` 的注记。
+  **不新设一套取向，不动硬边界。**
+- 四词表（Trigger／Checkpoint／Push right／Brief）**维持 scout 原判：吸收**，
+  与本条不冲突。
