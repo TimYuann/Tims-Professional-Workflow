@@ -13,7 +13,7 @@
 | **A4 冻结契约** | 可合并的包 | `architect` | P2、P3、P4、P5、P6 | P1、P2 |
 | **A5 任务图** | 可合并的包 | `cartographer` | P3、P6 | P2 |
 | **A6 实现候选** | 目录 | `builder` | P4、P5、P6 | P3、P5 |
-| **A7 裁决** | 目录 | `adversary` | P5、P6 | P4 |
+| **A7 裁决** | 目录 | `adversary` | P5、P6 | P4、P6 |
 | **A8 验证凭据** | 目录 | `verifier` | P6 | P1、P5、P6 |
 | **A9 决策台账** | 单文件 | `scribe` | P6 | P0、P1、P2、P3、P4、P5、P6 |
 
@@ -31,8 +31,8 @@
 | **P1 FRAME** | A1、A2 | A3、A4 | architect、scout | — |
 | **P2 PLAN** | A1、A3、A4 | A5 | cartographer | — |
 | **P3 BUILD** | A4、A5 | A6 | builder | — |
-| **P4 CRITIQUE** | A2、A4、A6 | A7 | adversary | 实现者不得对本候选给出裁决（solo 档除外——见 roles/driver.md「档位」一节的豁免与补偿） |
-| **P5 PROVE** | A2、A3、A4、A6、A7 | A8 | verifier | 验证者不得是候选的实现者（solo 档除外——见 roles/driver.md「档位」一节的豁免与补偿） |
+| **P4 CRITIQUE** | A2、A4、A6 | A7 | adversary | 实现者不得对本候选给出裁决。**`solo` 档不自动豁免**——它只回答任务多大，不回答能不能开独立会话。独立路线可送达时本条照旧；不可送达时结论照出，但 `A7.independence` 记 `单会话自审`，不得写成 `独立复核`，路线结果记 `A9`（见 roles/driver.md「档位」一节） |
+| **P5 PROVE** | A2、A3、A4、A6、A7 | A8 | verifier | 验证者不得是候选的实现者。**`solo` 档不自动豁免**——它只回答任务多大，不回答能不能开独立会话。独立路线可送达时本条照旧；不可送达时 `A8.verdict` 照判、`PASS` 照给，但 `A8.independence` 记 `单会话自审`，不得写成 `独立复核`，路线结果记 `A9`（见 roles/driver.md「档位」一节） |
 | **P6 SHIP** | A3、A4、A5、A6、A7、A8、A9 | — | verifier、scribe | 上线之后出问题按因归属：验证没覆盖到 → P5；部署配置或目标环境 → P6；判据本身错 → P1。不许一律推给 P5 |
 
 ## 返工回边

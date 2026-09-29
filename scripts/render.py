@@ -71,6 +71,9 @@ def phase_doc(ph, reg):
     for c in ph.get("exit_criteria", []):
         L.append(f"- {c}")
     L.append("")
+    if ph.get("criteria_note"):
+        L.append(f"> **判据的机械效力边界**：{ph['criteria_note']}")
+        L.append("")
     if ph.get("hard_rules"):
         L.append("## 硬规则")
         L.append("")
@@ -205,7 +208,7 @@ def artifacts_doc(reg):
 
 
 def closure_doc(reg):
-    """闭包报告。每一列都要如实对���口径——上一版把「产出阶段」填进
+    """闭包报告。每一列都要如实对齐口径——上一版把「产出阶段」填进
     「在哪一步被校验」那一列，列名与值不符，比没有这一列更坏。"""
     a_by_id = {a["id"]: a for a in reg["artifacts"]}
     rb_produced = {a for rb in reg["ribbons"] if rb.get("always") for a in rb.get("produces", [])}

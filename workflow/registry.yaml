@@ -83,7 +83,7 @@ provenance_policy:
   # 已知的能力上限。**写到脸上，不让人从「enforced」推断出比它更强的保证。**
   known_limits:
     - >-
-      即使 `principles` 建成检查，它也只到**条款级**（一条原则一���来源），
+      即使 `principles` 建成检查，它也只到**条款级**（一条原则一个来源），
       **不等于** Owner 要求的**段落级**（每一个实质正文段落各有归属）。
       `skills` 同理，到的是**文件级**。两项距离 `target_granularity` 都还有一级。
     - >-
@@ -259,6 +259,7 @@ artifacts:
   - stance
   - reason
   - conditions
+  - independence
   shape: 目录
   embodiment: >-
     裁决随评审目录落盘，一份候选一份。**多模型对抗的合成结论**（`@interrogate`）与**新鲜上下文质疑的复核记录**（`@doubt-driven-development`）都是 A7 的不同形态。
@@ -267,7 +268,19 @@ artifacts:
     stance: 采纳／挑战／附条件通过
     reason: 为什么。必须指向 A2 的证据或一次真实运行；「感觉不对」不是理由
     conditions: 附条件通过时，条件是什么、由谁验收
-  rationale: 裁决与候选分离，才能保证审查者没有实现者的立场。没有 reason 的裁决等于没有裁决。
+    independence: >-
+      这次判断是不是候选作者自己作出的。**只有两个值**：`独立复核` / `单会话自审`。
+      **与 `stance` 正交**——两个值都能拿到 `stance` 里的任何一种，它不表达「谁更强」，
+      只表达判断的来源。**由 `adversary` 填**：现场开不出独立会话时照填 `单会话自审`，
+      **并照发裁决**——本栏不授权拒绝出结论。**路线原因不进本栏**，进 `A9`。
+      ⚠️ **这两个值没有任何机械强制**——本片未加取值域断言（新增断言需先满足保留判据
+      「合法变体不误报」与「谁维护」，两者当时均不成立）。**拼错取值或加尾随空格，
+      四项检查全绿。本栏靠人读。**
+  rationale: >-
+    裁决与候选分离，才能保证审查者没有实现者的立场。没有 reason 的裁决等于没有裁决。
+    `independence` 单独成栏而不是塞进 `stance`，是因为 `stance` 的取值封闭是它的设计意图
+    （`roles/adversary.md` 明写不扩充）；让一栏同时回答「倾向什么」和「谁作出的」，
+    两个问题会互相污染。
   rework: 附条件通过时回到 P3 重做，走新一轮 P3→P4。这条返工边**刻意不建成消费关系**——它是阶段图上的回边，建进 consumers 会让线性可达性检查失效。
 - id: A8
   key: evidence
@@ -283,6 +296,7 @@ artifacts:
   - frame_alignment
   - environment
   - verdict
+  - independence
   shape: 目录
   embodiment: >-
     凭据随评审目录落盘，一次验证一份。**未覆盖能力清单、文档漂移清单**是 A8 的副产品形态，不是独立产物（`@verification-suite` 的保鲜循环产出它们）。**其余验证类交付物一律是 A8 的字段或副产物，不另出文件**：**浏览器测试计划与前后截图**（`@browser-testing`——计划进 `claim`/`scope`，截图进 `observation`）；**性能基线与尝试记录**（`@performance-optimization`——数字进 `observation`，留或回滚的决定进 `A9`）；**依赖审计结论**（`@security-and-hardening`）；**信号对照表与值班问题清单**（`@observability-and-instrumentation`——清单进 `frame_alignment`）；**流水线的自证记录**（`@ci-cd-and-automation`——人为制造的红灯实测进 `observation`）。
@@ -295,7 +309,20 @@ artifacts:
     frame_alignment: 本次验证中 A3 与代码不一致的条目，以及未覆盖能力清单。**由 `verifier` 填**。verifier 只记录不改写 A3——A3 的更新是 architect 的后续动作。这两张清单是本字段的产物形态，不是独立文档
     environment: 在什么环境、什么对象上跑的
     verdict: PASS／FAIL／UNVERIFIED。环境故障既不算 PASS，也不得直接判成产品缺陷
-  rationale: 三态判定。环境故障不许冒充 PASS，也不许直接判成产品缺陷——两种都会污染下游的判断。
+    independence: >-
+      这次验证是不是验证对象作者自己做的。**只有两个值**：`独立复核` / `单会话自审`。
+      **与 `verdict` 正交**——两种取值都能拿到 `PASS`，`PASS` 不表示有人复核过。
+      **由 `verifier` 填**：现场开不出独立会话时照填 `单会话自审`，
+      **并照发 `verdict`**——本栏不改变三态判定，也不放宽 `A8.verdict 是 PASS` 这道闸门。
+      **路线原因不进本栏**，进 `A9`。**它与 `A7.independence` 允许合法不同**：
+      独立会话做 P4、同一会话做 P5 是正常路径，**不加相等断言**；
+      P6 的披露条件取两者中较弱的一侧。
+      ⚠️ **这两个值没有任何机械强制**——本片未加取值域断言。**拼错取值或加尾随空格，
+      四项检查全绿。本栏靠人读。**
+  rationale: >-
+    三态判定。环境故障不许冒充 PASS，也不许直接判成产品缺陷——两种都会污染下游的判断。
+    `independence` 与 `verdict` 分开，是因为「跑出来了」和「有人复核过跑出来的」
+    是两个问题；合成一栏会让人拿 PASS 当作已复核的凭据。
 - id: A9
   key: ledger
   zh: 决策台账
@@ -322,7 +349,11 @@ artifacts:
     phase: 在哪个阶段做出
     decision: 决定做什么
     why: 为什么
-    evidence: 凭什么
+    evidence: >-
+      凭什么。**若用摘要**：注明**算法**、**对象／版本**、**完整值或明确标为前缀**、**来源**；
+      区分**本人实测**、**他人报告**、**转录**。不能复算或算法不明时**注明原因并记
+      `UNVERIFIED`，不填默认算法**。**不强制**每项证据都有摘要，也不要求算满若干种算法——
+      没实测就不写，比写一个无据的标签诚实。**摘要不证明**独立评价、内容正确或安全性。
     result: 结果如何
   append_only: true
   rationale: 全程唯一的常驻记录。Owner 的原话：自主执行的前提是全程记录不丢。
@@ -403,7 +434,7 @@ phases:
       - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
     default_roles: [adversary]
     hard_rules:
-      - 实现者不得对本候选给出裁决（solo 档除外——见 roles/driver.md「档位」一节的豁免与补偿）
+      - 实现者不得对本候选给出裁决。**`solo` 档不自动豁免**——它只回答任务多大，不回答能不能开独立会话。独立路线可送达时本条照旧；不可送达时结论照出，但 `A7.independence` 记 `单会话自审`，不得写成 `独立复核`，路线结果记 `A9`（见 roles/driver.md「档位」一节）
     produces: [A7]
 
   - id: P5
@@ -418,7 +449,7 @@ phases:
       - "verify: A9.actor 有本阶段这一轮的决定行——没有决定的阶段也要写一行「本阶段无决定」并说明为什么"
     default_roles: [verifier]
     hard_rules:
-      - 验证者不得是候选的实现者（solo 档除外——见 roles/driver.md「档位」一节的豁免与补偿）
+      - 验证者不得是候选的实现者。**`solo` 档不自动豁免**——它只回答任务多大，不回答能不能开独立会话。独立路线可送达时本条照旧；不可送达时 `A8.verdict` 照判、`PASS` 照给，但 `A8.independence` 记 `单会话自审`，不得写成 `独立复核`，路线结果记 `A9`（见 roles/driver.md「档位」一节）
     produces: [A8]
 
   - id: P6
@@ -429,6 +460,13 @@ phases:
     exit_criteria:
       - "verify: A8.verdict 是 PASS——UNVERIFIED 与 FAIL 都不许上线"
       - "verify: A9.result 记下了发布动作与回滚路径，且回滚路径已被确认可执行"
+      - "verify: A7.independence 或 A8.independence 为 `单会话自审` 时，实际交付面显著标注「未经独立复核」，且 A9.result 记下交付物指针与披露事实"
+    criteria_note: >-
+      「独立复核披露」这条**不是闸门，是提醒**。C4 最多证明 `A9.result` 这个字段存在，
+      **不证明交付物真的标注了**；没有任何检查器读交付物内容。
+      披露条件取 `A7.independence` 与 `A8.independence` 中**较弱的一侧**——
+      任一为 `单会话自审` 即触发。**本条不改变 `A8.verdict 是 PASS` 闸门，也不产生发布授权。**
+      人审时**实际交付面与 `A9` 行都要看**，检查器替代不了。
       - "verify: A8.frame_alignment 非空——上线时如果能力地图与代码有偏差，必须已经记下来；地图的更新是**下一次 P1** 的活，不在 P6 的判据里（P6 没装 architect，要求它更新是越权）"
     default_roles: [verifier, scribe]
     hard_rules:
