@@ -460,3 +460,54 @@ fragment 的判据 `:26-28` 逐字：
 | `pr/SKILL.md` 全文长度 | 169 行；`[读到的]` 本轮**读完 `:1-169` 全文**（`### Evidence` 起于 `:156`、`### Merge Danger` 起于 `:164`，文件以 `:168` 的 blast radius 句结束）。**无未读段** |
 | 独立评价 | **本轮没有做**。`[读到的]` 裁定 `:23` `由独立方评价` —— 本文件是**候选**，不是裁定 |
 | 九项在 `upstream_dispositions` 的登记 | `[推断的]` 上轮实测 9 项全部不在；**本轮未复核该数字**（不在本任务范围） |
+
+---
+
+## Driver 追加 · 阅读面与两处落笔（2026-09-30）
+
+依 `ADVERSARY-VERDICT-ENTRY-B1.md` 的 BATCH-C1／BATCH-C2。
+
+### 一、阅读面：可核的一句话（不是「九项全部已读正文」）
+
+**driver 实测**：把本文件引用的四条截断项回查来源正文，
+`claude-handoff`「Instead of saving it…」、`loop-me`「Run a stateful…」、
+`loop-me`「Mandate nothing structural」、`setup-ts-deep-modules`「Entry points, not a barrel.」
+**四条全部逐字存在于 `upstreams/mattpocock-skills/skills/in-progress/<项>/SKILL.md`**。
+另实测台账 `UPSTREAM-INVENTORY-0930.md` §5.1-5.9 的块引用 **18 条中 14 条可在来源正文逐字命中**，
+未命中的 4 条**全部是本文件用 `…` 截断所致，不是编造**。
+
+**所以准确表述是**：
+- **读的是来源正文**——`pr`（169 行全文）、`loop-me`（33 行全文）由 scout 本轮回读；
+  其余七项读的是台账 §5.1-5.9 的逐字引用，**该引用经 driver 抽验确实来自来源正文**。
+- **本文件里的引用有截断**（`…`），**逐字核验须回来源，不能只凭本文件**。
+- **不写「九项全部已读正文」**——台账引用可核，但不等同于逐行通读。
+  Oracle `:23` 要的「先读对应正文」对这七项是**经台账转读的正文**；若要升级为「逐行读过」，
+  需回读原文，那是另一轮的事，不在本轮冒充已完成。
+
+### 二、两处按现有判据直接落笔（BATCH-C2 ②③）
+
+**② `setup-ts-deep-modules` 的 dependency-cruiser —— 不是悬案，判据现成。**
+`AGENTS.md` 硬边界第 6 条**逐字**把「重试、资源治理」与构建期依赖排除在
+execution mechanics 之外，而候选 `:243` 自己已经写了「不是本库 runtime」。
+**判据在手上却并列为「不判」，那是把已答的问题记成未答。**
+⇒ 处置：**范围外**。dependency-cruiser 属下游构建期依赖治理，不属本库；
+本库可取的是「原则 → 会红的门禁」这个转化，但那要在本库自己的判据里落地，
+**不得引用下游工具名当门禁**。
+
+**③ `implement-spec` 拆分 —— 不是裁量，是同一性判断。**
+判据「原则正文只有一处」本文件 `:77` 已用过并据此推出「沿用已有」；
+**同一条判据必须用到底**，否则同一份候选里对同一问题用两套标准。
+worktree／branch／merger 子代理与探索-实现分离，本库 grep 确认确实没有
+（`exploration subagent`／`worktree` 均 0 命中），**且它不违反硬边界第 6 条**
+（那是并发与执行机制，不是方法）。
+⇒ 处置：**拆成两个候选**——
+  (a) frontier 机制 → **沿用已有**（`skills/wayfinder.md:27`），吸收即两处设义；
+  (b) 探索/实现分离 + 每实现者独立 worktree/branch + merger 汇总 → **吸收为方法**，
+      **但不在本库定义并发度、锁或队列**——那是下游 runtime。
+
+### 三、仍需 Oracle 定取向的一处（BATCH-C2 ①）
+
+**`loop-me` `:18`「Mandate nothing structural」**——这一条是**取向定义题**，
+不是判据题。本库现有取向是「纪律由本库定义」（`AGENTS.md` 唯一真源段），
+而 loop-me 主张工作流本身不强制任何结构。**二者是否可并存，取决于 Owner 要哪种取向**，
+driver 不自裁。**在裁定前该项标 `UNVERIFIED`，不记吸收也不记拒绝。**
