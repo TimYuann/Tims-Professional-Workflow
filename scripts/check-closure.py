@@ -13,7 +13,7 @@ check-closure.py · 闭包检查器（只读，可重复运行）
   C5 角色装配件   角色声明的产物/技能/原则都存在；技能与原则反向指认一致
   C6 引用完整     每个技能/原则被至少一个角色或阶段引用（无孤儿）
   C7 上游处置完备 锁文件里每个上游 SKILL.md 在处置表里恰好出现一次
-  C9 来源存在     registry.sources 每条都在上游锁文件里；有克隆时另比 sha256/pin
+  C9 来源存在     registry.sources 指向上游锁文件或登记的文章记录；有克隆时另比 sha256/pin
   C10 处置咬合     处置→来源，正向与反向都成立
   C11 消费咬合     消费者→装配，正向与反向都成立
   C12 原创标注     无来源的技能必须显式标 origin: library
@@ -24,7 +24,7 @@ check-closure.py · 闭包检查器（只读，可重复运行）
   C18 无前置成环   开工前要跑的技能不依赖开工后才有的产物
   C19 横切带无孤儿 每条横切带被至少一个角色挂载
   C20 来源段一致   技能正文「## 来源」段与 registry.sources 形态与内容一致
-  C21 原则来源相等 原则正文「来源：」行反查出的上游 id 与 registry.sources 完全相等
+  C21 原则来源相等 原则正文「来源：」行反查出的来源 id 与 registry.sources 完全相等
   C22 绑定真实载体 provenance_policy 里的 enforced_by 指向本次运行中注册、且覆盖同一类目的检查
   D1 底座解耦     按**已知名**黑名单扫库内容（黑名单有限枚举，不是穷尽）
 
@@ -246,6 +246,7 @@ def main():
     principles = reg.get("principles", [])
     skills = reg.get("skills", [])
     disp = reg.get("upstream_dispositions", [])
+    article_sources = reg.get("article_sources", [])
 
     a_by_id = {a["id"]: a for a in artifacts}
     p_by_id = {p["id"]: p for p in phases}
@@ -536,6 +537,9 @@ def main():
     if have_lock:
         lock = yaml.safe_load(lock_path.read_text(encoding="utf-8")) or {}
     lock_skills = lock.get("skills", {}) if lock else {}
+    article_ids = [a.get("id") for a in article_sources]
+    article_path2id = {a.get("record"): a.get("id") for a in article_sources
+                       if a.get("record") and a.get("id")}
 
     miss = []
     if not have_lock:
@@ -577,16 +581,64 @@ def main():
     r.add("C7", "上游处置完备（对锁文件）", not miss,
           f"锁文件 {len(lock_skills)} 个上游 skill，处置表 {len(listed)} 条，一一对应", miss)
 
-    # ── C9 来源声明与锁文件一致（有实物时校验内容）────────────
+    # ── C9 来源声明与已登记来源一致（有实物时校验内容）──────
     # 名字必须说清能力边界：无 upstreams/ 时只核锁文件，**不做实物对照**，
     # 输出要自曝这一点，不把它说成「已核」。旧版在缺 .git 时跳过 pin 比对，
     # 却照样写「并已逐条比对 sha256 与 pin」——把「没核」说成「核过了」。
     miss = []
+    if len(article_ids) != len(set(article_ids)):
+        miss.append("article_sources 的 id 有重复")
+    if len(article_path2id) != len([a for a in article_sources if a.get("record")]):
+        miss.append("article_sources 的 record 路径有重复")
+    actual_article_records = {
+        p.relative_to(ROOT).as_posix()
+        for p in (ROOT / "sources" / "articles").rglob("*.md")
+        if p.name != "README.md"
+    }
+    declared_article_records = {a.get("record") for a in article_sources if a.get("record")}
+    for record in sorted(actual_article_records - declared_article_records):
+        miss.append(f"文章来源记录 {record} 没有在 article_sources 登记")
+    for record in sorted(declared_article_records - actual_article_records):
+        miss.append(f"article_sources 登记的文章来源记录 {record} 不存在")
+    for a in article_sources:
+        aid, record = a.get("id"), a.get("record")
+        if not isinstance(aid, str) or not re.fullmatch(r"article:[a-z0-9-]+", aid):
+            miss.append(f"文章来源 id 非法：{aid!r}")
+        if aid in lock_skills:
+            miss.append(f"文章来源 {aid} 与上游锁文件 id 冲突")
+        if not isinstance(record, str) or not re.fullmatch(r"sources/articles/[a-z0-9-]+\.md", record):
+            miss.append(f"文章来源 {aid} 的 record 路径非法：{record!r}")
+            continue
+        fp = ROOT / record
+        if not fp.is_file():
+            miss.append(f"文章来源 {aid} 的记录不存在：{record}")
+            continue
+        body = fp.read_text(encoding="utf-8")
+        match = re.match(r"\A---\n(.*?)\n---\n", body, re.S)
+        if not match:
+            miss.append(f"文章来源 {aid} 的记录缺少 YAML 元数据：{record}")
+            continue
+        try:
+            meta = yaml.safe_load(match.group(1)) or {}
+        except yaml.YAMLError as exc:
+            miss.append(f"文章来源 {aid} 的记录元数据无法解析：{exc}")
+            continue
+        if meta.get("id") != aid:
+            miss.append(f"文章来源 {aid} 与记录 {record} 的 id 不一致")
+        if not isinstance(meta.get("original_url"), str) or not meta["original_url"].startswith("https://"):
+            miss.append(f"文章来源 {aid} 缺少 HTTPS 原始链接")
+        if not isinstance(meta.get("read_url"), str) or not meta["read_url"].startswith("https://"):
+            miss.append(f"文章来源 {aid} 缺少 HTTPS 实际阅读链接")
+        if not re.fullmatch(r"[0-9a-f]{64}", str(meta.get("capture_sha256", ""))):
+            miss.append(f"文章来源 {aid} 缺少有效的缓存 SHA-256")
+        if not isinstance(meta.get("original_verified"), bool):
+            miss.append(f"文章来源 {aid} 未声明原站核对状态")
+    known_sources = set(lock_skills) | set(article_ids)
     for coll, kind in ((skills, "skill"), (principles, "principle")):
         for item in coll:
             for src in item.get("sources") or []:
-                if src not in lock_skills:
-                    miss.append(f"{kind} {item['id']} 的来源 {src} 不在上游锁文件里")
+                if src not in known_sources:
+                    miss.append(f"{kind} {item['id']} 的来源 {src} 未登记")
     has_upstreams = (ROOT / "upstreams").is_dir()
     pin_unchecked = []          # pin 没核的原因（缺 .git 元数据等）
     repos_n = 0
@@ -631,50 +683,60 @@ def main():
     if miss:
         # 有真实不一致时 FAIL 优先，SKIP 不得替它掩盖
         detail = (f"{len(lock_skills)} 个上游 skill 索引（锁文件）；"
-                  f"发现 {len(miss)} 条不一致（明细见下）")
-        r.add("C9", "来源声明与锁文件一致（有实物时校验内容）", False, detail, miss)
+                  f"{len(article_sources)} 篇文章记录；发现 {len(miss)} 条不一致（明细见下）")
+        r.add("C9", "来源声明与已登记来源一致（有实物时校验内容）", False, detail, miss)
     elif not has_upstreams:
         detail = (f"{len(lock_skills)} 个上游 skill 索引（锁文件），0 条失效来源。"
-                  f"PASS（锁文件核对）：registry.sources 均在随包 upstreams.lock.yaml；"
+                  f"PASS（登记核对）：上游来源在随包 upstreams.lock.yaml，文章来源有本地记录；"
                   f"未发现 upstreams/，未做上游实物 sha256/pin 对照；"
-                  f"不证明锁文件与真实上游一致。")
-        r.add("C9", "来源声明与锁文件一致（有实物时校验内容）", True, detail)
+                  f"不证明锁文件与真实上游一致。另核 {len(article_sources)} 篇文章记录的字段与引用；"
+                  f"未核文章原站正文与本地缓存内容。")
+        r.add("C9", "来源声明与已登记来源一致（有实物时校验内容）", True, detail)
     elif pin_unchecked:
         detail = (f"{len(lock_skills)} 个上游 skill 索引（锁文件），0 条失效来源；"
                   f"upstreams/ 存在，sha256 已比对；未核 pin：{'；'.join(pin_unchecked)}"
-                  f"——实物核对不完整，按三态判 UNVERIFIED（SKIP），不判成产品缺陷。")
-        r.add("C9", "来源声明与锁文件一致（有实物时校验内容）", True, detail, None,
+                  f"——实物核对不完整，按三态判 UNVERIFIED（SKIP），不判成产品缺陷。"
+                  f"另核 {len(article_sources)} 篇文章记录字段；未核文章原站正文与本地缓存内容。")
+        r.add("C9", "来源声明与已登记来源一致（有实物时校验内容）", True, detail, None,
               skip=True)
     else:
         detail = (f"{len(lock_skills)} 个上游 skill 索引（锁文件），0 条失效来源。"
-                  f"PASS（锁文件＋实物核对）：来源在锁文件中；上游文件 sha256 与 "
-                  f"{repos_n} 仓 pin 均与锁文件一致。")
-        r.add("C9", "来源声明与锁文件一致（有实物时校验内容）", True, detail)
+                  f"PASS（锁文件＋实物核对）：上游来源在锁文件中；上游文件 sha256 与 "
+                  f"{repos_n} 仓 pin 均与锁文件一致。另核 {len(article_sources)} 篇文章记录的字段与引用；"
+                  f"未核文章原站正文与本地缓存内容。")
+        r.add("C9", "来源声明与已登记来源一致（有实物时校验内容）", True, detail)
 
-    # ── C10 处置表声称吸收，目标就必须真的列了它（双向）────────
+    # ── C10 上游与文章声称吸收，目标就必须真的列了它（双向）───
     # 这一条曾经缺失：6 条 absorbed 处置在 upstreams/ 里对得上，
     # 但目标技能的 sources 里根本没有它——台账在追一个没发生的事。
     miss = []
-    claim = {}          # upstream -> set(into)
-    for d in disp:
-        if d.get("outcome") == "absorbed":
-            for into in d.get("into") or []:
-                claim.setdefault(d["upstream"], set()).add(into)
-    for d in disp:
+    all_dispositions = [(d.get("upstream"), d) for d in disp]
+    all_dispositions += [(a.get("id"), a) for a in article_sources]
+    claim = {}          # source id -> set(into)
+    for source_id, d in all_dispositions:
+        if d.get("outcome") == "absorbed" and isinstance(d.get("into"), list):
+            for into in d["into"]:
+                claim.setdefault(source_id, set()).add(into)
+    for source_id, d in all_dispositions:
+        if source_id and source_id.startswith("article:") and d.get("outcome") not in (
+                "absorbed", "rejected", "deferred", "unread"):
+            miss.append(f"{source_id} 的 outcome 非法：{d.get('outcome')}")
+        if not d.get("reason"):
+            miss.append(f"{source_id} 没有写处置理由")
         if d.get("outcome") != "absorbed":
             if d.get("into"):
-                miss.append(f"{d['upstream']} 判为 {d['outcome']}，却仍指向 {d['into']}")
+                miss.append(f"{source_id} 判为 {d['outcome']}，却仍指向 {d['into']}")
             continue
-        if not d.get("into"):
-            miss.append(f"{d['upstream']} 判为 absorbed 却没有指向任何技能或原则")
+        if not isinstance(d.get("into"), list) or not d["into"]:
+            miss.append(f"{source_id} 判为 absorbed 却没有非空的目标列表")
             continue
         # 正向：into 里的**每一个**目标，sources 里都必须有它
         for into in d["into"]:
             tgt = s_by_id.get(into) or pr_by_id.get(into)
             if not tgt:
-                miss.append(f"{d['upstream']} 指向不存在的 {into}")
-            elif d["upstream"] not in (tgt.get("sources") or []):
-                miss.append(f"假链接：{d['upstream']} 声称吸收进 {into}，"
+                miss.append(f"{source_id} 指向不存在的 {into}")
+            elif source_id not in (tgt.get("sources") or []):
+                miss.append(f"假链接：{source_id} 声称吸收进 {into}，"
                             f"但 {into} 的 sources 里没有它")
     # 反向：某目标的 sources 里出现过的上游，必须有一条 absorbed 处置的
     # into 列表**包含该目标**。旧版只查正向，反向不查的后果是：同一个上游
@@ -688,10 +750,10 @@ def main():
                     miss.append(f"反向假链接：{kind} {item['id']} 的 sources 里有 {src}，"
                                 f"但处置表里 {src} 的 absorbed 指向 {owner}"
                                 f"——认领了来源却没在台账里登记")
-    r.add("C10", "处置与来源双向咬合", not miss,
-          f"{len(disp)} 条处置与目标 sources 双向一致"
-          f"（正向：into 里的每个目标都得列它；反向：sources 里的每个上游"
-          f"都得有指向该目标的 absorbed 处置）", miss)
+    c10_detail = (f"核对 {len(disp)} 条上游处置、{len(article_sources)} 篇文章处置与目标 sources；"
+                  f"正向检查每个 into 目标，反向检查每个来源认领。"
+                  f"结果：{'双向一致' if not miss else f'{len(miss)} 处不一致'}")
+    r.add("C10", "处置与来源双向咬合", not miss, c10_detail, miss)
 
     # ── C11 consumers 必须真的被 required_inputs 接住 ───────────
     # 允许「同阶段自产自消」（P1 消费自己产出的 A3），那是自我校验。
@@ -946,18 +1008,20 @@ def main():
     # 在那里多列一个 registry 没有的上游，全库全绿。
     #
     # 来源段只有三种形态，**互斥**，混用即 FAIL：
-    #   (a) 吸收  逐行列出 `upstreams/<repo>/<path>/SKILL.md`。
+    #   (a) 吸收  逐行列出已登记的上游 SKILL.md 或文章记录路径。
     #           → registry.sources 非空，且逐条双向相等（不多不少）。
-    #   (b) 借鉴  散文写「本库原创。参考了 `upstreams/...` 的……思路」，未复制其实现。
+    #   (b) 借鉴  散文写「本库原创。参考了登记来源的……思路」，未复制其实现。
     #           → registry.sources 为空且 origin: library。提到了路径的，
-    #             每条路径仍必须在锁文件里（不许引用不存在的上游）。
+    #             每条路径仍必须已登记（不许引用不存在的来源）。
     #   (c) 原创  只写「本库原创。」，不提到任何上游路径。
     #           → registry.sources 为空且 origin: library。
     # 写 (a) 又写「本库原创」= 混用；写了 (a) 却没登记 sources = 假链接。
     # 维护者：本库维护者。改来源时同改两处，并重新确认形态。
-    UP_PATH_RE = re.compile(r"upstreams/[A-Za-z0-9_./-]+/SKILL\.md")
-    BARE_PATH_RE = re.compile(r"^upstreams/[A-Za-z0-9_./-]+/SKILL\.md$")
+    SOURCE_PATH_RE = re.compile(
+        r"(?:upstreams/[A-Za-z0-9_./-]+/SKILL\.md|sources/articles/[^\s`)\]]+\.md)")
+    BARE_PATH_RE = re.compile(r"^" + SOURCE_PATH_RE.pattern + r"$")
     path2id = {v.get("path"): k for k, v in lock_skills.items() if v.get("path")}
+    path2id.update(article_path2id)
     shapes = {"absorbed": 0, "borrowed": 0, "original": 0}
     miss = []
     for sk in skills:
@@ -977,7 +1041,7 @@ def main():
         listed = [l.strip().lstrip("-*").strip().strip("`").strip()
                   for l in sec.splitlines() if l.strip()]
         bare = [x for x in listed if BARE_PATH_RE.match(x)]
-        shape = ("borrowed" if claimed_original and UP_PATH_RE.search(sec)
+        shape = ("borrowed" if claimed_original and SOURCE_PATH_RE.search(sec)
                  else "original" if claimed_original
                  else "absorbed" if bare else None)
         if shape is None:
@@ -994,19 +1058,18 @@ def main():
         # 吸收形态的技能不得标 origin: library。缺了它，round-3 §6.5 那类
         # 「C12 说 3 个原创、C20 说 0 个原创／3 个借鉴」的对不上账会全绿。
         if shape == "absorbed" and sk.get("origin") == "library":
-            miss.append(f"技能 {sid} 的来源段是吸收形态（逐条列了 {len(bare)} 条上游路径），"
+            miss.append(f"技能 {sid} 的来源段是吸收形态（逐条列了 {len(bare)} 条来源路径），"
                         f"但 registry 标了 origin: library——正文说吸收、注册表说库内，"
                         f"两个标签必须指向同一件事（与 C12 对账）")
-        for p in set(UP_PATH_RE.findall(sec)):
+        for p in set(SOURCE_PATH_RE.findall(sec)):
             if p not in path2id:
-                miss.append(f"技能 {sid} 的来源段提到 {p}，但它不在上游锁文件里"
-                            f"——引用了一个不存在（或未登记）的上游")
+                miss.append(f"技能 {sid} 的来源段提到 {p}，但它不在已登记来源里")
         srcs = set(sk.get("sources") or [])
         if shape == "absorbed":
             got = {path2id.get(x) for x in bare}
             unknown = sorted(x for x in got if x is None)
             if unknown:
-                miss.append(f"技能 {sid} 的来源段列了 {len(unknown)} 条锁文件里没有的路径")
+                miss.append(f"技能 {sid} 的来源段列了 {len(unknown)} 条未登记的路径")
             if got != srcs:
                 only_file = sorted(x for x in got - srcs if x)
                 only_reg = sorted(srcs - got)
@@ -1029,7 +1092,7 @@ def main():
     # ── C21 原则来源与注册表完全相等 ───────────────────────────
     # provenance_policy 承诺 principles 的覆盖载体是「每条 `## p-*` 段内的
     # `来源：` 行」，但此前没有任何检查器读它（round-3 的 C1/C2 注入双绿）。
-    # C21 把承诺变成断言：正文里反查出来的上游 id 集合必须与 registry.sources
+    # C21 把承诺变成断言：正文里反查出来的来源 id 集合必须与 registry.sources
     # **完全相等**——拒幽灵路径、拒缺失、拒串线、拒重复。
     # 形态分三支：有路径 + 「本库原创」= 借鉴；有路径不声明原创 = 吸收；
     # 无路径 + 声明原创 = original，必须给内部锚点。未来合法的多来源按集合比。
@@ -1046,12 +1109,12 @@ def main():
     for pid in sorted(set(pr_sections) - set(pr_by_id)):
         miss.append(f"principles/ 里的 `## {pid}` 不在 registry 里——孤段")
     path2id_pr = {v.get("path"): k for k, v in lock_skills.items() if v.get("path")}
-    PR_PATH_RE = re.compile(r"upstreams/[A-Za-z0-9_./-]+/SKILL\.md")
+    path2id_pr.update(article_path2id)
     for pid in sorted(set(pr_sections) & set(pr_by_id)):
         f, sec = pr_sections[pid]
         rel = f.relative_to(ROOT)
         src_lines = re.findall(r"^来源：(.+)$", sec, re.M)
-        paths = [p for line in src_lines for p in PR_PATH_RE.findall(line)]
+        paths = [p for line in src_lines for p in SOURCE_PATH_RE.findall(line)]
         claimed_original = "本库原创" in sec
         declared = set(pr_by_id[pid].get("sources") or [])
         if not src_lines:
@@ -1063,7 +1126,7 @@ def main():
         for p in paths:
             uid = path2id_pr.get(p)
             if uid is None:
-                miss.append(f"{rel} 的 {pid} 的来源 {p} 不在上游锁文件里——幽灵路径")
+                miss.append(f"{rel} 的 {pid} 的来源 {p} 未登记——幽灵路径")
             else:
                 got.add(uid)
         if not paths and claimed_original:
@@ -1075,7 +1138,7 @@ def main():
                 miss.append(f"{rel} 的 {pid} 声明「本库原创」但正文里找不到内部锚点"
                             f"（契约 A*、技能 @id、相对链接或原则 p-*）——原创必须有内部出处")
         elif not paths:
-            miss.append(f"{rel} 的 {pid} 的来源行里没有任何上游路径，也没声明「本库原创」"
+            miss.append(f"{rel} 的 {pid} 的来源行里没有任何登记来源路径，也没声明「本库原创」"
                         f"——不属于三类形态中的任何一类")
         elif got != declared:
             only_file = sorted(got - declared)
@@ -1083,11 +1146,11 @@ def main():
             miss.append(f"{rel} 的 {pid} 的来源与 registry.sources 不一致："
                         f"只在正文里 {only_file or '无'}，只在注册表里 {only_reg or '无'}"
                         f"——串线、缺失或多列都算")
-    r.add("C21", "原则来源与注册表完全相等", not miss,
-          f"{len(pr_sections)} 条原则的「来源：」行反查出的上游 id 与 registry.sources "
-          f"逐条相等（拒幽灵路径、缺失、串线、重复）。"
-          f"边界：只证锚点存在且与注册表一致，不证段落语义忠实——"
-          f"「这条原则的正文真的来自那段上游」不可机械核验，由人审。", miss)
+    c21_detail = (f"核对 {len(pr_sections)} 条原则的「来源：」行与 registry.sources；"
+                  f"结果：{'逐条相等' if not miss else f'{len(miss)} 处不一致'}。"
+                  f"边界：只核锚点与登记的一致性，不证段落语义忠实——"
+                  f"「这条原则的正文真的来自那段来源」不可机械核验，由人审。")
+    r.add("C21", "原则来源与注册表完全相等", not miss, c21_detail, miss)
 
     # ── 解耦检查 D1 ──────────────────────────────────────────
     # 名字里的「已知底座名黑名单」是承诺的一部分：这张表是**人工枚举**的，

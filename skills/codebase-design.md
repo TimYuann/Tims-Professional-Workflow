@@ -70,6 +70,7 @@
 
 **先写调用方怎么用，再从它反推类型。** 落笔顺序是固定的：调用方的用法（消费者读到的说明
 加两三个真实调用点——导入什么、调什么、回来什么）→ 数据形状 → 函数签名 → 模块结构与接缝。
+设计供别的开发者复用的包时，先把其中一条真实用法写成短教程：读者从导入到看到结果要做什么。教程写不顺，先修调用体验，再定接口。
 两者不一致时，**以用法为准回头改类型**，不是反过来。调用方的体验就是规格，类型是伺候它的。
 函数体先留空（写成 `not implemented`），流程用伪代码占住。改动小就一个文件装下；
 改动大就再加一张模块地图加类型定义。
@@ -185,3 +186,4 @@ A4 冻结契约，字段落法：
 
 - `upstreams/mattpocock-skills/skills/engineering/codebase-design/SKILL.md`
 - `upstreams/cursor-plugins/pstack/skills/architect/SKILL.md`
+- `sources/articles/poteto-pstack-pt2.md`

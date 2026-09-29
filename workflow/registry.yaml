@@ -27,8 +27,8 @@ derived_views:
 # 解释；豁免的只有模板性标题与表头（见 excludes）。
 #
 # 三种形态，**互斥**，每个实质段落必须归其中之一：
-#   absorbed   吸收自某个上游 skill。正文里必须能解析出上游 passage 锚点。
-#   borrowed   借鉴思路但没复制实现。上游 passage 锚点 + 写明借鉴的是哪一句。
+#   absorbed   吸收自已登记的上游 skill 或文章。正文里必须能解析出来源锚点。
+#   borrowed   借鉴思路但没复制实现。登记来源锚点 + 写明借鉴的是哪一句。
 #   original   本库原创。必须给**内部**锚点：某条契约、某次决定、某个需求。
 #
 # 职责分工，三者不可互相顶替：
@@ -62,7 +62,7 @@ provenance_policy:
       level: file
       status: enforced
       enforced_by: C20
-      carrier: skills/*.md 的 `## 来源` 段（三形态互斥：absorbed 逐条列路径 / borrowed 散文借鉴 / original 显式声明）
+      carrier: skills/*.md 的 `## 来源` 段（三形态互斥：absorbed 逐条列已登记来源路径 / borrowed 散文借鉴 / original 显式声明）
     principles:
       level: clause
       status: enforced
@@ -223,7 +223,7 @@ artifacts:
   notes:
     slices: 每一片的边界；判据是「能不能独立验证」
     edges: 依赖边。**图里没有路径依赖的那些节点才是可并行的**；有边的按拓扑序串行。没有验收口径的并行结果无法汇合，所以 edges 与 acceptance 缺一不可
-    acceptance: 每片的验收口径，必须能追溯到 A4.done_definition。外来项例外：它的验收口径追溯到条目自身声明的行为
+    acceptance: 每片的验收口径、验证动作、可观察终态与预期证据落点，必须能追溯到 A4.done_definition。外来项例外：它的验收口径追溯到条目自身声明的行为；实际观察由执行与验证阶段留下，不在计划里预填
   rationale: 切片的质量决定并行的可行性。**并行的是图里没有路径依赖的那些节点**——有依赖边只能按拓扑序串行。但没有验收口径的并行结果无法汇合，所以 edges 与 acceptance 缺一不可。
 - id: A6
   key: candidate
@@ -766,7 +766,7 @@ skills:
     inputs: [A2]
     outputs: [A4]
     summary: 用深模块的词汇设计边界与接口，目标是可测试与可替换。
-    sources: [matt:codebase-design, pstack:architect]
+    sources: [matt:codebase-design, pstack:architect, article:poteto-pstack-pt2]
   - id: api-and-interface-design
     zh: 接口设计
     owner_role: architect
@@ -818,7 +818,7 @@ skills:
     inputs: [A4, A5]
     outputs: [A5]
     summary: 把工作拆成有序任务，每片可独立验证。
-    sources: [addy:planning-and-task-breakdown]
+    sources: [addy:planning-and-task-breakdown, article:poteto-pstack-pt2]
   - id: triage
     zh: 入口整备
     owner_role: cartographer
@@ -949,7 +949,7 @@ skills:
     inputs: [A3]
     outputs: [A8]
     summary: 维护一套像真实用户那样驱动系统的验证，并用它保鲜能力地图。
-    sources: [pstack:create-verification-skill, pstack:maintain-verification-skill]
+    sources: [pstack:create-verification-skill, pstack:maintain-verification-skill, article:poteto-pstack-pt1]
   - id: browser-testing
     zh: 真实浏览器验证
     owner_role: verifier
@@ -1109,7 +1109,23 @@ skills:
     note: 本库原创——上游三仓没有对应物。参考了若干 rejected skill 的思路，未复制其实现。
 
 # ─────────────────────────────────────────────────────────────
-# 上游处置表：101 个 skill，每个恰好一次。由 check-closure.py 对文件系统核对。
+# 文章来源：独立登记，不混入上游 skill 的锁文件与 101 条处置表。
+# record 保存文章身份、读取面和可复查的方法摘记；into 指向本库实际承接位置。
+# ─────────────────────────────────────────────────────────────
+article_sources:
+  - id: article:poteto-pstack-pt1
+    record: sources/articles/poteto-pstack-pt1.md
+    outcome: absorbed
+    into: [verification-suite]
+    reason: 验证工具的可组合命令、安全预演、可诊断错误与机器可读输出并入验证套件
+  - id: article:poteto-pstack-pt2
+    record: sources/articles/poteto-pstack-pt2.md
+    outcome: absorbed
+    into: [codebase-design, task-breakdown]
+    reason: 调用者教程先行的接口设计，以及逐片绑定预期证据的任务图
+
+# ─────────────────────────────────────────────────────────────
+# 上游处置表：101 个 skill，每个恰好一次。由 check-closure.py 对锁文件核对。
 # 这取代旧库那份手写的 SOURCES.md——手写会错，这张表能被机器判真伪。
 # ─────────────────────────────────────────────────────────────
 upstream_dispositions:
