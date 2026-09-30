@@ -32,3 +32,10 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Evidence:** `SOURCE-SURVEY.md` §8 records that the two cached article files are derived notes, not original text; X remains `UNVERIFIED`, and the fixed mirror was not read in full for an active method.
 - **Decision:** The cached notes may locate a method candidate only. Before any S4/S5 method enters the active path, independently reread its complete original page or a pinned full-text mirror and record which source was actually read. Keep the X source `UNVERIFIED` unless the original is actually verified. No article method is active now.
 - **Scope:** This bounds M4 to methods that support the two planned M3 tasks; it does not reopen broad source research or convert a source index into adoption.
+
+## D-005 · Accept the fixed M1 Profile content for downstream composition
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after verifying the ten object hashes listed in `M1-REPORT.md`.
+- **Decision authority/evidence:** Oracle's acceptance in `docs/overnight/2026-10-01/ORACLE-ACCEPTANCE.md`; independent M1 review and differential are in `PROFILE-EVALUATION.md` and `METHOD-REVIEW.md`.
+- **Accepted scope:** The seven fixed Profile files plus their candidate/evaluation reports are accepted as M1 inputs for M2/M3. The original M1 FAIL finding is retained unchanged as evidence; the single-file correction is independently PASS.
+- **Not accepted by this decision:** Candidate method entries, actual task-specific delegation inheritance, Charter activation/cold-start, M3 behavior, and M5/M6 package qualification. This acceptance consumes no Pro audit allowance and adds no UCBIP or publication authority.
