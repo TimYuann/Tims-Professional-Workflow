@@ -13,12 +13,15 @@ A Charter binds one use of a reusable Profile to the actual task. It cites the s
 
 ## Assembly
 
-Use the selected Profile, the filled Charter, and task-specific inputs. The example below shows the deterministic text order; the package intentionally has no schema validator or general permission engine.
+From the `professional-workflow/` package root, use the selected Profile, only the authority context the Charter needs, the filled Charter, its method files, and task-specific inputs. The example below shows the deterministic text order; the package intentionally has no schema validator or general permission engine.
 
 ```sh
-cat professional-workflow/profiles/implementation.md \
-    professional-workflow/charters/examples/implementation-cross-module.md \
+cat profiles/implementation.md \
+    charters/examples/implementation-local-fix.md \
+    methods/local-defect-feedback-loop.md \
     path/to/current-task-input.md
 ```
+
+For a cross-module technical Plan, use `profiles/technical-planning.md`, include the bundled Backbone when its responsibility boundary matters, bind `charters/examples/technical-planning-cross-module.md`, and include `methods/cross-module-design.md` before the task inputs.
 
 `template.md` is the compact binding form. The examples demonstrate one Profile with different task scopes; they are not active grants and must not be used until their delegation and input references are replaced by real objects.

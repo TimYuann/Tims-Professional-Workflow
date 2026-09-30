@@ -1,7 +1,7 @@
-# Behavior claim evaluation · M4 candidate
+# Behavior claim evaluation · M4 accepted reference
 
 - **Method owner:** F verification. Independence comes from the active Charter and actual contribution record.
-- **Status:** candidate for specific behavior claims; not a complete F workflow.
+- **Status:** accepted as a bounded reference for specific behavior claims; not a complete F workflow. A task Charter defines the evaluator and independence.
 
 ## Use
 

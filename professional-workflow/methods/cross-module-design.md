@@ -1,7 +1,7 @@
-# Cross-module design method · M4 candidate
+# Cross-module design method · M4 accepted reference
 
 - **Method owner:** D technical/system design. B/C keep their accepted behavior and domain decisions.
-- **Status:** candidate for the isolated M3 path; not a universal gate.
+- **Status:** accepted as a bounded reference for this method need; a task Charter decides applicability and delegated scope. It is not a universal gate.
 
 ## Use
 
@@ -30,4 +30,4 @@ Do not force modules to merge for depth, prescribe each helper, or choose a desi
 | Same pin, `skills/engineering/codebase-design/DEEPENING.md` (`Dependency categories`, `Testing strategy: replace, don't layer`) | Distinguish dependency shapes to choose tests; replace tests only when the new surface covers the old claim. |
 | Addy Osmani, `addyosmani-agent-skills` at `2686b620fc1fed2e8f60c704839c766b8594c6b6`, `skills/api-and-interface-design/SKILL.md` (`Contract First`, `Consistent Error Semantics`, `Prefer Addition Over Modification`) | Define the relevant contract before implementation, keep used error behavior predictable, and prefer compatibility when existing consumers must be preserved. |
 
-`DESIGN-IT-TWICE`, its 3+ parallel-agent count, and idempotency/retention rules are deferred. The independently reviewed candidate dossier at `docs/overnight/2026-10-01/METHOD-CANDIDATES.md` records their status and reasons; that dossier is not an acceptance authority.
+`DESIGN-IT-TWICE`, its 3+ parallel-agent count, and idempotency/retention rules are deferred.

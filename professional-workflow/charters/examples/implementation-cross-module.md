@@ -10,6 +10,7 @@
 - **Delegation source:** The concrete task request must grant implementation authority for the isolated fixture and cite the accepted B/C commitments and D Plan. A missing or unaccepted reference means this example cannot be activated.
 - **Object scope:** The modules and consumers covered by that Plan. Do not infer a file whitelist from the example; the Plan and task grant define the actual boundary.
 - **Accepted inputs:** Versioned behavior and domain commitments plus a Plan that names Commitments, Delegated Decisions, and Recall Conditions, with their decision owners and acceptance state.
+- **Applicable methods:** None for this E instance. The D instance that produces the technical Plan has its own Charter and binds `methods/cross-module-design.md`.
 
 ## Work and limits
 

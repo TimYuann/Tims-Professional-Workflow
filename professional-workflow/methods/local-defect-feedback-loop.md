@@ -1,7 +1,7 @@
-# Local defect feedback loop · M4 candidate
+# Local defect feedback loop · M4 accepted reference
 
 - **Method owner:** E implementation; evidence conclusion remains with F.
-- **Status:** candidate for the isolated M3 path; not a universal gate.
+- **Status:** accepted as a bounded reference for this method need; a task Charter decides applicability and evaluator independence. It is not a universal gate.
 
 ## Use
 
