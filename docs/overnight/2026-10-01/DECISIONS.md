@@ -54,3 +54,11 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Decision owners:** `tpw-night-m3-bc` accepted behavior and domain meanings under `fixtures/m3-snapshot/BC-CHARTER.md`, using `CASE-INPUT.md` and the frozen fixture source structure.
 - **Accepted objects:** `BEHAVIOR-CONTRACT.md` v1 (SHA-256 `86dd6664b73de07ceefdbc5f4d03e09f49b4b1f2ee11cb6a80e48c251176555c`) and `DOMAIN-SEMANTICS.md` v1 (SHA-256 `15537d71d100dde30075f724c1ef79bc0d4e6a76a179f7f82d7f6c6b286cda06`). Both explicitly restrict their meaning to this synthetic fixture; neither selects D/E module placement or implementation.
 - **Scope:** D may depend on these versions when drafting the exercise Plan. They do not define UCBIP/other product behavior, accept a technical design or implementation, or close M3.
+
+## D-008 · Accept the fixed M4 method package as downstream input
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after Owner's M4 milestone acceptance.
+- **Accepted object:** Commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`; Oracle verified the five committed summaries for three method bodies, `methods/README.md`, and `METHOD-REVIEW.md`. The independent MR-06/07/08 scope is recorded in `ORACLE-ACCEPTANCE.md`.
+- **Decision:** The three bounded methods and their selection entry are accepted as reliable downstream inputs: local-defect feedback loop, cross-module design, and behavior-claim evaluation. S4/S5 and the listed alternatives remain deferred; article originals are not represented as verified or adopted.
+- **Limits:** This does not accept actual Profile/Charter binding, final M3 evidence coverage, runtime dependency closure, cold-start, or M5/M6 package qualification. If a later binding or routing change alters active semantics, mark only affected M3 coverage invalid and rerun it. Pure formatting or semantics-preserving metadata changes need an integrator diff check, not another Sol method review; ask for method judgment only for a new or changed relied-on claim.
+- **Scope:** This acceptance consumes no Pro review allowance and grants no UCBIP, deployment, publication, or release authority.
