@@ -16,6 +16,8 @@ Owner 已明确不需逐阶段询问。专业候选由独立实际会话评审�
 共享产品配置由 Driver 作为物理集成者串行写；worker 可写明确不重叠路径或在自己的分支交 delta。并行前由 Driver 明确实际写集，禁止 git add .。本分支根目录遗留文件只读。
 过程状态唯一在 docs/overnight/2026-10-01/STATUS.md，由 Driver维护；决定 append-only 记 DECISIONS.md。证据按对象引用，不另造脚本平台。
 跨 Codex/Pi 用 Herdr短消息与产物指针，名字每层一致。报告完成不是自己验收。禁止绕过批准/沙箱或写入UCBIP、操作其服务、push/merge/tag/发布。
+Owner 最新分工：另一名 Sol/medium 会话 tpw-night-method 检查关键工作方法／计划、配置与验证设计；Oracle 检查关键交付结果。每方负责自己的判断面，不给每份材料双Sol审批。
+Codex/Pi 会话间统一 Herdr，操作参考 HERDR-COMMS.md，不使用 Pi Intercom。
 只用获准三配置：Pi commandcode/deepseek/deepseek-v4.1-flash/max 适合清晰并行任务；Luna/xhigh 关键确定性执行和Driver；Sol/medium 除Oracle外最多一个，仅关键判断，默认按需。
 Oracle/Driver tab至多两agent，其他每页四agent；起会话先核真实model/effort。工具故障一次有界诊断后可换另一个获准配置，记录实际配置。
 原工作区 /Users/yuantian/Developer/tim-professional-workflow 只读，旧dirty/staged保全于 /private/tmp/tpw-legacy-preservation-20261001，不纳入本分支。
