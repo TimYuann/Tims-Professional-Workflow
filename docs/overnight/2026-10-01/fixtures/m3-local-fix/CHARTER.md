@@ -1,6 +1,6 @@
 # M3 case 1 · active exercise Charter
 
-- **State:** active for this isolated M3 exercise only
+- **State:** active for this isolated M3 exercise only; M4 method binding was added after E's first candidate, so that candidate does not cover the bound-method run.
 - **Profile:** `professional-workflow/profiles/implementation.md` (M1 accepted; SHA-256 `c96162668a1b80096c872a79321e07111a7eecc346f037f7060834f272b0aa5f`)
 - **Instance:** `tpw-night-m3-local-impl`
 
@@ -10,6 +10,7 @@
 - **Delegation source:** Owner-authorized offline exercise in `docs/OVERNIGHT-WORKFLOW-PLAN-2026-10-01.md` at plan baseline `496b0676e302e2d0eafba129ff61de4c203d258a`, M3 case 1. Driver issues this Charter only for the synthetic fixture, not for any business product.
 - **Object scope:** In `fixtures/m3-local-fix/`, implementation may change `src/labels.py` and may add tests under `tests/`. The fixture contract, task input and baseline observation are read-only evidence. Do not modify other fixture directories or package Profiles.
 - **Accepted inputs:** `CONTRACT.md` (`ecfc6195726fe62321208ad766fcbe7005c784c6d2aece7f9b2a2eca4ef293bb`), `TASK-INPUT.md` (`90b7e06d06e525e79a58496cdf65603f15da18f15809a7e1e3a256a1f904167e`), and pre-change `BASELINE.md` (`6e8262b6361be36abc39947cf00fef02adac9c9120f353e5b38070c84e119a57`). For this offline exercise, Driver is the fixture maintainer for the synthetic contract; this does not create or alter product behavior authority.
+- **Applicable method:** `professional-workflow/methods/local-defect-feedback-loop.md` from accepted M4 commit `013659331c8c5f9f54b866b393972a03d7938773` (SHA-256 `3ca23a74a1a1890123bbab01a114aba813d7e20a7ffcb21b7b2289d5047cb32c`). This is a method input, not added authority or an additional gate.
 
 ## Work and limits
 

@@ -10,6 +10,7 @@
 - **Object:** the fixed implementation commit and diff for `fixtures/m3-local-fix/`.
 - **Claim:** the implementation restores the exercise contract in `CONTRACT.md` while preserving the function interface, error behavior and test evidence.
 - **Accepted inputs:** `CONTRACT.md`, `TASK-INPUT.md`, `BASELINE.md`, and the implementation Charter, each fixed by the M3 seed commit.
+- **Applicable method:** `professional-workflow/methods/behavior-claim-evaluation.md` from accepted M4 commit `013659331c8c5f9f54b866b393972a03d7938773` (SHA-256 `06b0692290a9ce8cdc7048b33a89ec21f3636ee00138a613121ec4b72457af06`). It supplies the evidence comparison method; the independently held case criteria remain outside E's inputs.
 
 ## Evaluation work and limits
 
