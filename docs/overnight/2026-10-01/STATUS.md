@@ -17,9 +17,9 @@ Driver: `tpw-night-driver`. Source of phase scope: [accepted overnight plan](../
 | --- | --- | --- |
 | M0 | PASS | Git/input identity, preservation state, live Herdr identities and model/effort checked; see above and `DECISIONS.md`. |
 | M1 | ACCEPTED · checkpoint `429a78b` | `ORACLE-ACCEPTANCE.md` accepts the ten fixed Profile/report hashes listed in `M1-REPORT.md`; the original FAIL finding remains preserved. This allows M2/M3 to depend on these Profiles, but does not accept candidate methods, activate a real Charter, or prove cold-start/runtime behavior. |
-| M2 | IN PROGRESS · real Charter activation pending | Template, two same-Profile bindings and ordered assembly are independently method-PASS, including MR-05 formatting-only hash update; M1-accepted state is explicit. Driver observed a 70-line Profile + Charter + inert-input composition (SHA-256 `812c2f207385dcab0cb6fef91cb32c3390d8f5f1490a12fa137cf5fa32c2a02d`). This proves text assembly only; actual task grants/cold start will be exercised in M3. |
-| M3 | IN PREPARATION · implementation not started | Case 1 fixture records a deterministic failure (4 tests, 1 fails); case 2 seed smoke checks pass (3 tests) before any cross-module contract. Both remain uncommitted setup. No implementation prompt has been sent. Independent evaluator criteria must be preheld before each E assignment; B/C and D artifacts remain pending for case 2. |
-| M4 | IN PROGRESS · method integration candidate pending | `METHOD-CANDIDATES.md` (§1–3, SHA-256 `9e6518449869b02de7089da12ef0ad76bd48361eb9d5594397747cc794ff0ff5`) has bounded independent method PASS through MR-04; only the three selected method candidates will be integrated. This is not final Skill/Oracle acceptance. Article-derived methods remain deferred. |
+| M2 | IN PROGRESS · real Charter activation pending | Design checkpoint `97c51bc` contains the template, two same-Profile bindings and ordered assembly; MR-01/MR-03/MR-05 are PASS. A 70-line Profile + Charter + inert-input composition was observed. Case 1's actual startup prompt is fixed at SHA `358bf49df945a9382ceed93afa0a4e87a9719e5ef7fe2e1a8c51f9fadd816b7b`; live E cold-start evidence is not yet captured. |
+| M3 | IN PREPARATION · implementation not started | Fixture seed checkpoint `0452132`: case 1 deterministically fails one of four tests; case 2's seed checks pass. B/C outputs are accepted exercise inputs (D-007). Independent method evaluator confirms case 1/2 criteria are preheld; D challenge is pending its Plan. No E implementation prompt has been sent. |
+| M4 | IN PROGRESS · method candidate review PASS, milestone acceptance pending | Three source-distilled methods are in the worktree under `professional-workflow/methods/`; MR-06/MR-07 pass on fixed method text/source locators. This is a bounded method candidate, not Oracle M4 acceptance. Article-derived methods remain deferred. |
 | M5 | NOT STARTED | Depends on accepted M1–M4 objects and serial integration. |
 | M6 | NOT STARTED | Depends on a fixed M5 candidate object. |
 
@@ -34,6 +34,9 @@ Driver: `tpw-night-driver`. Source of phase scope: [accepted overnight plan](../
 | --- | --- | --- | --- |
 | `tpw-night-profile` (`w27:pE`) | Pi / DeepSeek V4.1 Flash / max | `professional-workflow/profiles/`, `docs/overnight/2026-10-01/PROFILE-CANDIDATE.md` | M1-B1 revision delivered; no self-acceptance |
 | `tpw-night-source` (`w27:pF`) | Pi / DeepSeek V4.1 Flash / max | `docs/overnight/2026-10-01/SOURCE-SURVEY.md`; `METHOD-CANDIDATES.md` | Five-source survey and bounded method dossier delivered; no upstream/product writes |
-| `tpw-night-method` (`w27:pG`) | Codex / gpt-6.1-sol / medium | `docs/overnight/2026-10-01/METHOD-REVIEW.md` | M1/M2/M4 method review and targeted diffs delivered |
+| `tpw-night-method` (`w27:pG`) | Codex / gpt-6.1-sol / medium | `docs/overnight/2026-10-01/METHOD-REVIEW.md`; M3 evaluator Charters | M1/M2/M4 reviews delivered; local and snapshot exercise criteria preheld; D challenge pending |
+| `tpw-night-m3-bc` (`w27:pH`) | Pi / DeepSeek V4.1 Flash / max | `fixtures/m3-snapshot/BEHAVIOR-CONTRACT.md`, `DOMAIN-SEMANTICS.md` | Accepted B/C exercise inputs; no D Plan or code written |
+
+M3 runtime correction: the first idle B/C Pi footer displayed MiniMax-M3/high before any task prompt; Driver exited that instance and restarted the pane with explicit `commandcode / deepseek/deepseek-v4.1-flash / max`. The live footer showed `DeepSeek V4.1 Flash (CommandCode) · think:max` before assignment. The initial configuration produced no task output.
 
 Last updated: 2026-10-01, by Driver.

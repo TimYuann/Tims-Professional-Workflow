@@ -47,3 +47,10 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Decision status:** This is the Driver's bounded integration proposal under the accepted active-path envelope, not final method acceptance. `tpw-night-method` has independently rated the dossier PASS; Oracle acceptance of the integrated method package remains for the M4 milestone. Do not integrate S4/S5 article methods, S2 control/loop/PR mechanics, DESIGN-IT-TWICE parallel counts, or the deferred `interrogate`/`code-review` lenses as mandatory paths.
 - **Vocabulary / authority boundary:** Responsibility and authorization terms remain owned by the frozen Backbone; domain terms remain owned by accepted C objects. Technical D methods may use `module`/`interface`/`seam` without renaming Backbone responsibility boundaries or gaining B/C authority. Methods grant neither permissions nor applicability triggers.
 - **Revalidation:** No M3 execution has occurred yet. If later integration changes active Profile/Charter/Skill/routing semantics after M3 evidence exists, invalidate only affected coverage and retest per the accepted plan.
+
+## D-007 · Accept B/C exercise inputs for the M3 snapshot fixture
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after checking the outputs against their fixed Charter inputs.
+- **Decision owners:** `tpw-night-m3-bc` accepted behavior and domain meanings under `fixtures/m3-snapshot/BC-CHARTER.md`, using `CASE-INPUT.md` and the frozen fixture source structure.
+- **Accepted objects:** `BEHAVIOR-CONTRACT.md` v1 (SHA-256 `86dd6664b73de07ceefdbc5f4d03e09f49b4b1f2ee11cb6a80e48c251176555c`) and `DOMAIN-SEMANTICS.md` v1 (SHA-256 `15537d71d100dde30075f724c1ef79bc0d4e6a76a179f7f82d7f6c6b286cda06`). Both explicitly restrict their meaning to this synthetic fixture; neither selects D/E module placement or implementation.
+- **Scope:** D may depend on these versions when drafting the exercise Plan. They do not define UCBIP/other product behavior, accept a technical design or implementation, or close M3.
