@@ -10,7 +10,7 @@ Profiles remain the owners of reusable responsibility mental models; this direct
 
 ## Status and source trace
 
-These three bounded method bodies and this selection entry are accepted M4 references on commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. Their fixed source pins and exact text anchors are in the method files. Acceptance covers the selected content, not actual Profile/Charter binding, final M3 coverage, runtime dependency closure, or whole-package qualification. See the overnight acceptance record for the five-object digest check.
+These three bounded method bodies and this selection entry are accepted M4 references on commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c378882c89c2328505fddee`. Their fixed source pins and exact text anchors are in the method files. Acceptance covers the selected content, not actual Profile/Charter binding, final M3 coverage, runtime dependency closure, or whole-package qualification.
 
 | Source repository | Fixed locator and pin | Used by |
 | --- | --- | --- |

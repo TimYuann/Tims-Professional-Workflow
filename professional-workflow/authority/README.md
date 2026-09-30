@@ -11,3 +11,5 @@
 | Export SHA-256 | `ce82a70016a4a3fc234ea287f39aac8d79a260ddf13747c4fb705bda580453ba` |
 
 Matching source and export digests establish byte identity for this snapshot. They do not grant authority to a task, alter the source of truth, or prove an active delegation.
+
+The frozen text contains source-repository references to `WORKFLOW-INTENT.md` and `workflow/registry.yaml`. They document the Backbone's original provenance; this package does not load or rely on those files at runtime. The package uses only this fixed responsibility projection plus its own Profiles, Charters, and selected method references.

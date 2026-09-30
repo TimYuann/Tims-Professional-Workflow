@@ -24,4 +24,12 @@ cat profiles/implementation.md \
 
 For a cross-module technical Plan, use `profiles/technical-planning.md`, include the bundled Backbone when its responsibility boundary matters, bind `charters/examples/technical-planning-cross-module.md`, and include `methods/cross-module-design.md` before the task inputs.
 
-`template.md` is the compact binding form. The examples demonstrate one Profile with different task scopes; they are not active grants and must not be used until their delegation and input references are replaced by real objects.
+```sh
+cat profiles/technical-planning.md \
+    authority/RESPONSIBILITY-BACKBONE.md \
+    charters/examples/technical-planning-cross-module.md \
+    methods/cross-module-design.md \
+    path/to/current-task-input.md
+```
+
+`template.md` is the compact binding form. The two implementation examples show one Profile with different task scopes; the planning example shows D's separate method binding. None is an active grant until its delegation and input references are replaced by real objects.

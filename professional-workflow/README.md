@@ -20,6 +20,6 @@ The output is startup prompt text. Replace the illustrative Charter and task-inp
 
 ## Package state
 
-The integrated M1 Profile content and M4 bounded methods/selection entry have milestone acceptance recorded in [`../docs/overnight/2026-10-01/ORACLE-ACCEPTANCE.md`](../docs/overnight/2026-10-01/ORACLE-ACCEPTANCE.md). M1's accepted bytes remain the fixed input; its method-entry status still does not make task-level method binding. The Charter template and examples are accepted as a design reference, not an active grant or proof of a successful cold start. M5 package integration and M6 clean-package qualification are still in progress.
+The Profile content is the M1 accepted input at checkpoint `429a78b`; its generic method-need labels do not bind methods to a task. The three bounded method bodies and selection entry are accepted from M4 commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. M4 acceptance does not establish actual task binding, final M3 coverage, runtime dependency closure, or a successful cold start. The Charter template and examples are design references, not active grants. M5 integration and M6 clean-package qualification remain in progress.
 
 Nothing in this directory alone grants decision authority, permission to change an object, risk acceptance, or permission for a consequential action.
