@@ -86,3 +86,62 @@ interrogate 提供同 rubric、去重、共识/独见/分歧与 lead judgment；
 - 最终采用若改变活跃 Profile/Charter/Skill/routing 含义，按已有计划标受影响 M3 coverage 失效并定向重验；本报告不增加新的重验 gate。
 
 Driver 最少待办是按上述有界建议作实际选择与记录，并填写真实 Charter；不需把每个开放候选送 Owner，也不需将本报告再作为 Oracle 的实际交付二次方法 gate。
+
+## M4 adaptation · MR-02
+
+日期：2026-10-01。固定对象：`METHOD-CANDIDATES.md`，SHA-256 `dfbf6349522dcda65d68c2120a2516591907f483a1999c621bc1925fc4b4dc13`，实测吻合。作者 `tpw-night-source`；我只提供过 MR-01 的判断与限缩建议，没有代写该 dossier 或产品。本轮独立关系仍成立。
+
+只核该实际蒸馏对象，沿用 MR-01 已完整核读的必要正文；复核三仓 HEAD、源章节位置、冻结 Backbone 与 Charter template 摘要，均未变化。不重审 §8 全库地图、外部计划或实际交付；既有 MR-01 与原 M1 FAIL 记录保留。
+
+**结论：PASS（有界蒸馏 dossier 的方法适配），无阻断 finding。** 三条方法的 retain/narrow/strip 与源正文及 MR-01 相容，可供 Driver 串行形成所声明范围的 Skill 候选。不等于最终 Skill 正文已接受、真实演练已覆盖或 Oracle 已接受交付。
+
+| 方法 | 核评结果 |
+| --- | --- |
+| 局部缺陷 | 保留症状专属 red-capable 回路、证伪探针、正确 seam 与原场景复验，准确抓住 diagnosing-bugs 主体；明确允许复用已有观察与有解释的限缩，未把构造法数量/假设数量变成仪式。S1 仅补非可复现分类和不可信输出；S2 整体未采用，平台/模型/跨函数强制 architect/PR 指令剥离有据。HITL 未启用且依赖处置可见。 |
+| 跨模块设计 | interface 全义、seam、depth、deletion test 与四类依赖来自所列源正文。测试替代以已有覆盖为条件，避免从方法推出删除许可。S1 契约/错误/兼容元素有限补充，REST/幂等/大规模比选延后，未扩大当前采用面。词汇 owner 保留 Backbone/C，不将源词汇纪律变成责任边界改名或 B/C 决定权转移。 |
+| F 变化 claim | baseline/treatment 同命令/数据/环境及原 artifact 比较忠实于 verify-this；VERIFIED→PASS 保留方向、阈值与无明显混淆，NOT VERIFIED→FAIL 对应有效比较下的未变/反向/未达阈值，测量无效或不可比→UNVERIFIED。对象、版本、覆盖及“非一切 F 判断”限制齐备，未以仪器新鲜度代替真实独立性。 |
+
+### 来源与 anchors
+
+三仓 pin 与 MR-01 实测一致。dossier 主/补表中的 pin + 仓库相对文件路径足以定位当前有限正文，仓库身份可由它所固定引用的 SOURCE-SURVEY 取回；这是可恢复的来源链，不是“全部来源已吸收”。后续导出包若不携带过程地图，应把必要 locator/pin/路径一并保留，不能留下只有本机路径的断链。
+
+关键正文锚点已直接核对：
+
+- S3 diagnosing-bugs：`Phase 1: Build a feedback loop`、`Completion criterion: a tight loop that goes red`、`Phase 5: Fix + regression test`。
+- S1 debugging：`When a bug is non-reproducible`、`Treating Error Output as Untrusted Data`；Stop-the-line 的缩小明确标为改动，不冒充原文原样含义。
+- S3 codebase-design：`Glossary`、`Principles`；DEEPENING：`Dependency categories`、`Testing strategy: replace, don't layer`。
+- S1 api：`Contract First`、`Consistent Error Semantics`、`Prefer Addition Over Modification`。
+- S2 verify-this：`Workflow`、`Verdict Rules`、`Output`。
+
+当前文件级 anchors 足够这三条短源的复核；加上述章节名能降低最终采用者回源成本，属于可选改进，不要求追加逐句映射表。
+
+### 三态、独立关系与 gate
+
+verify-this 的有效性判断先于三态结论：例如命令失败、无有效 baseline 时，即使输出数值未达阈值，也落 UNVERIFIED，不能套 NOT VERIFIED 判产品 FAIL。dossier 已将这些情形单列，严格映射成立。若有效观察已经证伪明确 claim，则保持 FAIL，不因环境另有无关故障软化反证。
+
+Charter template 的 Independence 字段记录具体对象上的 author/challenger/evaluator 与时点；F 方法不定义作者独立性标准，标准仍来自 Backbone §3。该分工与 M1 Profile 的独立性边界相容，E 可使用回路自测但不能由此产出独立 F 结论。三态、动作许可和 closure 分别成立，没有新增接受/发布授权。
+
+“无回路不进入假设”“先定契约”是所选方法适用时的工作纪律，不是任意任务的 mandatory applicability trigger。dossier 未将其放大为全项目审查义务；DESIGN-IT-TWICE、interrogate、code-review 都明确延后/候选、不设常驻并行 gate。S4/S5 仍未进入活跃路径，旧摘要没有获得新的正文证据资格。
+
+### 可选精确化
+
+1. S1 的“加字段不改删”可表述为“在须保持现有消费者约定时优先兼容扩展”；这忠实于 Prefer Addition 的意图，也避免未来读者误以为有权接受的破坏性变更永远被方法禁止。错误格式一致性同样针对本次被依赖的接口，不必强迫整个系统每层采用同一种返回形状。当前 dossier 的 B/C 权责限制已经兜住该边界，不构成 blocker。
+2. 当前 S2 bug-fix 标为“不采用/仅可选”，应在最终 Skill 中保持这个状态；若下一版实际纳入其独有正文，再记录新增采用差分。已有主方法覆盖同表面复验不代表 S2 整体被采用。
+
+最少继续动作：Driver 可按上述已界定范围串行集成，并保留来源/处置；只有新增实质语义差分才需按原计划复核受影响 claim。没有需 Owner 新裁定点，不要求对本 dossier 再造一轮 gate。
+
+### MR-03 · M2 README 状态差分附记
+
+2026-10-01；只核 `professional-workflow/README.md` 状态段，新 SHA-256 `89ade543391c7cf52770648902cf770850a8d38a778d46d99faed587192e84f5` 实测吻合。其余四份 M2 对象摘要仍与 MR-01 一致，未重新评价。
+
+**PASS，无阻断。** `ORACLE-ACCEPTANCE.md`（实测 SHA-256 `630e564f1bff8acaed2a7547bf9df53b8174ee5c159b5233294e86ade2c49a4f`）明确接受 M1 Profile 固定内容作为后续输入，引用的 `M1-REPORT.md` 摘要 `d2184f964bf3422b60c80ab4598c45cfe606a5f77777f137dc84dceefaedf733` 也匹配，七份 Profile 摘要通过该报告可恢复。README 将 Profile 内容的接受与候选方法入口、M2 说明性绑定、真实授权及冷启动分开，准确继承这项 Oracle 接受，不冒充 Owner 新接受或扩大权限。与 MR-01 的 M2 设计 PASS 一致；该状态更新不改变装配或责任语义，不触发完整 M2 重审。
+
+### MR-04 · M4 dossier 兼容性表述差分
+
+2026-10-01；固定新对象 `METHOD-CANDIDATES.md`，SHA-256 `9e6518449869b02de7089da12ef0ad76bd48361eb9d5594397747cc794ff0ff5` 实测吻合。只核 §② S1 三原则的一句变更及文末修订行；将该句还原、去掉新增修订节后，内存中重建的旧文本 SHA-256 精确等于 MR-02 的 `dfbf6349522dcda65d68c2120a2516591907f483a1999c621bc1925fc4b4dc13`，确认其余内容未变，未写入候选文件。
+
+**PASS，无新增阻断。** “本次必须保持既有消费者约定时优先兼容添加”准确限缩源方法的兼容性偏好；显式保留有效 authority 对破坏性变更的接受权，符合 Backbone §2–4，不让方法产生否决权或自行授予变更许可。修订行保留 candidate 状态，没有新 trigger/gate、独立性或三态差分。原 MR-02 PASS 及其适用限制继续有效；不扩为实际交付接受或完整 M4 重审。作者关系与 MR-02 相同，评价者未代写候选。
+
+### MR-05 · M2 metadata 格式差分
+
+2026-10-01；三个新 SHA-256 实测吻合：`charters/template.md` = `33d1f92edde1389f4c29db363ff69e0a4e59488a83e9e0593e5a302da591ad58`；`examples/implementation-local-fix.md` = `1785cbd1cab2d94a013aee33000855cc2d52da388962a71c6f3c374ed3479ff9`；`examples/implementation-cross-module.md` = `e55e52e002ff89b7cb08e6c52621beb4685b63480bbcd655f27d7770f9e0b304`。实际 diff 仅将 State/Profile/Instance 三行的 Markdown hard-break 改为 metadata bullets；在内存还原格式后，三个摘要分别精确匹配 MR-01 旧对象。**PASS：MR-01 M2 设计 PASS 及原限制继续适用于新摘要，无措辞、claim、授权或独立性变更，无需完整重审。** 只追加本注，未改候选/产品或既有评价。
