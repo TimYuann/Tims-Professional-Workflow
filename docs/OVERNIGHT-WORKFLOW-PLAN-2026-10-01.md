@@ -1,6 +1,6 @@
 # Professional Workflow：过夜自主推进计划
 
-状态：待外部 GPT review；Owner 已授权计划评审、吸收一轮意见后自主执行。本稿尚不触发实施。
+状态：已接受执行，2026-10-01。Owner 转交的一轮外部 GPT review 已吸收；Owner 已明确授权开始自主工作，不再追加外部评审。
 规划与人类接口：tpw-0930-oracle。日期：2026-10-01，Asia/Shanghai。
 假设晨验时间为 08:00；实际开工时间从 GPT 意见吸收完成起算。下列时间是分配建议，不是完成证据。
 
@@ -57,12 +57,12 @@ Authority 分配：
 
 | 配置 | 首选任务 | 使用纪律 |
 | --- | --- | --- |
-| Codex gpt-6.1-sol / medium | Oracle；新 Driver；专业设计、语义整合、关键评审 | 不自动升高 effort；Driver 与 Oracle 是不同委托，不默认万能合并 |
-| Codex gpt-6-luna / xhigh | Charter／装配实现、定向测试、局部实现、包操作 | 给足够窄且可判输入；高强度不替代有效权限或独立性 |
-| Pi commandcode / deepseek/deepseek-v4.1-flash / max | 来源核读／蒸馏执行、对抗场景、冷启动读者或独立评价 | 本地目录已确认准确模型 ID；实际启动与有效 thinking 档位须核读 |
+| Codex gpt-6.1-sol / medium | Oracle；按需一名非 Driver 的关键设计／评审实例 | 编队中除 Oracle 外至多一名 Sol，优先关键判断，不作日常派工与机械操作 |
+| Codex gpt-6-luna / xhigh | 新 Driver；关键确定性装配、集成、定向测试与包操作 | Driver 首选 Luna；给清晰阶段计划，高强度不替代有效权限或独立性 |
+| Pi commandcode / deepseek/deepseek-v4.1-flash / max | 并行 Profile／来源执行、实现、对抗场景、冷启动与独立评价 | 快速执行端，可按清晰输入并行多实例；实际启动与有效 thinking 档位须核读 |
 
 三个是模型配置，不要求恰好三名 Agent，也不要求全部常驻。
-原旧组继续待命，不用高负荷旧上下文接本轮新任务；新 Driver 与作者以新 intent／Backbone 的短 brief 冷启动，不加载旧角色装配来定义责任。
+Owner 已授权关闭旧版所有 agents（包括 Driver）；先核无在飞写入与持久成果，再关闭，仅保留 Oracle。新编队以新 intent／Backbone 的短 brief 冷启动，不加载旧角色装配来定义责任。
 在 Owner 指定三种配置中调配；某端不可用先做一次有界诊断，可改派另一个获准配置，记录实际模型，不静默使用其他模型或冒充 max/xhigh 已生效。
 独立身份优先用 Herdr 会话，跨 Codex／Pi 用短消息＋文件；不假设 Pi 必须变成 Codex subagent。
 布局：含 Oracle／Driver 的 tab 至多两会话，其他 worker 页至多四会话；按需向后排布，不影响 UCBIP 会话。
@@ -108,6 +108,7 @@ Driver 管逻辑资格，物理集成写者按已获委托落实；本夜可以 
 随后补齐启动完整任务所需的 A/Voice、B/C 与 Driver 入口：可用少量有界组合，不要求六个固定岗位，也不以“只有 D/E/F”冒充全链可用。
 交出：少量配置及一个可选择入口；责任／专业关注点明确，authority／scope／tools 等必须由 Charter 绑定。
 够格：独立读者能针对一个需求选择接近配置、说明它做什么判断与何时返回；Profile 不能自行创设 mandatory trigger、风险接受或权限。
+同一个 Profile 至少配两个不同 Charter，实际责任、合同、技术对象／权限和召回随任务变化，证明 Profile 不偷带任务授权；不为此制造 schema validator。
 压缩检查：删去泛化资历、每任务都携带的全历史和没有任务依据的防御条款。此时不发明大规模 Role taxonomy。
 
 ### M2 · 简短 Charter 与实际装配
@@ -122,6 +123,7 @@ Driver 用已接受预设做 bounded composition，区分选择配置和授予�
 ### M3 · 小修复与跨模块新承诺的真实演练
 
 在隔离、无生产数据的 fixture 中让独立会话真正设计／实现／评价；演练代码与证据留在本夜 Git 对象或受控包，不操作 UCBIP 业务源码。
+Fixture 与实施 Charter 只提供目标、现有约定、系统结构和约束，不直接给出正确责任放置、召回或 Voice 路由答案。预期判据由独立 evaluator 预先持有，不发给实施者；记录其实际发现过程。
 第一例：已有可恢复行为约定与失败观察的局部缺陷。E 修复、F 对具体版本取证；直接复用已有结论，不重做 A–D，不为仪式增加 Plan 文件。
 第二例：新增跨模块 snapshot／freshness 承诺。D 依据已接受 B/C，明确协调面与局部自由；适用的隔离／恢复判断须在首个依赖结论前发生。
 实现者遭遇共享边界变化能召回正确 authority；另一实际实例挑战设计并对最终实现取证。观察至少含合法行为与一个能揭示关键错误的反例。
@@ -146,6 +148,8 @@ Driver 用已接受预设做 bounded composition，区分选择配置和授予�
 新方法归属、来源／原创建议、作者、独立判断、融入位置可追溯。固定身份由本轮实际核读确认；旧 lock／article records 仅可作定位线索，不直接继承验证状态。
 所用作者缺身份时做最小带 locator 记录，不搭通用人名平台；文章原站与缓存的身份／语义核验分别记状态，不冒充已直接读到原站。
 保全旧 upstreams 与锁身份；选择的来源在新包中记录其固定身份与引用位置，不为新骨架继承旧处置表或锁 schema。
+广度层覆盖五来源 identity／method map，深度层只全文读 active adoption path 实际需要的方法，分别报 considered／full-read／adopted／rejected-or-deferred，不宣称“五源已吸收”。活跃路径方法与依据够用即停止深挖。
+M4 若实质改变活跃 Profile／Charter／Skill 或 routing semantics，相关 M3 coverage 标失效，只重走受影响案例部分；语义不变的归位、来源补证不触发全量重跑。最终证据必须覆盖最终采用对象。
 
 够格：活跃采用路径所依赖的方法正文完整、来源语义经独立核对；同一规则正文只在一处，Profile 只引用；所选但未采用的状态能被看见。
 资源治理 G 与方法 P 各保 owner：记录进展不产生方法接受，新包配置真源不成为运行状态真源。所用资源治理做最小闭环，不接旧治理候选的全范围。
@@ -159,6 +163,7 @@ Driver 用已接受预设做 bounded composition，区分选择配置和授予�
 以实际委托解释逻辑 producer 与物理写者；durable sanitized 结论与外置 raw 的取回身份分开，不把不可恢复指针当证据。
 
 脚本仅为本包真实装配／导出需要；新增检查要给真实断言、会红反例、合法变体与维护者。字段存在不证明方法有效。
+产品 Script 仅因活跃采用路径必须消费，或 M3／M6 已观察的机械错误／重复成本可被稳定消除而进入；Skill 需求驱动，Script 门槛更高。它可检查引用／digest／文件／结构，不代替架构、专业性、授权充分性或风险接受判断。
 若采用生成视图，实际生成目标与手改负控制须验证；若静态文件已足够，不为“唯一真源”额外造生成器。
 够格：新包不依赖旧库角色／阶段／编号／脚本，可独立启动；默认装配不要求所有 profile／skill 常驻；没有两份可各自修改的相同定义。
 交出：新包集成 checkpoint、实际语义 diff、独立使用与旧库隔离说明。
@@ -174,6 +179,7 @@ Driver 用已接受预设做 bounded composition，区分选择配置和授予�
 UCBIP adaptive 准备只读现行权威，核查 CARD-STATE、role-binding、current-release、delivery contract、receipts、evidence-ledger 的对象分工。
 方法权威与下游产品／权限／runtime权威分开；Integrator 保持 main 单写；新包契约在现有 packet／receipts 中有界承载，不强搬旧 A1–A9 schema，也不竞争当前状态或证据索引。
 交出可采用说明／样例和最短核读清单，不替下游决定业务行为，不新增其目录、活状态或执行权限。
+反向检查：在受控副本去掉 UCBIP adaptive 示例后，core 仍自洽、可启动；核心不拥有 CARD-STATE 等下游专属语义。
 
 够格：同一固定交付对象有独立语义评价、相关真实观察、包依赖闭合、冷启动与回退证据；残余明确且没有挡住所声明采用路径。
 固定 source commit＋tree＋manifest 为本地候选身份，正式 tag／发布仍待晨验决定；新包没有 tag 不伪装成已发布，也不继承旧 C1 作为实现 blocker。
@@ -182,11 +188,12 @@ UCBIP adaptive 准备只读现行权威，核查 CARD-STATE、role-binding、cur
 ## 6. 自主推进、收敛与夜间停止规则
 
 Driver 根据上项阶段资格推进；Oracle 在语义／接受里程碑裁定，不直接微派所有 worker。独立评价不接受作者自查替代。
-每阶段默认一次完整独立评价，合并 findings 一次修正；只有实质差分、失败或覆盖失效再复核，不机械重复全检查。
+每阶段默认一次针对新增／改变的可依赖 claim 的完整独立评价（claim-complete，不是 repository-complete），合并 findings 一次修正；只有实质差分、失败或覆盖失效再复核，不机械重复全检查。
 同一阶段累计两批修正仍有 blocker时，先做一次边界／根因裁定，选择缩到仍满足目标的方案或停该依赖；不以换版本号重置问题，也不无限加轮。
 缩减不能改变晨验承诺而不披露；最后可用 prefix 仅按其已验范围交付。
 模型／工具故障先做有界诊断；不向睡眠中的 Owner重复问许可。保留项列到晨验，不能把未答当接受。
 接近晨验只允许完成相关阻断修复、资格和包；来源扩展、机会性重构与新系统研究进入后续，不挤掉交付窗口。
+优先级：M3 真实证据 > M5 集成候选 > M6 冷启动／适配 > 额外来源吸收；Git checkpoint 是恢复／引用边界，不再为每个 checkpoint造 gate。
 
 本夜 closure rule：M1–M6 的必需采用路径有固定对象、独立判断与证据，冷启动／回退成立，无未处置的方法或采用阻断项，且保留边界未越过 → Oracle 接受本地采用候选，Driver记录本夜关闭。
 发布身份待授权、真实 UCBIP 业务有效性未验可以作为明确剩余，但不得伪称已解决；若包不满足本地采用路径，则晨验报告必须判未完成。
