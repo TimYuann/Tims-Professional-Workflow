@@ -18,4 +18,4 @@ The output is the startup prompt text. The final path is supplied by the caller 
 
 ## State
 
-The Profile content is accepted M1 input at the hashes recorded in `docs/overnight/2026-10-01/ORACLE-ACCEPTANCE.md`. Its method-entry labels remain candidates until M4 selects and integrates the needed source text. The Charter template and examples are M2 design candidates; they do not activate a real task delegation or prove a cold start. Nothing in this directory alone grants decision authority, permission to change an object, or permission to perform a consequential action.
+The Profile content is accepted M1 input at the hashes recorded in `docs/overnight/2026-10-01/ORACLE-ACCEPTANCE.md`. Its method-entry labels describe needs, not mandates; selected source-based bodies are M4 candidates in `methods/` and remain unaccepted for downstream use. The Charter template and examples are M2 design candidates; they do not activate a real task delegation or prove a cold start. Nothing in this directory alone grants decision authority, permission to change an object, or permission to perform a consequential action.

@@ -191,3 +191,7 @@ Charter template 的 Independence 字段记录具体对象上的 author/challeng
 **PASS，无新增 blocker；MR-06 方法 PASS 与限制继续适用。** depth 的短定义保留 leverage-from-compact-interface，明确不是大小比率；dossier 改称 independently reviewed candidate 并明确不是接受 authority，解决 MR-06 两项可选措辞问题，不声称 M4 已接受。新增三个完整 repo locator 与 pin 均与本地上游实际 origin/HEAD 相符：Matt Pocock `https://github.com/mattpocock/skills.git` / `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`；Addy Osmani `https://github.com/addyosmani/agent-skills.git` / `2686b620fc1fed2e8f60c704839c766b8594c6b6`；Cursor `https://github.com/cursor/plugins.git` / `ecc249f1e306fc64ddf83c7bed16cacf7c2239db`。这是本地固定来源身份核对，未声称远程当前可取回已验证。
 
 README 将 Backbone projection 与脱离过程文件的 source record 明确列为最终 export 待完成项，状态诚实，没有把定位补充当交付闭合证据。该差分不改变触发、授权、独立性或三态，不要求重审 MR-06 全文；候选仍待实际交付接受。独立关系与 MR-06 相同，我未代写候选或介入 fixture；本轮只追加本节。
+
+## MR-08 · M4 metadata 格式差分
+
+2026-10-01；三个新 SHA-256 实测 MATCH：`local-defect-feedback-loop.md` = `3ca23a74a1a1890123bbab01a114aba813d7e20a7ffcb21b7b2289d5047cb32c`；`cross-module-design.md` = `30066c8b3ccee2b85e98c8bc36975f57161e2c93d0bd71c9c668b27bf79bae6f`；`behavior-claim-evaluation.md` = `06b0692290a9ce8cdc7048b33a89ec21f3636ee00138a613121ec4b72457af06`。仅在内存将 Method owner/Status 的 bullets 还原为原 hard-break 格式，三份全文分别精确匹配 MR-06/MR-07 对应旧摘要，确认正文无差分。**PASS：MR-06/MR-07 的方法 PASS 与原限制继续适用，无新增 blocker；此注不构成 M4 接受或全文重审。** 只追加本注，未改产品或读取实现候选。
