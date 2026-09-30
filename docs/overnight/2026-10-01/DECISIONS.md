@@ -75,6 +75,12 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 ## D-010 · Preserve the results of the repository-prescribed structural checks
 
 - **Recorded:** 2026-10-01 by `tpw-night-driver` after integrating the M5 candidate and archiving the original pre-M4 E prompt.
-- **Observed:** `python3 scripts/render.py` exited 0 without changing generated files. `python3 scripts/check-consistency.py` passed all 7 checks after the consumed pre-M4 prompt was moved to `docs/history/`; `python3 scripts/compose-role.py --check` passed. `python3 scripts/check-closure.py` returned 19 PASS / 2 FAIL: C1 requires a Git tag, and D1 detects tool/model names in the accepted overnight plan and bootstrap/process records.
+- **Observed:** `python3 scripts/render.py` exited 0 without changing generated files. `python3 scripts/check-consistency.py` passed all 7 checks after the consumed pre-M4 prompt was moved to `docs/history/`; `python3 scripts/compose-role.py --check` passed. `python3 scripts/check-closure.py` returned 19 PASS / 2 FAIL across 135 scanned library files: C1 requires a Git tag, and D1 detects tool/model names in the accepted overnight plan and bootstrap/process records.
 - **Disposition:** Do not create a tag, weaken or modify a checker, hide process evidence, or treat these legacy-registry checks as proof of the new package. C1 remains blocked by the explicit no-tag boundary. D1 is a scope mismatch between the checker’s whole-library scan and the required tool-specific execution evidence; the `professional-workflow/` product documents themselves remain tool-independent. The M6 verifier must check the clean package directly and report the legacy results as residuals.
 - **Scope:** These checks do not establish method effectiveness, live binding, cold-start, or M3/M5/M6 acceptance.
+
+## D-011 · Record final structural-check rerun after the M6 export manifest
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after adding `M6-PACKAGE-CANDIDATE-f11de8b.md`.
+- **Observed:** `python3 scripts/render.py` exited 0; `python3 scripts/check-consistency.py` passed 7/7 (including S2, 116 files); `python3 scripts/compose-role.py --check` passed. `python3 scripts/check-closure.py` remained 19 PASS / 2 FAIL across 136 files (C1 no tag, D1 scans tool-specific execution records). The export manifest independently checked all 19 package files; see the M6 candidate report.
+- **Disposition:** D-010 remains the original result. No checker or source assertion changed. No tag, push, merge or UCBIP action occurred.
