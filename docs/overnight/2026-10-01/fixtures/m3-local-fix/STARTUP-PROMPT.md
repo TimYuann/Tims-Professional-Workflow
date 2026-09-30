@@ -64,7 +64,7 @@ The Profile content is accepted M1 input at the hashes recorded in `docs/overnig
 
 - **State:** active for this isolated M3 exercise only
 - **Profile:** `professional-workflow/profiles/implementation.md` (M1 accepted; SHA-256 `c96162668a1b80096c872a79321e07111a7eecc346f037f7060834f272b0aa5f`)
-- **Instance:** `tpw-night-m3-local-implementation`
+- **Instance:** `tpw-night-m3-local-impl`
 
 ## Task and delegation
 
