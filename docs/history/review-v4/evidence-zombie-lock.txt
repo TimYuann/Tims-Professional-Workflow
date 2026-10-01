@@ -1,7 +1,0 @@
-场景：锁目录存在且 holder 是一个不存在的 pid（999999）——僵尸锁
-  台账: .pi/review-v4/probe3/zombie-5610.tsv
-  rc=0
-  输出: 已追加：.pi/review-v4/probe3/zombie-5610.tsv（actor=probe run=20260928T124811Z-pid:16903）
-  锁目录还在吗: no
-  数据行数: 1
-  结论: 自愈成立（写入成功且锁被清掉）

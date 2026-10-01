@@ -1,1 +1,0 @@
-{"write_scope": ["src/price.ts", "src/fee.ts"], "runtime_exceptions": [".pi/**"], "declared_by": "driver", "declared_before_first_write": true}

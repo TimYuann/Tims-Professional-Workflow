@@ -1,4 +1,4 @@
-# Professional Workflow · M5 integration candidate
+# Professional Workflow · accepted local-adoption delivery (2026-10-01)
 
 This directory is a self-contained package candidate. Its fixed responsibility boundary is bundled at [`authority/RESPONSIBILITY-BACKBONE.md`](authority/RESPONSIBILITY-BACKBONE.md); source commit and digest are recorded in [`authority/README.md`](authority/README.md). The Backbone defines responsibility boundaries. A task Charter must cite the actual delegation and does not gain authority from a Profile or this package.
 
@@ -20,7 +20,7 @@ The output is startup prompt text. Replace the illustrative Charter and task-inp
 
 ## Package state
 
-The Profile content is the M1 accepted input at checkpoint `429a78b`; its generic method-need labels do not bind a method to a task. The M4 acceptance fixes the accepted method bodies and selection entry at commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. The current M5 candidate carries small package-status/source-trace edits to those files, so its shipped bytes are identified separately in `methods/README.md`; M4 acceptance does not itself accept the M5 package bytes or actual task binding. The M1-era “待 M4” labels remain in the frozen Profiles; for the three currently selected method references, use `methods/README.md`. This does not add applicability triggers; each task Charter binds any method it uses. The Charter template and examples are design references, not active grants. M5 integration and M6 clean-package qualification remain in progress.
+The Profile content is the M1 accepted input at checkpoint `429a78b`; its generic method-need labels do not bind a method to a task. The M4 acceptance fixes the accepted method bodies and selection entry at commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. The current M5 candidate carries small package-status/source-trace edits to those files, so its shipped bytes are identified separately in `methods/README.md`; M4 acceptance does not itself accept the M5 package bytes or actual task binding. The M1-era “待 M4” labels remain in the frozen Profiles; for the three currently selected method references, use `methods/README.md`. This does not add applicability triggers; each task Charter binds any method it uses. The Charter template and examples are design references, not active grants. Current status: Oracle accepted the bounded PW-01/M6 local-adoption delivery on 2026-10-01 (record: `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`; corrected identity and R1/R2 verdict: `docs/overnight/2026-10-01/PW-01-FINAL-REPORT.md`). The historical M1–M5 labels above describe their own snapshots and are not current acceptance; this package grants no downstream authorization.
 
 Nothing in this directory alone grants decision authority, permission to change an object, risk acceptance, or permission for a consequential action.
 

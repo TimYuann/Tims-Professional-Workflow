@@ -1,8 +1,0 @@
-被测对象: /Users/yuantian/Developer/tim-professional-workflow/scripts/ledger.sh
-夹具:     3 轮 × 150 并发（每轮全新台账，首次追加）
-
-round  1: OK    rows=150  headers=1  badcols=0  unique=150  actors=3  failed_proc=0
-round  2: OK    rows=150  headers=1  badcols=0  unique=150  actors=3  failed_proc=0
-round  3: OK    rows=150  headers=1  badcols=0  unique=150  actors=3  failed_proc=0
-
-STRESS PASS: 3 轮 × 150 并发，0 丢行 / 0 重复表头 / 0 列错乱 / 0 重复 decision

@@ -5,109 +5,30 @@ project: tim-professional-workflow
 cwd: ~/Developer/tim-professional-workflow
 ---
 
-# TIM · Professional Workflow — 本仓维护纪律
+# TIM · Professional Workflow — 当前根维护纪律
 
 本文件短、稳定、项目专属。全局行为规则见全局 `AGENTS.md`，不在此重复。
+本仓默认 `main` 是 2026-10-01 主线切换后的新版；旧的 registry / roles / skills / principles / scripts 体系已退役出默认根。
 
-## 这是什么
+## 当前唯一入口与归属
 
-一套与工具无关的工程工作流：角色、技能、原则、产物契约、脚本。
-它提供工程经验，不提供调度。
+- 入口：`README.md`（最短使用路径、接受状态、旧版归档指针）。
+- 目标与术语（可维护）：`docs/WORKFLOW-INTENT.md`。
+- 责任边界：`docs/RESPONSIBILITY-BACKBONE.md` 是唯一可编辑的接受源；`professional-workflow/authority/RESPONSIBILITY-BACKBONE.md`
+  是其静态冻结导出，**不得手改**；需要变更时先改源、接受后重新导出。
+- 方法装配：`professional-workflow/profiles/`、`charters/`、`methods/` 各自拥有正文；各自的 README 只描述选择与装配顺序。
+- 交付状态与证据：`docs/overnight/2026-10-01/`（当前接受记录 `M6-FINAL-ACCEPTANCE.md`）。
 
-## 唯一真源
+## 窄而有效的检查
 
-`workflow/registry.yaml` 是机器可读的事实来源。
+- 生成任务启动文本前，确认引用的 Profile / Charter / 方法 / 任务输入存在，并以 commit / path / section 固定引用；
+  方法正文不产生授权，工具权限不等于动作许可。
+- 旧 `workflow/registry.yaml`、`scripts/render.py`、`docs/artifacts.md` 等旧真源/生成器已不在默认根：
+  不要求、不查找、不运行；只读历史在 `.worktrees/legacy-pre-night-2026-10-01`。
+- 冻结字节核对：Backbone 源与包内导出应为同一 SHA-256；不因旧状态文字重写冻结正文。
+- 接受语义变更（方法、责任定义、行为合同）需回到相应责任方；入口/状态文字由集成者按接受记录更新。
 
-**任何含义都不在两处各自设值。** 需要新增或修改语义时，改真源，
-然后 `python3 scripts/render.py` 重新生成派生视图。
+## 边界
 
-派生视图（`workflow/phases/`、`workflow/ribbons/`、`docs/artifacts.md`）
-**不得手工编辑**——手改会被 `render.py --check` 报出来，
-所以不存在「生成区和真源对不上、需要人去核对」这种状态。
-
-## 改动纪律
-
-1. **上游只读。** `upstreams/` 只作参考源，永不修改。
-   吸收的机制要**先读正文**；没读正文不算吸收。
-   上一版的 `NOT ABSORBED` 里就有一条是没读就标的。
-2. **处置表由文件系统核对。** 每个上游 skill 在
-   `upstream_dispositions` 里恰好一条。`check-closure.py` 直接对着
-   `upstreams/` 扫目录核对，**这不是人写的台账，所以不会对不上**。
-3. **原则正文只有一处。** 一条原则有唯一的 owner 角色；
-   其他角色引用它的 id。想复用一条原则，就引用，不要复制文字。
-   上一版把 23 条原则回填进九个角色正文，于是同一件事在九个地方
-   被写成互相矛盾的说法——这正是 `check-consistency.py` 要拦的。
-4. **角色不内联技能。** 角色文件讲「这个人是谁、怎么想、不能做什么」；
-   技能正文在 `skills/`，按需引用。
-5. **产物不是文件。** 产物是一组字段 + 产出方 + 消费者 + 存活期。
-   落在下游哪个路径由 `driver` 按集合 B 裁定；纪律由本库定义。
-   不要在本库里规定下游的目录结构。
-6. **角色是装配出来的，不是直接读的。** 原则正文只在 `principles/<owner>.md`；
-   角色文件里只有引用与 `trigger`（这个角色何时加载它），不复述原则的意思。
-   起会话前用 `python3 scripts/compose-role.py <角色>` 拿到拼好的 prompt，
-   `python3 scripts/compose-role.py --check` 验结构。直接发角色文件正文
-   会让里面的原则引用变成未定义符号。
-7. **多 agent 协作优先走「起独立会话 + 会话间消息」。**
-   独立会话才有独立身份：能跨轮交接、能单独重开、能彼此发消息。
-   每层用同一个名字：本仓叫什么，那个会话就叫什么。
-8. **当前 harness 不具备起独立会话的能力时，才可以走进程内子代理**，
-   且开工前先确认两件事，缺一件就不要用：
-   - 子代理之间**能否相互通信**（是否支持 swarm）——本工作流的角色本来就要
-     互相说话（`driver` 派活、`adversary` 回结论、`scribe` 收台账），
-     子代理之间不互通就不是「弱一点」，是整条链断掉；
-   - 主会话与子代理之间**能否传递完整的任务上下文**。
-   即使都满足，子代理仍与主会话共享一份上下文，跨轮交接与独立重开做不了，
-   这一条记在 `A9` 里。**不要因为某个封装工具看起来更方便就换过去。**
-
-## 改动之后
-
-```bash
-python3 scripts/render.py
-python3 scripts/check-closure.py
-python3 scripts/check-consistency.py
-python3 scripts/compose-role.py --check
-```
-
-三个都只读或幂等，非零退出即失败。**不要修脚本来让它过。**
-先问是哪条断言不成立，再决定改真源还是改断言。
-
-## 硬边界（任何档位都不放宽）
-
-**放宽的是能力要求，不是结论标准。**
-
-1. **结论断言。** `A7.stance` / `A8.verdict` 不得由候选的实现者给出
-   （`workflow/registry.yaml` 的 P4、P5 两条 `hard_rules`）。
-   现场开不出独立会话时，**结论照出**，但 `A7.independence` / `A8.independence`
-   必须如实记 `单会话自审`，**不得写成 `独立复核`**。
-2. **能力断言。** 判断由谁作出由 `driver` 按**现场能力**判。
-   独立路线**可送达**时，driver **有义务**提供一次可复制粘贴的独立复核启动 prompt，
-   尽量降低 Owner 转发成本；动作与结果记进一次 `A9` 审计行。此后**不得反复索取许可**。
-   **不可送达时**：记录 `不可送达` 与事实依据，**不得写成 Owner 同意**；
-   **不撤销已有授权，也不产生新授权**——已授权的可逆调查、实现、自审、自验与
-   范围内的本地交付可继续，发布／删除／迁移等需明确授权的动作缺授权就停住该动作，
-   **不能靠 fallback 越过**。缺 gate **不产生** `A8.verdict = UNVERIFIED`。
-   **能力降级不改变三态判定，也不放宽 `P6` 的 `PASS` 闸门**；`A8.verdict = PASS`
-   **不产生发布授权**。
-3. 不得为让检查变绿而削弱检查。
-4. 验证只有三态：`PASS` / `FAIL` / `UNVERIFIED`。
-   环境故障既不算 `PASS`，也不判成产品缺陷。
-5. `A9` 台账只追加。不修改、不删除既有行。
-6. **本库的 Driver 停在「逻辑编排层」。** 它定义 control semantics——
-   谁该上场、哪个 artifact 够不够格、退给谁、什么时候停。
-   它**不定义 execution mechanics**——进程、并发上限、WIP、队列、锁、
-   重试、资源治理都属下游 runtime。下游 harness 也管这些。
-
-## 检查器判不了什么
-
-- 方法本身是否真的有效。
-- 退出判据是否合理、是否可判定。
-- 下游是否真的照做了。
-- 某一次跳过是否真的合规。
-
-这些交给人审。**检查器全绿不等于这套东西好用**——它只证明结构没塌。
-
-## 新增检查的保留判据
-
-要能说清它保护的是哪条**真实断言**、给一个会红的反例、
-说清常见合法变体为什么不会误报、以及谁负责维护它。
-四条缺一条就别加。本库的检查器是从旧版的 26 项里收敛到 8 + 7 的。
+- 本仓不产生调度权、执行授权、风险接受或发布许可；接受状态不等于下游业务/生产授权。
+- 主线本地切换与归档已按 Owner 2026-10-01 授权执行；远端 `main` 推送、tag、release 仍按既有授权边界。

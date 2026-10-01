@@ -1,6 +1,0 @@
-{
-  "write_scope": ["src/price.ts", "src/fee.ts"],
-  "runtime_exceptions": [".pi/loops/loops-*.json", ".pi/loops/loops-*.json.prev"],
-  "declared_by": "driver",
-  "declared_before_first_write": true
-}

@@ -1,5 +1,0 @@
-被审对象钉不住／环境不足，拒绝出数：
-参考树有未提交改动，拒绝出数：
-?? WIP-ATTACK.md
-  被审对象：commit 29a50e4（29a50e40f2ed0bf5d5bff85b7fbfa6b78059df3c）／tag v2.0.6／参考树有未提交改动
-EXIT=3
