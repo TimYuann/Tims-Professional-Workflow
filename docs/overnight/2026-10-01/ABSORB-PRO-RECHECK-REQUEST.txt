@@ -1,0 +1,23 @@
+这是 Owner 额外授权的一次定向复查，继续同一对话，只检查你上一轮 RETURN 的阻断是否已修，以及本轮新增的独立“过度流程化/工程化/防御性”审查处置。不重新设计Backbone、不扩全量来源/功能、不写PR/issue/comment，不执行服务/项目操作。GitHub connector挂在本消息。
+
+固定仓库 TimYuann/Tims-Professional-Workflow，branch night/2026-10-01-workflow。远端已正常push且ls-remote MATCH最终pin16c554de8abfe16547837cbfb19d9b7707a4d4dd；root tree cf5d28dafeff80a1d1ffe571adf0c40b3cdc3c28；professional-workflow subtree e5e5338ed8abc717bdda48e0f4ae751dea30dbb1（21文件）。不要读远端main448c3d6（旧版），本地main也尚未合入这版core。原A/B0c6b11c与原addon0b821ae保持历史；本次以最终pin实际字节为准。
+https://github.com/TimYuann/Tims-Professional-Workflow/tree/16c554de8abfe16547837cbfb19d9b7707a4d4dd/professional-workflow
+
+请读最终pin下：
+1. professional-workflow实际21文件，重点3个method的增量、2个按需guide、Profile/Charter绑定说明与示例、包入口。
+2. docs/overnight/2026-10-01/ABSORB-B-CALIBRATION.md、ABSORB-B-MECHANISM-COVERAGE.tsv、ABSORB-B-ADJUDICATION.md 的上一轮返回处与统计/前置；A1/A2 INDEX+HEADER受影响source行（不声称全1240已重新核）。AUTH27/BHV10原意、A2 cursor-sdk、A1 ship适用条件、DES14/23当前前提、ORC07顾问/独立性、AUTH07归属、BHV08已有记录基础、AUTH04轴与CONC01操作分离、175降格/R首标签24-8-7、narrow实质采纳前置、DES20未来授权删除/判断说明分支、统计183/474+8、requery、C1-C6均需实际确认，不只照闭合地图。
+3. ABSORB-INTEGRATED-CORE-METHOD-REVIEW.md（包含原RETURN和各定向delta记录）；ABSORB-OVERPROCESS-AUDIT.md（fresh独立实例，唯一MF1=两个Charter的旧摘要现在时声明，及NB1-3状态噪声）；ABSORB-FINAL-VERIFY.md；ABSORB-CANDIDATE-VERIFY.md；ABSORB-KNOWLEDGE-DEMO-OBSERVATIONS.md；ABSORB-CORRECTED-CORE-MANIFEST.md最后Rev.6（之前表与archive保留各自版本，不混配）。关键源需要时按你上一轮已读的固定pins回源，不把A摘要当原文。
+
+本地Oracle复算：Rev6 21/21文件digest和完整path set MATCH，Backbone ce82a700…未变；git archive --format=tar 16c554de… professional-workflow SHA256 ea10803f0c29c8f147caf75652f55b2abef9f27ebecb0b1458448ccd453d34b7 MATCH（这是我本地观察，不冒称你也复算）。manifest SHA256 bf8771b947f0092d738c76ea608fc8c615408cf13f6ca7ab757bb5544a34343a。
+
+要检查的专业变化：DBG05采集或复用有效授权内的最小必要证据，脱敏先于保存/共享；raw承接现有有效同意和受限保管，不自动新增或取消真实任务权限，不每步重问；默认示例不再先落raw，step不假称屏蔽终端回显。DBG16明确in-memory只运行实际调用的代码，不能证明被替换production adapter；必须指出真实mapping/契约观察面，保留错误打桩反例及原测试覆盖/删除授权。
+
+Owner特别要求：测试用合成/fixture还是实际Provider/SDK/网络/部署/用户体验，必须由要证明的claim天然要求决定，不能凭“省成本/安全”统一禁真，也不能变成所有任务固定真实e2e。该原则单点在behavior-claim-evaluation §Use，guides按场景引用；本次demo的synthetic/no-network只是记录该观察的范围，已从产品通用规则移除。请确认没有借policy/Charter把廉价替身PASS当真实claim成立，也没有关键词SDK就强制完整网络e2e。现有有效授权之外走召回，不由方法自行造白名单。
+
+独立过度审查的MF1已删除两Charter的失效当前hash，改为historical源+当前入口；6Profile待M4尾注改方法入口指针，包状态层叠压缩，Intent旧registry迭代标历史（冻结BB不改）。请核真实diff；正常授权/证据要求不是因出现must就该删除，启发式数字也不应被误读成许可gate。
+
+证据限度：静态method已PASS，局部文档delta不是全部专业变化“非语义”；离线演示只证明秘密sentinel与取证信号的区分、业务port绿不能背书production-style mapping（坏adapter2/2红，strict2/2绿），不证明UCBIP/宿主强制。fresh冷读PASS/1PARTIAL是一个规划观察，不证明效率或全部责任调用。覆盖仍是175比较意见(49/55/71)+8pending+not-assessed，39adopt多数源工作未完成；不是本轮全部采纳，仅两知识补丁。本轮无UCBIP操作。
+
+请明确：上一轮实质阻断是否关闭？这份修正core能否接受为有界可用初版，进行本地main晋升并用于真实项目的下一次有界任务？若仍有真阻断，给精确对象/反例/最小改法；未读源和未证效果作为明确残余，不扩为全量前置。Owner今晚停止点是这次定向复查+三类审查处置，不增框架/评分/gate或另开来源研究。通过后的接受状态文字同步只按已有接受记录，不改方法含义；新的身份需重新记录，不沿用旧archive。
+
+请披露实际读范围和未核部分，区别PASS、附条件与未验证；最后用小节标题“定向复查最终结论”。你是独立adviser，这个答复不授予下游/UCBIP业务、发布、迁移或真实资源权限。

@@ -49,3 +49,7 @@ Oracle accepts core subtree `11e6e3772b6bc0e17259c932b0c0dcabb030a133` at fixed 
 ## Final PW-01 / M6 acceptance · 2026-10-01
 
 Accepted fixed local-adoption delivery `205b831ecb9ba4e79481a08e6b23f7159dca4113`, root tree `136e0fcda54056bc188b67950a3f32dbfd165319`, unchanged core subtree `11e6e3772b6bc0e17259c932b0c0dcabb030a133`. Oracle read actual R1/R2 differential changes and independent byte-pinned PASS, recomputed five final evidence digests MATCH and confirmed zero core diff. PW-01/M6 are closed under this bounded scope. Full exact identity, evidence, accepted residuals, archive-source identity and stop conditions: `M6-FINAL-ACCEPTANCE.md`. This adds no UCBIP acceptance/implementation, production/main promotion or retroactive on-time/compliance claim.
+
+## Corrected core accepted · 2026-10-02
+
+Owner-delegated same-conversation Pro directed recheck PASS; Oracle accepts reviewed package `16c554de8abfe16547837cbfb19d9b7707a4d4dd` / core `e5e5338ed8abc717bdda48e0f4ae751dea30dbb1` as a bounded usable first edition. Returned core findings and independent three-over audit disposition closed. Scope, exact evidence/residuals, identity-maintenance and authorized local main promotion: `ABSORB-FINAL-ACCEPTANCE.md`. Final status-only integration must record its new identity if bytes change. No downstream authorization or additional tonight scope.

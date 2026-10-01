@@ -1,6 +1,6 @@
-# Redacted evidence guide · on-demand support (candidate)
+# Redacted evidence guide · on-demand support (accepted bounded reference)
 
-Status: candidate text; not adopted, creates no authority, generator, or gate. Source anchors and authored additions are marked.
+Status: accepted bounded reference (2026-10-02); creates no authority, generator, or gate. Source anchors and authored additions are marked.
 
 ## Use
 

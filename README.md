@@ -20,7 +20,8 @@
 
 ## 已接受身份与状态（本地）
 
-- 2026-10-01 Oracle 接受有界本地采用交付（bounded local-adoption delivery）：`docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`。
+- 2026-10-02 Oracle 接受修正后的首版（bounded usable first edition）：`docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md`（reviewed source `16c554de`；最终整合身份见 `ABSORB-CORRECTED-CORE-MANIFEST.md` Rev.7 与 `ABSORB-FINAL-INTEGRATION.md`）。
+- 2026-10-01 Oracle 接受有界本地采用交付（bounded local-adoption delivery）：`docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`（前序）。
 - 修正后的交付身份与 R1/R2 独立结论：`docs/overnight/2026-10-01/PW-01-FINAL-REPORT.md`。
 - 本次主线切换与新旧对象：`docs/overnight/2026-10-01/MAIN-CUTOVER-REPORT.md`。
 - 接受只覆盖本仓交付内容；下游（如 UCBIP）的采纳、任务接受、动作授权与关闭归其有效委托责任方。

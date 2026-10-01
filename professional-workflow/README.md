@@ -1,6 +1,6 @@
 # Professional Workflow · accepted local-adoption delivery (2026-10-01)
 
-This directory is a self-contained package candidate. Its fixed responsibility boundary is bundled at [`authority/RESPONSIBILITY-BACKBONE.md`](authority/RESPONSIBILITY-BACKBONE.md); source commit and digest are recorded in [`authority/README.md`](authority/README.md). The Backbone defines responsibility boundaries. A task Charter must cite the actual delegation and does not gain authority from a Profile or this package.
+This directory is a self-contained package accepted as a bounded usable reference (2026-10-02; see `docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md`). Its fixed responsibility boundary is bundled at [`authority/RESPONSIBILITY-BACKBONE.md`](authority/RESPONSIBILITY-BACKBONE.md); source commit and digest are recorded in [`authority/README.md`](authority/README.md). The Backbone defines responsibility boundaries. A task Charter must cite the actual delegation and does not gain authority from a Profile or this package.
 
 ## Use
 
@@ -20,7 +20,7 @@ The output is startup prompt text. Replace the illustrative Charter and task-inp
 
 ## Package state
 
-The Profile content is the M1 accepted input at checkpoint `429a78b`; the method bodies and selection entry were accepted at M4 commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. M1–M5 labels in this package describe those snapshots and are not current acceptance; historical M5 snapshot bytes remain identified in `methods/README.md`. Current status: Oracle accepted the bounded PW-01/M6 local-adoption delivery on 2026-10-01 (`docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`); the 2026-10-01 corrected candidate (three methods extended at demonstrated gaps plus two on-demand guides, entry pointers) is recorded in `docs/overnight/2026-10-01/ABSORB-CORRECTED-CORE-MANIFEST.md` and awaits the directed independent recheck. Each task Charter binds any method it uses; this package grants no downstream authorization.
+The Profile content is the M1 accepted input at checkpoint `429a78b`; the method bodies and selection entry were accepted at M4 commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. M1–M5 labels in this package describe those snapshots and are not current acceptance; historical M5 snapshot bytes remain identified in `methods/README.md`. Current status: Oracle accepted the bounded PW-01/M6 local-adoption delivery on 2026-10-01 (`docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`); the 2026-10-01 corrected package (three methods extended at demonstrated gaps plus two on-demand guides, entry pointers) is accepted as a bounded usable reference (`docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md`), with the final integrated identity in `docs/overnight/2026-10-01/ABSORB-CORRECTED-CORE-MANIFEST.md` Rev.7. Each task Charter binds any method it uses; this package grants no downstream authorization.
 
 Nothing in this directory alone grants decision authority, permission to change an object, risk acceptance, or permission for a consequential action.
 

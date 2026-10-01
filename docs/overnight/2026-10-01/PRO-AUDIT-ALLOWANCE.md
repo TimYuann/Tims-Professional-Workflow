@@ -37,3 +37,7 @@ Oracle pushed and read back remote `night/2026-10-01-workflow` tip `2b3d4c827fa8
 ## Pro slot 2 completed · 2026-10-01
 
 Actual full response saved as `PRO-AUDIT-2-RESPONSE.txt` / `.json`; observed generation finished before extraction. Result: core accepted; PW-01/M6 conditional on R1/R2 bounded wording repairs and existing independent differential check. Oracle absorbed this in `PRO-AUDIT-2-DISPOSITION.md`. Budget **2/2**; no additional Pro request. Ego TaskSpace 19 finished after preserving the response.
+
+## 2026-10-02 · Owner additional directed recheck completed
+
+The original overnight2/2 and absorption-review1/1 remain consumed. Owner then delegated one additional directed recheck after full correction, in the **same** conversation https://chatgpt.com/c/6abe6b24-fac8-83e8-8bab-dc3fa3208435. This extra slot1/1 is now consumed and completed, PASS at fixed16c554de/coree5e5338e. Actual request/response/events in `ABSORB-PRO-RECHECK-*`; no further request authorized. This is a new explicit grant, not reuse or reset of earlier allowances.

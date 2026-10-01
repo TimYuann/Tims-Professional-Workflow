@@ -78,3 +78,7 @@ Last updated: 2026-10-01, by tpw-night-driver (Pi, commandcode/deepseek-v4.1-fla
 ## Oracle closeout · 2026-10-01
 
 PW-01 / M6 accepted as fixed local-adoption delivery at `205b831`, core `11e6e377` unchanged; see `M6-FINAL-ACCEPTANCE.md`. Overnight bounded scope closed; Driver waits, no automatic new scope. Prior missed timing, evidence limits and deviations retained. Downstream adoption / main promotion / legacy archive not performed.
+
+## Absorption closeout · 2026-10-02
+
+Directed Pro recheck (same conversation, 1/1 conditional) returned PASS; the corrected package is accepted as a bounded usable first edition per `ABSORB-FINAL-ACCEPTANCE.md` (reviewed source `16c554de`, core `e5e5338e`, archive `ea10803f`). Status synchronization (guides → accepted bounded reference, package/root README, methods entry) creates new bytes, so the final integrated identity is recorded in `ABSORB-CORRECTED-CORE-MANIFEST.md` Rev.7 and `ABSORB-FINAL-INTEGRATION.md`. Local `main` fast-forwards to the final fixed object after the identity check; no remote-main push, no tag/release, no UCBIP action. Residuals and unverified limits retained as recorded.
