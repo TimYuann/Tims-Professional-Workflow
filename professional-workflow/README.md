@@ -23,3 +23,7 @@ The output is startup prompt text. Replace the illustrative Charter and task-inp
 The Profile content is the M1 accepted input at checkpoint `429a78b`; its generic method-need labels do not bind a method to a task. The M4 acceptance fixes the accepted method bodies and selection entry at commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. The current M5 candidate carries small package-status/source-trace edits to those files, so its shipped bytes are identified separately in `methods/README.md`; M4 acceptance does not itself accept the M5 package bytes or actual task binding. The M1-era “待 M4” labels remain in the frozen Profiles; for the three currently selected method references, use `methods/README.md`. This does not add applicability triggers; each task Charter binds any method it uses. The Charter template and examples are design references, not active grants. M5 integration and M6 clean-package qualification remain in progress.
 
 Nothing in this directory alone grants decision authority, permission to change an object, risk acceptance, or permission for a consequential action.
+
+## Optional adoption example (non-normative pointer)
+
+An optional adoption example lives outside this package at `../adoption-examples/ucbip.md`. It is non-normative: this package does not own downstream UCBIP semantics, authority, or current state, the example grants nothing, and it does not affect the assembly or package state described above.

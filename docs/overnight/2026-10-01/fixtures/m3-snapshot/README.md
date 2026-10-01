@@ -25,3 +25,7 @@ The B/C pair is accepted for this fixture only. Its v2 Conditions treat the reco
 The E Charter and startup prompt are the controlling task binding. E may write only `src/**`, `tests/**`, and the named `M3-CASE2-E-REPORT.md` handoff in this fixture. The separate F evaluator's private criteria are not part of the implementation input. E self-checks are evidence for F; they are not an independent verdict. No implementation is accepted and M3 remains open until its case evidence and overall scope are handled.
 
 The earlier seed note naming B/C v1 as current is superseded; those v1 objects remain recoverable at commit `893eaf8`.
+
+## Case-2 adoption entry
+
+Adopting a presented pair means opening an episode with `service.start(store)` and reading the returned `Turn`: `turn.page_summary` (overview) and `turn.cases` (details) are one presented pair resolved at that start. A bare-store `service.cases(store)` call is a separate current read with its own resolution, not this episode's details; the two must not be mixed inside one presented view (B-1, B-6(b)). Adoptable object: treatment commit `17602f2b12822aba88785e27a733f75a3238214d`; the PASS verdict, its exact presented-view boundary, and the limit below are recorded in `M3-CASE2-F-EVALUATION.md` (F PASS covers that fixed treatment and boundary only). This entry adds no B/C meaning and leaves B/C v2, the accepted Plan, the implementation and the tests unchanged.

@@ -13,3 +13,5 @@
 Matching source and export digests establish byte identity for this snapshot. They do not grant authority to a task, alter the source of truth, or prove an active delegation.
 
 The frozen text contains source-repository references to `WORKFLOW-INTENT.md`, `workflow/registry.yaml`, `history/derivation-0930/RESPONSIBILITY-BACKBONE-ORACLE-CHALLENGE-3.md`, and `history/derivation-0930/RESPONSIBILITY-BACKBONE-MERGED-CHALLENGE-2.md`. These are provenance references from the source repository; this package does not load or rely on those files at runtime. The package uses only this fixed responsibility projection plus its own Profiles, Charters, and selected method references.
+
+Side note on `A7`/`A8`: the frozen text's `A7`/`A8` references are source-repository provenance pointers for independence and three-state verification discipline. This package does not inherit A7/A8 numbering, their schemas, or any legacy checkers, and the references do not add a delegation, gate, or method authority here. The Backbone export bytes are unchanged: the bundled file still matches the export digest in the table above.
