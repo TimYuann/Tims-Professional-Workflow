@@ -5,7 +5,8 @@
 ## Fixed package identity
 
 - Source commit: `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`
-- Source tree: `c88b662421bc44270fdf38bf43267010fe0a1d38`
+- Repository root tree at the source commit: `c88b662421bc44270fdf38bf43267010fe0a1d38`
+- `professional-workflow/` package subtree at the source commit: `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`
 - Export root: `professional-workflow/`
 - Deterministic archive command: `git archive --format=tar d672914ac80eeed0aa5f04a0c80f448acc9de6f3 professional-workflow`
 - Git archive SHA-256: `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`
@@ -47,8 +48,8 @@ d53da06edc99af3bcfc93c744af5f2cc8d512430d318a8b13b1b7f42652d74aa  professional-w
 - Extracted-package local assembly hash: `713925256a7eb3157697edd60baaf9a3762d16cddf373d0bef8347c0e6f7b181`.
 - Extracted-package D/Backbone assembly hash: `e8c2b98d3548651bf81a64cb9a8e34b861396ca542843e691f58c6d3a4407601`.
 - These are text-assembly observations only. No fresh session has cold-started from this export, no independent clean-package verifier has completed, and no rollback rehearsal has occurred.
-- M5 independent review on prior fixed candidate f11de8b found F1–F4 metadata/traceability/path issues. They were corrected in d672914; its targeted independent recheck is working. No M5 acceptance or Pro review is recorded yet.
-- Case 1 M3 evidence is PASS for fixed code/test commit `9699276` (see the case reports); case 2 remains blocked at PC-1 pending B/C clarification, so M3 is not complete.
-- UCBIP remains untouched. Pro audit count remains 0/2; no branch push, tag, merge, or release action occurred.
+- At this package-source freeze, the targeted M5 F1–F4 recheck had not yet completed. Its later fixed report `M5-PACKAGE-REPAIR-RECHECK.md` records PASS; M5 remains unaccepted pending full-object review.
+- At this package-source freeze, case 2 was blocked at PC-1. B/C v2 and the D Plan later resolved that dependency with bounded PASS reviews; Oracle accepted the two fixed case execution results and the stated Turn presented-view scope. Overall M3 remains open; see `ORACLE-ACCEPTANCE.md`, `M3-REPORT.md`, and `M3-AUTHORITY-BOUNDARY-OBSERVATION.md`.
+- UCBIP remains untouched. Pro audit count is still 0/2. Oracle pushed prior night-branch checkpoint `96114e1a97227e7d1541965c89bb91deb860866b` with matching remote readback; this checkpoint awaits Owner/Oracle push. No tag, merge, or release action occurred.
 
 Use this candidate only for further qualification against exact commit/tree above. If M5 review changes the package, export and manifest a new fixed object.

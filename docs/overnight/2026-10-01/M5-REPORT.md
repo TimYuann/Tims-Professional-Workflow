@@ -5,13 +5,14 @@
 ## Fixed package identity
 
 - Package source commit: `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`
-- Package source tree: `c88b662421bc44270fdf38bf43267010fe0a1d38`
+- Repository root tree at that commit: `c88b662421bc44270fdf38bf43267010fe0a1d38`
+- `professional-workflow/` package subtree at that commit: `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`
 - Package root: `professional-workflow/` (19 files)
 - External manifest SHA-256: `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`
 - Deterministic archive SHA-256: `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`
 - Final M3 evidence report: `M3-REPORT.md`, SHA-256 `c8cac65c835604b0d6f67059d88d90f9fc8d92d4a605b7d365260247baf60915`; it is ready for Oracle/Owner milestone acceptance, not yet accepted.
 
-The current night branch is `night/2026-10-01-workflow`; the exact branch commit/tree to submit is the one fixed in `STATUS.md` after this report and its decision record are committed. The package subtree must be rechecked against `c88b662` before Pro submission.
+The current night branch is `night/2026-10-01-workflow`; its pinned Pro review candidate is recorded in `PRO-AUDIT-PREPARATION.md`. The full branch tree and the package subtree are separate Git tree identities; the package subtree is `9e4fa14a…`, matching the 19-file export.
 
 ## Integrated content and evidence
 
@@ -25,7 +26,7 @@ The current night branch is `night/2026-10-01-workflow`; the exact branch commit
 - A frozen M1 Profile label remains visible in an assembled E prompt; the package README supersedes that wording for the selected methods and the adjacent Charter pins both M4/M5 method bytes. The targeted reviewer recorded it as residual, not a required edit.
 - The targeted F1–F4 recheck is not a full independent package review or Pro result. It does not establish method effectiveness, end-to-end runtime, M6 qualification, or publication readiness.
 - The source commit/tree is fixed; the complete integration branch commit/tree is kept separately because it contains M3 reports and this delivery record.
-- No production/UCBIP code or data changed. No Pro audit, push, tag, merge, or release action has occurred.
+- No production/UCBIP code or data changed. Pro remains `0/2`. Oracle pushed the prior night-branch checkpoint `96114e1a97227e7d1541965c89bb91deb860866b` to the authorized night branch and confirmed the remote readback; the present metadata/acceptance checkpoint is still local pending Owner/Oracle push. No tag, merge, or release action occurred.
 
 ## Requested Oracle/Pro review
 

@@ -393,3 +393,25 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Report:** `OVERNIGHT-REPORT.md`, SHA-256 `505224d5a59259b2e11afb512ebd47aee18e8af2dc8cb40c6edaa3213d6afeb3`.
 - **Contents:** milestone results and object pins; both M3 F conclusions and the case-2 Turn-entry limitation; M5 targeted package result/residual; M6 cold-start and rollback evidence/limits; M3 session/handoff/material counts and unmeasured labor time; 08:00 outcome; Pro count and pending Oracle/Owner decisions.
 - **Status:** This is a consolidated handoff, not an overall closure or acceptance. The M3 report remains ready for Oracle/Owner acceptance; M5/M6 Pro slots remain unused. No push, tag, merge, UCBIP or release action occurred.
+
+## D-051 · Correct repository-root versus package-subtree identities
+
+- **Recorded:** 2026-10-01 by the retiring Driver during the authorized metadata checkpoint. This is a correction to earlier identity wording; D-045/D-047/D-048/D-049 remain preserved as historical rows and are not rewritten.
+- **Fixed source:** commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`; repository root tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; `professional-workflow/` package subtree `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`.
+- **Correction:** prior text that called `c88b662…` the package subtree was inaccurate. The 19-file package identity is `9e4fa14…`; `c88b662…` identifies the full repository root tree. The metadata is corrected in `M5-REPORT.md`, `M6-REPORT.md`, `M6-PACKAGE-CANDIDATE-d672914.md`, `PRO-AUDIT-PREPARATION.md`, `STATUS.md`, and `OVERNIGHT-REPORT.md`.
+- **Scope:** no byte of the 19-file `professional-workflow/` package was changed. Manifest and archive SHA-256 remain `c40b31e…` and `e2571ca…`.
+
+## D-052 · Fix the post-ruling M3 authorization-boundary observation
+
+- **Recorded:** 2026-10-01 by the retiring Driver after the M3 ruling appended in `ORACLE-ACCEPTANCE.md`.
+- **Evidence:** `M3-AUTHORITY-BOUNDARY-OBSERVATION.md`, SHA-256 `ada06c086666e68385873c8ac9c75922678b6dc226ffc4ba12052b0a55624c9c`, records the one short post-ruling, no-side-effect request to the existing case-2 E session `tpw-night-m3-local-impl` (`w27:pK`; same session UUID `01a0f3ac-a22b-75ef-9946-984ec8f6603b`). The prompt supplied no route/owner answer. E declined the cross-process persistence request under its Charter, named B/C and D boundaries, and said it would stop dependent edits and return the objects, fact and impact through Driver to the responsible authority; a goal change would require Owner scope authority.
+- **Observed effects:** no file, source, test, contact or external state changed. The fixed treatment source/test hashes remained unchanged. No private F criteria were provided or used.
+- **Limit:** this is a bounded hypothetical request-response observation, not a product request, implementation verdict or M3 acceptance. Oracle accepted the two fixed case results and Turn presented-view boundary; overall M3 remains pending Oracle's disposition of this evidence and the material-separation question. The accepted `M3-REPORT.md` summary remains byte-identical at SHA-256 `c8cac65c835604b0d6f67059d88d90f9fc8d92d4a605b7d365260247baf60915`.
+
+## D-053 · Record the handoff checkpoint and remote baseline
+
+- **Recorded:** 2026-10-01 by the retiring Driver for the transition to the Owner-designated Pi Driver.
+- **Remote baseline:** before this checkpoint, Oracle had pushed branch `night/2026-10-01-workflow` at commit `96114e1a97227e7d1541965c89bb91deb860866b`, root tree `0a88f4efe60ee9c6b01b2f2dca5bc5fd0499828c`; Oracle's `ls-remote` readback matched. This checkpoint is local until Oracle/Owner pushes and verifies its exact commit/tree.
+- **Review state:** first Pro allowance is unused (`0/2`). `PRO-AUDIT-PREPARATION.md` names the complete M5/M6 read set and the two M3 questions; the final checkpoint pin is the exact branch HEAD/tree emitted in the retiring Driver's completion message. No Pro prompt has been submitted.
+- **Scope/preservation:** this checkpoint includes the Oracle M3 acceptance record, the fixed authority observation, identity corrections, status/decision updates and handoff. The 19-file package body is unchanged; untracked `scan.js` is excluded and untouched. No main push, tag, force-push, merge, or UCBIP change.
+- **Retirement:** no new worker prompt was sent. The named worker roster and idle/working states are recorded in `STATUS.md` and `DRIVER-HANDOFF.md`. The successor owns further review-response absorption after Oracle's push/readback and first Pro response.

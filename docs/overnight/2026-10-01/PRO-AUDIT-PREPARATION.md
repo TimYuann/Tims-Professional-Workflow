@@ -1,45 +1,42 @@
 # Pro audit preparation · M5 integration and M6 delivery
 
-**State:** fixed review candidate is ready for Oracle's timing decision; no Pro audit has been sent and usage remains `0/2`. Oracle operates ego-browser/ChatGPT Pro/GitHub connector. M3 evidence is complete but its milestone acceptance is pending Oracle/Owner.
+**State:** one combined M5/M6 candidate and the two Oracle-raised M3 questions are prepared for the first Pro allowance; no Pro audit has been sent and usage remains `0/2`. Oracle operates ego-browser/ChatGPT Pro/GitHub connector. Oracle accepted the two fixed M3 case results and case-2 presented-view boundary; overall M3 acceptance remains open.
 
 ## Fixed object pin for Oracle's timing decision
 
 - Repository: `https://github.com/TimYuann/Tims-Professional-Workflow.git`
 - Branch: `night/2026-10-01-workflow`
-- Fixed main branch review candidate, captured after both M3 F reports and the M5/M6 report checkpoint: commit `ed3120c3475339fe7140fc4afbb7fa0c1e8e5aa0`, tree `d2e91104c58777242b7f7fde4d82e31837071564`.
-- The `professional-workflow/` subtree at that commit is exactly tree `c88b662421bc44270fdf38bf43267010fe0a1d38`, matching the package source object below. The commit includes M3, M5 and M6 reports. It records M3 evidence ready for acceptance; it does not record M3, M5 or M6 milestone acceptance.
+- The earlier provisional branch candidate `ed3120c3475339fe7140fc4afbb7fa0c1e8e5aa0` / tree `d2e91104c58777242b7f7fde4d82e31837071564` is superseded. The audit target is the current checkpoint on `night/2026-10-01-workflow`; use the exact commit/tree returned in the checkpoint handoff and final delivery message. Do not submit the older provisional commit.
+- The `professional-workflow/` subtree at the M5/M6 package source commit and on the reviewed branch remains exactly tree `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`. The reviewed branch commit includes M3, M5 and M6 evidence and the root Oracle acceptance record; this does not accept M3 overall, M5 or M6.
 - The workspace has an unrelated untracked `scan.js`; it is excluded from this committed review object and remains untouched.
-- Package source object currently fixed: commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`.
+- Package source object currently fixed: commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`; repository root tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; `professional-workflow/` subtree `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`. The root tree and package subtree are distinct identities.
 - Export identity: 19-file manifest SHA-256 `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`; deterministic archive SHA-256 `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`.
 
-Oracle chooses whether to send the fixed object now or after its separate M3 milestone decision. If submitted, each Pro prompt must identify the exact repository, branch, commit and tree above and inspect that commit through the GitHub connector, not `main`, a web summary, or cached content. The pin includes both local M3 case reports and the M5/M6 evidence reports; it does not record M3 milestone acceptance. This preparation note and later status/decision records are outside the pinned commit and do not change the reviewed object.
+At submission, copy the exact repository, branch, commit and root tree from the checkpoint handoff into the Pro prompt, then inspect that exact commit through the GitHub connector, not `main`, a web summary, or cached content. The pin includes the fixed local M3 case reports, the post-ruling authority-observation record, the M5/M6 evidence and the root Oracle acceptance record. The package subtree is separately pinned as `9e4fa14a…`; never identify the repository root tree `c88b662…` as that subtree. The branch pin does not itself accept M3 overall, M5 or M6.
 
-## Audit 1 · M5 full integration
+## Audit 1 · combined M5/M6 candidate and the two M3 questions
 
-Read the complete `professional-workflow/` tree from the final pinned branch commit (19 files), then the integration evidence needed to judge its exact use:
+Use the first Pro allowance on the complete combined candidate. Read the entire 19-file `professional-workflow/` subtree from the exact pinned branch commit, plus these integration/qualification artifacts:
 
-- `ORACLE-ACCEPTANCE.md` M1/M4 entries and the fixed Responsibility Backbone identity.
-- M1 Profile report/acceptance and M4 selected-method dossier/reviews.
-- Actual Charter template/examples and selected method files in the package, including their accepted-source vs shipped-byte provenance.
-- B/C v2 pair, D-accepted case-2 Plan, and both case-2 E/F reports; case-1 E/F reports and fixed candidate identity.
-- `M5-PACKAGE-INDEPENDENT-REVIEW.md` and `M5-PACKAGE-REPAIR-RECHECK.md`, including the frozen M1 status-label residual.
+- `ORACLE-ACCEPTANCE.md` M1/M4 entries; M1 Profile report; M4 method dossier/reviews; package Backbone, Profiles, Charters, method files and README.
+- `M3-REPORT.md`, both case E/F reports, `M3-AUTHORITY-BOUNDARY-OBSERVATION.md`, B/C v2, the D-accepted Plan and their bounded reviews.
+- `M5-REPORT.md`, `M5-PACKAGE-INDEPENDENT-REVIEW.md`, `M5-PACKAGE-REPAIR-RECHECK.md`, including the frozen M1 status-label residual.
+- `M6-REPORT.md`, `M6-PACKAGE-CANDIDATE-d672914.md`, the 19-file manifest/archive identity, cold-start report/verification and rollback report/verification.
 
-Ask Pro to assess whether the exact shipped package and final M3 evidence support the declared integration/traceability claims, identify any remaining inconsistency or unsupported claim, and keep the review bounded to the pinned objects. Pro review does not substitute for local F or confer release authority.
+Assess the full M5/M6 integration and these two M3 questions:
 
-## Audit 2 · M6 final delivery
+1. **Authorization boundary:** whether the single no-side-effect E request observation is adequate evidence that E recognizes a genuine out-of-envelope persistence request, stops dependent action, and returns the affected object/fact/impact to the right authority without a route being supplied in the prompt.
+2. **Material separation:** whether the proposed adoption input is separated from audit/history material and supports fixed references with on-demand readback, and what remains to close. The accepted baseline record reports 34 selected Markdown artifacts / 437,182 bytes and E/F startup packets of 97,850 / 115,048 bytes; the new authority-observation record (5,319 bytes) is additional to that count. Do not characterize the material load as lightweight. Preserve necessary accepted inputs while avoiding automatic inclusion of the full skeleton, source-correction history and all audit reports in every future task packet.
 
-Read the complete same pinned package object and the export/qualification evidence:
+The Pro response should distinguish package identity from root/subtree identity, examine only the pinned objects, and report unsupported integration claims and limits. This review is read-only and does not substitute for local F or confer release authority.
 
-- `M6-PACKAGE-CANDIDATE-d672914.md`, 19-file external manifest, and deterministic archive identity.
-- `M6-COLDSTART-REPORT.md` and `M6-COLDSTART-VERIFICATION.md`.
-- `M6-ROLLBACK-REPORT.md` and `M6-ROLLBACK-VERIFICATION.md`.
-- The final M3/M5 acceptance state and any remaining limits in `STATUS.md`/`DECISIONS.md`.
+## Audit 2 · reserved for a corrected final object
 
-Ask Pro to assess package/export identity, startup usability, cold-start evidence, controlled-copy rollback evidence, and whether the stated limits match the evidence. Preserve the verification reports' explicit gaps: they do not prove application/database/runtime recovery, independently reproduce the recovery action, or cover every claim in the package.
+Keep the second allowance for the final object after Oracle/Owner dispositions and any bounded corrections from Audit 1. Re-freeze and recheck the branch commit/tree and package subtree before using it. The review should assess only the corrected fixed object and affected claims; it does not reset the first allowance.
 
 ## Submission controls
 
 - At send time, visibly confirm ChatGPT 6 Pro and the GitHub connector in the composer; record model/tier evidence, connector state, conversation link, full response and disposition.
-- Include the exact repository, branch, commit and tree in each prompt. The M5 and M6 requests use distinct allowance entries, even if they inspect the same fixed branch commit.
+- Include the exact repository, branch, commit and repository root tree in the prompt; separately state the `professional-workflow/` subtree `9e4fa14a…`. This first allowance is one combined M5/M6 review, with both M3 questions above.
 - Count an allowance only after the prompt is actually submitted. Do not substitute a non-Pro model or reset the count after a response.
 - No `main`, tag, force-push, merge, UCBIP change, or production/release action is authorized by this review preparation.

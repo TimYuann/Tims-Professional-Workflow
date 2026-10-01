@@ -5,11 +5,12 @@
 ## Export identity
 
 - Source commit: `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`
-- Source tree: `c88b662421bc44270fdf38bf43267010fe0a1d38`
+- Repository root tree at the source commit: `c88b662421bc44270fdf38bf43267010fe0a1d38`
+- `professional-workflow/` package subtree at the source commit: `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`
 - Root: `professional-workflow/`
 - 19-file manifest SHA-256: `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`
 - Deterministic archive SHA-256: `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`
-- Candidate and manifest details: `M6-PACKAGE-CANDIDATE-d672914.md`, SHA-256 `af6a7653baaefcaffe3a8fdc0d8c5c6f1d86839822beb37e1acb6afcbec338c3`.
+- Candidate and manifest details: `M6-PACKAGE-CANDIDATE-d672914.md`; metadata now distinguishes the repository root tree from the package subtree. The manifest and archive digests below cover only `professional-workflow/`.
 
 ## Cold-start sample
 
@@ -31,7 +32,7 @@
 - The rollback verifier did not re-establish the pre-injection 19/19 state, did not hash the scratch tree before its review, and did not independently verify the untouched state of `.worktrees/verification` copies; it used mtime evidence during its window. These limits remain explicit.
 - The cold-start sample covers the specified case-1 startup task only. It does not establish all routes, all Profiles, or final M3/M5 acceptance.
 - M3 has a self-contained report ready for Oracle/Owner acceptance at `M3-REPORT.md`, SHA-256 `c8cac65c835604b0d6f67059d88d90f9fc8d92d4a605b7d365260247baf60915`; no overall M3 acceptance is yet recorded.
-- No Pro review or branch push has occurred; no tag, merge, UCBIP change, or release action occurred.
+- No Pro review has been sent (`0/2`). Oracle pushed prior night-branch checkpoint `96114e1a97227e7d1541965c89bb91deb860866b` and confirmed remote readback; this checkpoint remains local until Owner/Oracle pushes it. No tag, merge, UCBIP change, or release action occurred.
 
 ## Requested Oracle/Pro review
 
