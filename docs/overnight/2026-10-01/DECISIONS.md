@@ -348,3 +348,19 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Reviewer/state:** `tpw-night-method` (`w27:pG`), independent of E author, was idle before dispatch. Correct Herdr prompt sent; one post-dispatch read showed `working` at the restored main root. It will apply the privately held case-2 criteria if available; otherwise return UNVERIFIED without inferring.
 - **Write set/limits:** only `M3-CASE2-F-EVALUATION.md`. The packet contains public accepted inputs and exact code/test/report bytes, not the private rubric. The reviewer must not edit/stage/commit candidate files or disclose the private criteria.
 - **Result state:** Pending. E's self-report is not an F verdict; neither case-2 acceptance nor overall M3 acceptance is recorded.
+
+## D-045 · Prepare the two authorized Pro audit read lists
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` under the Owner's `0/2` audit allowance.
+- **Preparation:** `PRO-AUDIT-PREPARATION.md`, SHA-256 `aaa8950fe58bf96a4ad648b64080347172f80842da0e88fe9ce676b6ab01764b`, records exact M5/M6 object scope, shortest complete read lists, and submission evidence requirements.
+- **Known package object:** source commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; 19-file manifest/archive digests are in the preparation note.
+- **Pending pin/control:** the final night-branch commit/tree must be captured after case-2 F and M3 status/decision integration. Oracle chooses when to use each review and sends through Pro/GitHub connector. No Pro request or branch push has occurred; the count remains `0/2`.
+
+## D-046 · Record independent PASS for case-2 F and prepare the M3 milestone report
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from `M3-CASE2-F-EVALUATION.md`, SHA-256 `406b9efc56e60bc88cc9da28061427b660171866f285bd5cd802055cb3a0dacb`.
+- **Fixed object/result:** PASS for treatment commit `17602f2b12822aba88785e27a733f75a3238214d`, tree `f9b4f90b9e5a0c7ae11dfe681b82a4a22dddef03`, against baseline commit `2ad72273c6aa7dd9cb9775d9146a6fd549db19b1`. The report verifies prompt/Charter/embedded input identities, baseline/treatment tests, the X-2 public scenario, negative controls, and 96 observations over 32 short trajectories.
+- **Exact scope limit:** PASS covers only the D-recorded episode opened by `service.start`/`begin_turn` and presented through the pinned `Turn.page_summary` + `Turn.cases` pair. The old independent `start` plus `service.cases(store)` two-read combination remains able to mix revisions and is explicitly outside the PASS. No product/UCBIP, concurrency, persistence, migration, performance or user-value conclusion follows.
+- **Criteria/independence:** the held case-2 criteria were available to F and were not disclosed. F is a separate session from E; the workspace move did not create new independence. F changed no code/tests/verification copy and did not accept M3.
+- **Integrated report:** `M3-REPORT.md`, SHA-256 `c8cac65c835604b0d6f67059d88d90f9fc8d92d4a605b7d365260247baf60915`, consolidates case-1 and case-2 objects/results, boundaries, costs and limits. It records six unique named M3 sessions, 12 intra-exercise handoffs plus final Oracle delivery, 34 selected Markdown artifacts/437,182 bytes, zero identified no-use recalls, and leaves exact implementation/coordination time `UNVERIFIED` because start/end markers were not captured.
+- **Status:** Both local F results are PASS within their exact scopes; the M3 milestone is ready for Oracle/Owner acceptance, which is not yet recorded. The 03:52 / 08:00 unmet outcome remains unchanged; M5/M6 and Pro acceptance remain open.
