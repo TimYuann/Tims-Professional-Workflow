@@ -66,3 +66,19 @@ d53da06edc99af3bcfc93c744af5f2cc8d512430d318a8b13b1b7f42652d74aa  professional-w
 - The synthetic/offline observation scope remains in `ABSORB-KNOWLEDGE-DEMO-OBSERVATIONS.md` and the correction brief, not in the general product guide.
 - New core subtree: `6536343eadad72c46cb9e1f4f43f8a6dcb8b1331`; archive: `git archive --format=tar dca01b4f717aa300d818c6bbe143d6331f1252c6 professional-workflow` = `0e658c35f8110121d889ee5ab852a7140efe54c87d73d65f36e278d75c170e8f`. Changed file: `methods/guide-redacted-evidence.md` `7a6875c1994cf08ab008aef20839266b854b552b85e018fc85443645ffb5804f`; the other 20 files are unchanged (diff shows exactly those two removals).
 - No demo rerun, no full method re-review and no amend of earlier identities; method's PASS and IM-1 delta remain bound to their own objects, and this removal changes no source, rule or authority.
+
+## Rev.4 · Rule 2 collection wording (commit `08d990727deaea13e220e8764f9a3ecf7a8bd4cb`)
+
+- Rule 2 no longer reads as a ban on new collection: inside the task's valid authorization the guide allows collecting new observations or reusing existing records, keeps only minimal signal-bearing evidence, redacts before show/record/share/store, and leaves raw artifacts to Rule 4. No new permission is granted, unpermitted capture is not authorized, and no per-step re-asking is required.
+- The default example marks reuse as one common case and states that fresh observations are collected inside the same authorization with the same discipline; the source note records Matt retained plus an authored collect-or-reuse adaptation.
+- New core subtree: `baf2991e004912b14048098d42ad024fc441324e`; archive: `git archive --format=tar 08d990727deaea13e220e8764f9a3ecf7a8bd4cb professional-workflow` = `e9b1c92181c436e314e45aa2fb88b86ca5eefac29e0591b0dc75225f1b311e40`. Changed files vs `dca01b4`: `methods/guide-redacted-evidence.md` `9d2e43a10d7a83e4e8fe69942399dc376f40e2159bc98c7c448a0c517dab0b0c`, `methods/local-defect-feedback-loop.md` `cc8f3911125c8ec8c7b87625590dbb3ffbbd29da4c10b06e785ed1cbaa0d6348`; the other 19 files are unchanged.
+- Method's targeted Rule 2 confirmation is appended to `ABSORB-INTEGRATED-CORE-METHOD-REVIEW.md`; no full review was reopened.
+
+## Rev.5 · audit disposition (commit `31929b34f4eada9e7a3653b1804f409785d9b7c7`)
+
+- **MF-1 closed by deletion:** both Charter examples keep the M4 historical source and now point current bytes to `methods/README.md` §Status and source trace plus the night manifest; no current digest is copied in two places; a real task rebinds the current fixed object.
+- **NB-1:** the six Profiles and `profiles/README.md` now point method bodies/selection to `methods/README.md` (mental-model prose unchanged). **NB-2:** the package entry compresses M1–M5 into historical source pointers plus the current candidate/manifest status (no five-layer decode). **NB-3:** `docs/WORKFLOW-INTENT.md` §10 carries the registry-retired historical marker; Backbone bytes untouched.
+- Audit identity corrected by its author (`tpw-audit-overprocess`, native session `01a0f831-733d-7230-9b84-5a0d4d84ecc0`); conclusion unchanged.
+- New core subtree: `e5e5338ed8abc717bdda48e0f4ae751dea30dbb1`; archive: `git archive --format=tar 31929b34f4eada9e7a3653b1804f409785d9b7c7 professional-workflow` = `a45e8cba3be1f3f23de144dddbaccd87a356854017a5837f970e8018362d469f`.
+- Verification chain after this revision: the independent check runs a short references/state verification plus the full package manifest at the final pin; method gives the substantive semantic-diff view (these are metadata/entry changes; the claim-determined verification principle and the Rule 3 invoked-paths fix remain as previously confirmed).
+- The candidate stays night-only until the directed Pro recheck closes; no `main` FF or push.
