@@ -1,7 +1,7 @@
 # ABSORB-A1-ADDY-HEADER · A 类路径发现/索引（addyosmani-agent-skills）
 
 2026-10-01 · tpw-absorb-a1（Pi / deepseek-v4.1-flash / reasoning=max / session `01a0f783-b545-76cd-b6f5-cb72d19d8073`）
-工作树：`~/Developer/tim-professional-workflow/.worktrees/night-2026-10-01`（HEAD `b7f6d94c65eb7e971251ee962536510a0c8497f6`）
+工作树：`~/Developer/tim-professional-workflow/.worktrees/night-2026-10-01`（初次写入时 HEAD `b7f6d94c65eb7e971251ee962536510a0c8497f6`；本索引初版已由 Driver 提交于 `4bd5f50`；**§8 修订时 HEAD `a87d82e6da829da30708e417932fec16058008be`**，修订为工作树内未提交修改）
 本轮**只读上游**，只写本目录下两份文件：
 - `ABSORB-A1-ADDY-INDEX.tsv`（208 数据行 + 1 表头行）
 - `ABSORB-A1-ADDY-HEADER.md`（本文件）
@@ -63,7 +63,7 @@
 | `repo` | 固定 `addyosmani-agent-skills`（复合键 = repo + path） |
 | `path` | pin 下的仓库相对路径，逐字来自 `git ls-tree -r <pin>`；每个 tracked path 恰一行 |
 | `nature` | 文件性质（技能定义／技能自带参考／persona／命令包装／eval 案例／eval fixture／plugin manifest／hook 脚本／hook 文档／校验器／校验器单测／共享清单／文档／配置／许可／符号链接／CI workflow 等），按后缀与实测内容如实标注，不对资产/脚本/包装按后缀贬值 |
-| `read_depth` | **只能是 `metadata` / `structure` / `full`**，按本轮实际动作填写：`full` = 本轮把该文件从头读到尾；`structure` = 读了 frontmatter／标题锚点／顶层声明序列（并可能含为命名机制所需的定向正文段）；`metadata` = 只读树元数据（尺寸/模式/类型）与路径名。本轮 208 行中 `full` 34 行、`structure` 174 行、`metadata` 0 行（每个路径至少读到结构级） |
+| `read_depth` | **只能是 `metadata` / `structure` / `full`**，按本轮实际动作填写：`full` = 本轮把该文件从头读到尾；`structure` = 读了 frontmatter／标题锚点／顶层声明序列（并可能含为命名机制所需的定向正文段）；`metadata` = 只读树元数据（尺寸/模式/类型）与路径名。**修订后**：208 行中 `full` 52 行、`structure` 156 行、`metadata` 0 行（每个路径至少读到结构级；修订前的初版为 full 34 / structure 174） |
 | `source_mechanism` | 该路径承载的**源机制**（做了什么、按什么规则做、可复用的工作方式），一句到数句；纯数据/fixture 标为其服务的行为 eval |
 | `responsibility_loci` | 多标签，逗号分隔，取自责任骨架 A–F（`A` Intent/Outcome、`B` Behavioral Contract、`C` Domain Semantics、`D` Technical/System Design、`E` Implementation、`F` Verification）。**仅作参考标签**，不是判定、不是评分、不是 A–F 执行顺序 |
 | `related_materials` | 重复/支持文件与同组材料（逐字节重复对、宿主三态命令、persona↔技能↔命令、hook↔被服务技能、manifest↔版本校验器、case↔fixture、共享清单↔引用技能） |
@@ -73,15 +73,19 @@
 
 ## 4 · read_depth 口径的实际落点
 
-**`full`（34 条，本轮读到文件末尾）**：
-`.agents/plugins/marketplace.json`、`.claude-plugin/plugin.json`、`.claude/commands/constraints.md`、`.claude/commands/plan.md`、`.claude/commands/spec.md`、`.claude/rules/skills-contributing.md`、`.codex-plugin/plugin.json`、`.gitattributes`、`.github/workflows/test-plugin-install.yml`、`.gitignore`、`.opencode/skills`（符号链接，`readlink` 即其全部内容）、`AGENTS.md`、`CLAUDE.md`、`CONTRIBUTING.md`、`LICENSE`、`docs/agents.md`、`docs/developer-onboarding.md`、`docs/skill-anatomy.md`、`evals/README.md`、`evals/plugin/code-review-fires/graders/{off-by-one,severity-labels,skill-fired}.md`、`evals/plugin/code-review-stays-quiet-on-commit-message/graders/not-fired.md`、`evals/plugin/code-review-stays-quiet/graders/{not-fired,tdd-fired}.md`、`evals/plugin/code-review-stays-quiet/prompt.md`、`evals/skill-impact.md`、`hooks/SDD-CACHE.md`、`hooks/SIMPLIFY-IGNORE.md`、`plugin.json`、`references/orchestration-patterns.md`、`skills/constraint-driven-development/references/floor-guard.md`、`skills/idea-refine/scripts/idea-refine.sh`、`skills/using-agent-skills/SKILL.md`。
+**`full`（52 条，本轮读到文件末尾）**：
+初版 34 条：`.agents/plugins/marketplace.json`、`.claude-plugin/plugin.json`、`.claude/commands/constraints.md`、`.claude/commands/plan.md`、`.claude/commands/spec.md`、`.claude/rules/skills-contributing.md`、`.codex-plugin/plugin.json`、`.gitattributes`、`.github/workflows/test-plugin-install.yml`、`.gitignore`、`.opencode/skills`（符号链接，`readlink` 即其全部内容）、`AGENTS.md`、`CLAUDE.md`、`CONTRIBUTING.md`、`LICENSE`、`docs/agents.md`、`docs/developer-onboarding.md`、`docs/skill-anatomy.md`、`evals/README.md`、`evals/plugin/code-review-fires/graders/{off-by-one,severity-labels,skill-fired}.md`、`evals/plugin/code-review-stays-quiet-on-commit-message/graders/not-fired.md`、`evals/plugin/code-review-stays-quiet/graders/{not-fired,tdd-fired}.md`、`evals/plugin/code-review-stays-quiet/prompt.md`、`evals/skill-impact.md`、`hooks/SDD-CACHE.md`、`hooks/SIMPLIFY-IGNORE.md`、`plugin.json`、`references/orchestration-patterns.md`、`skills/constraint-driven-development/references/floor-guard.md`、`skills/idea-refine/scripts/idea-refine.sh`、`skills/using-agent-skills/SKILL.md`。
 
-**`structure`（174 条）**：其余全部路径。其中：
-- 25 个 `skills/*/SKILL.md`：仅 1 个（`using-agent-skills`）升到 `full`——按计划与派单要求，技能读 metadata + 标题结构；未逐行读的正文机制细节**不在**本索引的强度范围内。
-- 14 个 `scripts/*.js`：读头注释 + 顶层声明 + 关键常量段（如 `ARTIFACT_ALLOWLIST`、`GUARDED_FILES`、`manifestPaths`、`NAME_MAP`、`COLLISION_*`），未逐行读实现。
+修订新增 18 条（§8，均为本轮为补齐适用条件而读完全文）：`
+.claude/commands/{build,code-simplify,review,ship,test,webperf}.md`、`commands/{build,code-simplify,review,ship,test,webperf}.toml`、`.gemini/commands/{build,code-simplify,review,ship,test,webperf}.toml`。其中 `commands/ship.toml`↔`.gemini/commands/ship.toml` 与两处 `webperf` 采用「全文读其一 + 逐字 diff 全部差异」的方式确定全文；`review`/`test`/`build` 的 TOML 对经 diff 确认逐字相同。
+
+**`structure`（156 条）**：其余全部路径。其中：
+- 25 个 `skills/*/SKILL.md`：仅 1 个（`using-agent-skills`）为 `full`——按计划与派单要求，技能读 metadata + 标题结构；修订时按 `## When to Use` 锚点补读了适用/排除条件（§8），但正文仍未逐行读，未读正文的机制细节**不在**本索引的强度范围内。
+- 14 个 `scripts/*.js`：读头注释 + 顶层声明 + 关键常量段（如 `ARTIFACT_ALLOWLIST`、`GUARDED_FILES`、`manifestPaths`、`NAME_MAP`、`COLLISION_*`、修订补读的 `REQUIRED_SECTIONS`/`SECTION_EXEMPT_SKILLS`），未逐行读实现。
 - 25 个 `evals/cases/*.json`：读结构化抽取（正/负提示、kind、files[]、expectations 计数），未逐字读全部 `expectations` 文本。
 - 48 个 `evals/fixtures/**`：读结构抽取，其中 3 条（`browser-testing-with-devtools/{README.md,server.js}`、`ci-cd-and-automation/src/slug.js`）为 `full`。
-- 其余文档/清单/命令载体/hook 脚本/persona：结构级。
+- 6 条 TOML 指针行（`commands/`、`.gemini/commands/` 的 `constraints`、`spec`、`planning`）为结构级，其适用条件以同族 `.claude/commands/*.md` 行为可读正文（已在行内标注该口径）。
+- 其余文档/清单/hook 脚本/persona：结构级（4 个 `agents/*.md` 已按 `## Rules`＋`## Composition` 锚点补读）。
 
 ## 5 · 限制（本索引不能主张什么）
 
@@ -106,7 +110,56 @@
 
 | 文件 | 行数 | 说明 |
 | --- | --- | --- |
-| `ABSORB-A1-ADDY-INDEX.tsv` | 209（表头 1 + 数据 208） | 列 10、行不空、路径集合与 pin listing 全等；sha256 `213eb4fc817fc52afbed4bad6f69d2fc4c38da5d1763649a5712a84cba5e65ca` |
-| `ABSORB-A1-ADDY-HEADER.md` | 本文件 | — |
+| `ABSORB-A1-ADDY-INDEX.tsv` | 209（表头 1 + 数据 208） | 列 10、行不空、路径集合与 pin listing 全等；sha256 `abef7e2a7d173f951e595dec6891a024ba450772974d2329dc85f3b9c8ed62a3`（修订后） |
+| `ABSORB-A1-ADDY-HEADER.md` | 本文件 | 含 §8 修订记录 |
 
 上游 listing 摘要：`edab716179583a1b7a5f80f490485eabcbca6164e27c1dfe1997e36330fbbb06`（208 行，pin = HEAD = 读取源）。
+
+---
+
+## 8 · 修订记录（补适用条件/例外）
+
+**触发**：`ABSORB-FULL-CORRECTION-BRIEF.md` §1（Pro RETURN + full-correction brief）与 tpw-night-driver 的补正指示。
+**基线**：修订前版本＝提交 `4bd5f50`（Driver 所提交的 A1–A3 路径索引）；本修订只动 `ABSORB-A1-ADDY-INDEX.tsv` 与 `ABSORB-A1-ADDY-HEADER.md`，未提交、未改其他文件。
+**问题类别**：`/ship` 行保留了并行评审流程，却**漏记上游 Rules 中允许跳过扇出的适用条件**；同类的「结构级读取丢失适用条件/例外」需要一并自查。
+**回读源确认**：pin 仍为 `2686b620…`（`git rev-parse HEAD` 相等，`git status --porcelain` 空），逐字重读 `.claude/commands/ship.md`、`commands/ship.toml`、`.gemini/commands/ship.toml`。
+
+### 8.1 遗漏的具体条件（`## Rules` 第 5 条，三宿主逐字相同）
+
+> Skip the fan-out **only if all of the following are true:** the change touches **2 files or fewer**, the diff is **under 50 lines**, and it **does not touch auth, payments, data access, or config/env**. Otherwise, default to fan-out. `/ship` is designed for production-bound changes — when the blast radius is non-trivial, run the parallel review even if the diff looks small.
+
+同节其余未被记录的规则也已补入：第 3 条（**回滚计划是任何 GO 的强制前置**）、第 4 条（任一 persona 报 Critical 则**默认 NO-GO**，除非用户明确接受风险）。
+
+### 8.2 本次修订改动的行（45 行，全部有源锚可核）
+
+| 组 | 行数 | 补入的适用条件/例外 | 源锚 |
+| --- | ---: | --- | --- |
+| `/ship` 家族（3 宿主） | 3 | Rules 1–5，含跳扇出三条门槛（≤2 文件 ∧ <50 行 ∧ 不触及 auth/payments/data access/config-env，须同时成立）；非平凡爆炸半径一律跑并行 | `## Rules` 第 5 条 |
+| `/webperf` 家族（3 宿主） | 3 | 作用域排除（不得用于工具库/CLI/无浏览器面向输出的服务端代码）；Deep 六类激活输入；Quick 为默认且每条发现标 `potential impact`；单 persona 无合并步 | 首段排除句 ＋`## Determine the mode`＋`## Output` |
+| `/code-simplify` 家族（3 宿主） | 3 | 默认作用域＝最近改动的代码（除非显式给更大范围）；六步流程；**测试失败即回退该次改动** | 正文 1–6 步＋末段 |
+| `/review` 家族（3 宿主） | 3 | 五轴逐条判据（安全→security-and-hardening，性能→performance-optimization 的委派）；分级 Critical/Important/Suggestion；输出须含 `file:line` 与修复建议 | 五条轴＋分级句＋输出句 |
+| `/test` 家族（3 宿主） | 3 | 新特性 3 步；缺陷 Prove-It **5 步（含先确认测试失败）**；浏览器相关须一并调用 browser-testing-with-devtools | 两段流程＋末段条件分支 |
+| `/build` 家族（3 宿主） | 3 | 模式判定 `auto`/`all`；自主模式 7 步及其全部停机条件（spec 白名单、基线清洁、单检查点、`git add -A` 禁令、三类必停情形） | `## Modes`＋`## Autonomous` 1–7 步 |
+| 4 个 `agents/*.md` | 4 | `## Rules` 全文（含『绝不建议关闭安全控制』『只在系统边界打桩』『不把实验值当字段值』『不纳入 /ship 扇出的理由』）＋`## Composition` 三条（直调条件/经何命令/**不得由其他 persona 调用**） | `## Rules`、`## Composition` |
+| 14 个 `skills/*/SKILL.md` | 14 | `## When to Use` 的适用前提与 **`When NOT to use` 排除清单**（如 browser-testing 的『纯后端/CLI/非浏览器代码』、code-simplification 的四条、interview-me 的五条、observability 的三条指向别的技能等） | `## When to Use` |
+| 2 个无 `## When to Use` 的技能 | 2 | 记录其**豁免来源与真实适用面**：`idea-refine`（legacy 结构，触发面只在 frontmatter description）与 `using-agent-skills`（元技能，适用面＝`Skill Discovery` 决策树） | `scripts/lib/skill-lint.js` 的 `SECTION_EXEMPT_SKILLS` |
+| 6 条 TOML 指针行 | 6 | `constraints`/`spec`/`planning` 的 TOML 侧适用条件指向同族 `.claude/commands/*.md`（并标注该口径为跨格式引用、未逐字 diff md↔toml 正文） | 同族 `.claude` 侧正文 |
+| `scripts/lib/skill-lint.js` | 1 | `REQUIRED_SECTIONS`（5 个必备章节）与 `SECTION_EXEMPT_SKILLS`（仅 2 条豁免及理由，豁免写在 linter 内以防贡献者自改绕过） | 同名常量 |
+
+合计 **45 行**（18 行机制整体重写 ＋ 27 行追加），其余 163 行逐字节未改。
+
+### 8.3 修订中的顺带发现（不代 B 裁定，只记证据）
+
+- **严重度词表三处不一致**：`/review` 命令要求 Critical／Important／Suggestion；`agents/code-reviewer.md` 模板用 Critical Issues／Required Changes／Optional／Nits；`evals/plugin/.../severity-labels.md` 正则只接受 Critical|Required|Nit|Optional|Consider|FYI（`Important`/`Suggestion` 不被命中，只有 `Critical` 有交集）。
+- **`/ship` 与 `/webperf` 的组合理由**：`agents/web-performance-auditor.md` 的 Composition 明写本 persona **不纳入 `/ship` 扇出**（性能审计只适用 Web 应用，放进全局发布前扇出会在非 Web 项目产生噪音）。
+- **宿主分叉（已逐字比对）**：`commands/webperf.toml` 对 CrUX 密钥有『须用 `$CRUX_API_KEY`/`$GOOGLE_API_KEY` 且不得硬编码进配置文件』的约束，`.gemini/commands/webperf.toml` 无该约束；`constraints` 第 6 步的 harness 指引目标在 Claude／Antigravity／Gemini 三处各不相同（此前已记）。
+
+### 8.4 本次修订的残留（未在本次补正范围内）
+
+- 25 个技能**正文**（Common Rationalizations 条目、Red Flags、Verification 具体项）仍未逐行读；本索引对技能的强度仍止于结构级＋适用/排除条件。
+- `docs/*.md` 与 `references/*.md` 的少数小节仍仅见标题（`uncertainties` 已逐条标注）。
+- `commands/`、`.gemini/commands/` 的 `constraints`/`spec`/`planning` 三族 TOML 正文未逐行读，其条件表述以 `.claude` 侧为可读正文（已在行内标注）。
+
+### 8.5 修订后的边界声明（与 §6 一致，未放松）
+
+本次修订只**补记适用条件与例外**，仍不评分、不采纳、不否决；不因补记了『跳扇出门槛』而对任何机制形成裁定或落地建议。
