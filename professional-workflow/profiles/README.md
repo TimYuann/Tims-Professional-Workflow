@@ -2,7 +2,7 @@
 
 本目录存放可复用的专业预设（Professional Profile）。预设是**可缓存的判断配置**，不是职位表，不产生任务决定权，也不自带方法正文。
 
-状态：M1 候选内容已由 Oracle 接受为后续设计输入（见 `ORACLE-ACCEPTANCE.md` M1 节）；当前包状态与接受以 `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` 及后续更正/候选记录为准。方法入口由方法目录按任务绑定，本目录不激活方法。
+状态：M1 候选内容已由 Oracle 接受为后续设计输入（见 `docs/overnight/2026-10-01/ORACLE-ACCEPTANCE.md` M1 节，TPW 过程记录）；当前包状态与接受以 `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` 及后续更正/候选记录为准。方法入口由方法目录按任务绑定，本目录不激活方法。
 
 ## 选择入口
 

@@ -21,7 +21,7 @@ These guides are on-demand references at demonstrated knowledge gaps; they add n
 
 The accepted M4 source objects are fixed at commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c378882c89c2328505fddee`. M4 acceptance applies to those exact source digests. The M5 candidate carries package-status/source-trace metadata edits; it is not byte-identical to the accepted M4 tree, and this directory does not claim those M5 package bytes have been accepted. The table makes both identities explicit. The normative method body remains linked to its M4 source; task applicability, independence, and authority remain in the actual Charter.
 
-| Package method file | Accepted M4 SHA-256 | Current M5 candidate SHA-256 |
+| Package method file | Accepted M4 SHA-256 | Historical M5 candidate SHA-256 |
 | --- | --- | --- |
 | `local-defect-feedback-loop.md` | `3ca23a74a1a1890123bbab01a114aba813d7e20a7ffcb21b7b2289d5047cb32c` | `1ba8f8f2fb46a0094c22e7ac946e27f30a27b1ce25e201fd5ede819ddc2e4215` |
 | `cross-module-design.md` | `30066c8b3ccee2b85e98c8bc36975f57161e2c93d0bd71c9c668b27bf79bae6f` | `ab0a0bc03448407479fe82b92b2355384e7f2acf49c2ff3026882670f955a0a5` |

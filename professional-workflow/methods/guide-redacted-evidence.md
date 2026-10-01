@@ -32,7 +32,7 @@ Scenario: a payment request returns 401 in one environment.
 
   This supports the 401-vs-411 distinction; it does not establish the rejection cause. Get an authorized redacted error code (`error=token_expired`) or run a separately authorized probe.
 
-- **Wrong (rejected):** write full response headers/body to disk first (`curl -D …/headers.txt -o …/body.json …`) and redact afterwards. Even with `$AUTH_TOKEN` in the command text, the response content (Set-Cookie, body) has left the authorized boundary; showing a few lines later does not undo the persistence.
+- **Wrong (rejected) on the default route:** without an explicit raw authorization, writing full response headers/body to disk first (`curl -D …/headers.txt -o …/body.json …`) and redacting afterwards. Even with `$AUTH_TOKEN` in the command text, the response content (Set-Cookie, body) has left the authorized boundary; showing a few lines later does not undo the persistence. Under an existing valid raw authorization, Rule 4's restricted location and custody/cleanup conditions apply instead — this sentence targets the un-authorized default route, not every raw capture.
 
 - **Raw branch:** allowed only under rule 4's general conditions (existing valid consent, restricted location, custody/cleanup, no self-expansion; real-task limits inherit valid policy/Charter). Write only the needed subset and apply the cleanup boundary. In this batch's offline demo mode the location is a non-committed workspace path with no real-user data and no live network. It is never the default.
 
