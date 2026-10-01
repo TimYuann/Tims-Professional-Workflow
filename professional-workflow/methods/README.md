@@ -10,7 +10,15 @@ Profiles remain the owners of reusable responsibility mental models; this direct
 
 ## Status and source trace
 
-These three bounded method bodies and this selection entry are accepted M4 references on commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c378882c89c2328505fddee`. Their fixed source pins and exact text anchors are in the method files. Acceptance covers the selected content, not actual Profile/Charter binding, final M3 coverage, runtime dependency closure, or whole-package qualification.
+The accepted M4 source objects are fixed at commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c378882c89c2328505fddee`. M4 acceptance applies to those exact source digests. The M5 candidate carries package-status/source-trace metadata edits; it is not byte-identical to the accepted M4 tree, and this directory does not claim those M5 package bytes have been accepted. The table makes both identities explicit. The normative method body remains linked to its M4 source; task applicability, independence, and authority remain in the actual Charter.
+
+| Package method file | Accepted M4 SHA-256 | Current M5 candidate SHA-256 |
+| --- | --- | --- |
+| `local-defect-feedback-loop.md` | `3ca23a74a1a1890123bbab01a114aba813d7e20a7ffcb21b7b2289d5047cb32c` | `1ba8f8f2fb46a0094c22e7ac946e27f30a27b1ce25e201fd5ede819ddc2e4215` |
+| `cross-module-design.md` | `30066c8b3ccee2b85e98c8bc36975f57161e2c93d0bd71c9c668b27bf79bae6f` | `ab0a0bc03448407479fe82b92b2355384e7f2acf49c2ff3026882670f955a0a5` |
+| `behavior-claim-evaluation.md` | `06b0692290a9ce8cdc7048b33a89ec21f3636ee00138a613121ec4b72457af06` | `cfacc0f57cedadc6360ad0338645e43740dad4b1e15cc6876088eb89b4034f02` |
+
+The accepted M4 selection entry `methods/README.md` itself had SHA-256 `72a6ffb46277e3974f27d41e078623ce5b46865074898dae24cbdb6de2205e73`. This M5 selection entry is a package-status derivative; its exact bytes are fixed by the M5 package tree/manifest, not by the M4 digest. Acceptance of either object does not establish actual task binding, final M3 coverage, runtime dependency closure, or whole-package qualification.
 
 | Source repository | Fixed locator and pin | Used by |
 | --- | --- | --- |

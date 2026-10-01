@@ -1,7 +1,7 @@
 # Charter example · accepted cross-module snapshot contract
 
 - **State:** illustrative M2 binding; not an active grant
-- **Profile:** `professional-workflow/profiles/implementation.md`
+- **Profile:** `profiles/implementation.md` (relative to the `professional-workflow/` package root)
 - **Instance:** `<implementation instance>`
 
 ## Task and delegation

@@ -12,4 +12,4 @@
 
 Matching source and export digests establish byte identity for this snapshot. They do not grant authority to a task, alter the source of truth, or prove an active delegation.
 
-The frozen text contains source-repository references to `WORKFLOW-INTENT.md` and `workflow/registry.yaml`. They document the Backbone's original provenance; this package does not load or rely on those files at runtime. The package uses only this fixed responsibility projection plus its own Profiles, Charters, and selected method references.
+The frozen text contains source-repository references to `WORKFLOW-INTENT.md`, `workflow/registry.yaml`, `history/derivation-0930/RESPONSIBILITY-BACKBONE-ORACLE-CHALLENGE-3.md`, and `history/derivation-0930/RESPONSIBILITY-BACKBONE-MERGED-CHALLENGE-2.md`. These are provenance references from the source repository; this package does not load or rely on those files at runtime. The package uses only this fixed responsibility projection plus its own Profiles, Charters, and selected method references.

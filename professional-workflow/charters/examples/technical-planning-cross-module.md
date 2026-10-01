@@ -1,7 +1,7 @@
 # Charter example · cross-module technical Plan
 
 - **State:** illustrative M5 binding; not an active grant
-- **Profile:** `professional-workflow/profiles/technical-planning.md`
+- **Profile:** `profiles/technical-planning.md` (relative to the `professional-workflow/` package root)
 - **Instance:** `<planning instance>`
 
 ## Task and delegation
@@ -10,7 +10,7 @@
 - **Delegation source:** The concrete task request must grant planning authority and name the fixture or repository and task objective. This example grants no implementation or external action.
 - **Object scope:** The technical Plan and the specific system paths needed to establish current facts. Do not infer permission to change code or persistent data.
 - **Accepted inputs:** Versioned behavior/domain commitments and current source facts, each with owner and acceptance state.
-- **Applicable methods:** `methods/cross-module-design.md` from accepted M4 commit `013659331c8c5f9f54b866b393972a03d7938773` (SHA-256 `30066c8b3ccee2b85e98c8bc36975f57161e2c93d0bd71c9c668b27bf79bae6f`). This method preserves B/C ownership and does not create implementation authority.
+- **Applicable methods:** `methods/cross-module-design.md` (relative to the package root). Accepted M4 source: commit `013659331c8c5f9f54b866b393972a03d7938773`, SHA-256 `30066c8b3ccee2b85e98c8bc36975f57161e2c93d0bd71c9c668b27bf79bae6f`; this M5 candidate file SHA-256 `ab0a0bc03448407479fe82b92b2355384e7f2acf49c2ff3026882670f955a0a5`. This method preserves B/C ownership and does not create implementation authority.
 
 ## Work and limits
 
