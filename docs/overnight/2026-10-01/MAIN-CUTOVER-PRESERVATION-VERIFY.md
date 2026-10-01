@@ -1,0 +1,104 @@
+# Main cutover C0 · independent preservation verification
+
+State: **independent check report** for the C0 done conditions in
+`docs/overnight/2026-10-01/MAIN-CUTOVER-PLAN.md` §4, produced 2026-10-01T19:10+08 by
+`tpw-night-check` — Pi session `01a0f66d-0b7b-7701-8c51-8d262cb2f8d4`, provider `commandcode`,
+model `deepseek/deepseek-v4.1-flash`, thinking `max`. Read-only apart from this file; no commit, no
+mutation of root, legacy worktree or custody capsule.
+
+Objects and fixed identities:
+
+| Object | Path / ref | Identity at check |
+| --- | --- | --- |
+| Old root checkout | `/Users/yuantian/Developer/tim-professional-workflow` | `main` @ `496b0676e302e2d0eafba129ff61de4c203d258a`; `origin/main` unchanged @ `448c3d67c23994c86f5b0e344b82488823624586`; still dirty (capture state) |
+| Legacy worktree | `.worktrees/legacy-pre-night-2026-10-01` | branch `legacy/pre-night-2026-10-01` @ `496b0676e302e2d0eafba129ff61de4c203d258a`; registered linked worktree |
+| Custody capsule | `.worktrees/preservation/tpw-main-cutover-20261001-c0/` | `refs.txt` ROOT_HEAD `496b067…`, MAIN `496b067…`, NIGHT `2e7ee4d…`, ORIGIN_MAIN `448c3d67…` |
+| Capsule key digests | `staged.patch` `8eb56e9e…`; `unstaged.patch` `b6506ea2…`; `status.NUL` `2f950981…` | `shasum -a 256 -c custody.sha256` → all three OK |
+| Capsule inventories | `index.ls.NUL` 337 entries; `files.sha256` / `files.stat` 32 dirty paths; `untracked.NUL` 21 paths; `upstreams.sha256` 1344 files | self-records, cross-checked against live trees below |
+
+## Checks
+
+| # | Check | Result |
+| --- | --- | --- |
+| 1 | legacy HEAD == 496b067 == capsule ROOT_HEAD | **PASS** |
+| 2 | legacy status set == custody `status.NUL` (8 staged / 3 unstaged / 21 untracked) | **PASS** |
+| 3 | staged binary diff SHA-256 == `8eb56e9e…`; 8 index entries and worktree blobs == captured root index | **PASS** |
+| 4 | unstaged binary diff SHA-256 == `b6506ea2…` | **PASS** |
+| 5 | 21 untracked files byte-identical to `custody/untracked/**` | **PASS** |
+| 6 | ignored `upstreams` copy: 1344-file sha256 manifest identical | **PASS** (format note below) |
+| 7 | root drift since capture | **PASS — none observed** |
+
+### 1 · identity
+
+Root HEAD, root `main` ref, legacy HEAD, legacy branch ref and capsule `refs.txt` ROOT_HEAD are all
+exactly `496b0676e302e2d0eafba129ff61de4c203d258a`; legacy HEAD's abbrev ref is
+`legacy/pre-night-2026-10-01`; `git worktree list --porcelain` registers the legacy path on
+`refs/heads/legacy/pre-night-2026-10-01`.
+
+### 2 · status set
+
+`git -C legacy status --porcelain=v1 -z` is **byte-identical** to `custody/status.NUL` (32 entries):
+6 × `A `, 2 × `M ` (staged = 8), 3 × ` M` (unstaged = 3), 21 × `??`. The eight staged paths are
+`docs/history/derivation-0930/{DERIVATION,SYNTHESIS,UPSTREAM-RESCAN}.md`,
+`docs/history/handoff/{0930-derive-TASK,0930-upscan-TASK}.md` (staged modifications) and
+`docs/history/handoff/{0930-herdr-pitfalls-TASK,0930-synth-TASK,HERDR-PI-PITFALLS}.md` (staged adds).
+
+### 3 · staged state
+
+`git -C legacy diff --cached --binary` = custody `staged.patch`, SHA-256
+`8eb56e9edf6603e468ec59187990bbeae8a25891cc02532bbcfb5db00b504a91`, byte-equal. For all 8 staged
+paths the legacy index entries (mode, blob SHA, stage) equal the captured root index entries in
+`index.ls.NUL`, and `git hash-object` of each worktree file equals its index blob (8/8). Mode/size for
+these (and all 32 dirty paths) also match `files.stat`.
+
+### 4 · unstaged state
+
+`git -C legacy diff --binary` = custody `unstaged.patch`, SHA-256
+`b6506ea2df3f484f3450a42451cdc8d9aac776d1e649f6e63fa3e433a218a3a4`, byte-equal (worktree-vs-index
+distinction preserved; the three ` M` paths are `.decisions/ledger.tsv` and
+`docs/history/derivation-0930/{ADVERSARY-VERDICT-BATCH1-REREAD,DISPOSAL-BATCH1-REREAD}.md`).
+
+### 5 · untracked state
+
+All 21 paths in `untracked.NUL` exist in the legacy worktree and in `custody/untracked/`; per-file
+SHA-256 matches 21/21, and mode/size match `files.stat`.
+
+### 6 · ignored upstreams
+
+Legacy `.worktrees/legacy-pre-night-2026-10-01/upstreams/` has 1344 regular files; the path→SHA-256
+mapping is exactly equal to `custody/upstreams.sha256` (and to the identical `upstreams.legacy.sha256`),
+0 missing paths, 0 hash mismatches. The root checkout's own `upstreams/` still holds the same 1344
+files and matches the same manifest. **Format note:** a naive line-by-line `cmp` differs because the
+custody manifest was sorted with the macOS default locale while this check re-sorted with
+`LC_ALL=C`; the mapping comparison above is the correct equivalence and is exact.
+
+### 7 · root drift
+
+Root `status --porcelain=v1 -z` is byte-identical to the captured `status.NUL`; all 32 captured dirty
+paths match `files.sha256` (SHA-256) and `files.stat` (mode/size) in the root checkout 32/32; root
+HEAD is still `496b067…` and `origin/main` is still `448c3d67…`. No drift observed within the captured
+scope (tracked dirty set + untracked + ignored upstreams).
+
+## Limits
+
+- The `upstreams.sha256` inventory is regular-file SHA-256 only. The legacy copy also contains 2
+  symlinks (`addyosmani-agent-skills/.opencode/skills → ../skills/`;
+  `mattpocock-skills/AGENTS.md → CLAUDE.md`) whose link metadata is not in the manifest; their target
+  regular files are covered individually where applicable. No mode/uid/gid manifest exists for the
+  upstreams tree.
+- Drift check (7) can only cover the captured inventory: new files under ignored/untracked-ignored
+  areas outside the 32-path + upstreams records would not be visible to these artifacts.
+- `custody.sha256` self-hashes only `staged.patch`, `unstaged.patch`, `status.NUL`; the other capsule
+  records are cross-checked against the live legacy/root trees in this report rather than by a
+  capsule-internal hash.
+- The capsule README records that `.pi/` runtime and OS junk were deliberately not copied; that is a
+  documented exclusion, not a preservation failure.
+- Point-in-time check: no further mutation occurred after these reads (this report is the only write).
+
+## Verdict
+
+C0 done conditions for items 1–7 are verified **PASS** at the exact identities above, with the limits
+listed. The old root现场 is intact at capture state and recoverable from the verified legacy worktree
+plus the custody capsule (reconstitution recipe in the capsule README); no root drift since capture was
+observed. This report covers C0 preservation only — it does not perform or accept C1/C2, does not
+touch `professional-workflow/`, UCBIP, M3, remotes, tags or releases, and is not a package acceptance.
