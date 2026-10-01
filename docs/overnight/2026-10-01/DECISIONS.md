@@ -283,3 +283,18 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Fixed task:** `M3-SNAPSHOT-PLAN-V2-RECHECK-PROMPT.md`, SHA-256 `e40851d9b43b55ae2ea90d0f6e0853fb157b7b639143ee03f1191403875ec000`; the task is limited to PC-1/R-2 resolution, PC-2/R-10 closure, and any materially affected claim, without repeating unchanged PC-3/PC-4 coverage.
 - **Reviewer/state:** `tpw-night-method` (`w27:pG`), independent of D, was `idle` at dispatch and a single post-dispatch read showed `working` in the restored main work root. Its only write is `M3-SNAPSHOT-PLAN-V2-RECHECK.md`.
 - **Limits/next:** This is a challenge only, not Plan acceptance or E/F authorization. After its result, D must record whether it accepts this exact Plan within its delegated responsibility; Driver then continues case-2 E/F only if the relevant statuses permit it.
+
+## D-037 · Record PASS for the affected-claim Plan v2 recheck
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from `M3-SNAPSHOT-PLAN-V2-RECHECK.md`, SHA-256 `e93ac8869c2f0c94eb6b9ea8ec91a265920406656d31eacf12cee5b9a25ce278`.
+- **Fixed candidate:** `TECHNICAL-PLAN.md` SHA-256 `bb8afeb1d7519cac8926e1553f30e83590b8fb0504f120120c09cd916e0823d3`; B/C v2 and review hashes are listed in D-036 and the report.
+- **Result:** PASS on the affected PC-1/R-2 and PC-2/R-10 claims; no new blocker in PC-3/PC-4 changes. The original Plan FAIL remains preserved and this PASS does not accept the Plan, authorize E/F, or accept M3.
+- **Non-blocking correction:** §8 summarizes embedded B/C text as byte-identical to active files, but §0.1 correctly states the startup prompt carries v1 B/C copies while active bindings are v2. D was asked to align that sentence and record its delegated Plan acceptance; this is one factual qualifier and does not reopen the independent review absent wider changes.
+- **Limits:** The rechecker read no implementation/tests/private criteria and wrote only the report. No case-2 implementation bytes were changed.
+
+## D-038 · Request the D-owned Plan wording correction and acceptance record
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after the bounded Plan recheck PASS.
+- **Fixed task:** `M3-D-PLAN-ACCEPTANCE-PROMPT.md`, SHA-256 `9154e1c7308e325ffd7afa750255975c1d52f3f516c71f13e8b820a1d9071773`; inputs are reviewed Plan SHA `bb8afeb1…`, recheck PASS SHA `e93ac886…`, and D-CHARTER SHA `6a0e6b7d…`.
+- **Write scope:** D owner `tpw-night-m3-design` may edit only `TECHNICAL-PLAN.md` to correct the §8 v1-copy/v2-active-input qualifier and record its own acceptance within D-CHARTER. The follow-up Herdr prompt explicitly requires updating stale `Not accepted` / `no case-2 E/F work starts` labels while retaining that Plan acceptance itself does not authorize implementation.
+- **State/limits:** One post-dispatch Herdr read showed `working` in the restored main work root. No case-2 E/F task has started; final hash/diff and D acceptance remain to be checked before dispatch.
