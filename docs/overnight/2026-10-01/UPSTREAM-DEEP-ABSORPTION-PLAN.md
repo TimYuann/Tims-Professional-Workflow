@@ -1,60 +1,52 @@
-# Upstream deep-absorption plan · A full-path discovery/index + B substantive adjudication
+# Upstream deep-absorption plan · A path→mechanism accounting + B mechanism-level coverage & verdicts
 
-**State:** planning only, prepared by Driver from the Owner–method discussion. No 1240 scan, no absorption, no product/core change, no crew dispatch, no fetch/install, no Pro. Baseline: main `0e06d8c0a118fa1396c0d5b192d8f9952c99f7ad`, core `91875114e51855517f92ef099cbdf60c34e68243`.
-**Terminology note:** the `A`/`B` here are this phase's deliverable labels (discovery/index vs substantive adjudication); they are not the Backbone's A–F judgment classes, and A–F are not an execution order.
+**State:** revised once per Oracle read-back of `e6bb40f` and the Owner's latest clarification (mechanism-level coverage is the main axis; scoring was only an example). Planning only: no 1240 scan, no absorption, no product/core change, no crew dispatch, no fetch/install, no Pro. Baseline: main `e6bb40fe63bd7afb42e69554f0a82acdff7438d6`, core `91875114e51855517f92ef099cbdf60c34e68243`.
+**Terminology note:** `A`/`B` are this phase's deliverable labels (path accounting vs mechanism coverage/adjudication), not Backbone A–F judgment classes; A–F are a reference and not an execution order.
 
-## 1 · Fixed inputs and accounting baseline
+## 1 · Fixed inputs and denominator
 
-- Three repos, read-only at pins: `addyosmani-agent-skills` `2686b620…`; `cursor-plugins` `ecc249f1…`; `mattpocock-skills` `c55ee460…`. Locator root: `.worktrees/legacy-pre-night-2026-10-01/upstreams/`.
-- **Baseline = the union of `git ls-files` at those pins.** Checked today without full enumeration: 208 + 863 + 169 = **1240** tracked paths. At execution start, freeze the exact NUL-safe listing, count and digest per repo and reconcile to 1240; the discussed 1240 figure is a reconciliation target, not an acceptance fact. No separate list file is needed unless reconciliation fails.
-- Articles are excluded from this denominator; nothing from them counts as adopted without a later full original/mirror read.
-- Accounting unit = each tracked path (text, support example, script, asset). Every path gets its own record even when content identity is shared; grouped non-method handling is allowed only with in-group exceptions, the related text and exclusion reasons. Never claim a file was fully read when it was not, and never assert every file is a "skill".
+- Three repos read-only at pins: `addyosmani-agent-skills` `2686b620…`; `cursor-plugins` `ecc249f1…`; `mattpocock-skills` `c55ee460…`. Locator root: `.worktrees/legacy-pre-night-2026-10-01/upstreams/`. Articles are excluded from this denominator.
+- **Denominator is rebuilt from the fixed Git pins** (`git ls-files` union; verified today: 208 + 863 + 169 = **1240**). No second 1240 list file is required: the final index is the single per-path record, and its header records each repo pin, per-repo count and listing digest — that is what "frozen baseline" means. Reconciliation failure is the only case that opens a separate listing.
+- Composite key = **repo + path**; every path is accounted once even when content identity is shared. Assets, scripts and binary files are accounted too, without inventing a read depth and without devaluing them by extension or packaging label.
 
-## 2 · A · full-path discovery and index (breadth, no adjudication authority)
+## 2 · A · per-path screen: source mechanism / responsibility loci / related materials
 
-- Record per path: source identity; **actual read depth** (metadata / structure / full); file nature; multi-label judgment/professional concern (Backbone A–F as reference, not order); concrete mechanism leads with original anchors; related files; uncertainties; coarse reading priority (high/medium/low).
-- Priority only orders reading: it is not a score, not a stage, and not an adopt/reject signal; a low label must not become an implicit veto.
-- Write boundary: A writes only its index documents under `docs/overnight/2026-10-01/` at fixed paths; no product/core, no upstream, no B documents.
+- Record per path: repo+path; actual read depth (metadata / structure / full); file nature; the **source mechanism(s)** the path carries; **multi-label responsibility loci** (Backbone A–F as reference only); related materials (support files, duplicate content, group); uncertainties; re-query entry.
+- The screen is coverage-oriented, not score-oriented: no per-file total score, no high/medium/low as a primary filter or adopt/reject signal. If a reading order is kept, it is an ordering aid only and never a veto.
+- A produces no coverage verdict and no adoption decision.
+- Write boundary: index documents under `docs/overnight/2026-10-01/` at fixed paths; no product/core, no upstream, no B documents.
 
-## 3 · B · substantive mechanism adjudication (depth, independent)
+## 3 · B · mechanism-level coverage assessment and adoption verdicts (two separate meanings)
 
-- B independently re-reads the relevant originals, support files and current corresponding content, then states **adjudicated / explicitly deferred (with reason) / not-yet-judged (with reason)** and gives substantive reasons for adopt / narrow / re-frame / replace / reject / defer.
-- B may extend an existing method or propose a new method, professional guide or counterexample library; it must not force findings into the current three methods. A missing current method is a gap lead, not a low score.
-- Minimum reference for each adjudicated item: the full relevant source/support text, the concrete engineering problem it addresses, the domain correctness requirements, and existing coverage; answers why it works, when it fails, concrete how, what counterexample overturns it, and what it adds.
-- Distillation keeps engineering rationale, applicability conditions, exceptions, counterexamples, techniques and operational detail; strips only named harness/model/fan-out/default-PR mechanisms, not professional experience (e.g., idempotency keeps intent/attempt, atomic claim, same-key-different-payload, in-flight duplicates, unknown outcome and retention causality).
-- Write boundary: B writes only its adjudication documents at fixed paths; no product/core, no upstream, no rewriting A's records (deviations from A's screen are annotated in B's own documents).
-- Independence: B reads originals before/independently of A's screen and is not the A author; no self-PASS.
+- For each **mechanism** (grouped from A's mapped loci): responsibility position; current-text basis (file + paragraph/section); **coverage state = covered / partially covered / not covered / pending-check**; what is missing in judgments / operations / conditions / counterexamples / examples; related support materials; uncertainties.
+- Coverage is judged against the current text as it is: a mentioned term is **not** engineering-operation-usable coverage; a missing current method is a **gap lead**, not a low score.
+- With no established weighting standard, **do not fabricate coverage percentages** over skills or mechanisms: report counts per state (per mechanism and per source group). Skill-level entries may carry aggregated summaries only where the mechanism mapping is already explicit.
+- **Adoption verdicts are a separate track from coverage**: covered does not imply adopt; zero coverage does not automatically imply adopt; adopt / narrow / re-frame / replace / reject / defer each need the substantive reasons, full-read basis and counterexample/condition detail of §5.
+- B independently re-reads originals and support files before/independently of A's screen; B is not the A author; no self-PASS.
+- Write boundary: adjudication documents at fixed paths; no rewriting of A's records (screen deviations are annotated in B's own documents).
 
-## 4 · Accounting ↔ adjudication linkage, tail and closure
+## 4 · Accounting vs assessment completion, tails and closure
 
-- Every A record carries a mechanism/adjudication group id (or an explicit grouped non-method disposition); group ids link A rows to B decisions.
-- Per source-group final visible states: adjudicated (with disposition) / explicitly deferred (reason) / not-yet-judged (reason + re-query entry).
-- Two completion statements are reported **separately** and must not stand in for each other: (1) file-accounting completion over the baseline; (2) mechanism-adjudication completion (groups with decisions). Neither implies adoption.
-- Tail: low/undetermined/wrapper classes keep a re-query entry; tails must reach a group-level adjudication or an explicit deferral; grouped non-method disposition must list in-group exceptions, related text and exclusion reasons; sample checks only validate the initial screen, they do not dispose of the tail.
-- Coverage closure criterion: 1240/1240 paths accounted and every path in a group whose state is one of the three above. Coverage closure ≠ full absorption, and adoption is decided separately.
+- Two completion statements are reported **separately** and neither stands for the other: (1) path accounting 100% (every baseline path has an index record); (2) substantive coverage assessment completion (every mechanism group has a coverage state with basis). Neither implies adoption.
+- **not-yet-judged is honestly retained** with its reason and re-query entry, and does **not** count as assessment closed.
+- Group-level non-method or deferral dispositions must state scope reasons, in-group exceptions, related text and exclusion reasons; a group cannot be left entirely unjudged while "full assessment closed" is claimed.
+- Coverage closure criterion: every mechanism group reaches one of the four coverage states with an evidenced basis, and every path sits in such a group; any group left pending keeps a reason and an owner-facing re-query entry. No fabricated percentage; counts per state.
 
-## 5 · Small-sample calibration
+## 5 · Calibration and actual adoption
 
-- Small cross-source, cross-type sample (12–18 suggested; a suggestion, not a hard N or an Owner per-batch gate) including support-file hidden techniques, duplicates, platform wrappers, items overlapping existing coverage, and low/undetermined items.
-- A produces the initial screen; B independently reads the originals first, then compares for anchoring, missed mechanism leads, classification drift and detail loss.
-- Systematic bias → fix the criteria and re-check only affected groups; no full invalidation, no third standing gate.
-- The calibration result is a bounded checkpoint visible to Driver/method, not a new permission layer.
+- **Calibration:** a small cross-source, cross-type sample (12–18 suggested; not a hard N or an Owner gate) including hidden support-file techniques, duplicates, platform wrappers, items overlapping existing coverage, and low/undetermined items. B reads the originals first, then compares A's screen for anchoring, missed mechanism leads, classification drift and detail loss. Systematic bias → fix criteria and re-check only affected groups; no full invalidation, no third standing gate. The result is a bounded checkpoint visible to Driver/method, not a permission layer.
+- **Adoption requires** a full read of the relevant original plus support files, a record of what is kept / changed / deleted and why, the current-content difference and the landing position; effectiveness claims need corresponding use evidence.
+- Mechanism detail may extend an existing method or propose a new method, professional guide or counterexample library; **do not strip professional detail to avoid gates** (e.g., idempotency keeps intent/attempt, atomic claim, same-key-different-payload, in-flight duplicates, unknown outcome, retention causality).
+- Changes to existing methods follow accepted retain/narrow/strip discipline with affected-claim revalidation only.
+- Flash resources are sufficient; full-file coverage is not traded away to save tokens.
 
-## 6 · Preserving professional detail and actual-adoption criteria
+## 6 · Owner decision points (the only ones that remain)
 
-- Adoption requires a full read of the relevant text and support files, with a record of what is kept / changed / deleted and why, the current-content difference, and the landing position.
-- A high priority is not adoption; any effectiveness claim needs corresponding use evidence.
-- Changes to existing methods follow the accepted method discipline (retain/narrow/strip records; delta review if active semantics change, revalidating affected claims only).
-- Flash resources are sufficient: full-file coverage is not traded away to save tokens.
+1. **Whether this phase starts** (A/B with the pinned baseline and the boundaries above).
+2. **Whether the deliverable is coverage/verdict candidates only, or also a bounded landing authorization.** Without that authorization, coverage and verdicts cannot be implemented.
+3. If the Owner grants a landing envelope as a whole, later batches inside it do not re-ask per batch by default.
+Composition, ordinary docs/TSV write surfaces and the calibration checkpoint are Driver/Oracle-managed inside the phase; no per-item Owner ACK is required.
 
-## 7 · Owner decision points (formal scope)
+## 7 · Relation to earlier practice
 
-1. Authorize the phase and its formal coverage scope (three pinned repos; articles excluded).
-2. Confirm composition/resources: A instance per repo or sequential; B instance(s); bounded method review points; Oracle milestone acceptance (no crew dispatch before this).
-3. Confirm adoption authority: B proposes, method evaluates the design, Oracle accepts milestones; each core/product adoption batch needs explicit Owner authorization.
-4. Confirm the closure definition in §4 and that adoption scope is decided by Owner after B.
-5. Confirm no new terminology/state/permission platform, no third Pro, and that current accepts (PW-01/M6, main cutover) stay unchanged.
-
-## 8 · Relation to earlier practice (how the two responsibilities change)
-
-Earlier, one survey with reading-depth labels and one bounded dossier fed a single method review, leaving coverage implicit. Now: (a) A owns exhaustive per-path accounting with no adopt/reject authority and no veto; (b) B owns independent, group-level substantive adjudication with explicit deferred/not-yet-judged tails; (c) accounting completion and adjudication completion are separate reports; (d) a small calibration checks the screen before scale; (e) adoption is authorized by Owner only after B and requires full read plus use evidence. No scoring system, no new state machine, no extra permanent gate.
+Earlier, one survey with reading-depth labels and one dossier fed a single method review, leaving coverage implicit. Now: (a) A owns exhaustive **path→mechanism accounting** with no verdict or veto authority; (b) B owns independent **mechanism-level coverage assessment** and, separately, adoption verdicts; (c) accounting completion and assessment completion are separate reports; (d) a small calibration checks the screen before scale; (e) implementation waits for the Owner's landing envelope. No scoring system, no registry platform, no extra permanent gate.
