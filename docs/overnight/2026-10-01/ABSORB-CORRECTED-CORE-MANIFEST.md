@@ -111,3 +111,37 @@ f54e283e8a83fe6b57540db3b3d50299bf544f4c28f5fffa20275a8c67927170  professional-w
 
 - The earlier table and Rev.2–5 deltas describe their own objects; this table is the final candidate state. Docs-only commits after `31929b3` do not change `professional-workflow` bytes. Archive digests are commit-specific tar metadata: `31929b3` → `a45e8cba3be1f3f23de144dddbaccd87a356854017a5837f970e8018362d469f`; the final pin archive is computed in the handoff message.
 - Independent check (`ABSORB-FINAL-VERIFY.md`): references/state 6/6 PASS; 21-path set, core subtree and unchanged Backbone confirmed; the digest-table LIMIT is closed by this table. Method's final entry delta: PASS (metadata/entry only, no method/authority/gate change).
+
+## Rev.7 · final integrated identity after acceptance status sync (`9085d758848de8836a3e6e6083962480b1af42ca`)
+
+The directed Pro recheck passed at reviewed identity `16c554de8abfe16547837cbfb19d9b7707a4d4dd` / core `e5e5338ed8abc717bdda48e0f4ae751dea30dbb1` / archive `ea10803f0c29c8f147caf75652f55b2abef9f27ebecb0b1458448ccd453d34b7` (`ABSORB-PRO-RECHECK-*`, `ABSORB-FINAL-ACCEPTANCE.md`). The acceptance authorizes factual status synchronization; that changes four package files, so the final integrated object carries a new identity as the acceptance record requires.
+
+- Final integrated root tree: `27bbdfb85299d751fe0bc48e09c1dc8b545f5dcf`; core subtree: `7c814e54c5e775045bc1c5155e3c181ceb1345fb`.
+- Product-bytes commit: `9085d758848de8836a3e6e6083962480b1af42ca`; archive at that commit: `git archive --format=tar 9085d758848de8836a3e6e6083962480b1af42ca professional-workflow` = `63ac073fcdb976cb5a11bc2556036a914e82b62a7e8447e467ff8d18491d260e`.
+- Changed vs the reviewed identity: `README.md` (package status), `methods/README.md`, `methods/guide-mock-adapter-choice.md`, `methods/guide-redacted-evidence.md` — status labels/pointers only, no method meaning change; the other 17 files unchanged. Retired-name, authority and residual statements retain their accepted wording.
+
+```text
+ad1b569c62c070d989b226cfe20a8f2c61c4876c817a4e373c7bb061f908c277  professional-workflow/README.md
+01fe9a811a465786ffec8bfd931a5140663bf9f86e85fdd87e4ace9f7d351d12  professional-workflow/authority/README.md
+ce82a70016a4a3fc234ea287f39aac8d79a260ddf13747c4fb705bda580453ba  professional-workflow/authority/RESPONSIBILITY-BACKBONE.md
+3fe252aad220e77be434c2d3ee0390da79d998b6c35807c5a763a250a552fda9  professional-workflow/charters/README.md
+b159bf96323a9b89a286a5d80fdd703a1375da02467a60645e989b4903336627  professional-workflow/charters/examples/implementation-cross-module.md
+b0dff7041e7edb970d384231df5582665a8ce7765dd2833fd8ff9ff14de6d927  professional-workflow/charters/examples/implementation-local-fix.md
+8d1168ae783e5b23c9f21419ac218ac0a193d078c98cc3e856893c9e44306f9c  professional-workflow/charters/examples/technical-planning-cross-module.md
+f03cc007ff6e3c9b7a62f7fbe23953dce9ce0cc080f12fd3326d5084075a0cdb  professional-workflow/charters/template.md
+fddb1d0278c6561cfd9d70efea6f1db7f8205bbb896af60279eff6239c19d8e7  professional-workflow/methods/README.md
+25086584eb4acd9ef7d1521153f3c3c9b164f253223b1ee027fbd2276375181e  professional-workflow/methods/behavior-claim-evaluation.md
+f9d9c040a94381886fd6f01dc651d25740997cdfe6ab4436498fcf570fcb68c6  professional-workflow/methods/cross-module-design.md
+967f089fa57d7a803b6657836a1ba4610d27c60b0fe9342e96d9a268b0d7414e  professional-workflow/methods/guide-mock-adapter-choice.md
+0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335  professional-workflow/methods/guide-redacted-evidence.md
+cc8f3911125c8ec8c7b87625590dbb3ffbbd29da4c10b06e785ed1cbaa0d6348  professional-workflow/methods/local-defect-feedback-loop.md
+047a76dc62457f7b566ae98ed656f26cd32cfab86b63ad367bb2b7441df50187  professional-workflow/profiles/README.md
+43b02f332286194f562fb2e4cf5eda1c3cbf25fed743be733338709bd83d2dc0  professional-workflow/profiles/behavior-domain.md
+0703cf617940f70d532771c52629ef33ee30ae25b40aa5b358d7b5c526d775ea  professional-workflow/profiles/driver.md
+76cd77f888bba175c7644fdca1ef6ff7715b5685a00561d6cefdbbc0c7bd87d4  professional-workflow/profiles/evidence-evaluation.md
+5c4186d4efa86202a2d0f897c9f54c1e543be98378802ebc8212ae1aa6f7e564  professional-workflow/profiles/implementation.md
+f54e283e8a83fe6b57540db3b3d50299bf544f4c28f5fffa20275a8c67927170  professional-workflow/profiles/intent-voice.md
+15c751670b24434f6d9ec2ed9f3c1e164400bb844e1f88ce0b1d52424cf2b08f  professional-workflow/profiles/technical-planning.md
+```
+
+- Archive digests are commit-specific tar metadata: this pairing belongs to the product-bytes commit above. Later docs-only commits (this Rev.7 and `ABSORB-FINAL-INTEGRATION.md`) do not change `professional-workflow` bytes; the independent check verifies at the final tip: path set, per-file hashes, core subtree `7c814e54…`, this archive pairing, and unchanged Backbone `ce82a700…`.
