@@ -237,3 +237,34 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Verifier:** existing independent Flash session `tpw-night-m5-review` (`w27:pP`), a different session from the M6 coldstart author. It writes only `M6-COLDSTART-VERIFICATION.md` in the main process worktree; no verification-copy writes or commits are permitted.
 - **Dispatch:** Herdr returned `working` after the one prompt. This is a separate verifier assignment, not a new identity caused by workspace migration.
 - **Limits:** Verification is pending. No coldstart PASS, rollback PASS, M6 acceptance, or Pro audit is implied.
+
+## D-031 · Reconfirm operational locators after workspace restoration
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after Owner resumed autonomous work in the relocated workspace.
+- **Active root:** `/Users/yuantian/Developer/tim-professional-workflow/.worktrees/night-2026-10-01`, branch `night/2026-10-01-workflow`, current HEAD `dcb2933df33997f3d24d4bcd2bd3ab819b8c12fe`. The move-time HEAD recorded in `WORKSPACE-MOVE.md` remains `215454675f20fab9ef036e588fd9cb003be05a24`; it is a historical checkpoint, not the current HEAD.
+- **Current operational locators:** preservation state is under `.worktrees/state/`; M6 export, cold-start, and rollback copies are under `.worktrees/verification/tpw-m6-*`; runtime prompts use `.worktrees/runtime/tpw-night-prompts`. `STATUS.md` now points at the new active root and verification paths.
+- **Preservation/limits:** The move record reports 405 tracked/untracked file hashes, index, and dirty patch matched; this Driver re-read the move record and confirmed the actual root/branch. The three verification copies retain local Git boundaries; no copy was committed or had package bytes altered by this Driver. Old `/private/tmp` paths remain historical/compatibility locators. No anonymous `pN` pane was queried or touched.
+- **Interpretation:** This is locator maintenance under Owner authorization. It changes no package semantics, acceptance, or independent-evidence identity and does not clear or create coverage.
+
+## D-032 · Record independent PASS for the controlled-copy rollback evidence
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from `M6-ROLLBACK-VERIFICATION.md`, SHA-256 `b7c1fb5ac97bb6b624136567446b135a95fc28214517dc2910c7569b782f8e64`, against Driver evidence `M6-ROLLBACK-REPORT.md`, SHA-256 `611a41aa1dcfdb4e80f85953a55b0240a43f7b842688bf9adb39540618a6bcd5`.
+- **Fixed package:** commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; read-only scratch `/private/var/folders/vq/dk3gntzd7dz529mp_57ybgyh0000gn/T/tpw-m6-rollback-exercise-d672914/`.
+- **Result:** PASS for the rollback evidence. The reviewer matched the missing-method manifest/assembly failures, the withheld method digest, all 19 recovered manifest entries, and the recovered E-assembly digest against a fresh extraction of the fixed object. No scratch or validation-copy writes were performed during review.
+- **Observation/limits:** O1 notes an extra `restored/` package copy, byte-identical to `recovered/`. The review did not independently establish the pre-injection state, recovery action provenance, or untouched status of `.worktrees/verification` copies; it used mtimes for scratch non-modification during its window. These limits remain explicit.
+- **Scope:** This validates the controlled-copy evidence only. It does not accept M6, prove application/runtime recovery, close M3, or consume a Pro review.
+
+## D-033 · Record independent confirmation of the B/C v2 pair
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from `M3-BC-V2-REVIEW.md`, SHA-256 `675f32ded97ed90013db7eb4d0e6e6ea56fdce702f28ad1ba9e94124a303d091`.
+- **Fixed pair:** `BEHAVIOR-CONTRACT.md` v2 SHA-256 `6cf43d3fb647cf2c250f275179762917c0763a669e84f1718d85968a8e66c738`; `DOMAIN-SEMANTICS.md` v2 SHA-256 `d35766b45085db2b7e5b3315cca5ce4183f722186a850ef317fd571ebba6d45b`. Review prompt SHA-256 `c0e44544ae4b9eaf837b9ff2d919119e8028a975b82a6b8e73abf37822d8cc51` fixed the review scope.
+- **Result:** PASS for PC-1/PC-2 and preservation of the specified v1 claims. The reviewer compared the exact B/C text sections to commit `893eaf8` and recomputed the aggregate using only the seven path/hash metadata rows; no implementation, tests, D Plan, or private criteria were read. The report identifies a non-blocking Change log wording suggestion; the full Conditions themselves state the longer reopen list.
+- **Limits:** This confirms the B/C input pair within the report's scope. It does not review or accept D, authorize case-2 E, evaluate implementation, or accept M3. The author's B/C working-tree changes are not committed.
+
+## D-034 · Route the D Plan reconciliation after B/C v2 confirmation
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after the independent B/C v2 PASS.
+- **Fixed task input:** `M3-D-PLAN-RECONCILIATION-PROMPT.md`, SHA-256 `8cfc6872e9ca266a488f4bb739de94cc42d438e6788332439735bb3fefe0f9df`.
+- **Inputs:** pre-reconciliation D working candidate SHA-256 `f081c1c3e165a7ab192bb89d82957c482800feacd4cb6c1fbb114ef4719603c1`; B/C v2 hashes and independent review are fixed in D-033.
+- **Assignment/state:** `tpw-night-m3-design` (`w27:pJ`) owns only `fixtures/m3-snapshot/TECHNICAL-PLAN.md`; one post-dispatch Herdr read showed `working` at the new main work root. The task aligns B/C v2 identities/conditions, removes obsolete PC-1/R-2/U-6 blockers and E gates, aligns PC-2, preserves authority/scope limits and bounded R-9, and returns a new unfixed Plan hash.
+- **Next dependency:** once D returns the exact Plan, Driver will check the diff and route only affected Plan claims for bounded independent recheck. Case-2 E/F remains held until that sequence completes; no implementation bytes were changed by this dispatch.
