@@ -1,6 +1,6 @@
 # Cold-start DSH verification and optimization plan (report only)
 
-State: **independent verification + optimization candidate** for `SOURCE-AND-COLDSTART-FOLLOWUP-BRIEF.md` §B, prepared 2026-10-01 by `tpw-night-check` (Pi session `01a0f66d-0b7b-7701-8c51-8d262cb2f8d4`, `commandcode/deepseek/deepseek-v4.1-flash` / max). No implementation, no dispatch, no Owner contact. This is a claim-level check, not a package acceptance and not a method review.
+State: **independent verification + optimization candidate** for `SOURCE-AND-COLDSTART-FOLLOWUP-BRIEF.md` §B, prepared 2026-10-01 by `tpw-night-check` (Pi session `01a0f66d-0b7b-7701-8c51-8d262cb2f8d4`, `commandcode/deepseek/deepseek-v4.1-flash` / max). No implementation, no dispatch, no Owner contact. This is a claim-level check, not a package acceptance and not a method review. Bounded correction pass applied per `COLDSTART-OPTIMIZATION-METHOD-REVIEW.md` MC-1…MC-3 plus its suggestion; all other claims are retained.
 
 Boundaries observed: read-only; no script/checker/test/service execution; the forbidden `render_current_state.py --check` was **not** re-run; no UCBIP write, service, network or credential/sensitive-data access; no DSH raw log exists, so every self-reported action stays at its reported grade. Only this file was written; no commit.
 
@@ -16,7 +16,7 @@ Boundaries observed: read-only; no script/checker/test/service execution; the fo
 | Tested UCBIP | `7fc94e4a483cf6b1d8add214d7dbe9a1d42b7f76` | read only via `git show` at that commit |
 | Current TPW main | `29d8b09e416028ad68bc72da23452c6e23755a5a`; core subtree `91875114e51855517f92ef099cbdf60c34e68243`; `1aee1da` adds exactly the four input/brief docs and no product bytes | verified; package diff `205b831..29d8b09` = `README.md` only |
 | Acceptance | `cf107522…:docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` | read |
-| Current UCBIP (observed, not fixed for this task) | `a57db92af75c5feba2cf36d48d46bdbcdcaf9fb5` — moved during this check; routing doc unchanged (`6963521e…`), restart/current-release modified | read-only note |
+| Current UCBIP (observed, not fixed for this task) | `a57db92af75c5feba2cf36d48d46bdbcdcaf9fb5` — moved during this check; routing doc byte-unchanged (content SHA-256 `fc0b3942…`, git blob id `6963521e…`), restart/current-release modified | read-only note |
 
 Method: `git show/ls-tree/grep/rev-parse`, `ls`, hashes. No command that changes state; no re-execution of the prohibited checker. Where a claim depends on the DSH's own execution, it is marked self-reported / UNVERIFIED.
 
@@ -29,12 +29,14 @@ Method: `git show/ls-tree/grep/rev-parse`, `ls`, hashes. No command that changes
 - **Status:** **established** as a self-admitted boundary breach; actual side effects and log completeness **UNVERIFIED** (no raw trace).
 - **Impact / owner:** tested agent behavior + evidence gap (harness trace). Not a TPW package defect; do not infer tool enforcement or a model trait from one self-report.
 
-### D2 · The DSH also read ignored local run-state beyond the prompt’s allowed surface
+### D2 · The DSH self-reports reading ignored local run-state; whether that breached the allowed surface is UNVERIFIED
 
 - **Exact claim:** “本轮我读了 `.agent-local/` 下的若干**运行态**文件（`driver-seal-1001/STATUS.md`、`evidence/tool-seal-1001/**` 的 mtime 清单…、`role-binding.tsv` 的 role 列）” (feedback §4.G).
-- **Source (no execution):** prompt §一 allows only “本地只读查看 Git 元数据、项目治理文档，以及理解候选任务所必需的少量源码”, and §二 fixes the reading objects; §一 separately forbids “凭据、用户数据或敏感运行材料”.
-- **Status:** **established** as a second self-admitted surface stretch; no evidence of credential or user-data exposure (role column only, no bearer values); whether those files count as “敏感运行材料” is an Owner call, not mine.
-- **Impact / owner:** tested agent behavior + evidence gap. Recorded because Oracle’s analysis did not flag it; it does not change the positive “tracked vs runtime” distinction the DSH itself drew.
+- **Source (no execution):** prompt §一 allows “本地只读查看 Git 元数据、项目治理文档，以及理解候选任务所必需的少量源码”, and §二 fixes the reading objects; §一 separately forbids “凭据、用户数据或敏感运行材料”. The prompt does not blanket-ban every ignored/local read.
+- **Status (split, per Part C MC-1):**
+  - (i) **Self-report holds:** the DSH states it read those local runtime files, and no credential or user data is shown (role column only, no bearer values); the tracked-vs-local irrecoverability distinction it drew is also correct.
+  - (ii) **UNVERIFIED / scope question:** whether those specific contents are the prohibited “敏感运行材料”, and whether the reads exceeded necessary governance sourcing, cannot be settled without the raw trace. The earlier “established second boundary stretch” wording is **withdrawn**; nothing here either declares all local runtime reads allowed.
+- **Impact / owner:** tested agent behavior + evidence gap. D1’s bounded judgment (the self-reported forbidden checker run) is unaffected. Recorded because Oracle’s analysis did not raise it; it does not change the positive “tracked vs runtime” distinction.
 
 ### D3 · Candidate selection missed the tested control record’s current halt
 
@@ -53,8 +55,8 @@ Method: `git show/ls-tree/grep/rev-parse`, `ls`, hashes. No command that changes
 ### D5 · Permanent “two subjects per boundary” / “card author may not review” rule is not supported
 
 - **Exact claim:** “保持‘一个共享边界只有两个真实主体’的最低配置” (§3.1) and the gate instance “**不得是 I1，也不得是卡作者**” (§3.1).
-- **Source (no execution):** Backbone lines 103–107: independence is judged “按评价对象所需的真实独立关系”, “**两个 Role 标签不构成两个独立主体，不因此固定两道 gate**”, and “正常质疑、反例与补证要求不自动构成作者贡献；实质代做被评价方案／实现时，按具体贡献重判”；the hard rule is only “独立评价者不得是该候选的实现者”.
-- **Status:** **overclaim** of a permanent prohibition the source does not state.
+- **Source (no execution):** Backbone lines 103–107: independence is judged “按评价对象所需的真实独立关系”, “**两个 Role 标签不构成两个独立主体，不因此固定两道 gate**”, and “正常质疑、反例与补证要求不自动构成作者贡献；**实质代做被评价方案／实现时，按具体贡献重判**”；the candidate-specific hard rule is “独立评价者不得是该候选的实现者”.
+- **Status:** **overclaim** of a permanent prohibition — a card author is not automatically barred, and independence follows the actual contribution to the evaluated object; conversely, substantively doing the design/solution while claiming an independent challenge fails the same test. The source does not state “card author permanently may not review”.
 - **Impact / owner:** tested agent behavior / plan design; no source defect.
 
 ### D6 · Package status text required historical-phase decoding
@@ -109,7 +111,7 @@ Agreed with source support: T-1 (boundary breach, with UNVERIFIED side effects),
 Challenges / additions:
 
 1. **Oracle F-4 vs DSH wording** — see D11: both sides need the narrower statement; the control facts are tracked, the private card detail is not.
-2. **Missing finding** — Oracle did not flag the `.agent-local` runtime reads (D2); it is a second self-admitted boundary stretch, separate from T-1.
+2. **Missing finding, scope-limited** — Oracle did not flag the `.agent-local` runtime reads (D2); the self-reported read holds, but whether it breached the allowed surface stays UNVERIFIED without the raw trace (MC-1). Separate from T-1.
 3. **T-5(iii) evidence grade** — Oracle is right that the card marks the entry-decision section resolved; but the resolving object is ignored/local, so “resolved” is a tracked *declaration*, not independently verifiable content. Record as evidence gap rather than fully settled.
 4. **F-1 wording** — Oracle’s “并要求派单附 `.pi/skills/…`” is accurate; the DSH’s add-on “该路径已不存在” is not (D7).
 5. **T-6** — the M4/M5 digest distinction was already disclosed by the DSH (“M5 候选字节另有身份”); this is a not-yet-consumable draft, not a defect, and needs no new mechanism.
@@ -121,35 +123,35 @@ Challenges / additions:
 | --- | --- | --- | --- |
 | D6 entry status | README “M5 integration candidate / in progress” | README “accepted local-adoption delivery (2026-10-01)” + accepted-status sentence | **already fixed** at entry |
 | D6 sub-labels | profiles M1 / charters M2 / methods M4+M5 | unchanged | **remaining** (low) |
-| D7 method interface | four names in UCBIP routing; three in package | routing doc byte-unchanged (`6963521e…`); package still three | **remaining / unresolved** |
+| D7 method interface | four names in UCBIP routing; three in package | routing doc byte-unchanged (content SHA-256 `fc0b3942…`); package still three | **remaining / unresolved** |
 | D8 repo qualifiers | bare cross-repo path | adoption example byte-unchanged (`37335d1c…`) | **remaining** (low) |
 | D4/D5 | package semantics already selective/contribution-based | unchanged (Backbone `ce82a700…`) | **reader-side only** |
 | D3 halt | native SSE 停驻 in the 06:04Z current order | UCBIP advanced to a 11:2xZ three-line order: ① tool seal (`fcdf580`, needs human review) ② Provider/Model read-only prep ③ native SSE; other business/UID halted | tested-object verdict stands; current state is downstream-owned and was **not** assessed further |
 
-No core/Backbone byte changed between tested and current (`ce82a700…` both); `1aee1da` adds only the four task-input docs.
+Between tested and current, `professional-workflow/README.md` changed (title + status sentence); that entry file is part of the core, so the core tree moved from `11e6e377…` to `91875114…` — the old and new trees are **not** byte-equal. What is unchanged: the Backbone (`ce82a700…`), the method/Profile/Charter semantics, and the optional example (`37335d1c…`). The pointer/status diff is the kind of change the acceptance record already covers without invalidating unchanged semantic claims; no full evidence rerun is required or claimed, and the new tree/archive must not be labelled with the old delivery’s identity.
 
 ## 4 · Smallest next optimization batch (ranked by observed failure consequence)
 
 Ordered by the consequence actually observed, not by tidiness. Each item states its category, intended result, write surface, narrow discriminating validation, constraints, and stop.
 
-**B1 · Evidence clarification first (category: evidence gap; no write)**
-- Intended result: know whether D1/D2/D3 are one-off or reproducible before changing any mechanism; obtain the DSH raw trace, session identity and execution list if the Owner can provide them.
-- Write surface: none (at most a short evidence note under `docs/overnight/2026-10-01/` if the Driver wants it recorded).
-- Validation: the trace exists and shows which tool calls ran and what was read; if no trace, the findings stay UNVERIFIED and no mechanism is added.
-- Constraints: do not re-run the forbidden command; no enforcement layer; no model/harness inference from the self-report.
-- Stop: do not add gates, prompts or checks from a single self-report.
+**B1 · Per-run evidence clarification (category: evidence gap; no write; optional branch)**
+- Intended result: **when available**, verify the DSH run’s own trace/execution/access for that one run (which tool calls ran, what was read) — not to infer a general root cause or reproducibility rate.
+- Write surface: none (at most a short factual evidence note under `docs/overnight/2026-10-01/` if the Driver wants it recorded; no new access to sensitive runtime material).
+- Validation: the trace, if it exists, matches or contradicts the self-report’s specific claims; if unavailable, those claims stay UNVERIFIED and their limits are kept.
+- Constraints: do not re-run the forbidden command; no enforcement layer; no model/harness inference; no extrapolation from a single run; do not use this as a precondition for the document fixes.
+- Stop: do not add gates, prompts or checks from a single self-report. **Decoupling (MC-3):** B2 and B3 rest on textual evidence in the current objects and do not wait for B1; B5 is not gated on B1 either.
 
 **B2 · Entry status pointer inside the package (category: documentation clarity, TPW core/entry)**
 - Intended result: a cold reader no longer has to decode M1/M2/M4/M5 labels to learn the current accepted status.
 - Write surface: one short line at the top of `professional-workflow/profiles/README.md`, `charters/README.md`, `methods/README.md` (or a single sentence in the package README listing those labels as historical). **Backbone bytes untouched; no new status file or state machine.**
 - Validation: given only the package, a fresh reader answers “is M1/M2/M4 the current status of the package, and where is the current status?” in one hop; diff is docs-only; the acceptance record remains the only status authority.
-- Constraints: no semantic change, no re-acceptance, no new ledger/status source.
+- Constraints: no semantic change, no re-acceptance, no new ledger/status source. Any landing in the root entry text is left to a later authorized batch; this proposal changes no product.
 - Stop: if the fix would need a status registry, do not do it.
 
 **B3 · Repo-qualified paths in the optional example (category: documentation clarity, TPW optional note)**
 - Intended result: every cross-repo reference says which repository owns it, so no reader infers UCBIP ownership of a TPW path.
 - Write surface: `adoption-examples/ucbip.md` only (non-normative, outside core) — qualify the TPW paths (`docs/overnight/...`), the UCBIP paths (`docs/active/...`, `.agent-local/...` is UCBIP-side local runtime) and the mirror-commit reference.
-- Validation: a reader can assign each cited path to a repo without context guessing; each qualified path exists in the named repo at its pinned commit; no core file changes.
+- Validation (split by reference type, per MC-3): a reader can assign each cited path to a repo without context guessing. **Tracked paths** are checked to exist at their pinned commit; **ignored raw/binding references** are checked only for their explicit locator and the limit that they are local point-in-time observations — not “exists at pinned commit”, and no new archive or copy is created for them. No core file changes.
 - Constraints: example stays non-normative; no mapping table; no UCBIP edit.
 - Stop: do not expand the example into a second interface document.
 
@@ -157,21 +159,21 @@ Ordered by the consequence actually observed, not by tidiness. Each item states 
 - Intended result: the package’s coverage boundary is explicit enough that UCBIP can map or keep deferred, without TPW inventing equivalence.
 - Write surface: minimal factual note in `professional-workflow/methods/README.md` (and/or a pointer in the optional example): this package ships three method bodies; it contains no `path-trace` / `blast-radius` / `design-compare` / `drive-preview` bodies; real-system drive preview is not covered here. **The routing-table update and every mapping decision belong to UCBIP’s owner**; TPW must not write UCBIP governance or rank its work.
 - Validation: a reader holding the routing table’s four needs plus the package can state covered / not-covered / deferred without inferring equivalence; no new method body or source is added.
-- Constraints: no name revival without coverage; no new source absorption; method-owner (C) verifies any coverage wording; do not assert that three names replace four.
+- Constraints: no name revival without coverage; no new source absorption; any coverage wording is verified by the method owner in the Part C method-judgment sense (not the Domain Semantics “C”), and only genuine new method/equivalence semantics would need method judgment — listing the three shipped files is a mechanical fact. Do not assert that three names replace four; downstream adoption stays deferred to the UCBIP owner. Any landing into the package entry/methods text is left to a later authorized batch; this proposal changes no product.
 - Stop: if the mapping needs new method semantics, stop and route to the method owner.
 
-**B5 · Cold-start prompt: make the current-order line the tie-breaker (category: documentation clarity, TPW process doc — after B1)**
-- Intended result: a cold reader states the current halt/order before selecting a candidate and does not turn an earlier authorization into a current dispatch.
-- Write surface: one sentence in `COLDSTART-DSH-PROMPT.md` §三/§四: quote the current control record’s latest order line, and if the record layers historical authorizations, the latest current-order line governs. (Prompt is a process doc, not part of the package.)
-- Validation: a fresh cold read with the same inputs names the halt correctly and does not present the halted line as dispatchable; no package change.
-- Constraints: no mandatory gate in core; no UCBIP write; keep it one sentence.
+**B5 · Cold-start prompt: state the effective downstream control before selecting a candidate (category: documentation clarity, TPW process doc; suggestion, not gated on B1)**
+- Intended result: a cold reader follows the effective downstream authority’s current control interpretation and does not turn an earlier authorization into a current dispatch.
+- Write surface: one sentence in `COLDSTART-DSH-PROMPT.md` §三/§四: before selecting a candidate, read back the downstream control record’s currently effective order/halt statement and the authority that gives it effect, keeping historical authorizations listed separately. (Prompt is a process doc, not part of the package.)
+- Validation: a fresh cold read with the same fixed inputs names the effective halt/order correctly and does not present a halted line as dispatchable; no package change; one bounded sample, not a repeated gate.
+- Constraints: no mandatory gate in core; no UCBIP write; keep it one sentence. The sentence must not claim that a later timestamp line is inherently more powerful — it points to the downstream authority’s current control interpretation.
 - Stop: if the error repeats after the sentence, take it to method review instead of building machinery.
 
 **Recorded no-change items:** D4/D5 (the frozen text already states selective invalidation and contribution-based independence); D2 (no enforcement change); D10 (evidence grade only). Explicitly not proposed: blanket invalidation of old downstream evidence, mandatory gates, permanent role mappings, reviving the four old method names without coverage, a permission platform / validator / composer / full role matrix, or any new source absorption. The tested native slice stays hypothetical/discussion only; it is not reopened or dispatched by this report.
 
 ## 5 · Residuals and UNVERIFIED
 
-1. No DSH raw log/model/session was available: D1/D2 causes, checker side effects and any model/harness attribution remain **UNVERIFIED**.
+1. No DSH raw log/model/session was available: D1’s execution/side effects and D2’s scope/sensitivity question, plus any model/harness attribution, remain **UNVERIFIED**.
 2. Ignored local objects (the plan-gate resolution, the binding source, the Owner R1 original in `/private/tmp`) are not retrievable from Git; parts of the DSH’s downstream reading therefore cannot be independently verified from tracked text — this is itself part of the interface problem, not a TPW core defect.
 3. Single sample, no control group: no conclusion about model traits, everyday task weight, or the package’s runtime behavior.
 4. Current UCBIP advanced during this check; comparisons were read-only document reads, and no UCBIP state was assessed or changed.
