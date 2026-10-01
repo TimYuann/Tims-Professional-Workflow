@@ -268,3 +268,18 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Inputs:** pre-reconciliation D working candidate SHA-256 `f081c1c3e165a7ab192bb89d82957c482800feacd4cb6c1fbb114ef4719603c1`; B/C v2 hashes and independent review are fixed in D-033.
 - **Assignment/state:** `tpw-night-m3-design` (`w27:pJ`) owns only `fixtures/m3-snapshot/TECHNICAL-PLAN.md`; one post-dispatch Herdr read showed `working` at the new main work root. The task aligns B/C v2 identities/conditions, removes obsolete PC-1/R-2/U-6 blockers and E gates, aligns PC-2, preserves authority/scope limits and bounded R-9, and returns a new unfixed Plan hash.
 - **Next dependency:** once D returns the exact Plan, Driver will check the diff and route only affected Plan claims for bounded independent recheck. Case-2 E/F remains held until that sequence completes; no implementation bytes were changed by this dispatch.
+
+## D-035 · Preserve the reconciled D Plan candidate against B/C v2
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from the completed D author task.
+- **Candidate:** `fixtures/m3-snapshot/TECHNICAL-PLAN.md`, SHA-256 `bb8afeb1d7519cac8926e1553f30e83590b8fb0504f120120c09cd916e0823d3`. It identifies B v2 `6cf43d3f…`, C v2 `d35766b4…`, and the B/C review PASS `675f32de…`; it reconciles prior Plan challenge PC-1/PC-2 and records the remaining R-9 provenance item as bounded.
+- **Observed disposition:** the old in-scope source-byte PC-1 gate and §5/§6 implementation gate are withdrawn; B/C v2 inherited-acceptance conditions and remaining semantic/scope reopen triggers are described. The path-order aggregate recipe replaces the locale explanation; R-10 is marked closed. Plan text still states that this revision is unreviewed, D acceptance is outstanding, and the reconciliation itself gives no implementation authority.
+- **Limits:** This is a working candidate, not accepted Plan. No case-2 implementation or test bytes were changed. The affected-claim method recheck and D owner's explicit Plan acceptance remain outstanding before E dispatch.
+
+## D-036 · Dispatch affected-claim recheck for the reconciled D Plan
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after fixing the exact Plan and review inputs.
+- **Fixed Plan:** `TECHNICAL-PLAN.md`, SHA-256 `bb8afeb1d7519cac8926e1553f30e83590b8fb0504f120120c09cd916e0823d3`.
+- **Fixed task:** `M3-SNAPSHOT-PLAN-V2-RECHECK-PROMPT.md`, SHA-256 `e40851d9b43b55ae2ea90d0f6e0853fb157b7b639143ee03f1191403875ec000`; the task is limited to PC-1/R-2 resolution, PC-2/R-10 closure, and any materially affected claim, without repeating unchanged PC-3/PC-4 coverage.
+- **Reviewer/state:** `tpw-night-method` (`w27:pG`), independent of D, was `idle` at dispatch and a single post-dispatch read showed `working` in the restored main work root. Its only write is `M3-SNAPSHOT-PLAN-V2-RECHECK.md`.
+- **Limits/next:** This is a challenge only, not Plan acceptance or E/F authorization. After its result, D must record whether it accepts this exact Plan within its delegated responsibility; Driver then continues case-2 E/F only if the relevant statuses permit it.
