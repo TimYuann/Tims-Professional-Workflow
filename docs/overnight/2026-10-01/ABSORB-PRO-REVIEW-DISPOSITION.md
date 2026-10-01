@@ -1,0 +1,36 @@
+# Oracle disposition · one Pro review of deep-absorption assessment
+
+State: **RETURN accepted; core landing remains closed.** Owner authorized this absorption-phase Pro once; consumed **1/1**, separate from the completed overnight 2/2. Actual conversation: https://chatgpt.com/c/6abe6b24-fac8-83e8-8bab-dc3fa3208435. Full response is preserved in `ABSORB-PRO-REVIEW-RESPONSE.txt/.json`; question and budget/events are `ABSORB-PRO-REVIEW-REQUEST.txt` / `ABSORB-PRO-REVIEW-RECORD.tsv`.
+
+## Exact reviewed objects and evidence scope
+
+A/B pin `0c6b11c18ba0eb35858747f61566585527b05308`, root tree `0788467d485ec967a5271764ed26bfc8b8ba76bc`; method addon `0b821ae0e5f9d6c0d07c4fd0f29c04c38e9d49e4` adds only the independent check, SHA256 `7e73c366eb671455f5a7ea1d56b7792988523ef49ae23cf4a402cd7aa94b2444`. Oracle remote readback MATCH before submission. Core remains `91875114e51855517f92ef099cbdf60c34e68243`.
+
+Oracle mechanically checked A path sets/duplicates against the three pins: 208+863+169=1240 MATCH. B183 label counts match 50/55/70/8 and 37/39/64/39/4. These establish accounting and label statistics, **not** substantive coverage correctness or reading history.
+
+Pro read all B183 rows, all 146 adjudication candidates, three A headers, plan, independent addon and all 19 core files. It fully read 74 A records (not1240) and 14 upstream source files plus one partial, chosen by load-bearing risks; no random error-rate claim. It did not rerun upstream manifests/hashes or execute hooks/services/tests. Its result is static source/core review, not model-log proof or runtime effectiveness. UI displayed 6 Pro/GitHub connector, actual persistent conversation and completed response were observed; no extra question was sent.
+
+## Findings adopted by Oracle (not a new framework)
+
+1. **Restore source meaning.** AUTH-27: Matt ADR default is title + one-to-three sentences, heavier sections optional under stated writing conditions; separate Addy versus Matt contributions. BHV-10: CONTEXT is glossary-only, not a prohibition of glossary-only. A2 orchestrate: cursor-sdk skill exists at the pinned repository; availability in the runtime is a separate claim.
+2. **Restore exact coverage objects.** DES-14 additive preference is conditional compatibility, not no-deletion; DES-23 incremental-compilation default is not currently adopted. ORC-07 adviser invocation does not equal independence proof; AUTH-07 attribution to Matt ADR0001 is wrong. Voice/Charter already carry decision/input/condition/authority material. AUTH-04's concern-axis rule may be covered even though CONC-01 operational safety detail is missing. Compare one defined mechanism at a time.
+3. **Downgrade overclaimed completion.** 175 filled comparison labels do not jointly prove substantive source assessment. First R-tag count25/7/7 differs from the report27/12/0; neither establishes complete original/support reading. Keep actual source/section read qualifications, not arbitrary rank math. Correct the covered50/no-change summary, source-combination bucket count and79×6 wording; preserve pending and not-assessed separately.
+4. **Apply adoption prerequisites to substance, not the verdict label.** A narrow/replace that removes or changes professional content needs the same source grounding as adopt. Scope deferral may be retained without exhaustive implementation reading; unread professional-value rejects/edits remain exploratory. DES-24/DBG-06 need explicit recoverable source/support pointers.
+5. **No authority created by knowledge.** Remove DES-20 “authorize future checks”; restore encode-lessons' legitimate judgement/documentation/counterexample branch. No new state machine/ADR file/checklist/validator merely because a source contains one. Do not discard useful language examples before reading them solely for brevity.
+6. **C1–C6 consumption limits.** Keep loci unordered; reading labels self-reported; related files inform grouping but not proof; duplicated bytes do not erase different contexts. Separate textual coverage, static source design and actual runtime enforcement; no requirement to execute every upstream to evaluate its knowledge.
+
+A discovery tables and accepted Backbone/core are not globally invalidated. Preserve original fixed candidates and reviews in Git. This review does **not** certify all1240 source contents, all183 coverage rows, all146 candidates or actual use effectiveness.
+
+## Driver: bounded follow-up within the authorized assessment/candidate scope
+
+Do not write accepted `professional-workflow/`, do not merge methods into the active core, and do not publish or change UCBIP. Pro proposes two **draft** directions, not landing authority.
+
+- Preserve Oracle four evidence files plus this disposition through normal serial integration; do not treat the record/response existence as PASS or permission.
+- Return one bounded source/analysis correction task to the B author (separate A author fixes only the one real A orchestrate fact). Read back the named original bodies/support materials and current text to correct the explicit findings above and method MCAL-1..4. Correct affected rows/reasons/stats/qualifications; keep unrelated unassessed views provisional rather than pretending the entire assessment is closed. No full A rescan, no indiscriminate all-row invalidation, no second Pro.
+- Candidate drafting may proceed only as **non-active docs/overnight draft artifacts**, with explicit write sets: DBG-05 (redacted evidence preserving diagnostic signal; sensitive artifact custody; HITL step vs capture) and DBG-16 (mock/adapter choices across true external, owned remote, local substitute and private seams). Re-read all relevant fixed sources and necessary supports before drafting; include one discriminating example/counterexample each. These are professional-knowledge candidates for review, not adopted methods, new authority, generators or mandatory gates. Do not silently turn them into active method edits.
+- Method gives one affected-claim static review of the corrected evidence and two drafts, separating source fidelity, current coverage, engineering detail and proposed changes. No whole-repository review or fresh identities merely to restart a loop. Unresolved substantive conflict is a milestone question, not infinite retry.
+- Deliver a concise fixed-object milestone: corrected source claims and provisional status counts, actual read set/remaining source work, draft identities, method disposition and preserved core identity. Then wait for Owner/Oracle to decide any actual landing envelope. Report correction/candidate development falls within this assessment return; actual core landing still requires its separate effective authorization.
+
+## Stop / residuals
+
+No more Pro request, no broad new scan or extra knowledge catalogue solely for completeness, no old routing-name revival, no upstream mutation, no tests/payments/hook/runtime operation to prove source knowledge, no main remote push/tag/release/force-push/UCBIP action. Static data/candidate work only, local owned commits and FF report integration allowed. Runtime strength/effectiveness, other unassessed source families, historical read actions and all downstream adoption remain limited or UNVERIFIED as stated.
