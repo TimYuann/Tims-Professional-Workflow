@@ -66,3 +66,13 @@ Not performed: the renderer's own `--check` (a read-only script, but executing i
 - Downstream role bindings are recorded as read, not endorsed or extended. This file grants nothing.
 - No UCBIP-side owner reviewed this index; recall path in §A applies — if a downstream owner finds a
   mismatched object, the affected item stops and goes back to the Driver.
+
+## Errata · R2 (appended 2026-10-01; the original sections above are preserved unchanged)
+
+Check 3 states that "every path in the table above is in `git ls-files` at HEAD". That blanket claim
+applies only to the **tracked document/source paths** in the index. It does not extend to the ignored
+runtime source (`.agent-local/driver-0922/role-binding.tsv`): that source is excluded from the claim,
+and its recorded path/digest/`as-of` are this batch's local point-in-time observation, not something
+promised as retrievable from commit `7fc94e4a…`. Check 2's byte match still holds as a local
+observation of the file at read time. This correction creates no archive, no ledger row and no
+tracked copy.

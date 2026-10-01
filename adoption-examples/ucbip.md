@@ -20,6 +20,11 @@ bind them again.
   an index, not the downstream ledger and not a second status board.
 - The read was documentation-only: no UCBIP write, service, test run, network, product data or
   credential access, and the downstream state checker was not executed.
+- **Retrieval boundary (R2).** Tracked documents and generated projections cited here are retrievable
+  at commit `7fc94e4a…`. The ignored binding source and any other runtime raw are **not**: their
+  recorded path, digest and `as-of` are this batch's local point-in-time observation only, and this
+  example makes no promise that they can be recovered from the commit. A future adoption must re-read
+  the then-effective binding from its own live source.
 
 ## Who owns what
 
@@ -30,7 +35,7 @@ bind them again.
 | `main` writes | downstream **Integrator slot** (`writer` in the binding source); single writer, serial merge |
 | Node state | each task card's `CARD-STATE` block (the one hand-written state per node) |
 | Entry / generated projection | three generated regions across two files — `current-entry` in `docs/active/current-release.md` `## Now`, and `role-binding` + `dag-table` in `docs/tasks/2026-09-19-multi-agent-restart.md`; refreshed by `scripts/render_current_state.py`, never hand-edited |
-| Role-to-session binding | `.agent-local/driver-0922/role-binding.tsv` (ignored, Driver-owned) + pointer and `as-of` in the tracked entry |
+| Role-to-session binding | `.agent-local/driver-0922/role-binding.tsv` (ignored, Driver-owned) + pointer and `as-of` in the tracked entry. The pointer and `as-of` are tracked; the source itself is a **local point-in-time observation** of this batch, not retrievable at `7fc94e4a` (R2) |
 | Raw evidence / sanitized receipts | `.agent-local/evidence/<flow>/` + a row in `docs/evidence-ledger.md`; receipts in `docs/receipts/2026/` |
 | Product behavior | `docs/active/stable-v1-product-contract.md` |
 
@@ -82,21 +87,27 @@ Independence:       author only. Independent check by a separate instance (tpw-n
                     author must not record a self-PASS.
 Recall:             missing/ambiguous target or denied access → record the fact and its impact, stop
                     that item, report to the Driver; do not invent authority.
-Acceptance:         Oracle owns package/downstream acceptance; the note stays optional and
-                    non-binding. Downstream landing, if a future UCBIP task is authorized:
-                    phase → the card's CARD-STATE; sanitized result → one docs/receipts/2026/
-                    receipt; raw → .agent-local/evidence/<flow>/ plus one
+Acceptance:         TIM Oracle accepts only this TIM-side adaptation-preparation artifact and the
+                    local-adoption delivery; UCBIP adoption, task acceptance, action authorization
+                    and closure remain with the responsibility designated by the effective
+                    downstream delegation. No downstream acceptance occurred in this run. The note
+                    stays optional and non-binding. Downstream landing, if a future UCBIP task is
+                    authorized: phase → the card's CARD-STATE; sanitized result → one
+                    docs/receipts/2026/ receipt; raw → .agent-local/evidence/<flow>/ plus one
                     docs/evidence-ledger.md row; accepted current facts → the owning tracked
                     document, written in the same integration batch by the Integrator slot
                     (main single writer).
 ```
 
-**Sanitized result and retrievable raw index.** The result is the tracked readback
-(`PW-01-UCBIP-READBACK.md`, paths and digests only, no secrets). The raw index is the downstream
-objects themselves, retrievable by querying the recorded commit `7fc94e4a…` — this batch therefore
-creates no copy, no archive and no second ledger. A future UCBIP-side task would instead land its raw
-bytes under `.agent-local/evidence/<flow>/`, add one `docs/evidence-ledger.md` row, and keep at most
-one sanitized `docs/receipts/2026/` receipt per flow.
+**Sanitized result and retrievable raw index (R2).** The result is the tracked readback
+(`PW-01-UCBIP-READBACK.md`, paths and digests only, no secrets). Retrievability splits in two:
+**tracked documents and generated projections** are retrievable at commit `7fc94e4a…`; the **ignored
+binding source and other runtime raw** are a local point-in-time observation of this batch — recorded
+with their path, digest and `as-of`, but not promised to be recoverable from the commit. This batch
+therefore creates no copy, no archive and no second ledger; a future adoption must re-read the
+then-effective binding. A future UCBIP-side task would instead land its raw bytes under
+`.agent-local/evidence/<flow>/`, add one `docs/evidence-ledger.md` row, and keep at most one
+sanitized `docs/receipts/2026/` receipt per flow.
 
 ## Future embodiment (placeholder — not authorized)
 
@@ -128,8 +139,12 @@ row for evidence, generated entry for visibility. Until then this block is a pla
 
 - Not an authorization, role binding or write window; the bindings read above are observational and
   are not extended by this file.
-- Not a second state source: UCBIP's unique control record and `## Now` entry remain the only current
-  state, and its ledger remains the only evidence index.
+- Not a second state source. Downstream, the **hand-written state sources** are each card's
+  `CARD-STATE` block and the Driver-owned binding source; the **generated entry and projections**
+  (`## Now` / `current-entry` in current-release, and the `role-binding` + `dag-table` regions in the
+  restart card) hold no state of their own and are refreshed from those sources by
+  `scripts/render_current_state.py`. UCBIP's control record and generated entry remain its only
+  current-state route, and its ledger its only evidence index; this file adds none.
 - Not a precedent for importing a second ledger. UCBIP's own drift audit already records the counter-
   example: a prior TIM cold-start trial (`72ac591`, not on `main`, not contained in any branch) added
   `docs/decision-ledger.md` inside `docs/` and was flagged exactly because it created a competing

@@ -58,3 +58,14 @@ Delegation: Owner 2026-10-01 direction (bounded Flash write sets, serial Driver 
 ## Driver integration (this batch)
 
 Driver serial integration: verify diffs, update `STATUS.md` old state, commit in-batch changes locally, compute the new core manifest and the optional/outside artifacts list, and hand the fixed commit/tree, manifest, evidence, residuals, and exact unverified points to Oracle for Pro slot 2. No push by this Driver; Oracle pushes and reads back as needed. No main/tag/merge/force-push/release/UCBIP/archive action.
+
+## Errata · R1 (appended 2026-10-01; the original §A text above is preserved unchanged)
+
+§A's acceptance sentence "Oracle owns package/downstream acceptance; the note stays optional and non-binding" is corrected per Pro audit 2 (`PRO-AUDIT-2-DISPOSITION.md`):
+
+- TIM Oracle accepts only the TIM-side adaptation-preparation artifact and the local-adoption delivery.
+- UCBIP adoption, task acceptance, action authorization and closure remain with the responsibility designated by the effective downstream delegation.
+- No downstream acceptance occurred in this run.
+- The note stays optional and non-binding.
+
+This errata records the correction; it does not rewrite the dispatch as though the original sentence was correct at execution time.

@@ -163,3 +163,41 @@ at their cited locations. The other Check 1 limits (product-behavior row verifie
 only; sampled-not-read bounds) and all §C unresolved items other than these three are unchanged and
 were intentionally not re-checked. This re-verify adds no new acceptance claim; Oracle still owns
 acceptance.
+
+## Differential re-check · R1/R2 (2026-10-01, tpw-night-check)
+
+Bounded differential re-check of exactly the four working-tree modifications requested after Pro 2
+(`PRO-AUDIT-2-DISPOSITION.md`, R1/R2). No whole-package re-qualification, no M3 rerun, no renderer
+`--check`, no commit. At check time all four were uncommitted changes against `05f4bbb`; the SHA-256
+values below are the exact bytes this verdict covers (the three earlier fixes remain intact at
+`adoption-examples/ucbip.md` lines 21 / 37 / 66).
+
+Fixed-object identity:
+
+| File | SHA-256 (working tree) | Diff vs `05f4bbb` |
+| --- | --- | --- |
+| `adoption-examples/ucbip.md` | `37335d1c7245e30a10d7c74b8c33a0a74b5c4f7fd3d1c64e7e65f93894a62fce` | 28+/13−, confined to the four authorized zones (R1 Acceptance, R2 retrieval boundary, R2 sanitized/retrieval paragraph, state/projection clarification) |
+| `docs/overnight/2026-10-01/PW-01-DISPATCH.md` | `37aa265903aec355dc3cb83ad52affc021f74d437767a8e30ab7adc9f1212654` | 11+/0− append-only (Errata · R1) |
+| `docs/overnight/2026-10-01/PW-01-UCBIP-READBACK.md` | `83a54d0b2cf0f713ad12b74c2d22a426808d4da2bcbc586bbb65674488735ce5` | 10+/0− append-only (Errata · R2) |
+| `docs/overnight/2026-10-01/M6-PACKAGE-CANDIDATE-05f4bbb.md` | `9845bfbe896c73b0d0a90489afb263f8a6a7d7916766523a18eff7e483e6eb06` | 4+/0− append-only (manifest correction) |
+
+Per-item verdicts:
+
+| # | Check | Evidence | Result |
+| --- | --- | --- | --- |
+| R1-a | The optional note no longer assigns downstream acceptance/authorization to TIM Oracle or this run | Acceptance field now reads exactly the disposition's R1 text: TIM Oracle accepts only the TIM-side adaptation-preparation artifact and the local-adoption delivery; UCBIP adoption, task acceptance, action authorization and closure stay with the effective downstream delegation; no downstream acceptance occurred in this run. Grep shows no residual “Oracle owns package/downstream acceptance” in the note (remaining `Oracle` mentions are the delegation source and the recorded acceptance-file hash) | **PASS** |
+| R1-b | Historical dispatch corrected by errata, not rewritten | Append-only +11/−0; the errata quotes the original §A sentence, substitutes the TIM-only acceptance scope, names the downstream owner, states no downstream acceptance, and explicitly says it does not rewrite the dispatch as if the original had been correct | **PASS** |
+| R2-a | Ignored binding/runtime raw no longer promised as commit-retrievable; future re-read required | New “Retrieval boundary (R2)” bullet, amended ownership row, and rewritten “Sanitized result and retrievable raw index (R2)” paragraph split tracked documents/projections (retrievable at `7fc94e4a…`) from the ignored binding source and other runtime raw (local point-in-time observation; path/digest/`as-of` kept, recovery **not** promised; future adoption must re-read the then-effective binding); still declares no copy, no archive, no second ledger | **PASS** |
+| R2-b | Readback check-3 blanket claim narrowed, original assertions preserved | Append-only +10/−0; Errata · R2 quotes check 3's “every path in the table above is in `git ls-files` at HEAD”, limits it to tracked document/source paths, excludes the ignored runtime source, keeps check 2's byte match as a local observation, and states the correction creates no archive, ledger row or tracked copy | **PASS** |
+| H | Historical files not rewritten | `git diff --numstat` gives pure appends for the three errata files (4/0, 11/0, 10/0); each correction header says the original text is preserved unchanged; the note's body diff touches only the four authorized zones | **PASS** |
+| S | Status source vs generated projection distinguished correctly | New bullet: hand-written state sources are each card's `CARD-STATE` and the Driver-owned binding source; generated entry/projections (`current-entry` in current-release; `role-binding` + `dag-table` in the restart card) hold no state of their own and are refreshed by `scripts/render_current_state.py`. Matches readback families 3/4/5 and current-release:61 (“one hand-written place, three generated regions”) | **PASS** |
+| N | No new archive or ledger | `git status --short` shows only the four modified files plus pre-existing untracked `scan.js`; `adoption-examples/` still contains only `ucbip.md`; both errata and the note disclaim archive/ledger creation | **PASS** |
+| M | M6 manifest correction accurate | Original sentence at line 63 preserved; correction appended at line 74; the quoted stale claim exists verbatim; the fixture README did receive exactly +4/−0 lines in `e9c0c99` and sits outside `professional-workflow/`, so the core 19-file manifest and the package-only archive (`git archive … professional-workflow`, lines 11–12) are unaffected | **PASS** |
+
+Reference spot-checks supporting R2: `role-binding.tsv` digest is still `83572fd4…dc644b`, matching readback check 2's recorded value — cited here only as the local observation the note now describes, not as commit retrievability. `PRO-AUDIT-2-DISPOSITION.md` exists (the errata's reference resolves).
+
+Limits:
+
+- `PW-01-DISPATCH.md` line 26 still carries the original mis-attribution by design; a reader who stops at §A without the appended errata still sees the superseded sentence.
+- The M6 candidate's optional/outside digest table remains pinned to `05f4bbb`, so it is stale for the current working tree — including this review file — until the Driver records the corrected identity at commit time (disposition §31 assigns that to the Driver's final report).
+- Differential scope only: no whole-package or M3 re-check, renderer `--check` not executed, no acceptance given. Oracle owns acceptance.

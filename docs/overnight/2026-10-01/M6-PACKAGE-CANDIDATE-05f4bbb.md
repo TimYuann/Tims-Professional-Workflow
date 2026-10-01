@@ -68,3 +68,7 @@ Two self-describing records are added after this fixed object (`M6-PACKAGE-CANDI
 - M6 remains unaccepted. This revision waits for Oracle push/readback and the second Pro slot.
 - No application/runtime/deployment/recovery claim; the optional note is non-binding, preparation-only, and was not reviewed by a downstream UCBIP owner.
 - No `main`, tag, merge, force-push, release, archive, or UCBIP change occurred; UCBIP HEAD stayed `7fc94e4a483cf6b1d8add214d7dbe9a1d42b7f76` with only its two pre-existing untracked HTML exports.
+
+## Manifest correction (appended 2026-10-01; the original sentences above are preserved unchanged)
+
+The "In-package reference and inherited evidence" sentence "No method, Profile, Charter-template, fixture, or Backbone byte changed" is narrowed here: the M3 fixture README `docs/overnight/2026-10-01/fixtures/m3-snapshot/README.md` did receive the §B case-2 adoption append (+4 lines), so its bytes changed. The fixture's contract, code and tests were **not** changed. The core 19-file manifest above and the archive digest are unaffected, since the fixture README is outside `professional-workflow/`.
