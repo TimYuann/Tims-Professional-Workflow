@@ -6,7 +6,7 @@
 ## 1 · Fixed inputs and denominator
 
 - Three repos read-only at pins: `addyosmani-agent-skills` `2686b620…`; `cursor-plugins` `ecc249f1…`; `mattpocock-skills` `c55ee460…`. Locator root: `.worktrees/legacy-pre-night-2026-10-01/upstreams/`. Articles are excluded from this denominator.
-- **Denominator is rebuilt from the fixed Git pins** (`git ls-files` union; verified today: 208 + 863 + 169 = **1240**). No second 1240 list file is required: the final index is the single per-path record, and its header records each repo pin, per-repo count and listing digest — that is what "frozen baseline" means. Reconciliation failure is the only case that opens a separate listing.
+- **Denominator is rebuilt from the fixed Git pins** (`git ls-tree -r <pin>` direct; if `ls-files` is used, first show HEAD/index equal the pin; verified today: 208 + 863 + 169 = **1240**). No second 1240 list file is required: the final index is the single per-path record, and its header records each repo pin, per-repo count and listing digest — that is what "frozen baseline" means. Reconciliation failure is the only case that opens a separate listing.
 - Composite key = **repo + path**; every path is accounted once even when content identity is shared. Assets, scripts and binary files are accounted too, without inventing a read depth and without devaluing them by extension or packaging label.
 
 ## 2 · A · per-path screen: source mechanism / responsibility loci / related materials
@@ -27,10 +27,12 @@
 
 ## 4 · Accounting vs assessment completion, tails and closure
 
-- Two completion statements are reported **separately** and neither stands for the other: (1) path accounting 100% (every baseline path has an index record); (2) substantive coverage assessment completion (every mechanism group has a coverage state with basis). Neither implies adoption.
-- **not-yet-judged is honestly retained** with its reason and re-query entry, and does **not** count as assessment closed.
+- Two completion statements are reported **separately** and neither stands for the other: (1) path accounting 100% (every baseline path has an index record); (2) substantive coverage assessment completion, counted only from **confirmed** states (covered / partially covered / not covered, each with basis). Neither implies adoption.
+- `pending-check` is an honest phase result: it keeps what is missing and the reason, but it is **not** counted as a confirmed coverage state and does not increment the assessment-completion count. `not-yet-judged` likewise does not count as closed.
+- Reports list these buckets separately: confirmed covered / partially covered / not covered; pending-check; not-assessed. A report may not claim substantive coverage assessment complete merely because every row carries a label.
+- If the phase is actively stopped, it is delivered as a phase result with residuals or an explicit deferral — never as "pending closed".
 - Group-level non-method or deferral dispositions must state scope reasons, in-group exceptions, related text and exclusion reasons; a group cannot be left entirely unjudged while "full assessment closed" is claimed.
-- Coverage closure criterion: every mechanism group reaches one of the four coverage states with an evidenced basis, and every path sits in such a group; any group left pending keeps a reason and an owner-facing re-query entry. No fabricated percentage; counts per state.
+- Coverage-task closure means every baseline path is accounted in a mechanism group; **assessment closure is the confirmed-state count only**. Any group left pending keeps its missing list, reason and an owner-facing re-query entry. No fabricated percentage; counts per state.
 
 ## 5 · Calibration and actual adoption
 
