@@ -110,7 +110,7 @@
 
 | 文件 | 行数 | 说明 |
 | --- | --- | --- |
-| `ABSORB-A1-ADDY-INDEX.tsv` | 209（表头 1 + 数据 208） | 列 10、行不空、路径集合与 pin listing 全等；sha256 `abef7e2a7d173f951e595dec6891a024ba450772974d2329dc85f3b9c8ed62a3`（修订后） |
+| `ABSORB-A1-ADDY-INDEX.tsv` | 209（表头 1 + 数据 208） | 列 10、行不空、路径集合与 pin listing 全等；sha256 `58352aed6b0d1a30ff1f61dc48bfe6616774a0cf525165c9d9f0df758ba12c2a`（suggestion 4 计数更正后） |
 | `ABSORB-A1-ADDY-HEADER.md` | 本文件 | 含 §8 修订记录 |
 
 上游 listing 摘要：`edab716179583a1b7a5f80f490485eabcbca6164e27c1dfe1997e36330fbbb06`（208 行，pin = HEAD = 读取源）。
@@ -163,3 +163,17 @@
 ### 8.5 修订后的边界声明（与 §6 一致，未放松）
 
 本次修订只**补记适用条件与例外**，仍不评分、不采纳、不否决；不因补记了『跳扇出门槛』而对任何机制形成裁定或落地建议。
+
+### 8.6 计数更正（method 评审 suggestion 4，第二轮）
+
+**问题**：`/ship` 三行的 `uncertainties` 写『**四条** Rules 在三个宿主载体上逐字相同』，而同一行的 `mechanism_lead_and_anchor` 已引用 `H2『Rules』1–5`——说明性计数与引用不一致。
+
+**核对（回读固定 pin）**：`git rev-parse HEAD` = `2686b620…`（未变），三个宿主载体的 `## Rules` 逐条计数均为 **5 条**：
+1. 三 persona 必须并行不得串行
+2. persona 不得不相调用，合并在主 agent
+3. 回滚计划是任何 GO 的强制前置
+4. 任一 persona 报 Critical 则默认 NO-GO（除非用户明确接受风险）
+5. **仅在三条同时成立时才可跳过扇出**（≤2 文件 ∧ <50 行 ∧ 不触及 auth/payments/data access/config-env），否则默认扇出
+
+**更正**：`四条 Rules …` → `五条 Rules（第 1–5 条）…（本轮逐条计数与逐字比对确认，三处均 5 条）`，只改 `uncertainties` 单元，不动 `source_mechanism`。
+**改动范围**：3 行（`.claude/commands/ship.md`、`commands/ship.toml`、`.gemini/commands/ship.toml`）的 `uncertainties` 单元；其余 205 行与全部其他列逐字节未改。
