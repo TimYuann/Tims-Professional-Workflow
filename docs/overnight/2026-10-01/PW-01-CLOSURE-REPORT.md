@@ -37,6 +37,7 @@
 - Cold-read ambiguities recorded in the review: README title reads “M5 integration candidate” while the active process is PW-01/M6; `path/to/current-task-input.md` placeholder; M1-era “待 M4” Profile labels need the methods/README hop; pointer placement after §Package state. None of these was rewritten in this batch.
 - Review limits: product-behavior owner row verified at path level only; readback sampled, not read through; no UCBIP-side owner review of the readback; renderer `--check` not executed.
 - M6 remains unaccepted; the optional note remains preparation-only and grants nothing.
+- Recorded deviation: the §C reviewer used ephemeral `/tmp` scratch during its check and removed it; no delivered artifact depends on it. This is a minor deviation from the disposition's “work root in the repo `.worktrees`, not `/private/tmp`” rule, noted for completeness.
 
 ## Recommendation for Oracle
 
