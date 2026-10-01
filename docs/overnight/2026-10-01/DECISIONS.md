@@ -324,3 +324,18 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Session/state:** existing E session `tpw-night-m3-local-impl` (`w27:pK`, same session UUID as prior case-1 E) was idle in the restored main root. The first Herdr command text had a shell backtick-substitution error and produced no observed lifecycle change; a corrected prompt with the exact fixed path/hash returned `working`. No new independence is claimed. No further ACK/poll was required.
 - **Write set/limits:** `fixtures/m3-snapshot/src/**`, `tests/**`, and `M3-CASE2-E-REPORT.md` only. The prompt contains public B/C/Plan inputs and explicitly excludes the separate F rubric/private criteria. E is not authorized to self-evaluate or alter accepted inputs.
 - **Next:** wait for E's fixed candidate/report, then route an independent F evaluation to `tpw-night-method`. No case-2 PASS or M3 acceptance is yet recorded.
+
+## D-042 · Fix the case-2 E candidate for independent F evaluation
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after inspecting E's write set, code/test diff, and handoff.
+- **Fixed object:** commit `17602f2b12822aba88785e27a733f75a3238214d`, tree `f9b4f90b9e5a0c7ae11dfe681b82a4a22dddef03`, based on pre-E commit `2ad72273c6aa7dd9cb9775d9146a6fd549db19b1`. Changed paths are `src/page_summary.py` SHA-256 `a3b81175423bd241a2c63c9d0b530fda2aad9698a3e96ba6bd9495764d7570f1`, `src/turn.py` SHA-256 `2be753eb357ad4c0eb150861c61a2b220c75af5423fc10a2ad9d304eede52354`, and `tests/test_episode_coherence.py` SHA-256 `4f0b000892b2e5f3808166ee305bc8ba492661262d1be27757c661dac317076e`. E handoff SHA-256 `557c1ed51e5c9b8c951b1e68a01b318160126ac63924c960b6e1b0c9dd298aed`.
+- **Observed scope:** pre-edit seven-file source/test hashes matched the accepted baseline; the candidate commit contains only those three implementation/test paths plus E's report. Existing three tests remain unchanged. E reports the full suite passed 12 tests and records the Plan boundary, but this is self-check evidence only.
+- **Limits:** No independent verdict yet. The E session did not receive F criteria; M3 and case-2 acceptance remain open. No package, verification copy, UCBIP, or external state was changed.
+
+## D-043 · Fix the independent case-2 F Charter and public evaluation packet
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after E candidate commit `17602f2` was fixed.
+- **Charter:** `fixtures/m3-snapshot/M3-CASE2-F-CHARTER.md`, SHA-256 `98ab5c2bd4db2da434e5ed0d7346c354af08e9870a8f367a316a2512bb11e26b`. It binds the M1-accepted Evidence Evaluation Profile, Backbone, accepted B/C v2 and D Plan, fixed E commit, and the M4 accepted `behavior-claim-evaluation` body (`0136593`, SHA-256 `06b0692290a9ce8cdc7048b33a89ec21f3636ee00138a613121ec4b72457af06`).
+- **Startup packet:** `fixtures/m3-snapshot/M3-CASE2-F-STARTUP-PROMPT.md`, SHA-256 `375f12b621b9c9b41c41410cca0ddb0da2c5a8d484a22e55bd759914e710af65`. It includes public inputs and exact code/test/report bytes from candidate commit `17602f2`, tree `f9b4f90b9e5a0c7ae11dfe681b82a4a22dddef03`; it includes no F rubric or expected verdict.
+- **Isolation/state:** the separately held case-2 criteria remain with `tpw-night-method` and are to be applied privately. If unavailable in that session context, the F result is `UNVERIFIED`; no inference from E inputs is allowed. At preparation time the method session was idle; no F prompt has yet been sent.
+- **Limits/next:** F writes only `M3-CASE2-F-EVALUATION.md`, returns one three-state verdict on the exact candidate, and does not accept M3. E's report remains self-report; no independent candidate verdict yet.
