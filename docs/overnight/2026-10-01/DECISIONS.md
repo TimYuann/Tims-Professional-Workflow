@@ -163,3 +163,32 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Disposition:** Methods README now distinguishes exact M4 accepted source hashes from current M5 packaged method hashes; Charter examples cite both. Root README clarifies M1-era candidate-status wording; Backbone provenance note includes the two cited history paths; example Profile paths are relative to the package root. No normative method body, Profile bytes, or Backbone export bytes changed.
 - **Recheck:** The same independent Flash reviewer has fixed prompt `M5-PACKAGE-REPAIR-PROMPT.md` (SHA-256 `33602146bd1899d833b0d3238ddc363b3ee6b93e2d08680b213dcd8f5d620a18`) and is working only on F1–F4 against this commit. Until its result and the M3 dependency are closed, M5 is not accepted and no Pro audit is sent.
 - **Scope:** This is a metadata/source-trace/path repair candidate, not method-body reassessment, M3 acceptance, M6 qualification, or publication authority.
+
+## D-022 · Preserve an updated M6 export candidate for M5 tree d672914
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after producing a new exact package export from the repaired M5 candidate.
+- **Fixed object:** commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; 19-file external manifest SHA-256 `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`; deterministic archive SHA-256 `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`.
+- **Evidence:** All 19 exported file hashes verified, and extracted-package local/D text assemblies completed with synthetic caller input. Self-contained scope, commands, exact manifest, results, and limitations are in `M6-PACKAGE-CANDIDATE-d672914.md`.
+- **Limits:** This supersedes the f11de8b export as current M6 candidate but is not M6 qualification. Targeted M5 recheck is pending; no independent clean-session cold start or rollback exists; M3 case 2 remains blocked at PC-1. No Pro review was sent.
+
+## D-023 · Record the targeted M5 package repair recheck
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from `M5-PACKAGE-REPAIR-RECHECK.md` (SHA-256 `b3020e834771aef3fa32d23e369cd2ee32e892b70610717cd994a4013378eed0`) against fixed M5 candidate commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`.
+- **Result:** Targeted recheck PASS for F1–F4. It verifies the M4 accepted source digests alongside current M5 method-file digests, package-level supersession note, all four frozen Backbone provenance references, and package-root-relative example Profile paths. Normative method bodies and frozen M1/Backbone bytes are unchanged.
+- **Residual:** Frozen M1 Profile text still says “待 M4” inside an assembled E prompt; package README supersedes that wording for the three selected method references and the adjacent Charter pins both versions. Reviewer classifies this as a residual, not a required package edit.
+- **Limits:** The recheck is not a complete M5 review, whole M5 acceptance, Pro audit, M3 closure, or M6 qualification. Case 2 remains blocked by PC-1; the full package audit must include M3 evidence before any Pro submission.
+
+## D-024 · Close the targeted M5 F1–F4 recheck for candidate d672914
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from `M5-PACKAGE-REPAIR-RECHECK.md` (SHA-256 `b3020e834771aef3fa32d23e369cd2ee32e892b70610717cd994a4013378eed0`) on commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`.
+- **Result:** F1–F4 all PASS: accepted M4 source digests are distinguished from M5 shipped file digests; the frozen Profile status has a package-level supersession note; all Backbone provenance paths are disclosed; and example Profile paths are package-root-relative. The three method bodies and M1/Backbone bytes are unchanged.
+- **Residual:** The frozen M1 label remains visible in assembled E text. The reviewer classifies it as a residual because the package README supersedes it for selected methods and the adjacent Charter pins both byte identities.
+- **Limits:** This targeted check does not accept M5/M6, prove final M3 coverage, or use a Pro allowance. Full M5 audit still depends on case-2 M3 evidence and a fixed complete object.
+
+## D-025 · Start M6 cold-start from the fixed d672914 package export
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after creating an isolated temporary workspace from the exact package archive and fixed case-1 seed inputs.
+- **Fixed package:** commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`, extracted package `/private/tmp/tpw-m6-coldstart-d672914/professional-workflow`; its external 19-file manifest is `/private/tmp/tpw-m6-coldstart-d672914/SHA256SUMS`.
+- **Task input:** `M6-COLDSTART-PROMPT.md`, SHA-256 `ab32fdb6ddba45201c2672be7df2bb12b162114f746b7992300b21bc28bd122c`; disposable case1 inputs match the fixed M3 contract/task/baseline and seed hashes listed there. The initial task gives no expected implementation or evaluator criteria.
+- **Runtime/dispatch:** Fresh session `tpw-night-m6-coldstart` in `w27:pQ` (`w27:tE`); live footer confirmed `DeepSeek V4.1 Flash (CommandCode) · think:max`; Herdr confirmed `working` after one prompt.
+- **Limits:** This is a clean-start exercise, not independent verification or M6 acceptance. The verifier, rollback rehearsal, and final M3 case-2 closure remain outstanding. Only the disposable `/private/tmp` case1 copy may be changed; the package archive is read-only for the task.
