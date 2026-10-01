@@ -33,3 +33,7 @@ Pro核读19core及固定证据，不运行测试；core候选支持、M3有界�
 ## Pro slot 2 submitted · 2026-10-01
 
 Oracle pushed and read back remote `night/2026-10-01-workflow` tip `2b3d4c827fa86af26c710c11ce6ab699625b2fca`. Review pin: `05f4bbb9a490f055855bdd0cde859c4c09421342`, root tree `4b7f99f5ecabde30dd550dbfb226fbe7a8b638e8`, core subtree `11e6e3772b6bc0e17259c932b0c0dcabb030a133`. Local `git archive` SHA-256 recheck MATCH `5d551aca0e9dfef47f7886799b9975cadd55c1c16698158efafe8088eacd996d`. Submitted using the observed Pro model and GitHub composer connector in https://chatgpt.com/c/6abe03be-ad9c-83e8-852e-d882fb600552. UI stop control observed after submission; result pending, no acceptance inferred. Budget now **2/2**; no further Pro request authorized. Scope: PW-01 increment and bounded M6 delivery, including latest tmp-deviation record; no project writes requested.
+
+## Pro slot 2 completed · 2026-10-01
+
+Actual full response saved as `PRO-AUDIT-2-RESPONSE.txt` / `.json`; observed generation finished before extraction. Result: core accepted; PW-01/M6 conditional on R1/R2 bounded wording repairs and existing independent differential check. Oracle absorbed this in `PRO-AUDIT-2-DISPOSITION.md`. Budget **2/2**; no additional Pro request. Ego TaskSpace 19 finished after preserving the response.

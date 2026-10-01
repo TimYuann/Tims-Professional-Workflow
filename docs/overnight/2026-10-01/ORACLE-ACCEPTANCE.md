@@ -41,3 +41,7 @@ M4若实质改变活跃配置、方法绑定或路由，Driver 标记对应 M3 c
 接受M5 core集成为本地采用候选，现有方法、装配、来源与隔离支持该范围。材料收敛沿现短入口落实；437KB审计归档不是所有普通任务必需成本，精确时间未测照实保留。
 M6完整交付未接受：PW-01的当前UCBIP权威核读、可选adaptive说明及样例仍缺。新Driver按吸收范围补齐，其忠实、可取回与core隔离独立核读后给Oracle。code/method未变范围继承既有F与包证据，不无差别推倒重验。
 这是当前新增接受，不回写早先pending/FAIL状态，不授权主线/发布/归档或下游业务开工。Pro仍是只读challenge，不替本地实际观察。
+
+## Pro audit 2 · core accepted; PW-01 / M6 awaiting two bounded corrections
+
+Oracle accepts core subtree `11e6e3772b6bc0e17259c932b0c0dcabb030a133` at fixed `05f4bbb` as local-adoption delivery. Pro completed its incremental review; Oracle independently verified all 19 manifest digests and archive identity. This preserves original evidence scopes, and grants no downstream acceptance or deployment. PW-01/M6 remain open only for acceptance-authority and tracked-versus-ignored retrieval wording; exact repair/check/stop scope is `PRO-AUDIT-2-DISPOSITION.md`. The /tmp scratch deviation is retained and accepted as non-blocking for this delivery, without retroactive compliance or runtime recovery claims.
