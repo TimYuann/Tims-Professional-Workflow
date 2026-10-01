@@ -22,7 +22,7 @@
 
 - `commands/review.toml` 与 `.gemini/commands/review.toml` 逐字节相同（各 844 B，`diff` 返回 IDENTICAL）。
 - `thermos/skills/thermo-nuclear-code-quality-review/SKILL.md` 与 `cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md` 逐字节相同：两者 sha256 均为 `7faca08b51b643b2ddd0836f92af15574444024685dcc1e677dbbb39ae8c9e8f`（A2 行曾记为"逐字重复的可能性高，建议 shasum 比对"——本轨已执行并确认）。
-- `docs/engineering/codebase-design.md` 确含 issue #458 与 dependency-cruiser 指向，且该页同时声称 `setup-ts-deep-modules` "has no lint rule shipped with it"——而已读的 `skills/in-progress/setup-ts-deep-modules/dependency-cruiser.config.cjs` 正是该规则（A3 §7.4 的 docs/SKILL 漂移观察成立）。
+- `docs/engineering/codebase-design.md` 确含 issue #458 与 dependency-cruiser 指向；该页声称 `setup-ts-deep-modules` "has no lint rule shipped with it"，而仓内 `skills/in-progress/setup-ts-deep-modules/dependency-cruiser.config.cjs` 确实存在——**准确表述是「文档与仓内 beta 支持文件不一致、发布口径待定」**（该 in-progress 技能未列入 plugin manifest，文件存在不自动证明已正式 ship）。
 
 ## 2 · 本次实际读过的原文（可复核）
 
@@ -42,7 +42,7 @@
 - **仅 HEADER 级暴露**：3 条（A2-7/8/9，HEADER §7 有概述，未见行）。
 - **行级已见**：5 条（A1-5/6、A2-10/11/12）。
 
-行级已见的 5 条仍保留在样本内，但它们验证的是"A 的锚点是否可被独立复核"而非"B 能否独立发现"；A 侧漏检率的主要证据来自前 13 条。这不是合格性缺陷，但决定了本校准只能声明"未发现系统性锚定错误"，不能声明"漏检率上界"。
+行级已见的 5 条仍保留在样本内，但它们验证的是"A 的锚点是否可被独立复核"而非"B 能否独立发现"；A 侧漏检率的主要证据来自前 13 条。这不是合格性缺陷，但决定了本校准只能声明"**在已独立回读的区段内**未发现 A 线索与源冲突"，不能声明"漏检率上界"或"普遍无偏差"。**暴露等级与阅读顺序均为 B 自述**，不是第三方验证的动作日志。
 
 ## 3 · 校准样本（18 条，跨源跨类型）
 
@@ -69,12 +69,12 @@
 | 17 | matt `skills/in-progress/setup-ts-deep-modules/dependency-cruiser.config.cjs` | 未晋升桶 + 机器规则 | 盲 | `PACKAGES_ROOT`；`PACKAGE_INTERNALS` 派生；五条 severity=error 规则（from-app / across-packages 用 `$1` 同包回引 / tests-through-entrypoints × 自测例外 / tests-folder-is-private / no-circular 全局）；被注释的 layering 桩；resolver options | A 行逐项一致，含 `$1` 回引与"no-circular 可收窄到 packages root"的注释 | 锚定准确 |
 | 18 | matt `.changeset/retro-deterministic-checks.md` | 变更记录 | 盲 | mechanical vs judgement 分类优先；mechanical 违规→确定性检查（linter/pre-commit/CI）；`CODING_STANDARDS.md` 只留给判断类；"没有任何护栏"本身就是 finding | A 行一致 | 锚定准确 |
 
-### 3.1 校准结论
+### 3.1 校准结论（限于实际比较范围）
 
-1. **无系统性锚定错误**：18 条中没有一条 A 行的 `source_mechanism` 与原文冲突；4 条（#3/#6/#9/#17）本轨逐项复核了实现级细节，全部吻合；#10 把 A 的假设升级为已证事实。
-2. **A 的自我留白质量高**：A1 在 `validate-artifact-paths.js` 与 `store.ts` 上标 structure 却给出了实现要点；A2 在 thermo-nuclear 重复上保留"可能性高"而不越权断定；A3 在 mocking.md 上主动标出跨文件重复。
-3. **未发现漏检的机制线索（在盲读的 10 条内）**：本轨从原文新提出的机制线索只有两类——(a) eval 用例中的"权威压力下仍先写失败测试"场景；(b) xero README 的组织绑定/付费/区域限制。两者都属于"行内可加，不影响机制存在性"。
-4. **主要风险不是错误而是口径**：见 §4 的六项修正，全部是**消费侧口径**问题，不要求重写 A 表。
+1. **在已独立回读的区段内，未发现 A 线索与源冲突**：18 条中没有一条 A 行的 `source_mechanism` 与原文冲突；4 条（#3/#6/#9/#17）本轨逐项复核了实现级细节，全部吻合；#10 把 A 的假设升级为已证事实。但这只是**已比对区段**的结论：样本 #4 本轨只读 `skill-anatomy.md` 前 120 行，而 A 行覆盖其余正文——只能说已看区段未发现冲突，**不能确认整行无漏检**；#7/#8/#9 属于 HEADER 级暴露，不能计入盲读分母。本轨**不据此断言普遍无偏差或无漏检率**。
+2. **A 的自我留白质量高，但 full 行也需事实核对**：A1 在 `validate-artifact-paths.js` 与 `store.ts` 上标 structure 却给出了实现要点；A2 在 thermo-nuclear 重复上保留"可能性高"而不越权断定；A3 在 mocking.md 上主动标出跨文件关系。depth 标签是作者阅读动作的自述，不能直接当跨仓质量排名，也不能豁免 full 行的事实核对。
+3. **两类新细节作为具体发现（不代表普遍漏检）**：(a) eval 用例中"权威压力下仍先写失败测试"的场景（#2）；(b) xero README 的组织绑定/付费/区域限制（#7）。两者都属于"行内可加，不影响机制存在性"；#7 属 HEADER 级暴露，不计入盲读分母。
+4. **主要风险不是错误而是口径**：见 §4 的六项修正（C3/C4/C5/C6 已按 Pro 裁定限缩），全部是**消费侧口径**问题，不要求重写 A 表。
 
 ## 4 · 准入口径修正（C1–C6，连同需回查的受影响组）
 
@@ -83,46 +83,54 @@
 | 编号 | 现象（证据） | 口径修正（消费侧） | 受影响组（供 Driver 回查） |
 | --- | --- | --- | --- |
 | **C1** | `responsibility_loci` 的**顺序与词汇不一致**：A3 用 canonical A→F 顺序；A1 与 A2 不保证顺序（A2 出现 `F,B`、`F,D,B` 等倒序），A2 另有 193 行 `none`（license/资产/metadata）。若按字符串分组会把人/机制切碎 | loci 只作**无序集合**使用；不得作覆盖分母、不得作加权；`none` 不是"无责任"判断而是"该路径未承载判断面" | A1 全部 208 行、A2 全部 863 行（尤其 `third_party` 的 482 行、license/资产行）；A3 无需处理 |
-| **C2** | `read_depth` **实例间不可比**：A1 把 844 B 的 `commands/review.toml` 标 `structure`（内容实为全文可用）；A2 对 79 份 `mcp.json` 标 `full`；A3 为 167/169 `full`。深度标签是自述动作而非证据强度 | 把 depth 当"是否需要回查"的提示：`structure`/`metadata` 行的断言在成为 load-bearing 前必须走该行 `requery`；**禁止跨仓比较 depth 计数或据此评估 A 的质量** | A1 `structure` 174 行与 `docs/skill-anatomy.md` 一类"实际读全但标注更保守"的行；A2 `structure` 234 行与 `metadata` 194 行；A3 仅 2 行 |
-| **C3** | **机制粒度按仓而异**：A1 是技能级富枚举；A2 的 `third_party` 是模板级（plugin.json 注册 + mcp.json 传输），权限/scope/门控语义散在 README 行；A3 是标签级 | 机制分组的**单元 = (repo, 机制族)**，必须**合并同族的多行**（`plugin.json` + `mcp.json` + `README.md`，或 `SKILL.md` + 支持文件 + docs 页）后再判覆盖，并在 `source_paths` 记录被合并的路径 | A2 `third_party` 79 组 × 6 文件 = 482 行；A2 各插件的 `SKILL.md`+`agents/`+`hooks/`+`rules/` 组；A1 的 `skills/<name>/SKILL.md` + `references/`；A3 的 `SKILL.md` + `agents/openai.yaml` + `docs/**` |
-| **C4** | **重复/复制必须成对消费**：真重复已在 A1 HEADER（5 组 blob sha）与 A2 HEADER（跨插件重复面）记录，但行内不总标注（如 #1、#10）；按行计数会把 1 个机制算成 2–3 个 | 重复对**只算一个机制、保留全部路径**；评估重复对时以 sha256/逐字节比对为证据（本轨已对 #1、#10 执行）；不因"另一份没读"降级覆盖状态 | A1 `commands/*.toml` ↔ `.gemini/commands/*.toml`（5 组）与 4 组措辞分叉；A2 `thermos` ↔ `cursor-team-kit` 的 thermo-nuclear、两处 `pr-review-canvas`、`grok-voice` 未引用 logo；A3 `AGENTS.md` ↔ `CLAUDE.md` 符号链接 |
-| **C5** | **A 的"不做判定"纪律在本样本中成立**：18 条中无一行出现 adopt/reject/覆盖/评分语言；A2 HEADER §7 的"事实而非判定"标注清楚；A1 的 `evals/skill-impact.md` 空表被如实记录 | 保留；B 消费时不得把 A 的 `nature` 或 `related_materials` 当作覆盖线索；机制清单的"存在性"需 A 行 + B 回读双重确认（本轨对 39 条 adopt 候选均标注是否已读原文） | 全部 1,240 行 |
-| **C6** | **行内断言强度差异**：A1 的 eval 行把 runner 的 owner 排名行为写成机制（"runner 会断言 owner 排名高于本技能"），但 A1 自己标注未实测；A2 的某些行把"服务器/平台侧行为"写成机制（x-money 的 approval 强制力） | 凡机制依赖**未在本轮观察的运行时行为**（runner、hook 强制力、平台门控），coverage 轨记 `pending-check` 或在该行 `uncertainties` 标注"未实测"；不得据此宣布覆盖或采纳 | A1 `evals/cases/**` 25 行、`hooks/**` 9 行、`scripts/**` 14 行；A2 `third_party` 的账户级门控行、`orchestrate`/`ralph-loop` 的 hook 行为；A3 的 `.changeset` 历史条目 |
+| **C2** | `read_depth` **实例间不可比**：A1 把 844 B 的 `commands/review.toml` 标 `structure`（内容实为全文可用）；A2 对 79 份 `mcp.json` 标 `full`；A3 为 167/169 `full`。深度标签是自述动作而非证据强度 | 把 depth 当"是否需要回查"的提示：`structure`/`metadata` 行的断言在成为 load-bearing 前必须走该行 `requery`；**禁止跨仓比较 depth 计数或据此评估 A 的质量**；**但"不可比"不构成免责**：声称"已读原文/完整回读"仍必须与实际阅读范围一致 | A1 `structure` 174 行与 `docs/skill-anatomy.md` 一类"实际读全但标注更保守"的行；A2 `structure` 234 行与 `metadata` 194 行；A3 仅 2 行 |
+| **C3** | **机制粒度按仓而异**：A1 是技能级富枚举；A2 的 `third_party` 是模板级（plugin.json 注册 + mcp.json 传输），权限/scope/门控语义散在 README 行；A3 是标签级 | 机制分组的单元**按实际机制判定**：把同族文件（`plugin.json` + `mcp.json` + `README.md`，或 `SKILL.md` + 支持文件 + docs 页）**放在一起读**，并在 `source_paths` 记录共同阅读的路径。**这不是「必须合并成一条普遍规则」**：同族可有不同的触发、例外与宿主差异，强行揉合会丢失条件 | A2 `third_party` base 形态 79×6＝474 行（另有 8 条额外路径：6 份 SKILL.md、1 份 `shopify.mdc`、1 份 `pricing.md`，合计 482）；A2 各插件的 `SKILL.md`+`agents/`+`hooks/`+`rules/` 组；A1 的 `skills/<name>/SKILL.md` + `references/`；A3 的 `SKILL.md` + `agents/openai.yaml` + `docs/**` |
+| **C4** | **重复/复制必须成对消费**：真重复已在 A1 HEADER（5 组 blob sha）与 A2 HEADER（跨插件重复面）记录，但行内不总标注（如 #1、#10）；按行计数会把 1 个机制算成 2–3 个 | 经内容身份证明的真重复可**共享一次正文阅读**并只算一个机制、保留全部路径（本轨已对 #1、#10 做 sha256/逐字节比对）；**但字节复用不等于语境等价**：仍须检查调用位置、宿主与触发条件；**语义相邻更不能当逐字节重复**（如 `mocking.md` 与 `codebase-design`/`DEEPENING` 是不同适用语境，见 DBG-16） | A1 `commands/*.toml` ↔ `.gemini/commands/*.toml`（5 组）与 4 组措辞分叉；A2 `thermos` ↔ `cursor-team-kit` 的 thermo-nuclear、两处 `pr-review-canvas`、`grok-voice` 未引用 logo；A3 `AGENTS.md` ↔ `CLAUDE.md` 符号链接；matt `tdd/mocking.md` ↔ `codebase-design/SKILL.md`+`DEEPENING.md` |
+| **C5** | **A 的“不做判定”纪律在本样本中成立**：18 条中无一行出现 adopt/reject/覆盖/评分语言；A2 HEADER §7 的"事实而非判定"标注清楚；A1 的 `evals/skill-impact.md` 空表被如实记录。同时，B 自己曾把产品规则挂在无关的相邻上游行上（AUTH-07 等） | 保留职责边界；`nature`/`related_materials` **可用于发现、定位与归组**（正是 C3 的操作前提），但**不能单独充当 coverage 或采纳的证明**。另加一条：B 引用上游行时，该行必须是该机制的**自身来源**；相邻行只能作为线索列出，不得当覆盖依据 | 全部 1,240 行；B 侧 AUTH-01/02/04/07/10/12/13/15/17/19（已改为产品自身来源）；相关组还有 A1 的 hook/脚本行、A2 的 connector 行 |
+| **C6** | **行内断言强度差异**：A1 的 eval 行把 runner 行为写成机制（"runner 会断言 owner 排名高于本技能"）但自己标注未实测；A2 的某些行把"服务器/平台侧行为"写成机制（x-money 的 approval 强制力） | 按**所评价的主张**分三类，不得共用同一个"未运行所以不得覆盖／采纳"的否决条件：**文本覆盖**＝当前方法有没有表达某项判断/操作/条件，静态正文比较即可；**静态源依据**＝原文或实现是否包含该规则，读主体与承重支持材料即可（如 addy 脚本确实跳过缺失文件）；**实际运行强制力**＝宿主是否加载 hook、服务端是否真的拒绝缺批准请求，需要运行证据，本轨未取得，相关效果仍为 UNVERIFIED，但不阻止评价其知识内容 | A1 `evals/cases/**` 25 行、`hooks/**` 9 行、`scripts/**` 14 行；A2 `third_party` 的账户级门控行、`orchestrate`/`ralph-loop` 的 hook 行为；A3 的 `.changeset` 历史条目 |
 
-**需回查的组（数量级，供 Driver 决策是否拆分）**：C1/C2/C3 指向的 A2 `third_party` 482 行与 A1 `evals/**` 82 行是两个最大消费侧风险面；本轨已在 TSV 中以 `PEND-01`（79 connector）与 `PEND-04`（eval runner）保留，不作为 confirmed 覆盖。
+**需回查的组（数量级，供 Driver 决策是否拆分）**：C2/C3 指向的 A2 `third_party` 482 行与 A1 `evals/**` 82 行是两个最大消费侧风险面；本轨已在 TSV 中以 `PEND-01`（79 connector）与 `PEND-04`（eval runner）保留，不当作已评估覆盖。
 
 ## 5 · 计数与未评估项
 
 ### 5.1 状态计数（按 `ABSORB-B-MECHANISM-COVERAGE.tsv`，183 行机制）
 
+> **口径（本轮纠错后）**：下表前三种状态是 **175 条已填写的 coverage 比较意见**（与产品正文、以及 A 所描述的上游机制作静态比较后的标签），**不共同代表实质源评估完成**：其中一部分已由本轨回读原文，多数只读 A 行或其同族片段。未按机制主体回读的行继续保持**「初步比较」**状态；`pending-check` 与 `not-assessed` 继续单列，不计入任何确认。
+
 | 类别 | 数量 | 说明 |
 | --- | --- | --- |
-| **confirmed covered** | **50** | 当前产品正文有对应判断/操作，basis 指到文件+段落 |
-| **confirmed partial** | **55** | 原则/问句在场、操作或条件缺席，`missing_elements` 列出缺什么 |
-| **confirmed not-covered** | **70** | 通读 19 文件后无对应正文；多为上游机制面 |
-| confirmed 小计 | 175 | = 第(2)类"实质覆盖评估完成度"计数 |
-| **pending-check** | **8** | `PEND-01..07` + `EVID-19`；保留了缺什么与原因，**不计入 confirmed** |
+| **covered（比较意见）** | **49** | 当前产品正文有对应判断/操作，basis 指到文件+段落 |
+| **partial（比较意见）** | **55** | 原则/问句在场、操作或条件缺席，`missing_elements` 列出缺什么 |
+| **not-covered（比较意见）** | **71** | 通读 19 文件后无对应正文；多为上游机制面 |
+| 小计（已填写比较意见） | 175 | 不是"实质源评估完成度" |
+| **pending-check** | **8** | `PEND-01..07` + `EVID-19`；保留了缺什么与原因，**不计入上面小计** |
 | **not-assessed** | 见 5.3 | 未转成机制行的面；不进入任何覆盖状态 |
 
-按来源组（同一行可涉及多仓，故小计 > 183）：
+按**来源组合**（互斥桶，含「产品自身冻结来源」一桶，合计 183；逐仓投影是另一种视图，不与之相加）：
 
-| 涉及仓 | covered | partial | not-covered | pending | 小计 |
+| 来源组合 | covered | partial | not-covered | pending | 小计 |
 | --- | --- | --- | --- | --- | --- |
-| A3 单仓 | 30 | 10 | 13 | 2 | 55 |
-| A2 单仓 | 9 | 14 | 17 | 4 | 44 |
-| A1 单仓 | 2 | 1 | 12 | 2 | 17 |
-| A2+A3 | 4 | 13 | 9 | 0 | 26 |
-| A1+A3 | 3 | 7 | 8 | 0 | 18 |
+| A3 单仓 | 21 | 10 | 13 | 2 | 46 |
+| A2 单仓 | 8 | 14 | 18 | 4 | 44 |
+| A1 单仓 | 2 | 2 | 12 | 2 | 18 |
+| A2+A3 | 3 | 13 | 9 | 0 | 25 |
+| A1+A3 | 3 | 6 | 8 | 0 | 17 |
 | A1+A2 | 2 | 8 | 7 | 0 | 17 |
 | A1+A2+A3 | 0 | 2 | 4 | 0 | 6 |
+| 产品自身冻结来源（无上游路径） | 10 | 0 | 0 | 0 | 10 |
+| 合计 | 49 | 55 | 71 | 8 | 183 |
 
-裁定候选分布（`verdict_candidate`）：`none` 37、`narrow` 64、`defer` 39、`adopt` 39、`reject` 4。`none` = 当前文本已足够、本轨不提变更；它不出现在裁定轨正文。
+注：「产品自身冻结来源」桶的 10 行是 AUTH-01/02/04/07/10/12/13/15/17/19——它们此前被挂在相邻上游行（如 matt ADR 0001）名下，本轮按 Pro 裁定改为产品自身来源，不再充当该上游机制的覆盖证明；其中 AUTH-04 已改为 covered＋none。
+
+裁定候选分布（`verdict_candidate`）：`none` 37、`narrow` 60、`defer` 43、`adopt` 39、`reject` 4（合计 183；本轮纠错前为 64/39/39/4，见 ADJUDICATION §6）。这些是标签分布，不代表分类依据正确。
 
 ### 5.2 两个完成度分开报告（计划 §4）
 
 - **路径记账完成度**：A 侧 1,240/1,240（100%），本轨仅核对（§1），不重复主张。
-- **实质覆盖评估完成度**：**175 / 183 = confirmed 机制**；另有 8 行 pending-check 与 §5.3 的未评估面。
-- 本轨**不主张**"覆盖评估已全量完成"，也**不主张**任何采纳；采纳需 §5 全文回读，见 ADJUDICATION §1。
+- **实质覆盖评估完成度**：**本轨不报告已完成的实质源评估**。当前是 **175 条已填写 coverage 比较意见；源核验程度不一，不共同代表实质源评估完成**（哪些已由本轨回读、哪些仅基于 A 描述，见 ADJUDICATION §1、§4）。
+- 另有 8 行 `pending-check` 与 §5.3 的未评估面；两者都不并入上述小计。
+- **R 标签是阅读自述**：本次拟采用范围是否已完成主体与承重支持回读，按该条实际阅读对象与缺口判断（ADJUDICATION §0.4/§4），不按标签等级换算。
+- 本轨**不主张**"覆盖评估已全量完成"，也**不主张**任何采纳；采纳需先完成 §5 要求的回读。
 
 ### 5.3 not-assessed（未转成机制行、未进入任何计数）
 
@@ -134,7 +142,7 @@
 | A1 仓库门面与卫生（README、LICENSE、.gitattributes、.gitignore、根 plugin.json、`.opencode/skills` 符号链接，以及 AGENTS/CLAUDE/CONTRIBUTING 的**指令文本面**） | 9 | 门面/指令文本；其机制对应项（调用轴、写作纪律）分别在 AUTH-30、META-01 内以 defer/adopt 处理 |
 | A1 hooks 的两个 `*-test.sh` 与 `session-start-test.sh` | 3 | 测试文件；其对象机制在 `FMT-05/07` 内以 pending/partial 处理 |
 | A2 测试文件（`*.test.ts`/`fakes.test-helper.ts`） | 32 | 测试文件；对应实现机制在 `PEND-02` |
-| A2 资产与许可（PNG/SVG/JPG、LICENSE、CHANGELOG） | 278 | 非机制（`PKG-09` 只评估了政策面） |
+| A2 资产与许可（PNG/SVG/JPG、LICENSE、CHANGELOG） | 278 | 非机制（`PKG-09` 只评估了政策面）；与 79 个 connector 的 base 形态（79×6＝474）及 8 条额外路径（6 份 SKILL.md、1 份 `shopify.mdc`、1 份 `pricing.md`）是两种不同的计数对象 |
 | A2 未单列插件（`teaching` 已列、`grok-voice` 已列；`pr-review-canvas`/`docs-canvas` 落到 `DLV-04`/`PKG-10`） | — | 其余 first-party 插件的私有机制未单列，若要做需另开工作面 |
 | A3 `docs/**` 其余页与 `.changeset/**` 变更记录 | 25 + 11（另 config.json、README.md） | 机制多已在对应 SKILL 行；docs 页的增量内容（常见问题/"It's working if"）未逐页评审；本轨只读了 `.changeset/retro-deterministic-checks.md` 一条 |
 | A3 资产/许可/包管理（LICENSE、package-lock、.gitignore） | 3 | 非机制 |
@@ -144,8 +152,10 @@
 ## 6 · TSV 完整性与可复核性
 
 - `ABSORB-B-MECHANISM-COVERAGE.tsv`：1 表头 + 183 数据行；每行恰 9 列（tab 分隔）；无空单元；无重复机制 id。
-- `source_paths` 使用 `addy:` / `cursor:` / `matt:` 前缀表示复合键的 repo 部分；以**目录结尾**的引用（6 处：`addy:evals/cases`、`addy:evals/fixtures`、两个 grader 目录、`cursor:cursor-sdk/skills/cursor-sdk/references`、`cursor:pstack/skills/why/references`）表示该目录下 A 索引内的多条记录。
-- 全部路径经脚本对三份 A 表逐条校验：**0 条无法解析**（183 行、448 条路径引用）。
+- `source_paths` 使用 `addy:` / `cursor:` / `matt:` 前缀表示复合键的 repo 部分；以**目录结尾**的引用（6 处）表示该目录下 A 索引内的多条记录。
+- 另有 **9 行**以「（三仓内无对应机制来源；本行来源为产品自身冻结来源，不作为上游覆盖证明）」标记（AUTH-01/02/04/07/10/12/13/15/17/19 中除 AUTH-04 外的 9 条；AUTH-04 仍带目录前缀式产品来源），不参与上游路径解析。
+- 全部可解析路径经脚本对三份 A 表逐条校验：**0 条无法解析**（183 行、435 条路径引用；另有 6 条目录前缀与 9 行产品自身来源标记）。
+- `requery` **不再出现悬空的 `ADJ …` 引用**：123 条改为「回读入口＋ABSORB-B-ADJUDICATION.md §小节＋本行机制 ID」，另 3 条随字段修正重写（不新建 registry）。
 
 ## 7 · 边界声明
 
@@ -153,3 +163,22 @@
 - 本文件**不给覆盖率百分比**：无加权标准，只按状态计数（计划 §3）。
 - 本文件**不重写 A 的记录**：口径偏差只在 C1–C6 中作为消费侧修正记录，受影响组已列名。
 - 本文件**不构成** Owner 决定点之外的动作：是否启动落地、是否拆分 work package，仍由 Owner/Driver（计划 §6）。
+
+## 8 · 修订记录（一次有界纠错批次）
+
+触发：Pro 合入前置审核 RETURN 与 Method MCAL-1..4 返回（`ABSORB-PRO-REVIEW-DISPOSITION.md` / `ABSORB-METHOD-CALIBRATION-CHECK.md`）。本轨只修受影响口径与统计，不重开全量、不重读无关源；未改 core/product/上游；未提交。
+
+| 项 | 修正 |
+| --- | --- |
+| 完成度措辞 | 「175 confirmed 实质评估」→「175 条已填写 coverage 比较意见；源核验程度不一，不共同代表实质源评估完成」（§5.1/§5.2） |
+| R 定义 | 「R2＝完整回读」→「R 标签是阅读自述；拟采用范围是否完成主体＋承重支持回读，按该条实际阅读对象与缺口判断」（§5.2；ADJUDICATION §0.4/§4），adopt 首标签重算为 R0 25 / R1 7 / R2 7（原报 27/12/0 有误） |
+| 统计 | 来源组合改为互斥桶（含「产品自身冻结来源」桶）合计 183；three_party 修正为 79×6＝474＋8 条额外路径＝482（§4 C3、§5.1、§5.3） |
+| C2 | 保留「跨仓不可比」，补「不可当免责」 |
+| C3 | 收窄为「同族文件放在一起读、按实际机制判定」，不是「必须合并成一条普遍规则」 |
+| C4 | 补「字节复用不等于语境等价；语义相邻更不是逐字节重复」 |
+| C5 | 改为「nature/related 可作发现/定位/组线索，但不能单独充当 coverage 证明」，并新增「引用行必须是机制自身来源」（AUTH-07 类已修正） |
+| C6 | 分文文本覆盖 / 静态源依据 / 实际运行强制力三类，不再用一个「未运行」条件否定知识评价 |
+| MCAL-1 | §3.1 结论限缩到已独立回读区段，分开 blind/header/已见与局部/全文比较；不据 18 条推普遍无偏差或漏检率（§2.1/§3.1） |
+| 其它 | 样本 #4 明确为局部读；#7/#8/#9 为 HEADER 级暴露不计入盲读分母；#16 改为「文档与仓内 beta 支持文件不一致、发布口径待定」；not-assessed 继续单列 |
+
+重算后的分布（与 TSV 一致）：coverage **covered 49 / partial 55 / not-covered 71 / pending-check 8**；裁定 **adopt 39 / narrow 60 / defer 43 / reject 4 / none 37**。未核验行继续保持「初步比较」。

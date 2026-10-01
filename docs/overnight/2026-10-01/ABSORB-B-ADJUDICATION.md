@@ -6,13 +6,14 @@
 ## 0 · 规则
 
 1. **覆盖 ≠ 采纳**：`covered` 不自动等于 `adopt`；`not-covered` 也不自动等于 `adopt`。裁定轨只处理 TSV 中 `verdict_candidate != none` 的 **146** 行。
-2. **裁定取值**：`adopt`（建议新增/吸收机制正文）、`narrow`（建议限缩现有或上游机制到明确边界）、`reframe`（本次未使用；见 §4 说明）、`replace`（本次未使用）、`reject`（建议不入包，给出范围理由）、`defer`（本轮不裁定，给出阻塞点与决定归属）。`none`（37 行）= 当前文本已足够、本轨不提变更。
+2. **裁定取值**：`adopt`（建议新增/吸收机制正文）、`narrow`（建议限缩现有或上游机制到明确边界）、`reframe`（本次未使用；见 §4 说明）、`replace`（本次未使用）、`reject`（本轮不引入该实现形态，给出范围理由）、`defer`（本轮不裁定，给出阻塞点与决定归属）。`none`（37 行）= 当前文本已足够、本轨不提变更。措辞区分**范围排除**与**实质限缩**：前者写成「本轮不引入该实现形态」，不推导该专业知识无价值；后者（改变/删减专业内容）须满足 §0.4 的回读要求。
 3. **裁定是候选，不是落地**：计划 §6 规定"没有 Owner 的落地授权，覆盖与裁定不能实施"。本文件所有 `adopt` 均为**候选**，落地需另行授权。
-4. **回读分级（诚实标注每条的前置）**：
-   - **R2** = 本轨已读原文（机制主体或全文），并读过相关支持文件；
-   - **R1** = 本轨读过原文的部分段落或同族样本，其余依赖 A 屏；
-   - **R0** = 本轨只读了 A 的行，未读原文。
-   **计划 §5 要求采纳前必须有相关原文+支持文件的完整回读**：因此 **R1/R0 的 adopt 候选在落地前必须补读**（每条给出补读对象）；`narrow`/`defer`/`reject` 不要求同等回读，但不得被当作已实现变更。
+4. **回读分级（R 标签是阅读自述，不是资格证明）**：
+   - **R2** = 本轨自述读过该机制的主体或全文（可能只读过部分支持材料）；
+   - **R1** = 本轨自述读过原文的部分段落或同族样本，其余依赖 A 屏；
+   - **R0** = 本轨只读了 A 的行。
+   **计划 §5 要求「实际采纳」前必须完成相关原文与承重支持材料的回读**：是否满足 §5 **不按 R 标签判定**，而按该条**实际阅读对象与缺口**逐条判断——R2 也可能只读了产品全文或相邻文件，不等于该源机制已回读。按此判断，本次 39 个 `adopt` 候选**均未完成 §5 回读**（§4 给出首标签统计及其局限）。
+   **范围取舍 ≠ 实质删改**：`reject`/`defer` 若只是本轮不引入某实现形态，可基于范围理由保留；但 `narrow`/`replace` 若实际改变或删减专业内容，仍须满足同一 §5 回读要求——换标签不能豁免回读。未读源时对专业内容所作的删改只记为**探索性建议**。
 5. **不得为省 gate 剥掉专业细节**（计划 §5）：涉及幂等、原子认领、同键异载荷、在途重复、未知结果、保留因果等细节的裁定，`保留/改变/删除` 一栏必须列全，不允许用"以后再说"代替。
 6. **无当前方法 = 缺口线索**，不是低分：`not-covered` 行在本文件里以"缺口线索"登记，供 Owner 决定取舍。
 
@@ -27,7 +28,9 @@
 | DLV/PKG | cursor `third_party/xero/**`（R2）、`x-money/skills/x-money-guide/SKILL.md`（R1，前 80 行）、`orchestrate/SKILL.md`（R1）、`docs-canvas/SKILL.md`（R1） | addy `git-workflow-and-versioning`、`shipping-and-launch`、`ci-cd-and-automation`；matt `wizard`、`handoff`、`in-progress/pr`、`git-guardrails`；cursor `make-pr-easy-to-review`、`new-branch-and-pr`、`create-plugin/**` 未读（R0） |
 | ORC/HIT/CONC/SKL/FMT/GOV | 同上；`dependency-cruiser.config.cjs`（R2） | `swarm`、`arena`、`reflect`、`recall`、`continual-learning`、`technical-writing`、`unslop`、addy `security-and-hardening`、`observability`、`reference checklists` 未读（R0） |
 
-**因此**：本文件的所有 `adopt` 均为"有理由的候选 + 明确补读清单"，而不是"已完成 §5 全文回读的采纳"。
+本表与各条 R 标签均为 B 的**阅读自述**，不是第三方验证的动作日志；Method/Pro 复核据此校验口径，而非重跑阅读史。R2-first 的 7 条 adopt（AUTH-28、META-05、DBG-13、DBG-16、PKG-05、FMT-04、GOV-01）各自仍有可见缺口（例如 META-05 只读 out-of-scope 政策、未读 grilling 主体；GOV-01 只读产品全文与 A3 的 AGENTS.md 摘要行、未读 matt AGENTS.md 原文），故 R 标签不构成 §5 资格。
+
+**因此**：本文件的所有 `adopt` 均为"有理由的候选 + 明确补读清单"，而不是"已完成 §5 回读的采纳"。
 
 ---
 
@@ -37,15 +40,15 @@
 
 ### 2.1 AUTH（责任/治理/分发）
 
-- **narrow · AUTH-04 横向专业关注轴** — 理由：轴本身已被 Backbone §1/§5 固定，但"有五类关注点"不构成可执行判断；差异：当前只有轴与四例，无任何关注点检查面；保留：轴与"不新增责任节点"；改变：把"轴已覆盖"降级为 partial，避免下游误读为安全/性能已有操作；删除：无；落点：不改 Backbone，改在 methods 或 Concern 清单层（见 CONC-01）；回读 R2（产品全文）；前置：无。
-- **narrow · AUTH-09 关闭权与 closure rule** — 理由：产品有关闭规则概念，但把 finding 是否阻断交由 authority 判定而**没有状态机**，下游无法复现转移；差异：上游 triage 有 category/state 角色与 exactly-one 不变式；保留：Driver 不作新专业裁定；改变：只保留"阻断判定有 authority"这一句，不引入标签体系；删除：不引入 tracker 状态机；落点：methods/driver 侧（若 Owner 要）或明确登记为不做；回读 R0（matt triage 未读）；前置：补读 `skills/engineering/triage/SKILL.md` 再定。
+- **none · AUTH-04 横向专业关注轴** — 理由：评价对象＝「专业关注轴横跨判断函数、不新增责任节点」，这是 Backbone §1/§5 的明确正文，故 **covered**，本轨不改轴规则；差异：各关注点的**操作清单**确实缺失，但那属 CONC-01 的缺口，不倒推使轴规则降级为 partial（避免评价对象漂移）；保留：轴与「不新增责任节点」；改变：无（本条不再提 narrow）；删除：无；落点：操作清单在 CONC-01 处理，不改 Backbone；回读 R2（产品全文）；前置：无。
+- **narrow · AUTH-09 关闭权与 closure rule** — 理由：评价对象＝「finding 是否阻断关闭由已接受规则/authority 判定」，该规则在 Backbone §4 已有正文，故 **covered**；差异：上游 triage 有 category/state 与 exactly-one 不变式，但缺一个可复现的状态转移记录是**可选的方法/产品形态建议，未被验证为治理必需**（本轮不据「上游有」就给本包造同形产物）；保留：Driver 不作新专业裁定；改变：不引入标签体系；删除：不引入 tracker 状态机；落点：若 Owner 有具体使用理由再谈；回读 R0（matt triage 未读）；前置：补读 `matt:skills/engineering/triage/SKILL.md` 再定。
 - **narrow · AUTH-16 共享引用代替重复正文** — 理由：产品已有该规则，但缺少可操作的"写作/引用"纪律；差异：上游 writing-for-agents 给出 leading word、删除测试、一分支一触发等操作；保留：共享引用+差分；改变：把"引用"从原则升为写作操作（见 META-01）；删除：无；落点：docs 规则或方法附件；回读 R0；前置：补读 `writing-for-agents/SKILL.md` 与 `SKILL-MECHANICS.md`。
 - **narrow · AUTH-18 未接受建议可用于可逆探索** — 理由：原则正确但无"可逆"判据，也没有原型形态；差异：上游 prototype 有 throwaway-and-marked、不持久化、跳过打磨、留答案作 primary source；保留：原则；改变：补可逆判据（见 DES-26）；删除：无；落点：方法或 Charter 工具段；回读 R0；前置：补读 `skills/engineering/prototype/SKILL.md` 与 `LOGIC.md`/`UI.md`。
 - **narrow · AUTH-20 冻结导出纪律** — 理由：人工摘要核对在两个 21KB 文件上可持续性存疑；差异：上游用 `--check` 脚本在 CI 失败；保留：先改源、接受后导出、不得手改投影；改变：明确"当前无机器检查"并登记为风险（PKG-03/FMT-08），不因此新增 gate；删除：无；落点：authority/README 的现状句或 DOC；回读 R2（authority/README）；前置：无。
 - **narrow · AUTH-24 方法正文不产生授权 + digest 溯源** — 理由：digest 表已做到"身份可辨"，但 M4/M5 双摘要与"M1 时代字样"并存会让读者误判有效状态；差异：上游有版本同步脚本与 changeset 血统；保留：表格与 digest；改变：标注过时叙述、把"当前有效"指向唯一入口（与 META-03/GOV-01 合并处理）；删除：不删历史快照；落点：professional-workflow/README + methods/README 状态段；回读 R2；前置：无。
 - **narrow · AUTH-25 分发路线与包形态** — 理由：当前是"可 cat 的文本包"，但缺依赖/缺文件时的降级与版本迁移没有判据；差异：上游 ADR 0002 记录了路线取舍与 manifest 能力约束；保留：cat 装配；改变：补"缺依赖怎么办"与"包被复制后语义归属"；删除：不引入安装器；落点：README 或方法（若 Owner 要）；回读 R0（matt ADR 0002 未读）；前置：补读 `.agents/adr/0002-ship-as-a-claude-code-plugin.md`。
 - **defer · AUTH-26 hard/soft dependency 与优雅降级** — 理由：产品是纯文本包，上游 ADR 是 skill 前置依赖语境，可映射度需 Owner/Driver 判定；差异：产品完全没有依赖分级；保留：现有绑定状态句；改变：无（本轮不改）；删除：无；落点：若采纳则进 Charter 的 Applicable methods 段；回读 R0；前置：补读 `.agents/adr/0001-*` + `to-spec`/`to-tickets`/`triage` 的前置行；决定归属：Driver。
-- **adopt · AUTH-27 决定记录（ADR）** — 理由：产品把"决定记录方法"列为候选却无字段集，导致"已接受结论"缺少可复查载体；当前做法会让后续读者无法判断某条规则是接受、候选还是历史快照；差异：上游 ADR-FORMAT 有 Status/Date/Context/Decision/Alternatives/Consequences 与生命周期；保留：Charter/Plan 的既有分工；改变：新增（或并入 Charter 的）最小记录形态；删除：不删任何现有文本；落点建议：`methods/` 新方法 `decision-record.md`，或并入 `charters/template.md` 一节；回读 R1（读过 `docs/engineering/codebase-design.md` 与 A3 ADR 行，未读 ADR-FORMAT 原文）；前置：补读 `skills/engineering/domain-modeling/ADR-FORMAT.md` + `addy:skills/documentation-and-adrs/SKILL.md`。
+- **adopt · AUTH-27 决定记录（ADR）** — 理由：产品把「决定记录方法」列为候选但无操作与例子；**当前并非没有记录面**——Voice 已含决定/范围/条件，Charter 已含接受输入/版本/条件/authority——缺的是把「为什么这样定、替代方案是什么、何时失效」留在可复查处的记录动作；差异：**两来源形态不同，不得互相移植字段**——Matt 默认＝标题＋1–3 句，Status/Considered Options/Consequences 为可选，提出受三条件约束（难逆转、脱离上下文会令人意外、真实取舍），`docs/adr/` 惰性创建；Addy＝Status/Date/Context/Decision/Alternatives Considered/Consequences＋生命周期，且先匹配既有约定；保留：Charter/Plan 的既有分工；改变：新增（或并入 Charter 的）**最小记录操作与例子**；删除：不删任何现有文本；落点建议：`methods/` 新方法 `decision-record.md`，或并入 `charters/template.md` 一节（须有具体使用理由，不是「上游有所以本包也要」）；回读 R1（本轮读到 Matt `ADR-FORMAT.md` 主体；Addy 只读 ADR 区段；此前只读过 A3 行与 `docs/engineering/codebase-design.md`）；前置：补读 `addy:skills/documentation-and-adrs/SKILL.md` 全文（其完整模板与生命周期）。
 - **adopt · AUTH-28 out-of-scope 登记册** — 理由：产品已有"目标与非目标同权"与多处 deferred alternatives，但没有登记册，导致同一推迟项会被反复重新讨论（本轨校准中即遇到 META-04/DLV-06 等重复出现）；差异：上游以"一条一理由一判据 + 先前请求编号"承载；保留：非目标同权原则；改变：把散落的推迟项收成登记册并由单一入口指向；删除：不删 deferred 说明；落点建议：`docs/` 或方法附件；回读 R2（读过 `question-limits.md` 全文与另两份 out-of-scope 的 A 行）；前置：补读另两份 out-of-scope 原文。
 - **narrow · AUTH-29 单一口径安装/使用文本** — 理由：包内三处装配示例并存（README、charters/README、methods/README 语境），内容不同；差异：上游用 `<canonical-block>` + 向外传播规则；保留：三处说明各自语境；改变：明确唯一装配命令与其变体规则；删除：不删示例；落点：README 与 charters/README 的表述统一（属文档一致性，不是新机制）；回读 R2；前置：无。
 - **defer · AUTH-30 调用模式轴（model-invoked vs user-invoked）** — 理由：当前包没有机器路由面，机制无处附着；若未来包被做成 skill 包则成为前置；差异：产品入口是人工选择；保留：现状；改变：无；删除：无；落点：仅当包形态改变时；回读 R0；前置：补读 `matt:.agents/invocation.md` + `addy:docs/skill-anatomy.md`（后者本轨读了前 120 行）。
@@ -57,9 +60,9 @@
 - **narrow · BHV-04 领域语义单一 owner** — 理由：原则在，"同一规则只应有一个 owner"没有落地形态；差异：上游 CONTEXT.md 给布局与惰性创建；保留：原则；改变：补文件形态（见 BHV-10）；删除：无；落点：同 BHV-10；回读 R0。
 - **narrow · BHV-05 同名概念跨上下文** — 理由：产品只有"同名概念何时不同"的问句；差异：上游有 CONTEXT-MAP 间接层与 flagged-ambiguity register；保留：问句；改变：补指路形态；删除：无；落点：与 BHV-10 合并；回读 R0（本轨读过 `wait-what` 的 A 行）。
 - **narrow · BHV-07 问题定义** — 理由：A/Voice 的四要素齐全，但人类诉求如何被"问出来"没有操作；差异：上游 interview-me 有置信度数字、一次一问、want vs should-want、Terminal Turn 与 95% 停止条件；保留：事实/推断/未知划分；改变：把访谈从"候选方法名"升为有停止条件的操作（与 META-05 合并）；删除：无；落点：intent-voice 绑定的方法；回读 R0；前置：补读 `addy:skills/interview-me/SKILL.md` + `grilling/SKILL.md`。
-- **narrow · BHV-08 人类接受记录** — 理由：读回要求明确，但"记录什么字段"未定；差异：上游 handoff/to-questionnaire 有产物形态；保留：读回+记录；改变：补最小字段（决定/范围/条件/时点）；删除：无；落点：intent-voice 方法或 Charter 的 Acceptance 段；回读 R0。
+- **narrow · BHV-08 人类接受记录** — 理由：读回要求明确，缺的是**记录动作与例子**（谁在何时记、记在哪、如何被后续会话引用、未读回不算冻结如何检查），以及它与 Charter 既有字段的衔接；差异：上游 handoff/to-questionnaire 有产物形态，但不是「记录字段」的必需来源，**不得把「没有更详细操作模板」写成「没有记录载体」**（Voice 已含决定/范围/条件，Charter 已含接受输入/版本/条件/authority）；保留：读回＋既有字段；改变：补记录操作与例子；删除：无；落点：intent-voice 方法或 Charter 的 Acceptance 段；回读 R0。
 - **defer · BHV-09 规格模板与阶段门** — 理由：产品刻意只做方法+Charter，"规格→计划→任务"分层属交付流水线，是否入包取决于 Owner 对包范围的判断；差异：产品无规格产物；保留：Plan 三件事；改变：无；删除：无；落点：若采纳则新方法，且必须与"不设固定阶段链"的既有立场调和；回读 R0；决定归属：Owner（范围）→ Driver（落点）。
-- **adopt · BHV-10 领域文档形态（CONTEXT）** — 理由：C 的所有权在场而载体缺席，导致领域语义只能散落在 Charter/Plan 里；差异：上游有单/多上下文布局、惰性创建、原地更新、glossary-only 禁令；保留：C 的判断权与"不重写完整词典"；改变：新增文件形态；删除：不引入 EARS/规格内容；落点建议：`methods/domain-context.md` 或 behavior-domain 的支持文件；回读 R0（本轨读过 `CONTEXT.md` 行与 `codebase-design.md` 的 C 语义段）；前置：补读 `domain-modeling/SKILL.md` + `CONTEXT-FORMAT.md`。
+- **adopt · BHV-10 领域文档形态（CONTEXT）** — 理由：C 的所有权在场而词汇载体缺席，导致领域语义只能散落在 Charter/Plan 里；差异：**上游的方向是 glossary-only（不是 glossary-only 禁令）**——CONTEXT.md 只做词汇表（Language 段、`_Avoid_` 列表、1–2 句定义、只收本上下文特有词、子标题分组、单/多上下文与 CONTEXT-MAP），并明确**不得成为规格、草稿或实现决策容器**；领域建模活动本身可含情境挑战、对照代码、澄清与 ADR，但这些活动的产物按各自载体安放（ADR 走 `docs/adr/`），不塞进 CONTEXT；保留：C 的判断权与「不重写完整词典」；改变：新增词汇载体形态与边界规则；删除：不引入 EARS/规格内容；落点建议：`methods/domain-context.md` 或 behavior-domain 的支持文件；回读 R1（本轮读到 `CONTEXT-FORMAT.md` 全文与 `domain-modeling/SKILL.md` 的 CONTEXT/ADR 段）；前置：无（若要展开建模活动五步，再补读 SKILL 其余段与 `DEEPENING`/`ask-matt` 相邻处）。
 - **defer · BHV-11 未定项路线图（wayfinder）** — 理由：与 META-05/META-06 相邻且更重（多会话载体），当前包无长周期对象；差异：产品只有"哪个未知会改变方向"；保留：现状；改变：无；删除：无；落点：若引入多会话 initiative 再处理；回读 R0；决定归属：Driver。
 - **narrow · BHV-12 上下文工程** — 理由：产品声明 runtime 机制不属 Driver（profiles/driver.md），但上下文打包属方法层，归属未定；差异：上游有五级层级、打包策略、预算与压缩优先级；保留：共享引用的有界部分；改变：先明确归属（方法层 vs 包外），再决定是否吸收；删除：无；落点：待归属裁定；回读 R1；前置：补读 `addy:skills/context-engineering/SKILL.md`。
 - **adopt · META-01 面向 agent 的写作纪律** — 理由：产品自身大量使用该文体（短句、判据式、"不要…"），但没有任何成文规则，导致新增文本风格漂移（校准中已见 M1 时代字样残留）；差异：上游有删除测试、leading word、一分支一触发、context vs cognitive load；保留：现有文体；改变：新增写作规则；删除：不删现有文本；落点建议：`docs/` 写作规则（优先）或 methods 附录；回读 R0（本轨读过 `writing-for-agents` 的 A 行与 `skill-anatomy` 部分）；前置：补读 `writing-for-agents/SKILL.md` + `SKILL-MECHANICS.md`。
@@ -77,31 +80,31 @@
 - **adopt · DES-06 设计空间穷尽** — 理由：产品保留问句但显式不要求备选数量，结果是"有实质分歧时"缺少最低操作；差异：上游给 2–3 个可比较方案与"变体不算"判据；保留：不设固定数量、不绑并行 agent；改变：把"何时必须做多方案"写清（无先例的新交互/架构选择）；删除：不引入 DESIGN-IT-TWICE 的并行数；落点建议：cross-module-design.md 新增一节；回读 R0；前置：补读 `DESIGN-IT-TWICE.md` + `principle-exhaust-the-design-space/SKILL.md`。
 - **adopt · DES-08 边界校验纪律** — 理由：产品只保留"错误语义可预测"，未规定校验位置，导致内部冗余校验与类型信任边界无判据；差异：上游把校验/收窄/错误处理放在系统边界、内部信任类型、解析函数是纯变换；保留：错误行为可预测；改变：补边界纪律；删除：无；落点：cross-module-design.md §Method 2/6；回读 R0；前置：补读 `principle-boundary-discipline/SKILL.md`。
 - **narrow · DES-09 类型系统纪律** — 理由：与 C 的不变量语义直接相关，但跨语言规则面太大，且产品 §Limits 已明确不收；差异：上游有非法状态不可表示、品牌类型、parse-don't-validate、穷尽性；保留：§Limits 的克制；改变：只收与 C 不变量直接对应的"非法状态不可表示"一条；删除：不收语言特定清单；落点：behavior-domain（C）或 cross-module-design 的一句判据；回读 R0；前置：补读 `principle-type-system-discipline/SKILL.md`。
-- **adopt · DES-10 幂等与崩溃安全** — 理由：计划 §5 点名不得剥掉该细节，而当前产品零覆盖；这是本轨最大缺口之一；差异：上游有两必答问、三条测试、收敛式启动、按内容等价清理；保留：不引入的"无任务需要则不导入"克制由 §Limits 承担（本机制按需绑定）；改变：新增；删除：不删 §Limits 的克制句，但需在方法内声明适用范围；落点建议：`methods/idempotency-and-recovery.md`（或 cross-module-design 的持久化节，容量不足则独立）；回读 R1（读过 `store.ts` 的原子写/锁实现 + `x-money` 的幂等键规则）；前置：补读 `principle-make-operations-idempotent/SKILL.md`。
+- **adopt · DES-10 幂等与崩溃安全** — 理由：计划 §5 点名不得剥掉该细节，而当前产品零覆盖；差异：上游有两必答问、三条测试、收敛式启动、按内容等价清理；**专业细节目前只是被点名保留，尚未展开到可采纳程度**（意图/尝试、原子认领、同键异载荷、在途重复、未知结果、保留因果）；来源侧 X Money 进一步区分 pending/refused/未确认结果/明确未发生效果的暂时失败，以及幂等键与批准的复用条件——只读前段后概括成统一重试或统一批准规则会损失专业内容；保留：§Limits 的「无任务需要则不导入」克制（本机制按需绑定）；改变：新增；删除：不删 §Limits 的克制句，但需在方法内声明适用范围；落点建议：`methods/idempotency-and-recovery.md`（或 cross-module-design 的持久化节，容量不足则独立，须有具体使用理由）；回读 R1（读过 `store.ts` 的原子写/锁实现与 `x-money` 前 80 行）；前置：补读 `cursor:pstack/skills/principle-make-operations-idempotent/SKILL.md` 与 `x-money-guide/SKILL.md` 的尾段（三值结果与复用条件）。
 - **defer · DES-11 原子写实现** — 理由：属实现级技巧，是否入包取决于包是否承担持久化职责（当前不承担）；差异：上游有同目录临时文件+wx+rename+finally、写缺失、结构校验；保留：无；改变：无；删除：无；落点：若 DES-10 采纳则作为其"实现示例"附注（保留 intent/attempt/原子认领细节，不得简化掉）；回读 R2；决定归属：Driver。
 - **defer · DES-12 锁与陈旧锁接管** — 理由：产品显式把 runtime 机制排除在 Driver 外，但 E 的实现自愈锁属责任边界内的实现细节，归属需裁定；差异：上游有 PID 存活判定、EEXIST 重试、force 路径、释放归属校验；保留：§4 的排除声明；改变：无；删除：无；落点：同 DES-10（示例）或明确登记为包外；回读 R2；决定归属：Driver。
 - **adopt · DES-13 共享可变状态先分离再串行化** — 理由：产品只有"单写者"问题，没有操作，并行写者场景下会重复出现同一 failure；差异：上游有先问"是否需要同一可变对象"、消除共享手法、结构性串行化、反例；保留：单写者问题与写集问句；改变：新增操作；删除：无；落点建议：与 DES-10 同方法（同一节）或 Driver 的编排附件；回读 R1（读过 `store.ts`）+R0（principle 未读）；前置：补读 `principle-separate-before-serializing-shared-state/SKILL.md`。
-- **adopt · DES-14 迁移调用者并删旧 API** — 理由：与产品"只增不改"的默认构成真实张力，缺适用边界会让实例要么永不删除、要么破坏兼容；差异：上游给出适用条件、同波迁移-删除、限时适配器；保留：兼容优先默认；改变：新增适用边界与操作；删除：不删兼容原则；落点建议：cross-module-design.md §Method 6（兼容段）扩写；回读 R0；前置：补读 `principle-migrate-callers-then-delete-legacy-apis/SKILL.md` + `addy:skills/deprecation-and-migration/SKILL.md`。
+- **adopt · DES-14 迁移调用者并删旧 API** — 理由：迁移/删除的**操作细节**缺失（适用条件、同波迁移-删除、限时适配器），而当前正文没有这方面的操作；差异：**当前方法并不禁止删除**——`cross-module-design.md` §Method 6 只在消费者必须兼容时偏好增量，并明确「A valid authority may accept a breaking change」；因此**不以「现有方法禁止删除」为由**制造张力；保留：兼容优先的**条件性**默认；改变：新增适用边界与操作；删除：不删兼容原则；落点建议：cross-module-design.md §Method 6（兼容段）扩写；回读 R0；前置：补读 `cursor:pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md` + `addy:skills/deprecation-and-migration/SKILL.md`。
 - **adopt · DES-15 兼容/恢复操作面** — 理由：责任路由已覆盖（Backbone §5），操作面缺失会让"回滚判据/不可逆点"在真实迁移中靠临场发挥；差异：上游有 expand-contract、绞杀者、双读双写、回滚判据；保留：§5 的路由示例；改变：新增操作；删除：无；落点建议：与 DES-14 合并为"迁移与兼容"方法；回读 R0；前置：补读 `addy:skills/deprecation-and-migration/SKILL.md` + `matt:skills/engineering/to-tickets/SKILL.md` 的 expand-migrate-contract 段。
 - **narrow · DES-16 减法优先** — 理由：产品有"不要加"的反面纪律，"何时删/折叠"没有正面判据；差异：上游有按观察到的用法设计、无第二实现的适配器折叠、留桩与删除取舍；保留：§Limits 的克制；改变：补正面判据；删除：无；落点：cross-module-design.md §Limits 附近；回读 R0；前置：补读 `principle-subtract-before-you-add/SKILL.md` + `principle-laziness-protocol/SKILL.md`。
 - **narrow · DES-17 读者负担两轴** — 理由：与 DES-03/04/05 同源，产品只有 leverage；差异：上游有两轴与状态作用域阶梯；保留：无；改变：并入 depth/locality 一节；删除：无；落点：cross-module-design.md；回读 R0。
 - **narrow · DES-18 从第一性原理重设计** — 理由：与兼容默认有张力，但"何时重设计而非外挂"的产品判据缺失；差异：上游有"从零写会怎样"与变更传播清单；保留：兼容优先；改变：补触发与传播清单；删除：无；落点：与 DES-14/15 同方法；回读 R0。
 - **adopt · DES-19 前提攻击** — 理由：产品给了 E"挑战上游"的权利但没有触发判据，导致同一前提反复失败时仍继续打补丁；差异：上游有同闸门失败触发、前提书写、actor 普查、停止条件；保留：挑战权与返回责任方；改变：新增操作；删除：无；落点建议：local-defect-feedback-loop.md 新增一节，或独立方法；回读 R0；前置：补读 `principle-attack-the-premise/SKILL.md`。
-- **adopt · DES-20 把教训编码进结构** — 理由：本包是大量散文规则的集合，正是该机制的适用对象；若采纳可减少规则漂移（如"待 M4"字样、三处装配示例）；差异：上游有第二次写同一指令的自问、机制强度阶梯、编码后删指令、反馈环；保留：现有全部正文；改变：新增规则（并授权未来把重复规则转为检查）；删除：编码后删除被替代的散文指令（作者需在落地时逐条登记）；落点建议：`docs/` 维护规则 + 可选校验脚本；回读 R1（读过 `.changeset/retro-deterministic-checks.md` 全文与 `create-plugin` 质量门 A 行）；前置：补读 `principle-encode-lessons-in-structure/SKILL.md`。
+- **adopt · DES-20 把教训编码进结构** — 理由：本包是大量散文规则的集合，正是该机制的适用对象（可减少规则漂移，如「待 M4」字样、三处装配示例）；差异：上游有第二次写同一指令的自问、机制强度阶梯、编码后删指令、反馈环；**分支必须保留**：不能结构化且仍需判断时，强化说明并加入失败例子；反馈闭合允许形成具体待办；保留：现有全部正文；改变：新增判断规则（**不包含任何未来授权**：方法不产生改对象/加检查/删规则的权限，是否结构化须另行获得授权）；删除：若日后获得相应授权并逐条登记，才谈用结构检查替代重复散文；落点建议：`docs/` 维护规则（不默认新增校验脚本）；回读 R1（读过 `.changeset/retro-deterministic-checks.md` 全文与 `create-plugin` 质量门 A 行）；前置：补读 `cursor:pstack/skills/principle-encode-lessons-in-structure/SKILL.md`。
 - **narrow · DES-21 领域建模为数据结构** — 理由：C 的所有权在场，操作清单缺席；差异：上游有结构清单与克制规则；保留：C 判断权；改变：作为 C 方法的实现手段补入；删除：无；落点：与 BHV-10 同方法；回读 R0。
 - **narrow · DES-22 基础性思考** — 理由：与 DES-16/21 同源，单独列出会造成重复；差异：上游有数据形状先行、脚手架优先顺序；保留：无；改变：并入 DES-16/21；删除：不单独成节；落点：同上；回读 R0。
-- **narrow · DES-23 面向结果的执行** — 理由：产品默认"增量可编译"（addy 侧），与"允许有计划的中间破损"相反；两条默认不同时陈述会让下游矛盾；差异：上游有护栏（计划、边界、可回滚、完成时完整验证）；保留：增量默认；改变：补适用边界；删除：无；落点：cross-module-design.md 或 implementation profile；回读 R0；前置：补读 `principle-outcome-oriented-execution/SKILL.md` + `addy:skills/incremental-implementation/SKILL.md`。
-- **adopt · DES-24 制造杠杆** — 理由：非平凡重复工作缺工具化判据，实践中会用手工批量操作；差异：上游有单一可重跑工件、先手工学配方、扇出时把配方置于子代理写范围外；保留：不加不必要抽象的克制；改变：新增操作（并要求产出文件）；删除：无；落点建议：implementation 侧方法或新方法；回读 R0。
+- **narrow · DES-23 面向结果的执行** — 理由：终态优先与「有计划的中间破损」需要护栏（显式声明允许临时破损、边界与回滚点、完成时完整静态+运行时验证），而当前正文没有这些栏杆；差异：**这是上游策略比较（outcome-oriented vs incremental），不是已采用的产品默认**——当前 local-defect/cross-module/implementation 正文没有「增量可编译」这条默认，候选方法入口也不等于正文已绑定；因此不声称与产品内部默认冲突；保留：不静默改写承诺；改变：补护栏与适用边界；删除：无；落点：cross-module-design.md 或 implementation profile；回读 R0；前置：补读 `cursor:pstack/skills/principle-outcome-oriented-execution/SKILL.md` + `addy:skills/incremental-implementation/SKILL.md`。
+- **adopt · DES-24 制造杠杆** — 理由：非平凡重复工作缺工具化判据，实践中会用手工批量操作；差异：上游有单一可重跑工件、先手工学配方、扇出时把配方置于子代理写范围外；保留：不加不必要抽象的克制；改变：新增操作（并要求产出文件）；删除：无；落点建议：implementation 侧方法或新方法（须有具体使用理由）；回读 R0；前置（可解析）：补读 `cursor:pstack/skills/principle-build-the-lever/SKILL.md`，并核对同一机制的器具实例 `cursor:pstack/skills/poteto-mode/scripts/watch-pr/watch-pr` 在仓内的存在与角色。
 - **narrow · DES-25 薄切片与范围纪律** — 理由：产品明确不设阶段链，切片操作缺席；差异：上游有垂直切片/契约先行/风险优先与六条规则；保留：不设固定阶段链；改变：只补切片选择判据与可验证状态定义；删除：不引入六条规则全文；落点：local-defect-feedback-loop.md 的 §Use 或 technical-planning；回读 R0。
 - **adopt · DES-26 一次性原型** — 理由：产品只有"可逆探索"一句，原型的目的声明/丢弃规则/证据保留缺失；差异：上游有分支路由、throwaway-and-marked、不持久化、留答案作 primary source；保留：可逆探索；改变：新增原型方法；删除：无；落点建议：`methods/prototype.md`；回读 R0；前置：补读 `prototype/SKILL.md` + `LOGIC.md`/`UI.md`。
-- **narrow · DES-27 代码简化** — 理由：产品只有"行为不变"原则；差异：上游有五原则+四步+语言特定 before/after；保留：行为不变与最小改动；改变：补 Chesterton's Fence 与增量施加；删除：不收语言特定例子（避免正文膨胀）；落点：implementation profile 的方法入口或新方法；回读 R0；前置：补读 `addy:skills/code-simplification/SKILL.md`。
+- **defer · DES-27 代码简化** — 理由：产品只有「行为不变」原则；差异：上游有五原则+四步+语言特定 before/after；**本轮不把「不收语言特定例子」作为已完成的专业取舍**：以「避免正文膨胀」为由在未读源时删减例子不成立，哪些例子/反例承载关键判断须先回读；探索性建议：先补 Chesterton's Fence 与增量施加两条操作，语言特定材料的去留待回读后再定（可放正文或承重支持材料）；删除：本轮不删；落点：implementation profile 的方法入口或新方法；回读 R0；前置（可解析）：补读 `addy:skills/code-simplification/SKILL.md`。
 - **adopt · DES-28 质量约束写成可执行契约** — 理由：产品没有"把质量条写成可执行契约"的载体，与 DES-20 互补；差异：上游有 CONSTRAINTS.md 四类条目、棘轮、生命周期接入、Exceptions 到期；保留：measure/threshold 只针对单条 claim 的既有设计；改变：新增约束文件形态；删除：无；落点建议：新方法或 Charter 附件；回读 R0；前置：补读 `addy:skills/constraint-driven-development/SKILL.md` + `references/floor-guard.md`。
 
 ### 2.4 DBG（调试/缺陷/测试）
 
 - **adopt · DBG-04 no-loop-no-hypothesis gate + loop 阶梯** — 理由：产品只要求"先复现"，但假设阶段没有门；差异：上游把 loop 建成设为前置，并给出十级构造阶梯与每级判据；保留：复现优先与最小化；改变：把"没有 loop 不进入假设"写成硬判据 + 阶梯；删除：无；落点建议：local-defect-feedback-loop.md §Method 2 扩写；回读 R0（本轨未读 matt diagnosing-bugs 原文）；前置：补读 `matt:skills/engineering/diagnosing-bugs/SKILL.md` 全文（含 redact 段）。
 - **adopt · DBG-05 redact-first** — 理由：证据采集前脱敏是安全边界，产品零覆盖，而 local-defect 明确要求"report exact commands, observations"；差异：上游有环境变量构造与信号行摘录法；保留：如实记录；改变：在记录前插入脱敏步骤；删除：无；落点建议：local-defect-feedback-loop.md §Method 5 + Charter 的工具/动作段；回读 R0；前置：同 DBG-04。
-- **adopt · DBG-06 flake 处理** — 理由：产品只记录条件，没有复现率目标与"先怀疑观察方法"的顺序；差异：上游有提高复现率、并发加压、隔离前记录要求；保留：条件记录；改变：新增顺序与目标；删除：无；落点：local-defect-feedback-loop.md §Method 2；回读 R0。
+- **adopt · DBG-06 flake 处理** — 理由：产品只记录条件，没有复现率目标与「先怀疑观察方法」的顺序；差异：上游有提高复现率、并发加压、隔离前记录要求；保留：条件记录；改变：新增顺序与目标；删除：无；落点：local-defect-feedback-loop.md §Method 2；回读 R0；前置（可解析）：补读 `matt:skills/engineering/diagnosing-bugs/SKILL.md` 的 flake 段与 `cursor:cursor-team-kit/skills/run-smoke-tests/SKILL.md`（隔离与确定性断言）。
 - **adopt · DBG-09 根因修复 vs 症状抑制** — 理由：产品有"修因"但没有反症状修复的判据与同形模式排查；差异：上游有长注释即代码错的判据、grep 全量修、仪表优先；保留：修因；改变：补判据与排查；删除：无；落点：local-defect-feedback-loop.md §Method 4；回读 R0（本轨读了 `store.ts` 的失败模式但未读 principle 原文）；前置：补读 `principle-fix-root-causes/SKILL.md`。
 - **narrow · DBG-10 重启/间歇类缺陷专项** — 理由：与 DES-12 相邻，属 E 的实现卫生；差异：上游把"陈旧持久状态"设为第一怀疑对象；保留：无；改变：作为 DES-10 的一个已知失败模式登记；删除：无；落点：DES-10 方法的反例/失败模式节；回读 R1（读过 `store.ts`）；前置：补读 `principle-fix-root-causes/SKILL.md`。
 - **narrow · DBG-11 安全降级与埋点** — 理由：与 CONC-03 相邻，产品零覆盖；差异：上游有降级模式与埋点指南；保留：无；改变：并入 CONC-03；删除：不单独成节；落点：可观测性方法（若采纳）；回读 R0。
@@ -109,7 +112,7 @@
 - **adopt · DBG-13 人机协作复现夹具** — 理由：需要人类动作的复现步骤在真实缺陷中常见，产品只有"Charter 有 permitted commands"这一层；差异：上游有 step/capture 助手、KEY=VALUE 回传、凭据不进入脚本的规则；保留：Charter 工具段；改变：新增夹具形态；删除：无；落点建议：local-defect-feedback-loop.md 的支撑文件或 Charter 附件；回读 R2（读过 hitl-loop.template.sh 全文）；前置：补读 `wizard/template.sh`（同族）。
 - **adopt · DBG-14 测试先行次序（Prove-It）** — 理由：产品用"observation"而非"test"，次序语义偏弱；差异：上游有明确的"失败测试先于改生产代码"与"因预期原因失败"的确认；保留：§Limits 的"不要求每个红测试一次提交"；改变：把次序写成判据（在方法适用范围成立时）；删除：不引入"六步 TDD"全套；落点建议：local-defect-feedback-loop.md §Method 1/4；回读 R0（本轨读了 `tdd/mocking.md` 与 A 行）；前置：补读 `matt:skills/engineering/tdd/SKILL.md` + `cursor:pstack/skills/tdd/SKILL.md`（注意两处适用范围相反：一个默认 gate、一个明确请求才用——落地时必须在正文里给出适用边界，不得二选一而不说明）。
 - **adopt · DBG-15 好测试判据** — 理由：产品只有"在行为接缝加回归覆盖"，没有"什么算好测试"，会出现实现耦合测试通过而缺陷漏过；差异：上游有行为判据、同义反复/实现耦合/横向切片三反模式、弱断言清单、测试尺寸；保留：接缝选择；改变：新增判据（含"若导入的每个函数都返回 undefined 还会通过吗"这一句）；删除：无；落点建议：与 DBG-14 同一方法；回读 R0；前置：补读 `matt:skills/engineering/tdd/SKILL.md` + `tests.md` + `principle-test-behavior-not-implementation/SKILL.md`。
-- **adopt · DBG-16 mock 纪律** — 理由：产品没有任何 mock 规则，而 cross-module-design 已要求"按依赖形状选测试路径"，两者相邻；差异：上游有系统边界清单与可 mock 设计两规则；保留：依赖形状选测试路径；改变：新增 mock 边界与设计规则；删除：无；落点建议：cross-module-design.md §Method 3 扩写；回读 R2（读过 `tdd/mocking.md` 全文）；前置：在采纳时指认单源（上游两处重复：`mocking.md` 与 `codebase-design/SKILL.md`）。
+- **adopt · DBG-16 mock 纪律** — 理由：产品没有任何 mock 规则，而 cross-module-design 已要求「按依赖形状选测试路径」，两者相邻；差异：**上游相关材料不是同一句话的重复副本，不得以「指认单源」代替适用语境协调**：`mocking.md` 讲边界打桩与可 mock 设计（DI、SDK 式按操作接口）；`codebase-design/SKILL.md` 与 `DEEPENING.md` 分别涉及内部测试接缝、本地可替代依赖、自有远程服务的 adapter、以及不为测试暴露内部接缝；保留：依赖形状选测试路径；改变：新增区分上述四类依赖的 mock/adapter 选择操作与一个反例；删除：无；落点建议：cross-module-design.md §Method 3 扩写；回读 R2（读过 `tdd/mocking.md` 全文）；前置：补读 `matt:skills/engineering/codebase-design/SKILL.md` 与 `DEEPENING.md` 的相关段，再定正文/支持材料分居。
 - **narrow · DBG-18 无法复现时的替代路径** — 理由：产品给了出口但无阶梯；差异：上游按"该代码路径既有的最近测试类型优先"给出替代序列；保留：出口；改变：补阶梯与跳过记录要求；删除：无；落点：与 DBG-04/14 同方法；回读 R0。
 
 ### 2.5 EVID（证据/验证/评审/评测）
@@ -140,7 +143,7 @@
 - **defer · DLV-04 PR 正文模板** — 理由：产品已有 before/after 对照语义，但载体不存在；差异：上游有摘要视觉/证据对/Merge Danger；保留：对照语义；改变：无；删除：无；落点：待交付面决定；回读 R0；决定归属：Owner/Driver。
 - **narrow · DLV-05 worktree 隔离** — 理由：产品有写集问题，worktree 属实现环境，落点未定；差异：上游有独立 worktree、干净树前置、清理；保留：写集问句；改变：仅登记为"若引入并行实现则需的操作"；删除：无；落点：Driver 编排附件；回读 R0。
 - **defer · DLV-06 发布前清单与放量** — 理由：产品明确"关闭≠发布授权"，发布操作面属包外；差异：上游有清单、放量阈值、错误预算、回滚模板；保留：关闭≠发布；改变：无；删除：无；落点：登记为包外（建议在 README 的"不授权"句旁列明）；回读 R1；决定归属：Owner。
-- **adopt · DLV-07 交付后回看与自我改进** — 理由：本包已有事实上的回看对象（每个 phase 的 overnight 记录）但无分类与落点规则，改进容易停留在叙述；差异：上游有七类候选改进、确定性检查优先、无护栏即 finding；保留：overnight 记录；改变：新增回看分类与落点规则（与 DES-20 合并实施）；删除：不保留"只写报告不落检查"的做法；落点建议：`docs/` 维护规则或 retro 方法；回读 R1（读过 `.changeset/retro-deterministic-checks.md`）；前置：补读 `matt:skills/in-progress/retro/SKILL.md`。
+- **adopt · DLV-07 交付后回看与自我改进** — 理由：本包已有事实上的回看对象（每个 phase 的 overnight 记录）但无分类与落点规则，改进容易停留在叙述；差异：上游有七类候选改进、确定性检查优先、无护栏即 finding；**注意分支**：不能结构化的项保留为说明与失败例子，反馈闭合允许形成具体待办，**不保留「只写报告不做任何后续」的默认，但也不要求每项都落成检查**；保留：overnight 记录；改变：新增回看分类与落点规则（与 DES-20 合并实施）；删除：无；落点建议：`docs/` 维护规则或 retro 方法；回读 R1（读过 `.changeset/retro-deterministic-checks.md`）；前置：补读 `matt:skills/in-progress/retro/SKILL.md`。
 - **narrow · DLV-08 版本与 tag** — 理由：产品的 digest 纪律覆盖"同一对象两处标识"，缺版本化发布；差异：上游有 `--check` 漂移检测与语义化版本；保留：digest；改变：登记"无版本化"为现状风险；删除：无；落点：README 状态段；回读 R2；前置：补读 `matt:scripts/sync-plugin-version.mjs`（若采纳机器检查）。
 - **adopt · DLV-09 面向人类的操作向导（wizard）** — 理由：人类保留项在包内只到"经 Voice"，缺"让人类执行的步骤如何被脚本化并回收结果"；差异：上游有模板驱动的 UX 契约、默认一次性、可提交例外；保留：Voice 路由；改变：新增向导形态（与 DBG-13 同族）；删除：无；落点建议：`methods/human-step-wizard.md` 或 Charter 附件；回读 R0；前置：补读 `wizard/SKILL.md` + `template.sh`。
 - **adopt · DLV-10 会话级交接产物** — 理由：产品有交接原则（短消息承载路由、事实落产物），但没有交接文档的形态与落盘规则，跨会话续接会丢失"下一步"；差异：上游有临时目录、必含节、引用而非复制、脱敏、按参数裁剪；保留：路由与产物指针；改变：新增交接形态；删除：不落工作区（遵守上游的落盘规则）；落点建议：driver 侧方法或模板文件；回读 R0；前置：补读 `matt:skills/productivity/handoff/SKILL.md` + `claude-handoff/SKILL.md`。
@@ -165,14 +168,15 @@
 - **narrow · ORC-02 并行扇出与合并** — 理由：产品有写集问题，操作面缺失；差异：上游有完成谓词、必返工件、独立输出路径、测量简报内容；保留：写集问题；改变：仅保留"先定完成谓词与必返工件"一条（与 ORC-11/12 合并）；删除：不引入扇出机制；落点：Driver 编排附件；回读 R0；前置：补读 `swarm/SKILL.md`。
 - **defer · ORC-03 扇出形态与规模** — 理由：产品明确不设固定并行数，形态选择属 runtime 编排；差异：上游有切片/竞速/混合与判优；保留：不设固定数量；改变：无；删除：无；落点：包外；回读 R0；决定归属：Owner/Driver。
 - **narrow · ORC-04 上下文隔离与保全** — 理由：与 BHV-12 同源，归属未定；差异：上游有隔离判据与摘要内容要求；保留：有界引用；改变：先定归属再决定；删除：无；落点：待定；回读 R0。
-- **reject · ORC-05 planner/worker 隔离模型** — 理由：产品在 `authority/RESPONSIBILITY-BACKBONE.md` §4 与 `profiles/driver.md` 明确"不定义进程/并发/队列/锁/重试"、"不建固定 Role matrix"，该机制与本包已接受的边界直接冲突；差异：上游是完整的云端编排模型（克隆隔离、无终态、handoff 传播）；保留：产品的责任路由；改变：不改变；删除：无；落点：不落；回读 R2（读过 `orchestrate/SKILL.md` 前 60 行 + 产品全文）；前置：无（若 Owner 要重构包边界则需重新评估）。
-- **reject · ORC-06 长跑循环状态协议** — 理由：同 ORC-05，属 runtime 机制且产品显式排除；差异：上游有状态文件契约与 hook 判定；保留：Driver 的"有界循环而非递归"精神（产品已有"不能在无证据时继续假设"的同类约束）；改变：不改变；删除：无；落点：不落；回读 R1（A 行）；前置：无。
+- **reject · ORC-05 planner/worker 隔离模型** — 理由：**本轮不引入该实现形态**（包形态取舍）：产品在 `authority/RESPONSIBILITY-BACKBONE.md` §4 与 `profiles/driver.md` 明确不定义进程/并发/队列/锁/重试、不建固定 Role matrix，故本轮不入包；差异：上游是完整的云端编排模型（克隆隔离、无终态、handoff 传播）；**不得推导成其隔离、交接、暂停或恢复知识不属专业工作流**（那些知识保留为已知残余，本轮未评价其专业价值）；保留：产品的责任路由；改变：不改变；删除：无；落点：不落（若 Owner 改变包边界则重新评估）；回读 R1（读过 `orchestrate/SKILL.md` 前 60 行 + 产品全文）；前置：无。
+- **reject · ORC-06 长跑循环状态协议** — 理由：同 ORC-05，属 runtime 机制，**本轮不引入该实现形态**；差异：上游有状态文件契约与 hook 判定；**其有界循环与状态保全知识不被推导为无价值**（保留为已知残余）；保留：Driver 的"有界循环而非递归"精神（产品已有"不能在无证据时继续假设"的同类约束）；改变：不改变；删除：无；落点：不落；回读 R1（A 行）；前置：无。
+- **defer · ORC-07 第二模型顾问** — 理由：需区分两个问题——**（a）独立性规则已被覆盖**：`methods/behavior-claim-evaluation.md` §Limits 明确「Independent authorship … is not proved by a fresh instrument, model diversity or multiple labels」，这一点不需再做；**（b）顾问机制本身（调用时机/状态目录/计数与日志/nudge 与 pending 触发/失败处理）本轮未读、也未整体拒绝**；差异：上游 advisor 插件用 state.json + 四类 hook 实现咨询记录与提醒；保留：无（不把 (a) 的立场当作 (b) 的否证）；改变：本轮不改；删除：不写"已明确拒绝"；落点：待补读后再定；回读 R0（只读过 `advisor` 的 A 行）；前置（可解析）：补读 `cursor:advisor/skills/advisor/SKILL.md`、`cursor:advisor/agents/advisor-subagent.md`、`cursor:advisor/hooks/hooks.json`。
 - **defer · ORC-08 会话史挖掘** — 理由：涉及隐私与范围授权，产品无历史挖掘机制；差异：上游有时窗/主题/工作区锁定与只读约束；保留：无；改变：无；删除：无；落点：若做多会话续接再处理；回读 R0；决定归属：Owner（授权面）。
 - **narrow · ORC-09 会话自评** — 理由：与 DLV-07 重叠；差异：上游有三评审维度；保留：无；改变：并入 DLV-07 的维度设计；删除：不单独成节；落点：DLV-07 方法；回读 R0。
 - **defer · ORC-10 记忆维护** — 理由：本包已有 AGENTS.md 人工维护纪律，自动化维护是否引入取决于工具面；差异：上游把更新委托给子代理并设阈值；保留：人工纪律；改变：无；删除：无；落点：若引入自动化再处理；回读 R1（A 行）；决定归属：Driver。
 - **narrow · ORC-11 任务图与稀疏通信** — 理由：与 AUTH-06/ORC-02 同族；差异：上游有 ready frontier、上下文指针通信、票尺寸；保留：Plan 三件事；改变：仅保留"票尺寸=一个上下文窗口"这一条尺寸判据；删除：不引入任务图工具；落点：Plan 方法；回读 R0。
-- **narrow · ORC-12 验证夹具维护** — 理由：产品有"复用评价须确认覆盖"原则，缺夹具维护；差异：上游有特性→源入口→配方的索引与漂移扫描；保留：复用确认；改变：补"落盘可重跑配方"一条（与 DLV-11 相邻）；删除：不引入索引工具；落点：behavior-claim-evaluation.md 或 docs；回读 R0。
-- **reject · ORC-13 自动运行与安全暂停** — 理由：runtime 编排，产品显式排除；差异：上游有 autopilot 分级与 pause-safely；保留：无；改变：不改变；删除：无；落点：不落；回读 R1（A 行）；前置：无。
+- **defer · ORC-12 验证夹具维护** — 理由：产品有"复用评价须确认覆盖"原则，缺夹具维护；差异：上游有特性→源入口→配方的索引与漂移扫描；**探索性建议（未读源）**：把「落盘可重跑配方」作为候选候选保留面，但把整个夹具维护压成一句未读源即定，须先回读再定；改变：本轮不改；删除：本轮不删；落点：behavior-claim-evaluation.md 或 docs（待定）；回读 R0；前置（可解析）：补读 `cursor:pstack/skills/maintain-verification-skill/SKILL.md` 与 `cursor:pstack/skills/create-verification-skill/SKILL.md`。
+- **reject · ORC-13 自动运行与安全暂停** — 理由：runtime 编排，**本轮不引入该实现形态**；差异：上游有 autopilot 分级与 pause-safely；**其暂停、恢复与状态保序知识不被推导为无价值**（保留为已知残余）；保留：无；改变：不改变；删除：无；落点：不落；回读 R1（A 行）；前置：无。
 - **narrow · HIT-01 理解失败重述协议** — 理由：产品有"用自己的话复述"但没有触发与格式；差异：上游有点名理解失败、要求重讲、简化语言、必须复用术语表；保留：读回原则；改变：补最小协议（复用 CONTEXT 术语一条与 BHV-10 联动）；删除：不引入完整语言标准；落点：intent-voice 方法；回读 R1（A 行）；前置：补读 `matt:skills/productivity/wait-what/SKILL.md`。
 - **defer · HIT-02 反向提问（问卷）** — 理由：产品只覆盖 Owner 取舍，向第三方取输入的场景未在范围内；差异：上游有收件人识别与 done-when；保留：无；改变：无；删除：无；落点：若扩展输入面再处理；回读 R0；决定归属：Driver。
 - **reject · HIT-03 教学系统** — 理由：本包定位是责任与判断，不含教学或学习工作区；差异：上游是完整教学契约；保留：无；改变：不改变；删除：无；落点：不落；回读 R0；前置：无。
@@ -183,16 +187,16 @@
 - **defer · CONC-02 性能方法** — 理由：产品无性能语境，是否入包取决于包是否要覆盖质量面；差异：上游有测量/目标/定位/验证/防回归；保留：成本关注轴（Backbone §5）；改变：无；删除：无；落点：由 Owner 决定是否扩包；回读 R0；决定归属：Owner。
 - **defer · CONC-03 可观测性** — 理由：同类，且与 DBG-11 重叠；差异：上游有信号选择与遥测自检；保留：无；改变：无；删除：无；落点：同上；回读 R0；决定归属：Owner。
 - **defer · CONC-04 可访问性** — 理由：无前端语境；差异：上游 WCAG 清单；保留：无；改变：无；删除：无；落点：由 Owner 决定；回读 R0；决定归属：Owner。
-- **narrow · CONC-05 测试模式参考** — 理由：与 DBG-15/16 重叠；差异：上游有按层模式与语言示例；保留：无；改变：只保留"打桩边界"一条并入 DBG-16；删除：不收完整模式库；落点：与 DBG-14/15/16 同方法；回读 R0。
+- **defer · CONC-05 测试模式参考** — 理由：与 DBG-15/16 重叠；差异：上游有按层模式与语言示例；**探索性建议（未读源）**：不把「只留打桩边界一条」当作已完成的专业取舍——未读源即对模式库做删减，哪些例子承载关键判断不得因篇幅删除，须先回读；改变：本轮不改；删除：本轮不删；落点：与 DBG-14/15/16 同方法（待定）；回读 R0；前置（可解析）：补读 `addy:references/testing-patterns.md` 与 `matt:skills/engineering/tdd/tests.md`。
 - **narrow · CONC-06 运行时夹具** — 理由：产品 F 方法刻意仪器无关，夹具层是可选增益；差异：上游有浏览器/终端取证与既有 harness 优先；保留：仪器无关的 F 方法；改变：仅登记"若无夹具则说明"一条；删除：不引入工具清单；落点：behavior-claim-evaluation.md §Method 2 的注；回读 R0。
 - **narrow · SKL-01 技能格式规范** — 理由：当前包不是 skill 包，规范无处附着；差异：上游有 frontmatter/章节/描述禁令；保留：现状；改变：若未来做 skill 包则先读本条；删除：无；落点：包形态决定后；回读 R1（读过 `docs/skill-anatomy.md` 前 120 行）；前置：补读该文件全文 + `skill-lint.js`。
 - **adopt · FMT-04 工件路径漂移护栏** — 理由：本包靠人工摘要核对跨文件约定（profile↔method↔charter 的引用），已有漂移风险实例（三处装配示例、M1 字样）；差异：上游用一个 allowlist + 受护文件清单把多宿主路径约定锁死；保留：人工核对；改变：新增窄范围校验（可选）；删除：无；落点建议：`scripts/` 校验器 + CI（若 Owner 允许引入脚本面）；回读 R2（读过该脚本全文，描述与实现一致）；前置：确认包是否允许携带脚本（当前 README 声明无 validator）。
 - **defer · FMT-05 三事件 hook 机制** — 理由：包无执行面，hook 属宿主工具层；差异：上游有三事件分工与占位符往返；保留：无；改变：无；删除：无；落点：若引入工具层再处理；回读 R2（读过脚本头与函数清单）；决定归属：Owner/Driver。
 - **narrow · FMT-06 缓存须向源站重验证** — 理由：与 EVID-06 同族，价值在"缓存不得降低证据新鲜度"这一条；差异：上游用 validator 而非 TTL；保留：无；改变：作为 EVID-06 的一条注（若引入缓存）；删除：不引入缓存实现；落点：behavior-claim-evaluation.md 或 docs；回读 R1。
-- **defer · FMT-07 不要第二个路由器** — 理由：包无路由面；差异：上游禁止重复注入；保留：不增加责任节点（Backbone §2）；改变：无；删除：无；落点：包形态决定后；回读 R2（读过 session-start.sh 的 A 行 + 产品全文）；决定归属：Driver。
+- **defer · FMT-07 不要第二个路由器** — 理由：包无路由面；差异：上游 `session-start.sh` 的设计注释明确「再挂一个注入会变成第二个路由器」，是该机制的对应来源（matt ADR 0002 仅谈分发路线，不作本行来源）；保留：不增加责任节点（Backbone §2）；改变：无；删除：无；落点：包形态决定后；回读 R1（读过 session-start.sh 的 A 行与产品全文，未读脚本全文）；决定归属：Driver。
 - **narrow · FMT-08 机器校验族** — 理由：与 AUTH-20/PKG-03/FMT-04 同族；差异：上游有五类窄范围校验器与豁免清单；保留：人工核对；改变：只登记"哪些不变量应被检查"的清单，不引入校验器；删除：不复制整套脚本；落点：docs 或 scripts（由 Owner 决定）；回读 R1；前置：补读 addy `scripts/validate-*.js` 的 A 行对应原文（若要把清单写准）。
 - **narrow · FMT-09 注释卫生** — 理由：E 的局部卫生，产品只给局部自由度；差异：上游有豁免清单与 MUST KILL 标记；保留：局部自由；改变：仅保留"豁免清单"思路并入实现卫生；删除：不引入清理代理；落点：implementation profile 或 CONC-05；回读 R0。
-- **adopt · GOV-01 桶分类与晋升不变式** — 理由：本包已有同类漂移（README 保留 M1 时代"待 M4"字样；Profile/Method/Charter 三处状态叙述），与 A3 的计数漂移同病；差异：上游用三条不变式（README 条目 + 清单条目 + docs 页）与再同步触发；保留：现有状态叙述；改变：确立单一权威清单 + 三处一致性 + 变更触发再同步；删除：不删历史快照；落点建议：professional-workflow/README + methods/README（可加检查，见 FMT-04）；回读 R2（读过产品全文 + A3 的 AGENTS.md 行）；前置：补读 `matt:AGENTS.md` 原文以照抄不变式措辞（避免自造）。
+- **adopt · GOV-01 桶分类与晋升不变式** — 理由：本包已有同类状态漂移（README 保留 M1 时代"待 M4"字样；Profile/Method/Charter 三处状态叙述）；**但这是方法/产品形态建议，不是已验证缺陷**：顶层 README 已解释历史 M1–M5 标签、指出现行接受状态并无下游权限；局部旧标题易误读可以统一说明，**不足以独立论证必须新增晋升清单或校验器**；差异：上游用三条不变式（README 条目 + 清单条目 + docs 页）与再同步触发；保留：现有状态叙述；改变：若采纳则确立单一权威清单 + 三处一致性 + 变更触发再同步（须给出具体使用理由）；删除：不删历史快照；落点建议：professional-workflow/README + methods/README（不默认加检查）；回读 R2（只读过产品全文与 A3 的 AGENTS.md 摘要行）；前置：补读 `matt:AGENTS.md` 原文以照抄不变式措辞（避免自造）。
 - **narrow · GOV-02 派生清单再同步触发** — 理由：与 GOV-01 同源；差异：上游把"任何用户可达变更"设为触发；保留：无；改变：并入 GOV-01；删除：不单独成条；落点：同 GOV-01；回读 R1。
 - **defer · PEND-01 79 connector 逐条清单** — 理由：A 只按模板筛到 section 级，本轨只抽样两条，逐条能力/scope/门控未读；差异：不适用；保留：不适用；改变：无；删除：无；落点：不落（未评估）；回读 R2（抽样两条）；前置：逐条读 `third_party/<name>/README.md` 三节；决定归属：Driver（建议拆为独立 work package）。
 - **defer · PEND-02 A2 大型机器面并发语义** — 理由：上游 structure 深度，本轨只读 store.ts 一处；若 DES-10/12/13 进入落地，才需要其 spawn/wait 与恢复语义；差异：不适用；保留：不适用；改变：无；删除：无；落点：DES-10 的前置；回读 R2（store.ts 锁与持久化）；前置：读 `agent-manager.ts` spawn/wait 路径；决定归属：Driver。
@@ -206,7 +210,7 @@
 
 ## 3 · 缺口线索（无当前方法者）
 
-计划 §3："缺当前方法是缺口线索，不是低分"。以下为本轨判定为 `not-covered` 且**没有任何候选方法/文件承载**的机制（共 70 行中的重点，按建议优先级排列）：
+计划 §3："缺当前方法是缺口线索，不是低分"。以下为本轨判定为 `not-covered`、且**没有任何候选方法/文件承载**的机制（现为 71 行中的重点，按建议优先级排列；这些是**比较意见**，不是已完成源评估的缺口结论）：
 
 1. **幂等/崩溃安全/保留因果**（DES-10，含 DES-11/12、DBG-10 的失败模式）——计划 §5 点名不得剥离细节的机制，当前零覆盖。
 2. **安全面清单与三档边界**（CONC-01，含 PKG-05/06 的凭据与逐动作批准）——轴在、操作不在。
@@ -219,9 +223,10 @@
 
 ## 4 · 计数与说明
 
-- 处理行数：183 机制；裁定轨覆盖 **146**（adopt 39 / narrow 64 / defer 39 / reject 4）；`none` 37 不进入本轨。
-- **本次未使用 `reframe` 与 `replace`**：`reframe` 需要先认定现有机制的语义被误置（本轨在校准中未发现此类实例，最接近的两条——EVID-04 的三态语义重定义、EVID-13 的多模型独立性协调——已在既有正文中显式说明，故记 `none`/`narrow`）；`replace` 需要"已接受机制被更完整机制替代"的判断依据（如实证失败或责任冲突），本轨无此证据，故不制造该结论。二者不得被读作"已完成评估"。
-- **`adopt` 的前置不满足者**：39 条 adopt 中，R0 计 27 条、R1 计 12 条、R2 计 0 条（R2 的情况在本轨记 `narrow` 或 `none`）。因此**采纳前必须先完成计划 §5 的原文+支持文件回读**；每条已给出补读对象。
+- 处理行数：183 机制；裁定轨覆盖 **146**（adopt 39 / narrow 60 / defer 43 / reject 4）；`none` 37 不进入本轨。（本轮纠错后的分布；纠错前为 39/64/39/4。）
+- **`reframe` 与 `replace` 本次未使用**：`reframe` 需要先认定现有机制的语义被误置（本轮校准未发现此类实例，最接近的两条——EVID-04 的三态语义重定义、EVID-13 的多模型独立性协调——已在既有正文中显式说明，故记 `none`/`narrow`）；`replace` 需要"已接受机制被更完整机制替代"的判断依据（如实证失败或责任冲突），本轨无此证据，故不制造该结论。二者不得被读作"已完成评估"。
+- **`adopt` 首标签统计（机械计数；规则＝条目内首个出现的 R 标签）**：39 条 adopt 为 **R0 25 / R1 7 / R2 7**（原报 27/12/0 有误，已修正）。该统计**只是标签分布，不转成资格**：按 §0.4 的"实际阅读对象与缺口"判断，**39 条 adopt 均未完成计划 §5 要求的机制主体＋承重支持材料回读**；R2-first 的 7 条各有可见缺口（见 §1 表下注）。每条已给出可解析的补读入口，落实仍需 §5 回读。
+- **每行先固定评价对象再比较当前文本**：不得把"轴/规则已覆盖"与"操作清单缺失"混为一个判断（例：AUTH-04 的轴规则 covered 与 CONC-01 的操作缺口分属两行）。
 - **与 A 的关系**：本轨不重写 A 表；校准的六项口径修正（CALIBRATION §4）只影响消费方式。
 - 残余风险：本轨的 coverage 判定以产品正文全读为据、以上游 A 屏为参照面；上游未被回读的机制细节可能使个别 `not-covered` 实为 `not-covered-but-different`（即机制形状与本轨描述有差），故每条 `source_paths` 与 `requery` 都给出了回读入口。
 
@@ -229,4 +234,28 @@
 
 - 本文件**只是候选**：不实施、不吸收、不改 core/product/legacy、不写任何落地文件、不改 UCBIP。
 - 本文件**不代替 Owner 决定点**（计划 §6）：是否启动落地、是否有界落地授权、后续批次是否重复申请，均待 Owner。
-- **覆盖 ≠ 采纳**再次声明：CALIBRATION §5 的 confirmed covered 50 条中，本轨未对其中任何一条主张"应保持现状"以外的结论；`not-covered` 与 `adopt` 之间也需要 Owner 的范围判断。
+- **覆盖 ≠ 采纳**再次声明：CALIBRATION §5 的 **covered 49 条**是已填写的比较意见，并非都已核源：其中一部分（如 AUTH-09、AUTH-16、AUTH-18、AUTH-20、AUTH-24、BHV-01/04/05/07/08、DES-03、EVID-06）同时给出 `narrow` 候选，即"当前有正文、仍可补边界或操作"；covered 与 narrow 并存是正常的，本文件不声称 covered 行都没有变动主张。`not-covered` 与 `adopt` 之间也需要 Owner 的范围判断。
+
+## 6 · 修订记录（一次有界纠错批次）
+
+触发：Pro 合入前置审核 RETURN（`ABSORB-PRO-REVIEW-DISPOSITION.md`）与 `ABSORB-METHOD-CALIBRATION-CHECK.md` MCAL-1..4 返回。本轨只修受影响行/理由/统计/措辞；未重开全量、未重读无关源、未改 core/product/上游、未提交。
+
+| 项 | 修正 | 落点 |
+| --- | --- | --- |
+| AUTH-27 | 按来源恢复 ADR 形态：Matt 默认＝标题＋1–3 句（Status/Considered Options/Consequences 可选）＋三条件；Addy 形态单独陈述；不移植字段；理由改为「补记录操作与例子」而非「无记录载体」 | TSV AUTH-27；§2.1 AUTH-27 |
+| BHV-10 | 恢复原意：CONTEXT.md 只做词汇表，不得成为规格/草稿/实现决策容器；建模活动产物按各自载体安放 | TSV BHV-10；§2.2 BHV-10 |
+| DES-14 | 删除「现有方法禁止删除」的理由；写明兼容偏好是条件性的、有效 authority 可接受破坏性变更 | TSV DES-14；§2.3 DES-14 |
+| DES-23 | 删除「当前默认增量可编译」；改记为上游策略比较 | TSV DES-23；§2.3 DES-23 |
+| ORC-07 | 拆分两个问题：独立性规则 covered（behavior-claim-evaluation §Limits）；顾问机制 not-covered＋defer，不整体标已拒绝 | TSV ORC-07；§2.7 ORC-07（新增条目） |
+| AUTH-07 等来源行 | AUTH-01/02/04/07/10/12/13/15/17/19 改标为产品自身冻结来源；相邻上游线索移入 uncertainties 并声明不作覆盖证明；FMT-07 去掉 matt ADR 0002（改以 session-start 注释为源） | TSV 相应行；CALIBRATION C5 |
+| AUTH-04 | 固定评价对象为「关注轴横跨判断函数、不新增责任节点」→ covered；verdict narrow→none；操作清单缺失归 CONC-01 | TSV AUTH-04；§2.1 AUTH-04 |
+| 完成度降格 | 「175 confirmed 实质评估」→「175 条已填写 coverage 比较意见；源核验程度不一，不共同代表实质源评估完成」；R2 改为阅读自述、不等于 §5 资格；修正 covered 汇总（covered 与 narrow 并存） | CALIBRATION §5.1/§5.2；本文 §0.4/§1/§4 |
+| R 汇总 | adopt 首标签重算为 R0 25 / R1 7 / R2 7（原报 27/12/0 有误）；声明其仅为标签分布、不转资格 | 本文 §4 |
+| narrow/defer/reject 纪律 | 区分范围排除（「本轮不引入该实现形态」）与实质限缩；DES-27/CONC-05/ORC-12 降为 defer＋探索性建议；DES-24/DBG-06 补可解析前置入口 | 本文 §0.2/§0.4 与相应条目；TSV 相应行 |
+| DES-20 / DLV-07 | 删除「并授权未来把重复规则转为检查」；恢复「不能结构化时强化说明＋失败例子；反馈闭合允许形成具体待办」分支 | TSV DES-20；§2.3 DES-20；§2.6 DLV-07 |
+| 统计 | 来源组合为七个互斥桶、合计 183（不是「大于 183」）；third_party base 79×6＝474＋8 条额外路径＝482（额外路径另列） | CALIBRATION §4 C3、§5.1、§5.3 |
+| requery 锚点 | 123 条 `ADJ …` 式引用改为「回读入口＋ABSORB-B-ADJUDICATION.md §小节＋本行机制 ID」；另 3 条随字段修正重写；现无 `ADJ ` 式悬空引用 | TSV 全表 |
+| C1–C6 | 按 Pro 限缩 C3/C4/C5/C6；C5 允许 nature/related 作发现/定位/归组线索但不能单独充当 coverage 证明；C6 分文本覆盖/静态源依据/实际运行强制力 | CALIBRATION §4 |
+| MCAL-1..4 | §3.1 结论限缩到已独立回读区段，分别记录 blind/header/已知与局部/全文分母，不据 18 条推普遍无偏差或漏检率；175/R/C5/C6/授权措辞/删例子/可解析前置逐项关闭 | CALIBRATION §2.1/§3.1/§4/§5；本文 §0/§1/§4 |
+
+重算后的分布（与 TSV 一致）：coverage **covered 49 / partial 55 / not-covered 71 / pending-check 8**；裁定 **adopt 39 / narrow 60 / defer 43 / reject 4 / none 37**。未核验行继续保持「初步比较」；pending 与 not-assessed 继续分开。

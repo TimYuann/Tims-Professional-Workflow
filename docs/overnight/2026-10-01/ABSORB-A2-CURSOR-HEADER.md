@@ -168,14 +168,44 @@ Cheapest targeted follow-ups, so scale does not require re-reading the repo:
 - `third_party` READMEs were screened by section (install, MCP config, gate, capabilities, notes), not sentence by sentence. Where a connector's risk lives in a paragraph outside those sections — regulatory limits, regional endpoints, per-account tool availability — the row records what that section said and flags it as a text-level statement, not a verified behaviour.
 - Several rows describe behaviour that is **claimed by the upstream text but not verifiable from the pin**: server-side tool surfaces ("the hosted runtime is the source of truth for tool names and schemas"), client-version gates, and platform-side approval mechanics (`x-money`'s `SendToUser` widget, the `approval` input the server enforces). These are recorded as documented mechanisms.
 - The upstream repo is a moving target: this is a frozen screen of one pin only, and nothing in this file survives a pin change without re-verification.
-- Two logo-extension mismatches were introduced by this reader and corrected against `git ls-tree` during reconciliation (intercom, x-ads); the set-equality check in §2 is what caught them, which is the check a later reader should repeat rather than trusting the count.
+- Two logo-extension mismatches were introduced by this reader and corrected against `git ls-tree` during initial reconciliation (intercom, x-ads); the set-equality check in §2 is what caught them, which is the check a later reader should repeat rather than trusting the count. A second, externally reviewed correction pass is recorded in §11.
+
+## 11 · Revision record
+
+**Revision 1 — bounded factual correction (2026-10-01, after Pro pre-read returned RETURN).** Owner authorised one bounded correction pass; only this TSV and this header were touched, no re-reading was performed (every anchor cited below was already read in this screen), and nothing was committed.
+
+The pre-read flagged one real factual error: row 165 (`orchestrate/skills/orchestrate/SKILL.md`) asserted in `uncertainties` that "本仓不含该技能正文" for the `cursor-sdk` skill. That skill body **is** in the fixed pin. Verified with `git ls-tree -r <pin>` and `git show HEAD:cursor-sdk/skills/cursor-sdk/SKILL.md`:
+
+```
+path   cursor-sdk/skills/cursor-sdk/SKILL.md
+blob   bb070b338da14aa5d0847e793f6f364f25a751c3
+size   15,428 bytes / 239 lines
+note   this screen had already recorded that same path at `full` depth in its own row,
+       so the two rows contradicted each other
+```
+
+The cell now states that the body exists in-repo (with the pin + path + blob anchor) and separates the remaining unverified claim: *whether that plugin is installed or loaded on the target host* — this repo only carries the marketplace registration and the plugin directory, which proves nothing about host-side installation.
+
+A `grep` self-check for the same assertion family ("本仓不含 / 外部插件 / 缺失 / 不存在 / 外置 / 外部依赖") produced 17 further hits, judged one by one against the pin:
+
+| Row | Path | Was | Now |
+|---|---|---|---|
+| 343 | `create-plugin/rules/plugin-quality-gates.mdc` | machine-side constraint called "本仓外的 marketplace 校验器" | **wrong**: `schemas/plugin.schema.json` is in this repo and is consumed by the root `scripts/validate-plugins.mjs`; cell now says so and separates it from the fact that the rule is about plugins authored elsewhere |
+| 273 | `cursor-sdk/.cursor-plugin/plugin.json` | cursor-sdk called an "orchestrate 的外部依赖" | **imprecise**: the plugin directory and skill body are in-repo; cell now says "跨插件依赖" + in-repo anchors, and keeps host install/load as an unverified separate claim |
+| 72, 76, 83 | `visual-parity.md`, `shipping.md`, `multi-phase-plan.md` | `pstack/skills/control-*（外置…）` | **path not in the pin**: no `pstack/skills/control-*` exists; now `cursor-team-kit/skills/control-{cli,ui}（pstack 之外置依赖）` |
+| 75, 84, 137 | `babysit.md`, `worktree-cleanup.md`, `show-me-your-work/SKILL.md` | upstream-relative helper paths quoted bare (`scripts/watch-pr/watch-pr`, `scripts/worktree-audit.sh`, `scripts/log.sh`) | not false — the upstream text writes them that way — but now carry their repo-relative resolution so a reader does not hunt a path that does not exist at the repo root |
+
+Hits checked and left unchanged because they are correct against the pin: the "not shipped here"三 external references in `pstack/README.md` (deslop/control-cli/control-ui really do live in `cursor-team-kit`, and `create-skill`/`loop`/`babysit` really are host built-ins); the `~/.cursor/skills-cursor/canvas/SKILL.md` dependency in `pr-review-canvas` and `docs-canvas` (no `skills-cursor` path exists in the pin); the `xchat-grokbot-helper` + `chatxdk` dependency in `x-chat` (absent from the pin); the host-side `SendToUser`/`approval` mechanism in `x-money-guide` (the pin only documents it); and `deslop`'s statement that pstack does not bundle it.
+
+A bounded path-token sweep was then run: every backticked repo-relative-looking path in all 863 rows was resolved against the pin's path set. The only remaining unresolvable tokens are the three upstream-relative helper quotes above (now qualified) and `.cursor-plugin/plugin.json`, which is correct in its three contexts because it names *a plugin's* manifest in a plugin directory, not a path at the repo root. Row count (863), column count (10), field emptiness, unique-path count, and set equality against `git ls-tree -r <pin> --name-only` were all re-verified after the edits; set equality still reports IDENTICAL. Read-depth distribution is unchanged at full 435 / structure 234 / metadata 194.
 
 ## 10 · Provenance of these deliverables
 
 ```
-ABSORB-A2-CURSOR-INDEX.tsv  sha256 bc3f5829cd6cd12ac4883e3b020396b738ee5652f57290f3b7afd2aa7f957271
+ABSORB-A2-CURSOR-INDEX.tsv  sha256 1ee869541be45dbb09ce1f463d11956b7a8920446620f8744c0d55cb85f00c71
                             records 863 + 1 column header (no comment lines)
-                            size    756,805 bytes
+                            size    757,962 bytes
+                            rev 1   see §11 (bounded factual correction; 9 cell replacements in 8 rows)
 baseline listing            git ls-tree -r ecc249f1e306fc64ddf83c7bed16cacf7c2239db
                             sha256 114a1c9a267bb3758d892b02b39402ad1fb47814f75909a54fb99e9cd4462d77
 git state                   both files untracked; not staged, not committed (intentional)
