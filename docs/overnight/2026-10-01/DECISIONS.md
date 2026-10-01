@@ -364,3 +364,18 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Criteria/independence:** the held case-2 criteria were available to F and were not disclosed. F is a separate session from E; the workspace move did not create new independence. F changed no code/tests/verification copy and did not accept M3.
 - **Integrated report:** `M3-REPORT.md`, SHA-256 `c8cac65c835604b0d6f67059d88d90f9fc8d92d4a605b7d365260247baf60915`, consolidates case-1 and case-2 objects/results, boundaries, costs and limits. It records six unique named M3 sessions, 12 intra-exercise handoffs plus final Oracle delivery, 34 selected Markdown artifacts/437,182 bytes, zero identified no-use recalls, and leaves exact implementation/coordination time `UNVERIFIED` because start/end markers were not captured.
 - **Status:** Both local F results are PASS within their exact scopes; the M3 milestone is ready for Oracle/Owner acceptance, which is not yet recorded. The 03:52 / 08:00 unmet outcome remains unchanged; M5/M6 and Pro acceptance remain open.
+
+## D-047 · Prepare the M5 full-integration candidate report
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after M3's two local F reports and integrated evidence report were fixed.
+- **Report:** `M5-REPORT.md`, SHA-256 `3e3ad058adea6c323e1146a7e9c1ea759b6e7e32add01bd4b651faf7a8b7b708`.
+- **Package object:** source commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; manifest/archive identity remains in `M6-PACKAGE-CANDIDATE-d672914.md`. M3 evidence is `M3-REPORT.md`, SHA-256 `c8cac65c835604b0d6f67059d88d90f9fc8d92d4a605b7d365260247baf60915`.
+- **State/limits:** M5 F1–F4 targeted recheck is PASS; full Pro review and Oracle M3 acceptance are pending. The package has the recorded frozen-M1-label residual. No audit was sent, no Pro allowance was consumed, and no branch push occurred.
+
+## D-048 · Prepare the M6 export/cold-start/rollback evidence report
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from the fixed export and independent case-1/rollback verifier reports.
+- **Report:** `M6-REPORT.md`, SHA-256 `362cab04703874a1de859e554f537de4fbc8502ab750360f9a792cab95732e83`.
+- **Package object:** commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; 19-file manifest SHA-256 `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`; deterministic archive SHA-256 `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`.
+- **Evidence:** independent M6 cold-start-sample PASS (`2b80184e…`) and controlled-copy rollback-evidence PASS (`b7c1fb5a…`) are summarized with their limits. They do not establish app/database/runtime recovery or full M6 acceptance.
+- **Limits/next:** M6 remains a candidate pending the Owner-authorized Pro review timing and final milestone decision. No audit, push, tag, merge, or release action has occurred; Pro remains `0/2`.
