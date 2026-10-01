@@ -339,3 +339,12 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Startup packet:** `fixtures/m3-snapshot/M3-CASE2-F-STARTUP-PROMPT.md`, SHA-256 `375f12b621b9c9b41c41410cca0ddb0da2c5a8d484a22e55bd759914e710af65`. It includes public inputs and exact code/test/report bytes from candidate commit `17602f2`, tree `f9b4f90b9e5a0c7ae11dfe681b82a4a22dddef03`; it includes no F rubric or expected verdict.
 - **Isolation/state:** the separately held case-2 criteria remain with `tpw-night-method` and are to be applied privately. If unavailable in that session context, the F result is `UNVERIFIED`; no inference from E inputs is allowed. At preparation time the method session was idle; no F prompt has yet been sent.
 - **Limits/next:** F writes only `M3-CASE2-F-EVALUATION.md`, returns one three-state verdict on the exact candidate, and does not accept M3. E's report remains self-report; no independent candidate verdict yet.
+
+## D-044 · Dispatch independent F evaluation of the case-2 E candidate
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after the F packet checkpoint `60fa616`.
+- **Fixed treatment/baseline:** treatment commit `17602f2b12822aba88785e27a733f75a3238214d`, tree `f9b4f90b9e5a0c7ae11dfe681b82a4a22dddef03`; baseline commit `2ad72273c6aa7dd9cb9775d9146a6fd549db19b1`, tree `f7f3fb2524a8f6a7ad125c0f45a6564d29139744`.
+- **Task packet:** `M3-CASE2-F-STARTUP-PROMPT.md`, SHA-256 `375f12b621b9c9b41c41410cca0ddb0da2c5a8d484a22e55bd759914e710af65`; Charter `M3-CASE2-F-CHARTER.md`, SHA-256 `98ab5c2bd4db2da434e5ed0d7346c354af08e9870a8f367a316a2512bb11e26b`.
+- **Reviewer/state:** `tpw-night-method` (`w27:pG`), independent of E author, was idle before dispatch. Correct Herdr prompt sent; one post-dispatch read showed `working` at the restored main root. It will apply the privately held case-2 criteria if available; otherwise return UNVERIFIED without inferring.
+- **Write set/limits:** only `M3-CASE2-F-EVALUATION.md`. The packet contains public accepted inputs and exact code/test/report bytes, not the private rubric. The reviewer must not edit/stage/commit candidate files or disclose the private criteria.
+- **Result state:** Pending. E's self-report is not an F verdict; neither case-2 acceptance nor overall M3 acceptance is recorded.
