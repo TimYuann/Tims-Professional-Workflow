@@ -84,3 +84,35 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Recorded:** 2026-10-01 by `tpw-night-driver` after adding `M6-PACKAGE-CANDIDATE-f11de8b.md`.
 - **Observed:** `python3 scripts/render.py` exited 0; `python3 scripts/check-consistency.py` passed 7/7 (including S2, 116 files); `python3 scripts/compose-role.py --check` passed. `python3 scripts/check-closure.py` remained 19 PASS / 2 FAIL across 136 files (C1 no tag, D1 scans tool-specific execution records). The export manifest independently checked all 19 package files; see the M6 candidate report.
 - **Disposition:** D-010 remains the original result. No checker or source assertion changed. No tag, push, merge or UCBIP action occurred.
+
+## D-012 · Correct the earlier Herdr environment attribution
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after Owner supplied Oracle's foreground-process observation.
+- **Separate check:** `test "${HERDR_ENV:-}" = 1` exited 0. Per-field `printenv` showed `HERDR_ENV=1`, `HERDR_WORKSPACE_ID=w27`, `HERDR_TAB_ID=w27:t1`, `HERDR_PANE_ID=w27:pD`; the exec shell parent PID was `86526`.
+- **Foreground process check:** `ps eww -p 86526 -o command= | tr ' ' '\n' | rg '^HERDR_(ENV|WORKSPACE_ID|TAB_ID|PANE_ID)='` exited 0 under authorized read-only escalation and showed the same four values, with no other environment values emitted.
+- **Prior result / correction:** The earlier combined command was `test "${HERDR_ENV:-}" = 1 && herdr agent list`. Its tool result was `Error: Os { code: 1, kind: PermissionDenied, message: "Operation not permitted" }`; it provided no isolated `test` result. It did not establish a missing `HERDR_ENV`. The prior attribution in `STATUS.md` was incorrect. Current shell and foreground process both show the same Herdr context, so there is no evidence of session detachment; the previous error was a sandbox/tool-operation denial, inferred from its permission error.
+- **Scope:** This appended correction preserves all earlier decision entries and does not alter UCBIP, tags, or publish permissions.
+
+## D-013 · Resume and confirm M3 D/E/F dispatch through Herdr
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after separate guard and roster calls succeeded.
+- **Runtime:** `herdr agent list` exited 0. Newly started D and E Pi sessions displayed live footers `DeepSeek V4.1 Flash (CommandCode) · think:max`; this verifies runtime configuration beyond argv.
+- **D:** `tpw-night-m3-design`, pane `w27:pJ`; fixed input `fixtures/m3-snapshot/D-STARTUP-PROMPT.md`, SHA-256 `0f6d0e4e028543676273b33c1d0c74e5d933da2ed033be3f9669ca83ac748c90`; write set `TECHNICAL-PLAN.md`. After one prompt, `herdr agent get` reported `working` (state change seq 12191).
+- **E:** `tpw-night-m3-local-bound-e`, pane `w27:pM`; fixed input `fixtures/m3-local-fix/STARTUP-PROMPT.md`, SHA-256 `d6e2768326fede1856cae430f07f566ca562e41ca827976560f84adf36b6444b`; write set `src/labels.py` and `tests/`. After one prompt, `herdr agent get` reported `working` (state change seq 12190).
+- **F:** Existing independent evaluator `tpw-night-method`, pane `w27:pG`; fixed prompt `fixtures/m3-local-fix/F-STARTUP-PROMPT.md`, SHA-256 `75ef8c4305b7f4255a75b379d5ae6b7c44feeb002c30c1d4aa6b1226dace4bbd`; target code/test object is commit `9699276ab1d413379ace91afa0cf683a83b69aa3`. After one prompt, `herdr agent get` reported `working` (state change seq 12193). Held criteria were not copied into shared inputs.
+- **Limits:** These are confirmed starts, not completed results. If E changes code/test bytes, F's present conclusion is limited to commit `9699276` and only the changed object needs reevaluation. D's Plan still requires its independent challenge before case-2 E may start.
+
+## D-014 · Preserve the coordination incident and retain the unmet morning target
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after reading Oracle's [DRIVER-COORDINATION-INCIDENT.md](DRIVER-COORDINATION-INCIDENT.md) in full. The incident artifact is preserved unmodified.
+- **Incident evidence:** The prior pause at 03:52 occurred with M3/M6 incomplete and Pro 0/2. The first combined Herdr command did not capture per-call exit status; later evidence disproved the claim that `HERDR_ENV` was absent. The report retains the incident's evidence boundary and identifies the permission/tool failure as the supported explanation, without asserting an unobserved low-level cause.
+- **Outcome record:** At the 03:52 pause, the planned 08:00 closure objective remained unmet. Resuming D/E/F work is recovery activity and does not rewrite that checkpoint as success. M3, M5, and M6 remain open until their actual criteria and final report are satisfied.
+- **Continuity:** Keep all earlier decision rows intact. Continue only within the existing night authorization; actual D/E/F starts are recorded in D-013. The incident and recovery do not change the no-push/no-tag/UCBIP boundaries or consume a Pro review.
+
+## D-015 · Record completed case-1 method-bound E evidence and independent F verdict
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from `tpw-night-m3-local-bound-e`'s retrieved response and `tpw-night-method`'s fixed evaluation report.
+- **E revalidation:** The method-bound input was prompt SHA `d6e2768326fede1856cae430f07f566ca562e41ca827976560f84adf36b6444b`. E reports two repetitions of `python3 -m unittest discover -s tests -v` exiting 0, the original discriminating input passing, the bounded edge observations, and a seed-implementation negative control with 3/7 failures. E changed no files. Its full response is preserved verbatim in `M3-LOCAL-E-REVALIDATION.md` (SHA-256 `82b755517c703aed8f9a71951458aa6ee937b7db62577424088479a0ccd350ff`).
+- **Independent F:** `M3-LOCAL-EVALUATION.md` reports PASS for code/test object `9699276ab1d413379ace91afa0cf683a83b69aa3` only (report SHA-256 `0cfb21cc9aab60be142af48c45673bc489acb32c17b57f4ee7635e50c6c6ebc1`). F independently reproduced the baseline failure, ran candidate old/full suites, and ran a negative control. It kept private case criteria out of the repository. The E and F reports name identical source/test hashes; Driver's targeted `git diff` against `9699276` confirmed those bytes remain unchanged.
+- **Residual:** The contract says “whitespace” without enumerating the Unicode set; E used Python `str.split()` semantics and recorded the edge as unresolved. This did not change the fixed code/contract or the scope of F's claim. Preserve the limitation; do not silently expand the contract.
+- **Limits:** This closes only case-1 E revalidation plus F evaluation for the fixed code/tests. It does not complete case 2, accept the D Plan, or accept M3/M5/M6. Any later change to code/test bytes requires a new fixed object and targeted evaluation.
