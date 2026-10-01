@@ -63,3 +63,12 @@ d53da06edc99af3bcfc93c744af5f2cc8d512430d318a8b13b1b7f42652d74aa  professional-w
 - Crew: the ten old overnight workers were retired by Oracle (record `.worktrees/state/2026-10-01-pane-retirement.json`); retained Driver/Oracle/method/check; unnamed user pane untouched.
 - Exceptions / limits: `/tmp` scratch deviation from the earlier PW-01 batch is retained as non-blocking; cold read found no version number beyond the acceptance identity, the report link that only resolves at this final tip, historical M2/M4/M5 sub-README labels (resolved via the package README status paragraph), and legacy being local-only.
 - Stop: no automatic continuation, no remote `main` push, no tag/release/archive move, no UCBIP change, no method absorption. Oracle reads this milestone; Driver waits.
+
+## Tail item · legacy `.pi` runtime (Oracle read-back follow-up)
+
+The new root still physically held the ignored legacy `.pi/` runtime (`handoff`, `loops`, `repair`, `repair2`, `review-v4`, `tasks`). Ownership check before moving: no open handles on `.pi` (`lsof +D` empty), every file mtime was pre-cutover (newest `2026-10-01 01:28`), no file newer than the cutover window, and no loop field or runtime configuration was touched. The six directories were moved unchanged into `.worktrees/legacy-pre-night-2026-10-01/.pi/`; an empty `.pi/` container remains in the new root as the runtime path.
+
+- Preserved content: 36 regular files (32K `handoff` + 136K `loops`; three dirs empty of files), 11 symlinks (all under `review-v4/probe2`), 32 directories.
+- Custody manifests: `pi-runtime.files.sha256` `20142524f9edfd21fc98a9547df3d86244f1f9f85948d96aabdd4d4a96531534`, `pi-runtime.files.stat` `ced588dc23a5a32f60c95a30a7da03d1207e7d6b828b6981d7fe466057c7341b`, `pi-runtime.symlinks.stat` `c7e5709758f9ce72c5630e5aa2e5d1954f422feb916e53630f25dea91c19518e`, `pi-runtime.dirs.stat` `e3550d0021c3a66d5c85c9a5f526175b7f21a901e26b927accc49ba9f83ec784`; all four re-verified against the moved content (files/symlinks/subdirs byte- and attribute-identical; the legacy `.pi` container mtime was aligned to the recorded original).
+- Limits: symlink targets were preserved verbatim; absolute targets that pointed into the old root `.pi/review-v4/probe2/...` (and `/tmp` leaves) now dangle by design — they are historical probe fixtures, not live paths. No live dependency was found; no unknown session was closed and pane `pN` was untouched.
+- Evidence: independent targeted check in `MAIN-CUTOVER-PRESERVATION-VERIFY.md` (“Tail item · legacy .pi runtime”).

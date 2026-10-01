@@ -184,3 +184,35 @@ Cold-read limits and ambiguities recorded:
   path in the new root tree; the sentence’s context makes this clear.
 - Scope note: this is a documentation/reference cold read on the promoted local root; it does not
   re-run package qualification, does not accept M6, and does not cover remote promotion.
+
+## Tail item · legacy .pi runtime (2026-10-01, tpw-night-check)
+
+Bounded, read-only verification of the old ignored `.pi` runtime migration (the last cutover item).
+Method: recursive `lstat` walk of the legacy `.pi` compared item-by-item against the four custody
+inventories, plus `lsof +D`, `shasum -c`, `rev-parse`/`status`/`ls-remote`. No state-affecting command,
+no file write except this append, no commit.
+
+| # | Check | Evidence | Result |
+| --- | --- | --- | --- |
+| 1 | Root `.pi` is an empty container; no sixth-directory residue elsewhere in root | `find root/.pi -mindepth 1` = **0 entries** (container dir recreated 19:22); full-depth search for `handoff`/`loops`/`repair`/`repair2`/`review-v4`/`tasks` outside `.worktrees/` and `.git/` = **0 hits** | **PASS** |
+| 2 | Legacy `.pi` matches all four custody inventories item by item | files **36/36** (sha256 + mode + size + mtime), symlinks **11/11** (target + mode + mtime; 8 file-links + 3 dir-links `m1`/`m2`/`m3`), dirs **32/32** (mode + mtime) — **0 mismatches, 0 extras, 0 missing**; the four inventory files themselves match their `custody.sha256` appended digests (`pi-runtime.files.sha256 20142524…`, `files.stat ced588dc…`, `symlinks.stat c7e57097…`, `dirs.stat e3550d00…`, all 4 OK) | **PASS** |
+| 3 | No active-use contradiction; migration changed no loop field or runtime config | max file/dir mtime `2026-10-01 01:28:02`, max symlink mtime `2026-09-28 20:18:16` — all before the cutover (C1 commit 19:13, C0 capture 19:06); `lsof +D` legacy/root `.pi` both exit 1, 0 lines, no errors (no handles); all 36 files byte-identical to capture (including the 34 `loops/*` files — 17 `.json` parse clean — and the 2 handoff files), mtimes unchanged ⇒ loop fields/runtime config untouched | **PASS** |
+| 4 | Symlink absolute-target limitation recorded | 11 links preserved target-identically. 4 target the old root `.pi` path: `sa`→…`/probe2/stable-real`, `sb`→`sa`, `tmpdirlink`→…`/probe2/custom-tmp` (both targets exist in the legacy copy but not at the old path ⇒ dangle as preserved), `stable-leaf.tsv`→…`/probe2/real.tsv` (target absent from the preserved set too ⇒ was already unresolvable); 4 target `/tmp` (`dangling.tsv`→`/tmp/never-created.tsv` was never created; `leaf.tsv`→`/tmp/leaf-target.tsv`, `m1`/`m3`→`/tmp` resolve only while those external objects exist); `m2`→`m1`; `loop-a`↔`loop-b` is an intentional cycle | **recorded** |
+| 5 | Root still clean; core untouched | root porcelain **0**; root HEAD `b088ca814c8f88abbc7f9bc76937ad554f9c2acc` (the final-cutover commit layered on `81f1cef`; core unchanged by it); `HEAD:professional-workflow` = `91875114e51855517f92ef099cbdf60c34e68243` = `5ba5fa5:professional-workflow`; remote `main` `448c3d67…` and `night/2026-10-01-workflow` `cf107522…` unchanged | **PASS** |
+
+Limits and notes:
+
+- The “no drift” statement for the root: HEAD advanced from the C2 message's `81f1cef` to `b088ca8`
+  because the Driver committed the C3/final-report record on top; the core subtree is byte-identical
+  (`91875114…`) and porcelain is clean, so this is a process-record advance, not a core/entry change.
+- Root `.pi` existing as an empty, ignored container is expected (`.pi/` is in `.gitignore`), which is
+  why it does not appear in porcelain.
+- The six `.pi` fixture directories (`handoff`, `loops`, `repair`, `repair2`, `review-v4`, `tasks`)
+  exist only in the legacy copy now; `repair`/`repair2`/`review-v4`/`tasks` contain no regular files
+  (symlinks/dirs only) — all 36 files are under `handoff` (2) and `loops` (34).
+- Symlink preservation is faithful to capture, but usability after the move is not: the old-root
+  absolute targets would need retargeting to the legacy path (or reading via the legacy worktree) if
+  these probe fixtures are ever reused; the `/tmp` targets depend on external state. No retargeting
+  was done or should be done silently — recorded for whoever reuses the legacy copy.
+- Scope note: this is the tail item only; it does not re-run package qualification, does not touch the
+  custody capsule bytes, and does not cover remote promotion or M6 acceptance.
