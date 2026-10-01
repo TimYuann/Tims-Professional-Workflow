@@ -20,7 +20,7 @@
 - M5/M6 export: 19-file manifest SHA-256 `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`; archive SHA-256 `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`.
 - M3 case 1 F PASS applies only to implementation commit `9699276ab1d413379ace91afa0cf683a83b69aa3`. The bound E revalidation reports no code/test changes. Residual: “whitespace” is not Unicode-enumerated in the contract; E's use of Python `str.split()` is preserved as an unresolved edge.
 - M3 case 2 E candidate: commit `17602f2b12822aba88785e27a733f75a3238214d`, tree `f9b4f90b9e5a0c7ae11dfe681b82a4a22dddef03`; E report SHA-256 `557c1ed51e5c9b8c951b1e68a01b318160126ac63924c960b6e1b0c9dd298aed`; independent F report SHA-256 `406b9efc56e60bc88cc9da28061427b660171866f285bd5cd802055cb3a0dacb` is PASS for the recorded Turn presented-view entry.
-- The earlier M5/M6 Pro candidate `ed3120c` is superseded by this checkpoint for audit preparation. The exact current branch HEAD/tree is returned after the checkpoint commit and recorded in `DRIVER-HANDOFF.md`; the package source identity remains `d672914` root tree `c88b662…` / package subtree `9e4fa14…`.
+- The earlier M5/M6 Pro candidate `ed3120c` is superseded. `DRIVER-HANDOFF.md` fixes the review candidate commit/tree; the latest branch tip adds only the final pin and handoff/status records, and its exact HEAD/tree are returned in the completion notice. The package source identity remains `d672914` root tree `c88b662…` / package subtree `9e4fa14…`.
 
 ## Cost and remaining limits
 

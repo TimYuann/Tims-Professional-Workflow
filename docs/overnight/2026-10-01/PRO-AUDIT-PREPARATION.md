@@ -6,13 +6,13 @@
 
 - Repository: `https://github.com/TimYuann/Tims-Professional-Workflow.git`
 - Branch: `night/2026-10-01-workflow`
-- The earlier provisional branch candidate `ed3120c3475339fe7140fc4afbb7fa0c1e8e5aa0` / tree `d2e91104c58777242b7f7fde4d82e31837071564` is superseded. The audit target is the current checkpoint on `night/2026-10-01-workflow`; use the exact commit/tree returned in the checkpoint handoff and final delivery message. Do not submit the older provisional commit.
+- The earlier provisional branch candidate `ed3120c3475339fe7140fc4afbb7fa0c1e8e5aa0` / tree `d2e91104c58777242b7f7fde4d82e31837071564` is superseded. The fixed first-review candidate is branch `night/2026-10-01-workflow`, commit `62e3792d1f30d4c4838622c2e8630cc0d7de7c34`, repository root tree `c0f3a47faed9f212c178b72042a0c49cac37d045`. The latest branch tip adds only this pin and the retirement handoff/status/decision/overnight records; review the fixed candidate commit above. Do not submit the older provisional commit.
 - The `professional-workflow/` subtree at the M5/M6 package source commit and on the reviewed branch remains exactly tree `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`. The reviewed branch commit includes M3, M5 and M6 evidence and the root Oracle acceptance record; this does not accept M3 overall, M5 or M6.
 - The workspace has an unrelated untracked `scan.js`; it is excluded from this committed review object and remains untouched.
 - Package source object currently fixed: commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`; repository root tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; `professional-workflow/` subtree `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`. The root tree and package subtree are distinct identities.
 - Export identity: 19-file manifest SHA-256 `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`; deterministic archive SHA-256 `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`.
 
-At submission, copy the exact repository, branch, commit and root tree from the checkpoint handoff into the Pro prompt, then inspect that exact commit through the GitHub connector, not `main`, a web summary, or cached content. The pin includes the fixed local M3 case reports, the post-ruling authority-observation record, the M5/M6 evidence and the root Oracle acceptance record. The package subtree is separately pinned as `9e4fa14a…`; never identify the repository root tree `c88b662…` as that subtree. The branch pin does not itself accept M3 overall, M5 or M6.
+At submission, identify repository `https://github.com/TimYuann/Tims-Professional-Workflow.git`, branch `night/2026-10-01-workflow`, commit `62e3792d1f30d4c4838622c2e8630cc0d7de7c34`, repository root tree `c0f3a47faed9f212c178b72042a0c49cac37d045`, and package subtree `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`; inspect that exact commit through the GitHub connector, not `main`, a web summary, or cached content. The pin includes the fixed local M3 case reports, the post-ruling authority-observation record, M5/M6 evidence and the root Oracle acceptance record. Never identify source root tree `c88b662…` as the package subtree. The branch pin does not itself accept M3 overall, M5 or M6.
 
 ## Audit 1 · combined M5/M6 candidate and the two M3 questions
 
@@ -37,6 +37,6 @@ Keep the second allowance for the final object after Oracle/Owner dispositions a
 ## Submission controls
 
 - At send time, visibly confirm ChatGPT 6 Pro and the GitHub connector in the composer; record model/tier evidence, connector state, conversation link, full response and disposition.
-- Include the exact repository, branch, commit and repository root tree in the prompt; separately state the `professional-workflow/` subtree `9e4fa14a…`. This first allowance is one combined M5/M6 review, with both M3 questions above.
+- Include the repository, branch, candidate commit and repository root tree above in the prompt; separately state the `professional-workflow/` subtree `9e4fa14a…`. The latest branch tip is a process-only descendant of the pinned candidate. This first allowance is one combined M5/M6 review, with both M3 questions above.
 - Count an allowance only after the prompt is actually submitted. Do not substitute a non-Pro model or reset the count after a response.
 - No `main`, tag, force-push, merge, UCBIP change, or production/release action is authorized by this review preparation.

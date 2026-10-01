@@ -39,7 +39,7 @@ The combined M0–M6 status, fixed objects, results, costs, residuals, rollback 
 
 - `docs/overnight/2026-10-01/PRO-AUDIT-ALLOWANCE.md` records Owner authorization for 2 ChatGPT 6 Pro full-artifact reviews, currently 0/2 sent. Oracle chooses timing; this is not a per-stage gate.
 - Owner authorized pushing a fixed commit from this night branch solely for those reviews. Oracle pushed `96114e1a97227e7d1541965c89bb91deb860866b`, and the remote readback matched; this checkpoint is not yet pushed. `main`, tags, force-push and mixing the original worktree's dirty/index state remain outside the authorization. The allowance file is preserved unchanged.
-- `PRO-AUDIT-PREPARATION.md` contains the combined M5/M6 read list and two M3 questions. Its previous candidate `ed3120c` is superseded. The exact checkpoint root commit/tree to push and submit is the one returned in `DRIVER-HANDOFF.md` and the completion notice; its package subtree remains `9e4fa14a…`.
+- `PRO-AUDIT-PREPARATION.md` contains the combined M5/M6 read list and two M3 questions. Its previous candidate `ed3120c` is superseded. Fixed Pro candidate: commit `62e3792d1f30d4c4838622c2e8630cc0d7de7c34`, root tree `c0f3a47faed9f212c178b72042a0c49cac37d045`, package subtree `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`. The current branch tip is a process-only descendant that the Owner/Oracle should push; Pro should inspect the exact pinned candidate.
 
 ## Recorded assignments
 
@@ -59,7 +59,7 @@ M3 runtime correction: the first idle B/C Pi footer displayed MiniMax-M3/high be
 
 ## Current handoff snapshot
 
-- The last already-pushed object before this checkpoint was `96114e1a97227e7d1541965c89bb91deb860866b`, root tree `0a88f4efe60ee9c6b01b2f2dca5bc5fd0499828c`; Oracle confirmed `origin/night/2026-10-01-workflow` matched it. This checkpoint is local until Owner/Oracle pushes and reads back the new commit. No `main`, tag, force-push, merge or UCBIP change.
+- The last already-pushed object before this checkpoint was `96114e1a97227e7d1541965c89bb91deb860866b`, root tree `0a88f4efe60ee9c6b01b2f2dca5bc5fd0499828c`; Oracle confirmed `origin/night/2026-10-01-workflow` matched it. Fixed Pro candidate `62e3792d1f30d4c4838622c2e8630cc0d7de7c34` / root tree `c0f3a47faed9f212c178b72042a0c49cac37d045` is local; the current branch tip adds the final handoff/pin and awaits Owner/Oracle push/readback. No `main`, tag, force-push, merge or UCBIP change.
 - This commit's M3 scope is the accepted fixed case evidence plus the separately fixed post-ruling authority observation. Overall M3 is not accepted. M5/M6 are not accepted. The 08:00 closure objective remains unmet; exact labor and coordination time remain unmeasured.
 - First Pro use remains `0/2`. Oracle is preparing the authorized first full candidate review; no Pro submission has occurred as of this handoff.
 - A single Herdr roster read showed `tpw-0930-oracle` working; `tpw-night-profile`, `tpw-night-source`, `tpw-night-method`, `tpw-night-m3-bc`, `tpw-night-m3-design`, `tpw-night-m3-local-bound-e`, `tpw-night-m3-local-impl`, `tpw-night-m5-review`, and `tpw-night-m6-coldstart` idle/done. This Driver is the only other named session observed working. The successor Pi Driver requested by Owner was not yet present in that roster. Unnamed `w27:pN` was not inspected or touched.

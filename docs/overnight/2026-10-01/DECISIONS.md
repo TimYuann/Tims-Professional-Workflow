@@ -415,3 +415,10 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Review state:** first Pro allowance is unused (`0/2`). `PRO-AUDIT-PREPARATION.md` names the complete M5/M6 read set and the two M3 questions; the final checkpoint pin is the exact branch HEAD/tree emitted in the retiring Driver's completion message. No Pro prompt has been submitted.
 - **Scope/preservation:** this checkpoint includes the Oracle M3 acceptance record, the fixed authority observation, identity corrections, status/decision updates and handoff. The 19-file package body is unchanged; untracked `scan.js` is excluded and untouched. No main push, tag, force-push, merge, or UCBIP change.
 - **Retirement:** no new worker prompt was sent. The named worker roster and idle/working states are recorded in `STATUS.md` and `DRIVER-HANDOFF.md`. The successor owns further review-response absorption after Oracle's push/readback and first Pro response.
+
+## D-054 · Pin the first Pro review candidate for handoff
+
+- **Recorded:** 2026-10-01 by the retiring Driver after the substantive metadata/evidence checkpoint was fixed.
+- **Exact review object:** branch `night/2026-10-01-workflow`, commit `62e3792d1f30d4c4838622c2e8630cc0d7de7c34`, repository root tree `c0f3a47faed9f212c178b72042a0c49cac37d045`; package subtree `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`.
+- **Branch delivery:** this handoff commit is a process-only descendant of the review object. Oracle/Owner pushes the latest branch tip and verifies the remote; Pro reads the exact review commit/tree above through the authorized GitHub connector. The earlier provisional `ed3120c` pin is superseded.
+- **Limits:** Pro remains `0/2` until actual prompt submission. This pin grants neither M3/M5/M6 milestone acceptance nor publication/release authority. No package byte was changed.
