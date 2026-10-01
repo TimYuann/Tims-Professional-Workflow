@@ -10,7 +10,7 @@
 - **Delegation source:** The concrete task request must identify the fixture and grant local implementation authority. The accepted behavior reference and failure observation must be cited before this example is activated.
 - **Object scope:** The affected helper and its local test seam. This expected touch set does not itself grant write permission.
 - **Accepted inputs:** The cited behavior contract and a deterministic failure observation, each with a fixed version or digest and authority.
-- **Applicable methods:** `methods/local-defect-feedback-loop.md` (relative to the package root). Accepted M4 source: commit `013659331c8c5f9f54b866b393972a03d7938773`, SHA-256 `3ca23a74a1a1890123bbab01a114aba813d7e20a7ffcb21b7b2289d5047cb32c`; the M5 snapshot SHA-256 `1ba8f8f2fb46a0094c22e7ac946e27f30a27b1ce25e201fd5ede819ddc2e4215` is historical — current candidate bytes are recorded in `methods/README.md` §Status and source trace and in the night candidate manifest. F's evaluation method, if needed, belongs in F's own Charter.
+- **Applicable methods:** `methods/local-defect-feedback-loop.md` (relative to the package root). Accepted M4 source: commit `013659331c8c5f9f54b866b393972a03d7938773`, SHA-256 `3ca23a74a1a1890123bbab01a114aba813d7e20a7ffcb21b7b2289d5047cb32c`; current package bytes are recorded in `methods/README.md` §Status and source trace and the night candidate manifest — a real task rebinds the current fixed object rather than copying a digest here. F's evaluation method, if needed, belongs in F's own Charter.
 
 ## Work and limits
 
