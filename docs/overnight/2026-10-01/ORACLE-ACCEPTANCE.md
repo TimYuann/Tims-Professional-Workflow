@@ -45,3 +45,7 @@ M6完整交付未接受：PW-01的当前UCBIP权威核读、可选adaptive说明
 ## Pro audit 2 · core accepted; PW-01 / M6 awaiting two bounded corrections
 
 Oracle accepts core subtree `11e6e3772b6bc0e17259c932b0c0dcabb030a133` at fixed `05f4bbb` as local-adoption delivery. Pro completed its incremental review; Oracle independently verified all 19 manifest digests and archive identity. This preserves original evidence scopes, and grants no downstream acceptance or deployment. PW-01/M6 remain open only for acceptance-authority and tracked-versus-ignored retrieval wording; exact repair/check/stop scope is `PRO-AUDIT-2-DISPOSITION.md`. The /tmp scratch deviation is retained and accepted as non-blocking for this delivery, without retroactive compliance or runtime recovery claims.
+
+## Final PW-01 / M6 acceptance · 2026-10-01
+
+Accepted fixed local-adoption delivery `205b831ecb9ba4e79481a08e6b23f7159dca4113`, root tree `136e0fcda54056bc188b67950a3f32dbfd165319`, unchanged core subtree `11e6e3772b6bc0e17259c932b0c0dcabb030a133`. Oracle read actual R1/R2 differential changes and independent byte-pinned PASS, recomputed five final evidence digests MATCH and confirmed zero core diff. PW-01/M6 are closed under this bounded scope. Full exact identity, evidence, accepted residuals, archive-source identity and stop conditions: `M6-FINAL-ACCEPTANCE.md`. This adds no UCBIP acceptance/implementation, production/main promotion or retroactive on-time/compliance claim.

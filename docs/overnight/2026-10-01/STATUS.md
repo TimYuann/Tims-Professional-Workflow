@@ -74,3 +74,7 @@ Herdr diagnosis correction: the separate `test "${HERDR_ENV:-}" = 1` call exited
 Restart context: the preserved `DRIVER-COORDINATION-INCIDENT.md` records that the planned 08:00 closure objective remained unmet at the 03:52 pause. Workspace migration preserved the same branch/session identity and changed locators only; it did not create new independence or semantic coverage. Since resumption, case-1 F passed for its fixed code/test commit, B/C v2 has a bounded independent PASS after the Plan challenge FAIL, M5 F1–F4 have a targeted PASS, and M6 has independent cold-start-sample and rollback-evidence PASS reports. These recoveries do not revise the 03:52 outcome or mark M3/M5/M6 complete.
 
 Last updated: 2026-10-01, by tpw-night-driver (Pi, commandcode/deepseek-v4.1-flash/max) at the PW-01 closure checkpoint; earlier checkpoint text preserved.
+
+## Oracle closeout · 2026-10-01
+
+PW-01 / M6 accepted as fixed local-adoption delivery at `205b831`, core `11e6e377` unchanged; see `M6-FINAL-ACCEPTANCE.md`. Overnight bounded scope closed; Driver waits, no automatic new scope. Prior missed timing, evidence limits and deviations retained. Downstream adoption / main promotion / legacy archive not performed.
