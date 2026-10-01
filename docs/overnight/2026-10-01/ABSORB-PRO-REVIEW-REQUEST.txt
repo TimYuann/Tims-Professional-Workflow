@@ -1,0 +1,24 @@
+请通过本消息附带的 GitHub connector，对 TIM Professional Workflow 本轮“三上游机制发现、coverage 与采纳候选”做一次独立、只读合入前审阅。只读指定仓库/分支/固定对象与必要的上游固定源；不要创建 PR/issue/comment、修改仓库或执行任何产品/服务操作。
+
+仓库 TimYuann/Tims-Professional-Workflow；分支 night/2026-10-01-workflow。不要读远端 main（448c3d6，仍是旧版）。A/B 固定候选为 0c6b11c18ba0eb35858747f61566585527b05308，整仓tree0788467d485ec967a5271764ed26bfc8b8ba76bc；core子树91875114e51855517f92ef099cbdf60c34e68243，与本轮前相同。下面如果有独立method检查附加pin，只用于该检查结果，不用最新tip漂移替代A/B固定候选。
+
+Owner目标：让成熟工程师的判断依据、具体操作、反例和适用边界进入专业工作流。现有Backbone A–F是判断函数，不是固定阶段；方法不产生权限。不要以吸收率或文件数替代专业质量，也不要为了“极简”把有价值操作压成泛泛口号。不希望重新构造评分平台、registry或常驻gate。本轮A/B只是分析产物，尚未实际写入core。
+
+请实际读 0c6b11c 下 docs/overnight/2026-10-01/：
+UPSTREAM-DEEP-ABSORPTION-PLAN.md；ABSORB-A1-ADDY-HEADER.md 与 ABSORB-A1-ADDY-INDEX.tsv；ABSORB-A2-CURSOR-HEADER.md 与 ABSORB-A2-CURSOR-INDEX.tsv；ABSORB-A3-MATT-HEADER.md 与 ABSORB-A3-MATT-INDEX.tsv；ABSORB-B-CALIBRATION.md；ABSORB-B-MECHANISM-COVERAGE.tsv；ABSORB-B-ADJUDICATION.md。
+再读当前 professional-workflow/README.md、authority/RESPONSIBILITY-BACKBONE.md、相关Profile/Charter与3个methods实际正文，判断current_text_basis是否真的支持所标coverage。当前资料匹配不是关键词命中。
+
+本地Oracle机械核对：A路径208+863+169=1240，与3个pin的git ls-tree路径集合逐一相等且无重复；A各作者读深自报不同比例，不能混为跨仓质量指标。B TSV183行：covered50/partial55/not-covered70/pending-check8；候选none37/adopt39/narrow64/defer39/reject4。以上只是本地核对摘要，不是你的独立结论，不足以证明全量实质评估完成。B另列not-assessed面，不得从175/183推断全部1240都完成专业评估。原报告汇总自报39个adopt为R0=27/R1=12/R2=0，但独立method逐条首标签统计为25/7/7，且部分R2只读A行或主体片段；这个矛盾本身待审核，不能把任一R标签等同完整回读。尤其检查候选与落地前置是否仍混淆，以及narrow/reject是否也在原文尚未读时过度裁定。
+
+原始上游：addyosmani/agent-skills@2686b620fc1fed2e8f60c704839c766b8594c6b6；cursor/plugins@ecc249f1e306fc64ddf83c7bed16cacf7c2239db；mattpocock/skills@c55ee46073ed923f86ce59a5eb3b6d895095d1b7。若connector可取，请抽查承重源正文及支持材料；拿不到固定源时明确UNVERIFIED，不能用A摘要冒充原文回读。请披露实际读取量和抽样依据，大表未完整读到的部分不得声称全量审核。
+
+重点：
+1. A记账/读深/来源锚与正文机制自述是否诚实；结构抽取与全文阅读的区别，隐含技巧/支持例子有没有漏。
+2. coverage与采纳是否分开；covered/partial/not-covered的依据是否达到专业可用的覆盖；分组、重复、pending与未评口径、source统计是否准确。不能编覆盖百分比，不能把有标签等同闭合。
+3. 146候选的源锚、责任位置、补读清单与拟落点是否足够；专业细节是否保住，是否正在凭摘要制造新流程/产物/工具。候选可以探索，但不能冒充经全文专业评估的verdict。
+4. B-CALIBRATION C1–C6消费侧口径是否合理：loci无序集合、读深不可跨仓比较、关联文件归组、重复只算一机制、A不判coverage、未实测运行行为的证据边界。尤其区分文本覆盖/静态原文依据/实际运行强制力，防止要求运行所有上游机制才能评价其知识。
+5. 明确回答：这套材料是否足以进入本轮core合入/落地授权？若只能继续补读或批准一个有界子集，请指出具体对象、缺口、最小关闭条件与可接受残余。方案评审不授予UCBIP或其他下游权限，也不等于所有候选已采用。不要把这题变成重新设计Backbone。
+
+请给：总体裁定；精确阻断项与非阻断建议；最小下一批范围；已读/未读边界。独立method检查只是可被挑战的证据，不是正确答案。正式答复最后请使用小节标题“最终裁定与最小下一步”，便于原文完整留存。
+
+独立method检查已固定并推送：最新远端night tip为0b821ae0e5f9d6c0d07c4fd0f29c04c38e9d49e4（ls-remote MATCH），相对原A/B候选0c6b11c仅新增 docs/overnight/2026-10-01/ABSORB-METHOD-CALIBRATION-CHECK.md，SHA-256 7e73c366eb671455f5a7ea1d56b7792988523ef49ae23cf4a402cd7aa94b2444。请完整核读此固定addon报告，它是RETURN/FAIL（MCAL-1..4），原A/B未经返修：校准样本的暴露/局部回读与泛化，175 confirmed对应源回读不足，R标签/汇总与补读要求不自洽，某些当前文本前提错误，以及C5/C6和“未来授权/删除专业例子”的措辞问题。它不是正确答案，也不是我让你照抄的结论；请独立判哪些必须关闭、哪些只是诚实限度。原候选仍按0c6b11c取字节，不把addon当成A/B已经修好。
