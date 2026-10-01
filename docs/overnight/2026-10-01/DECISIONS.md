@@ -386,3 +386,10 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Pinned repository object:** branch `night/2026-10-01-workflow`, commit `ed3120c3475339fe7140fc4afbb7fa0c1e8e5aa0`, tree `d2e91104c58777242b7f7fde4d82e31837071564`.
 - **Package identity:** the `professional-workflow/` subtree at that commit is `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`, byte/tree-identical to source package commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3` subtree `c88b662421bc44270fdf38bf43267010fe0a1d38`. The branch commit includes M3, M5, M6 reports and current status/decisions.
 - **Acceptance/control:** M3 report `c8cac65c…` is ready but Oracle/Owner acceptance remains pending. Pro review count is `0/2`; no branch push or audit submission has occurred. Oracle chooses timing; `PRO-AUDIT-PREPARATION.md` SHA `c0cc3345…` supplies the readlists and controls. The fixed commit is the review candidate even if later process-only commits advance the night branch.
+
+## D-050 · Prepare the consolidated M0–M6 overnight report
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after fixing the M3, M5 and M6 self-contained reports.
+- **Report:** `OVERNIGHT-REPORT.md`, SHA-256 `505224d5a59259b2e11afb512ebd47aee18e8af2dc8cb40c6edaa3213d6afeb3`.
+- **Contents:** milestone results and object pins; both M3 F conclusions and the case-2 Turn-entry limitation; M5 targeted package result/residual; M6 cold-start and rollback evidence/limits; M3 session/handoff/material counts and unmeasured labor time; 08:00 outcome; Pro count and pending Oracle/Owner decisions.
+- **Status:** This is a consolidated handoff, not an overall closure or acceptance. The M3 report remains ready for Oracle/Owner acceptance; M5/M6 Pro slots remain unused. No push, tag, merge, UCBIP or release action occurred.

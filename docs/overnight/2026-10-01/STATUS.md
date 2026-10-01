@@ -33,6 +33,8 @@ Driver: `tpw-night-driver`. Source of phase scope: [accepted overnight plan](../
 | M5 | IN PROGRESS · repaired candidate `d672914`, tree `c88b662` | M5 integration summary is `M5-REPORT.md` (SHA-256 `3e3ad058adea6c323e1146a7e9c1ea759b6e7e32add01bd4b651faf7a8b7b708`). Independent targeted recheck `M5-PACKAGE-REPAIR-RECHECK.md` (SHA `b3020e83…`) passes F1–F4. Residual: a frozen M1 candidate label remains in assembled E text; the package README supersedes it and adjacent Charter pins both M4/M5 bytes. Full Pro review and M5 acceptance remain pending Oracle choice; none sent. |
 | M6 | IN PREPARATION · export candidate `d672914`, tree `c88b662` | M6 qualification summary is `M6-REPORT.md` (SHA-256 `362cab04703874a1de859e554f537de4fbc8502ab750360f9a792cab95732e83`). The 19-file manifest/archive are fixed. Independent cold-start-sample PASS is `M6-COLDSTART-VERIFICATION.md` (SHA `2b80184e…`); controlled-copy rollback-evidence PASS is `M6-ROLLBACK-VERIFICATION.md` (SHA `b7c1fb5a…`). Limits are explicit: these do not prove application/runtime recovery or independently replay the restore action. M6 remains unaccepted; Pro 0/2 sent. |
 
+The combined M0–M6 status, fixed objects, results, costs, residuals, rollback evidence, and pending authority decisions are in `OVERNIGHT-REPORT.md` (SHA-256 `505224d5a59259b2e11afb512ebd47aee18e8af2dc8cb40c6edaa3213d6afeb3`). It preserves the unmet 08:00 outcome and does not declare overall closure.
+
 ## Pro review allowance
 
 - `docs/overnight/2026-10-01/PRO-AUDIT-ALLOWANCE.md` records Owner authorization for 2 ChatGPT 6 Pro full-artifact reviews, currently 0/2 sent. Oracle chooses timing; this is not a per-stage gate.
@@ -59,4 +61,4 @@ Herdr diagnosis correction: the separate `test "${HERDR_ENV:-}" = 1` call exited
 
 Restart context: the preserved `DRIVER-COORDINATION-INCIDENT.md` records that the planned 08:00 closure objective remained unmet at the 03:52 pause. Workspace migration preserved the same branch/session identity and changed locators only; it did not create new independence or semantic coverage. Since resumption, case-1 F passed for its fixed code/test commit, B/C v2 has a bounded independent PASS after the Plan challenge FAIL, M5 F1–F4 have a targeted PASS, and M6 has independent cold-start-sample and rollback-evidence PASS reports. These recoveries do not revise the 03:52 outcome or mark M3/M5/M6 complete.
 
-Last updated: 2026-10-01, by Driver after pinning the Pro review candidate and preserving M3 acceptance status.
+Last updated: 2026-10-01, by Driver after preparing the M0–M6 report.
