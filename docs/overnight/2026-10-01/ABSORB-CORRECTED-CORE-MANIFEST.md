@@ -49,3 +49,13 @@ d53da06edc99af3bcfc93c744af5f2cc8d512430d318a8b13b1b7f42652d74aa  professional-w
 - The two guides are integrated as on-demand support; they mandate no loading, no test framework and no action permission. Runtime enforcement (redaction actually executed, adapter contract observation actually run) remains UNVERIFIED; the synthetic demos in `ABSORB-KNOWLEDGE-DEMO-OBSERVATIONS.md` show the examples are usable, not that a host enforces them.
 - The B/A source work keeps its provisional status (175 comparison opinions, 8 pending, not-assessed faces, 39 adopt candidates without the §5 full read); this candidate does not change that.
 - Historical Backbone, retired upstream schema/history and the stored DSH prompt/feedback remain untouched.
+
+## Rev.2 · wording/navigation clarifications (commit `bc1c3fccd3703ca3095875160dcfa8b0a1bfc8aa`)
+
+- New core subtree: `85d305b222ca76ffd7d939ab3320c626222d8a95` (21 files; same path set).
+- New archive: `git archive --format=tar bc1c3fccd3703ca3095875160dcfa8b0a1bfc8aa professional-workflow` = `0ae1e17b1eb2a2fa33df861ae2635514722de25237da4ccb5e2007809066e9cb`.
+- Changed files vs `eb7930b`: `professional-workflow/README.md` `ee5a284328b80d19a6450415c3604f2405324d2535448638a8b97ea148eca3bc`, `methods/README.md` `2fe8d51db93b73bccdd013867c8e83c518fdf62fec7b94dfe30ad695baf9acb0`, `profiles/README.md` `e2a37dbaecd3747300c6ad652403e3ceec1b2708395ac36498ff897797e4244c`, `methods/guide-redacted-evidence.md` `8961cf6fa57ac03f9b7b6b7f661cb7b44f31b679ac1d7e87fff3b2076dbd2fb4`; the other 17 files are unchanged.
+- Content: method's non-blocking suggestions only — “Historical M5 candidate” column label, explicit navigation to this manifest and the integrated method review, a repo-qualified `ORACLE-ACCEPTANCE.md` path, and the Wrong-persistence example bounded to the un-authorized default route with the Rule 4 exception named. No semantic or authority change.
+- Archive pairing clarification (independent check): tar digests are commit-specific even for identical trees — `eb7930b`→`6fa07387…`, `20640db`→`055005fa2bffc709b992617f54e8b08fe1045d3f506db59f96b2793144d90fee`, `bc1c3fc`→`0ae1e17b…`. The original pairing above pins the archive to `eb7930b` and remains correct.
+- Independent observations at the reviewed object (`20640db`): `ABSORB-CANDIDATE-VERIFY.md` (9/10 mechanical checks PASS plus a cold-read evaluation PASS with one PARTIAL branch) and `ABSORB-INTEGRATED-CORE-METHOD-REVIEW.md` (method PASS, no must-fix); the reader answer itself is local at `.worktrees/verification/absorb-reader/ANSWER.md`, not committed. Method's delta confirmation for Rev.2 is appended to its review report.
+- The candidate remains night-only: no FF to local `main`, no `main` push, no acceptance implied.
