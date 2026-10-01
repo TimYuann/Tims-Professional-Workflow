@@ -84,3 +84,9 @@ No UCBIP write/pause change, no private data publication, no tag/release/remote-
 ## 6. Oracle pane cleanup (parallel coordination, not a Driver product task)
 
 Oracle retains p6 / Driver pD in t1 (two agents), method pG and check pT for this task. Ten completed named overnight worker panes E/F/P/K/H/M/J/Q/R/S are eligible for retirement after live identity+idle recheck; session history/cwd are recorded, native histories not deleted. User unnamed pN and all UCBIP panes untouched. Method/check share one worker tab; worker tabs max4, Oracle/Driver tab max2. Driver must not dispatch to a retired name from a historical roster.
+
+## Owner final clarification · execution priority (overrides excess ceremony above)
+
+Owner: “让当前仓库以后进来之后，默认工作区就是昨晚做的非常干净的night0930，原先那个版本完整地进入 worktree，不再造成干扰。” The actual night branch/path is `night/2026-10-01-workflow` / `.worktrees/night-2026-10-01`; do not create a second version because of the nickname.
+
+Keep the implementation simple: preserve the complete legacy working state into its worktree; remove legacy active surfaces from new default root; make root main and entry docs the new version; independently read the entry and verify preserved bytes/index state. This is the required endpoint. The optional controlled-copy rollback demonstration above is unnecessary if complete legacy transfer and exact preservation have already been verified. Do not create extra recovery/test/role frameworks, duplicate legacy directories in new main, or expand documents to manufacture stages. Reuse existing Git and custody records. No need to physically move the core out of professional-workflow/ or rename the primary repository.
