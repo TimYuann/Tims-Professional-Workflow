@@ -54,6 +54,6 @@
 
 ## 5 · 结论
 
-**真正在用**：三仓各一篇主机制经有界蒸馏进入三个方法正文（局部缺陷反馈回路、跨模块设计、行为 claim 评价），并有直接消费证据：M3 两个 case 的 Charter 实际绑定（local-fix / D / F）、M6 case-1 冷启动绑定与 M4 接受链。**只看过未用**：159 篇中的绝大多数（138 篇只在索引/结构级，21 篇全文读过中另有多篇未进入采纳），以及两篇文章载体（0 采纳）。**剩余缺口**：(a) UCBIP 旧路由名（path-trace/blast-radius/design-compare/drive-preview）与当前三个方法的覆盖映射未做——见 `COLDSTART-DSH-VERIFICATION-AND-PLAN.md`；(b) S4/S5 若要采用，必须先固定原站或镜像全文重核；(c) pstack 聚合全文数与逐文件锚点的 2 项差待核；(d) “部分机制”边界由 MR-01/02/06 的 retain/narrow/strip 记录拥有，不得外推为逐字采用。
+**真正在用**：matt 两篇主机制（diagnosing-bugs、codebase-design）与 cursor 一篇主机制（verify-this）经有界蒸馏进入三个方法正文（局部缺陷反馈回路、跨模块设计、行为 claim 评价），addy 两篇仅贡献有限增量，采纳来源单位合计 5/159；并有直接消费证据：M3 两个 case 的 Charter 实际绑定（local-fix / D / F）、M6 case-1 冷启动绑定与 M4 接受链。**只看过未用**：159 篇中的绝大多数（138 篇只在索引/结构级，21 篇全文读过中另有多篇未进入采纳），以及两篇文章载体（0 采纳）。**剩余缺口**：(a) UCBIP 旧路由名（path-trace/blast-radius/design-compare/drive-preview）与当前三个方法的覆盖映射未做——见 `COLDSTART-DSH-VERIFICATION-AND-PLAN.md`；(b) S4/S5 若要采用，必须先固定原站或镜像全文重核；(c) pstack 聚合全文数与逐文件锚点的 2 项差待核；(d) “部分机制”边界由 MR-01/02/06 的 retain/narrow/strip 记录拥有，不得外推为逐字采用。
 
 **限制**：阅读深度计数来自 `SOURCE-SURVEY.md` 的动作记录（过程证据），本报告只重新实核了 pin、SKILL.md 计数、文章载体摘要、采纳对象摘要与绑定关系；未重新阅读未采纳源。无新吸收、无网络研究、无产品改动。
