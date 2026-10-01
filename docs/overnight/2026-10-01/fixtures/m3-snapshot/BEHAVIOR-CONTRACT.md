@@ -2,17 +2,25 @@
 
 Isolated exercise contract for this synthetic fixture directory. It defines the externally observable behavior of the viewer exercise only. It is not a UCBIP rule and not a general product freshness policy; it must not be cited or generalized outside this fixture.
 
-- **Version:** v1 · 2026-10-01
+- **Version:** v2 · 2026-10-01 — supersedes v1 (`sha256 86dd6664b73de07ceefdbc5f4d03e09f49b4b1f2ee11cb6a80e48c251176555c`), which remains recoverable at commit `893eaf8`. v2 changes only the Conditions, the aggregate recipe and version metadata; the acceptance below is unchanged from v1.
 - **Owner:** `tpw-night-m3-bc` — B/C authoring instance for this exercise.
-- **Scope:** observable behavior of a read episode, and of a later read episode, over one case-store lineage in this fixture. Meanings of the terms used here (case, status, view, revision, update, coherence) are owned by `DOMAIN-SEMANTICS.md` v1 and are not restated.
-- **Conditions:** valid only against the inputs below. Any change to `CASE-INPUT.md`, the recorded source structure, or `BC-CHARTER.md` invalidates this acceptance and requires a new B version. This file defines behavior only: it does not assign module responsibility, select an interface, prescribe implementation, write a technical plan, or authorize implementation. The seed's current split-read behavior is evidence of the starting system, not this contract, and does not by itself satisfy the acceptance below.
-- **Acceptance status:** **ACCEPTED** for the isolated exercise only, by the owner under `BC-CHARTER.md` (instance `tpw-night-m3-bc-contract`). Author acceptance, not independent evaluation. No product generalization is accepted or implied.
+- **Scope:** observable behavior of a read episode, and of a later read episode, over one case-store lineage in this fixture. Meanings of the terms used here (case, status, view, revision, update, coherence) are owned by `DOMAIN-SEMANTICS.md` v2 and are not restated.
+- **Conditions:** accepted against the baseline inputs below. Those hashes identify the fixture state the contract was authored against — the **accepted baseline** — not a continuing no-change condition on the fixture source tree.
+  - **Inherits this acceptance (no new B/C version needed):** diffs under `src/**` and `tests/**` that preserve every acceptance item below and the observable quantities it uses (`revision`, `open_count`, `case_id`, `status`) — including new or amended tests, added coordination behaviour, internal decomposition and renames, and the interface shape D selects. The authorized D/E exercise is expected to produce such diffs; changing the recorded bytes is not by itself an invalidation.
+  - **Requires a new B/C version:** a change that alters an acceptance item (B-1…B-6), the observable surface, the read-episode / presented-view model, the freshness anchor (updates completed before an episode begins), or the scope notes in B-O2; a change to `DOMAIN-SEMANTICS.md` terms or invariants (B-1…B-6 cite them); or a change to `CASE-INPUT.md` (exercise goal) or `BC-CHARTER.md` (delegation and scope). Until a new version is accepted, the changed part is not covered by this acceptance.
+  - This document and `DOMAIN-SEMANTICS.md` are accepted as a pair (both at v2); a new version of either is re-issued together.
+  - **Seed status:** the seed's current split-read behavior is evidence of the starting system, not this contract, and does not by itself satisfy the acceptance below.
+  - This document defines behavior only: it does not assign module responsibility, select an interface, prescribe implementation, write a technical plan, or authorize implementation.
+- **Acceptance status:** **ACCEPTED** for the isolated exercise only, by the owner under `BC-CHARTER.md` (instance `tpw-night-m3-bc-contract`), as `BEHAVIOR-CONTRACT.md` v2 paired with `DOMAIN-SEMANTICS.md` v2. Author acceptance, not independent evaluation. No product generalization is accepted or implied.
 - **Produced by:** Pi session `01a0f39e-8658-7478-ad5e-b1870bb69bd6`; runtime verified from the process environment as `commandcode / deepseek/deepseek-v4.1-flash / max`.
 
 ## Inputs used (exact hashes)
 
+**Accepted baseline** (recorded at v1 acceptance on 2026-10-01; the baseline identity this contract was authored against, not a continuing no-change condition — see Conditions):
+
 - **`CASE-INPUT.md`** — `sha256 50063486b149fc599464cb5cb25872cc9b4c4b971d1fcbc2eab0efdabeffd772`
 - **Fixture source structure** (`src/**`, `tests/**`) — aggregate `sha256 dbd6a306815bdc4cf3a33be14b38d4dd62b49d1535d7db41b9064eb07e51b474`
+  - All seven per-file hashes below were independently re-verified on 2026-10-01 against both the worktree and commit `893eaf8`:
   - `src/__init__.py` — `sha256 a5f855a87138b8c9a515d76a2b7858da6bba6fb60eff9446197fafc774733cf4`
   - `src/case_reader.py` — `sha256 89f05180854b8cb38b58299f516e7298cd2d211b88bed38f35087e6b1fe350bc`
   - `src/page_summary.py` — `sha256 59bffca2096cdb3818a202e552fa5214dd3f263466fd4799b3d7ba4e4fac2fc4`
@@ -20,7 +28,7 @@ Isolated exercise contract for this synthetic fixture directory. It defines the 
   - `src/state_store.py` — `sha256 90a1cb56549f5afdbae24d2b485f8a956e66081939159a435aa83e2f43029196`
   - `src/turn.py` — `sha256 5de7b6c681f8379e567d9be455a3176a48c429ca460b6810092ff7ae46504ac0`
   - `tests/test_existing_behavior.py` — `sha256 9ac7ea872b8c50f921128e7a8d734539b273551e7d6e9363e3d5116103c7876f`
-  - aggregate recipe: sort the lines `<per-file sha256><two spaces><path relative to this fixture directory>`, join with `\n`, append a final `\n`, then take the sha256 of that UTF-8 text.
+  - aggregate recipe: order the files under `src/**` and `tests/**` by their relative path ascending (Python `sorted()` on the path string), then emit one line per file as `<per-file sha256><two spaces><relative path>`, join the lines with `\n`, append a final `\n`, and take the sha256 of that UTF-8 text. This path order yields the recorded aggregate. Sorting the digest-prefixed lines themselves instead yields `sha256 9074f27da8e0d76113bda8f774297c7c8fbceaedaf67d6ea75eec87d2421e88c`, which is not the recorded value.
 - **`BC-CHARTER.md`** (delegation) — `sha256 1395a01731f1ea4885b2e20c157ec47ba607e27fe8e2037006287562d3dd57ba`
 - **`professional-workflow/profiles/behavior-domain.md`** (accepted Profile, per Charter) — `sha256 d8b75a5734c015f70d4c3f1479e094be11b92f2ee20d193dc22726fd599377fa`
 
@@ -62,3 +70,8 @@ Numbers in the examples are illustrative (DS-U3).
 
 - **B-O1.** If an update lands mid-episode, whether the viewer sees a visible refresh (and in what form) or silently keeps the pinned revision: either is legal under P-1; whether the exercise fixes one is left to the D design.
 - **B-O2.** Persistence across process restarts, concurrent viewers, and case-set membership changes are outside this exercise (see DS-U4); introducing any of them would require a new B version.
+
+## Change log
+
+- **v1 · 2026-10-01** — initial accepted contract; baseline inputs and per-file hashes recorded.
+- **v2 · 2026-10-01** — challenge PC-1 bounded clarification: the recorded hashes are the acceptance **baseline**, not a continuing no-change condition on `src/**`/`tests/**`; in-scope implementation/test diffs inherit this acceptance, and only contract-content changes require a new B/C version. Challenge PC-2 bounded correction: the aggregate recipe now states the sort key explicitly (path order), with the digest-line-sorted value `9074f27d…` recorded as the non-matching alternative. No acceptance item or semantic claim was changed.

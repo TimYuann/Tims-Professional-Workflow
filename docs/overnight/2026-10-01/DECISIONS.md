@@ -298,3 +298,11 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Fixed task:** `M3-D-PLAN-ACCEPTANCE-PROMPT.md`, SHA-256 `9154e1c7308e325ffd7afa750255975c1d52f3f516c71f13e8b820a1d9071773`; inputs are reviewed Plan SHA `bb8afeb1…`, recheck PASS SHA `e93ac886…`, and D-CHARTER SHA `6a0e6b7d…`.
 - **Write scope:** D owner `tpw-night-m3-design` may edit only `TECHNICAL-PLAN.md` to correct the §8 v1-copy/v2-active-input qualifier and record its own acceptance within D-CHARTER. The follow-up Herdr prompt explicitly requires updating stale `Not accepted` / `no case-2 E/F work starts` labels while retaining that Plan acceptance itself does not authorize implementation.
 - **State/limits:** One post-dispatch Herdr read showed `working` in the restored main work root. No case-2 E/F task has started; final hash/diff and D acceptance remain to be checked before dispatch.
+
+## D-039 · Record D acceptance of the corrected M3 case-2 Plan
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from the final D-owned Plan and the author's Herdr handoff.
+- **Accepted object:** `fixtures/m3-snapshot/TECHNICAL-PLAN.md`, SHA-256 `a306205729a002fdf1bc4eac6a623849cb2198985f8a6fbae4ec4c00ec47e5b9`.
+- **Acceptance basis:** D records acceptance within the technical-planning scope delegated by `D-CHARTER.md` after the affected-claim PASS `e93ac886…` on reviewed predecessor `bb8afeb1…`. The §8 factual correction now distinguishes active B/C v2 bindings from the startup prompt's v1 copies; the final Plan explicitly states that the corrected hash itself was not separately rechecked. D reports reverse replay of its narrow replacements reconstructed the exact predecessor SHA; Driver checked the final header, §0.1/§8/§8.1, absence of stale `Not accepted`/E-start bars, and `git diff --check`.
+- **Scope:** D accepts the technical Plan for this isolated fixture only. B/C v2 has separate author acceptance and independent review; this entry does not accept implementation, F evidence, M3 closure, deployment, or UCBIP.
+- **Next:** Driver may bind/dispatch case-2 E under the existing Owner-authorized exercise. E receives public B/C v2 and this exact Plan only; the held F evaluation criteria remain outside the implementation input.
