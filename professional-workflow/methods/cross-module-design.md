@@ -12,6 +12,8 @@ Use when the proposed change affects facts, behavior or constraints that another
 1. Read the accepted B/C inputs and inspect the relevant system paths. Separate established commitments from observations and assumptions.
 2. Identify the interface in its full technical sense: the facts a caller must know, including inputs, outputs, ordering, error behavior, invariants and relevant performance characteristics.
 3. Locate the seam where behavior can be substituted or tested. Use the actual dependency shape to choose a useful test path: in-process, locally replaceable, remotely owned behind an adapter, or a true external dependency.
+
+Choose the test double per `guide-mock-adapter-choice.md`. Port/in-memory tests cover the deep module's logic; they do not by themselves verify a production transport/serialization adapter — if that contract is the risk, observe the adapter against a local stub/recorded fixture, or name which real normalization is called by which test (moving logic into an adapter that the test double still replaces does not change coverage), and record the uncovered part. Do not expose internal seams for tests.
 4. Decide which existing checks cover the new behavior. Replace or remove old coverage only when the replacement demonstrably covers its accepted claim; this method does not grant deletion authority.
 5. Write a compact Plan with Commitments, Delegated Decisions and Recall Conditions. Keep B/C meanings with their owners; state only the technical coordination others must rely on.
 6. Where consumers must remain compatible, prefer an additive change. Keep error behavior predictable for the interface this task actually uses. A valid authority may accept a breaking change; this method does not override that authority.

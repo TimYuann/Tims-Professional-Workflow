@@ -8,6 +8,15 @@ Profiles remain the owners of reusable responsibility mental models; this direct
 | Plan a change with cross-module dependencies | `cross-module-design.md` | D, preserving B/C ownership |
 | Evaluate a specific behavior claim | `behavior-claim-evaluation.md` | F |
 
+## On-demand guides
+
+| Support need (on demand) | Guide file | Boundary |
+| --- | --- | --- |
+| Record or hand off evidence that may contain sensitive artifacts | `guide-redacted-evidence.md` | evidence custody and HITL split; no verdict/authority change |
+| Choose a test double/adapter across a dependency boundary | `guide-mock-adapter-choice.md` | design/test-surface choice; no mandatory gate |
+
+These guides are on-demand references at demonstrated knowledge gaps; they add no applicability triggers, authority, or fixed phase chain. When the support is needed, add the relevant guide to this task's existing bound/read set; no mandatory loading for tasks without that need. The task Charter still binds applicability, independence, and action permission.
+
 ## Status and source trace
 
 The accepted M4 source objects are fixed at commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c378882c89c2328505fddee`. M4 acceptance applies to those exact source digests. The M5 candidate carries package-status/source-trace metadata edits; it is not byte-identical to the accepted M4 tree, and this directory does not claim those M5 package bytes have been accepted. The table makes both identities explicit. The normative method body remains linked to its M4 source; task applicability, independence, and authority remain in the actual Charter.
@@ -31,3 +40,7 @@ These locators preserve source identity; pins and in-file anchors identify the r
 Deferred alternatives: the S2 bug-fix playbook's control/loop/model/PR defaults, `DESIGN-IT-TWICE` and its parallel-agent count, idempotency/retention rules, and the `interrogate`/`code-review` lenses. They were outside the two active M3 method needs; no alternative became a mandatory gate. No S4/S5 article-derived method is included. The X original remains `UNVERIFIED`; cached article notes are locator evidence only.
 
 Nothing here grants authority, permissions, risk acceptance, or permission for consequential actions.
+
+## Scope and current state (2026-10-01)
+
+This selection entry ships three method bodies (`local-defect-feedback-loop`, `cross-module-design`, `behavior-claim-evaluation`) plus the two on-demand guides above. It does not contain `path-trace`, `blast-radius`, `design-compare` or `drive-preview`; those four retired names have no equivalent body here and are not revived. Current package acceptance/status is recorded in `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` and the later correction/candidate records; the M4/M5 digests above describe their own snapshots. The 2026-10-01 corrected candidate extends the three methods at demonstrated gaps and adds the guides; it awaits the directed independent recheck and does not by itself grant authority or task applicability.

@@ -16,8 +16,12 @@ bind them again.
 - Repository: `/Users/yuantian/Developer/ekunai/Unified-Customs-Bonded-Intelligence-Platform`
 - Commit actually read: `7fc94e4a483cf6b1d8add214d7dbe9a1d42b7f76` (`main`, tracked tree clean).
 - Path/section index, the four checks performed, and the non-read list:
-  `docs/overnight/2026-10-01/PW-01-UCBIP-READBACK.md`. That file is this batch's process record; it is
-  an index, not the downstream ledger and not a second status board.
+  `TimYuann/Tims-Professional-Workflow:docs/overnight/2026-10-01/PW-01-UCBIP-READBACK.md`. That file is
+  this batch's process record; it is an index, not the downstream ledger and not a second status board.
+- Repository qualification: paths prefixed with `TimYuann/Tims-Professional-Workflow:` belong to this
+  package's repository; paths such as `docs/active/...`, `docs/tasks/...`, `docs/evidence-ledger.md`
+  and `.agent-local/...` belong to the UCBIP repository at the recorded commit (`.agent-local/` is its
+  local runtime, not Git-retrievable).
 - The read was documentation-only: no UCBIP write, service, test run, network, product data or
   credential access, and the downstream state checker was not executed.
 - **Retrieval boundary (R2).** Tracked documents and generated projections cited here are retrievable
@@ -63,7 +67,7 @@ Task / outcome:     read-only check of current UCBIP Git and the actual governan
                     Non-goals: no UCBIP write/service/test/network/product source/credential access;
                     no change to professional-workflow/.
 Delegation source:  Owner 2026-10-01 direction + Oracle disposition
-                    docs/overnight/2026-10-01/PRO-AUDIT-1-DISPOSITION.md (SHA-256
+                    `TimYuann/Tims-Professional-Workflow:docs/overnight/2026-10-01/PRO-AUDIT-1-DISPOSITION.md` (SHA-256
                     afc63730d8f886230dc4e6b43056a2425b1536d2e6a4632d4081437ad005712f).
                     Records existing authorization; adds none.
 Object scope:       read — UCBIP git metadata + the governance documents and generated current-release

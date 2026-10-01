@@ -10,7 +10,7 @@ Use when a contract can be evaluated by comparing a concrete baseline with a tre
 ## Method
 
 1. State one falsifiable claim and its conditions, measure and threshold. Name the exact object and version.
-2. Compare baseline and treatment with the same command, data and environment. Preserve the original output as evidence.
+2. Compare baseline and treatment with the same command, data and environment. Preserve the original output as evidence. "Preserve the original output" means preserving the signal-bearing evidence in an evidence-safe form: apply `guide-redacted-evidence.md` before storing or sharing. The §Verdict mapping is unchanged.
 3. Decide whether the comparison is valid before interpreting its result. A missing/invalid baseline, noisy or incomparable data, failed measurement, or material environment difference makes the observation inconclusive.
 4. Report the verdict, exact command and inputs, observed result, coverage and limitations.
 
