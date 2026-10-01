@@ -192,3 +192,48 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Task input:** `M6-COLDSTART-PROMPT.md`, SHA-256 `ab32fdb6ddba45201c2672be7df2bb12b162114f746b7992300b21bc28bd122c`; disposable case1 inputs match the fixed M3 contract/task/baseline and seed hashes listed there. The initial task gives no expected implementation or evaluator criteria.
 - **Runtime/dispatch:** Fresh session `tpw-night-m6-coldstart` in `w27:pQ` (`w27:tE`); live footer confirmed `DeepSeek V4.1 Flash (CommandCode) · think:max`; Herdr confirmed `working` after one prompt.
 - **Limits:** This is a clean-start exercise, not independent verification or M6 acceptance. The verifier, rollback rehearsal, and final M3 case-2 closure remain outstanding. Only the disposable `/private/tmp` case1 copy may be changed; the package archive is read-only for the task.
+
+## D-026 · Record workspace relocation as a path-only change
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after reading Oracle's `WORKSPACE-MOVE.md` and rechecking the new main root, branch, and restored named M6 session.
+- **Main root/identity:** `/Users/yuantian/Developer/tim-professional-workflow/.worktrees/night-2026-10-01`, branch `night/2026-10-01-workflow`; move record states HEAD `215454675f20fab9ef036e588fd9cb003be05a24` and all 405 tracked/untracked file hashes/index/dirty state MATCH. Workspace-move record itself is preserved unmodified.
+- **Verification roots:** M6 export, cold-start, and rollback copies are under `/Users/yuantian/Developer/tim-professional-workflow/.worktrees/verification/tpw-m6-*` and have local Git boundaries. No verification copy has been committed, and no package bytes were changed during relocation.
+- **Session continuity:** `tpw-night-m6-coldstart` retained the same Herdr session identity and was observed at CWD `.worktrees/verification/tpw-m6-coldstart-d672914`. The move creates no new independent contribution, acceptance, semantic change, or automatic coverage invalidation. Unnamed `pN` was not queried or touched.
+- **Locator handling:** Prior `/private/tmp` citations in fixed reports are retained as historical observations/compatibility aliases. New operational pointers use the `.worktrees/verification/` paths in `STATUS.md`; only that current snapshot pointer changes.
+- **Scope:** This is a workspace-location maintenance decision under the existing authorization; no commit was made in any verification root and no push/tag/UCBIP operation occurred.
+
+## D-027 · Preserve the restored M6 cold-start self-report
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after reading the cold-start report from the restored verification directory.
+- **Source:** `/Users/yuantian/Developer/tim-professional-workflow/.worktrees/verification/tpw-m6-coldstart-d672914/case1/COLDSTART-REPORT.md`; copied byte-for-byte to `M6-COLDSTART-REPORT.md`, SHA-256 `ffc254f3e69ba0b6213efa584abdbdfeecc23d056ed81db39a493fe167a93a73`. The source verification copy was not modified.
+- **Observed:** The fresh Flash/max session cold-started from package README, selected the Implementation Profile and local-defect method, bound the supplied offline Charter, reproduced the seed failure, and reported its disposable candidate tests passing. It recorded source/package digests, route/recall/closure boundaries, and Unicode whitespace/uppercase residuals. Its output code digest matches the prior case-1 implementation, but the added test file and this run have not received an independent M6 verifier verdict.
+- **Limits:** This is E self-report, not independent verification, rollback, M6 acceptance, or overall M3 acceptance. The cold-start task is the same restored session after relocation, not a new independent identity. Rollback, independent verification, case-2 PC-1 resolution, and Pro review remain pending.
+
+## D-028 · Dispatch independent verification for the restored M6 cold-start sample
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after restoring the main worktree and coldstart candidate locations.
+- **Fixed verification prompt:** `M6-COLDSTART-VERIFY-PROMPT.md`, SHA-256 `8524cdc4d3c60f4615b4b4ce8b7364869457878f4ec02ff40579e358c6978ef7`; target package `d672914` and the coldstart report/code/tests in `.worktrees/verification/tpw-m6-coldstart-d672914`.
+- **Verifier:** existing independent Flash session `tpw-night-m5-review` at `w27:pP`, different from the M6 coldstart author. It was assigned only `M6-COLDSTART-VERIFICATION.md`; no package or validation-copy writes were authorized.
+- **Scope:** Verify manifest/input hashes, package selection/authority traces, candidate test behavior, and a retained negative control. This is not M6 acceptance or a rollback result.
+
+## D-029 · Record independent PASS for the M6 case-1 cold-start sample
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` from `M6-COLDSTART-VERIFICATION.md` (SHA-256 `2b80184e0f0b83eddf4dbb196fa60a15a613ac8077a8f8dd79c94566395b1576`).
+- **Fixed objects:** package commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; validation copy `.worktrees/verification/tpw-m6-coldstart-d672914`; E report `M6-COLDSTART-REPORT.md` and source/test bytes listed in the verifier report.
+- **Result:** PASS for this sample. The verifier matched the 19-file package manifest, reproduced the documented 7/7 green test run, reproduced the baseline failure with an in-memory pre-change function, checked the remove-all negative control, and verified all reported hashes. It observed the package/case1/manifest before and after; no validation-copy or package bytes changed.
+- **Limits:** This does not accept the M6 package, the coldstart author's isolation self-report, overall M3, rollback, or Pro review. `M6-COLDSTART-REPORT.md` remains E self-report; the independent report evaluates only the fixed d672914 package and case1 candidate bytes. Case 2 PC-1 and rollback remain open.
+
+## D-030 · Record controlled-copy rollback of the d672914 package object
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after an actual restore/reassembly rehearsal in a separate scratch copy; evidence is `M6-ROLLBACK-REPORT.md`.
+- **Failure/restore:** A fixed d672914 package archive was copied to a dedicated scratch `broken/`, its local-defect method file was moved aside, and the documented E assembly exited 1 with `No such file or directory`. After that failure, the same fixed Git commit was freshly archived into `recovered/`; all 19 manifest entries passed and the documented assembly hash matched `713925256a7eb3157697edd60baaf9a3762d16cddf373d0bef8347c0e6f7b181`.
+- **Isolation:** The exercise used a separate `/private/var/folders/vq/dk3gntzd7dz529mp_57ybgyh0000gn/T/tpw-m6-rollback-exercise-d672914/` scratch. It did not modify the `.worktrees/verification/` export/cold-start copies or the main package bytes, and made no commit.
+- **Limits:** This is a Driver-run controlled-copy rehearsal, not independent verification or M6 acceptance. An independent review of the rollback evidence remains pending; M3 case 2 PC-1 and Pro audit also remain open.
+
+## D-028 · Start independent verification of the restored M6 cold-start output
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after preserving the cold-start self-report and confirming the restored validation-root manifest.
+- **Fixed task input:** `M6-COLDSTART-VERIFY-PROMPT.md`, SHA-256 `8524cdc4d3c60f4615b4b4ce8b7364869457878f4ec02ff40579e358c6978ef7`. It targets package `d672914` and coldstart output/report hashes in `.worktrees/verification/tpw-m6-coldstart-d672914`.
+- **Verifier:** existing independent Flash session `tpw-night-m5-review` (`w27:pP`), a different session from the M6 coldstart author. It writes only `M6-COLDSTART-VERIFICATION.md` in the main process worktree; no verification-copy writes or commits are permitted.
+- **Dispatch:** Herdr returned `working` after the one prompt. This is a separate verifier assignment, not a new identity caused by workspace migration.
+- **Limits:** Verification is pending. No coldstart PASS, rollback PASS, M6 acceptance, or Pro audit is implied.
