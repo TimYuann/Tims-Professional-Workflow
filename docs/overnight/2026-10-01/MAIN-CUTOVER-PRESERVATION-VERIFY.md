@@ -138,3 +138,49 @@ Limits and ambiguities recorded:
 - Remote state untouched: `origin/main` remains `448c3d67c23994c86f5b0e344b82488823624586`.
 - Scope note: C1 entry check only — no C2 promotion, no C3 cold read, no package semantic acceptance,
   no M3/UCBIP action.
+
+## C3 cold read + C2 spot check (2026-10-01, tpw-night-check)
+
+Read-only. Cold read used only the promoted root `AGENTS.md` + `README.md` plus normal one-hop file
+references; C2 spot check used `rev-parse`/`status`/`ls-tree`/`worktree list`/`ls-remote`/`ls` only.
+No state-affecting command, no file write except this append, no commit.
+
+### C2 spot check
+
+| # | Check | Evidence at check time | Result |
+| --- | --- | --- | --- |
+| 1 | Root branch `main`, HEAD `81f1cef`, clean, expected top level | `main` @ `81f1ceff33699ca407b2644cd6c8b53673e40ee7`; porcelain 0 lines; top level `.gitignore AGENTS.md README.md adoption-examples docs professional-workflow` (the hidden `.gitignore` is the only entry beyond the five named; no retired surface) | **PASS** |
+| 2 | Legacy preserved | legacy HEAD `496b0676e302e2d0eafba129ff61de4c203d258a`; staged `8eb56e9edf6603e468ec59187990bbeae8a25891cc02532bbcfb5db00b504a91`; unstaged `b6506ea2df3f484f3450a42451cdc8d9aac776d1e649f6e63fa3e433a218a3a4`; 8 staged / 3 unstaged / 21 untracked | **PASS** |
+| 3 | `scan.js` retained | `.worktrees/night-2026-10-01/scan.js` exists (7816 bytes) | **PASS** |
+| 4 | Worktree registration | list shows root `81f1cef [main]`, legacy `496b067 [legacy/pre-night-2026-10-01]`, night `81f1cef [night/2026-10-01-workflow]` (plus two pre-existing /private/tmp detached worktrees, untouched) | **PASS** |
+| 5 | Remote unchanged | `origin/main` = `448c3d67c23994c86f5b0e344b82488823624586`; `origin/night/2026-10-01-workflow` = `cf107522f9b13a778fa381ba600b4ecfb95fdc7e`; local `main` is ahead 95 of `origin/main` (no push) | **PASS** |
+
+### C3 cold read (root AGENTS.md + README.md, one-hop references)
+
+| # | Question | Locatable answer and path used | Result |
+| --- | --- | --- | --- |
+| a | Current version and default entry | Root README: default `main` is the 2026-10-01 new Professional Workflow, Oracle-accepted bounded local-adoption delivery (record `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`); AGENTS names `README.md` as the entry | **PASS** (no version string; see limits) |
+| b | Owner of intent / responsibility boundary / methods / delivery status | Intent `docs/WORKFLOW-INTENT.md`; boundary `docs/RESPONSIBILITY-BACKBONE.md` (editable source) + frozen package export `professional-workflow/authority/RESPONSIBILITY-BACKBONE.md`; methods `professional-workflow/methods/README.md` (bodies under `methods/`); delivery status `docs/overnight/2026-10-01/` with `M6-FINAL-ACCEPTANCE.md` as current acceptance. All from root README step 1/2/4 + AGENTS 当前唯一入口与归属 | **PASS** |
+| c | How a task binds a Profile and a method | Root README step 2–3 → `professional-workflow/charters/README.md` (Charter binds one use of a Profile to the actual task; choosing a Profile is composition, not authorization; `template.md` is the binding form) → `professional-workflow/methods/README.md` (method used only when the Charter binds it; no applicability triggers added by the list) → assembly order in `professional-workflow/README.md` | **PASS** (2-hop) |
+| d | What legacy is and where | Old registry/roles/skills/principles/scripts world, retired from the default root; complete working state at `.worktrees/legacy-pre-night-2026-10-01`, local branch `legacy/pre-night-2026-10-01`, old `main@496b067` | **PASS** |
+| e | How to retrieve an old script | Read-only from the legacy worktree (root README 旧版归档入口 + AGENTS 窄而有效的检查: old registry/render/etc. “不要求、不查找、不运行; 只读历史在 .worktrees/legacy-pre-night-2026-10-01”). Concrete subpath resolves in one hop: `.worktrees/legacy-pre-night-2026-10-01/scripts/` (verified: `render.py`, `check-closure.py`, `compose-role.py`, …) | **PASS** (path not spelled to subdir level; see limits) |
+
+Cold-read limits and ambiguities recorded:
+
+- **No version string.** Current identity is the dated accepted delivery (`M6-FINAL-ACCEPTANCE.md` /
+  `PW-01-FINAL-REPORT.md`); the old `VERSION` file is retired. A reader looking for `x.y.z` will not
+  find one via AGENTS/README.
+- **`MAIN-CUTOVER-REPORT.md` still dangling.** Root README’s “已接受身份与状态” points to it, but the
+  file does not exist yet (it is this C3 handoff’s deliverable). Same forward reference already noted
+  in the C1 entry check.
+- **Sub-README phase labels.** `professional-workflow/charters/README.md` says “M2 candidate” and
+  `methods/README.md` says “M4 accepted references / M5 candidate”. The package README’s Package-state
+  paragraph states these labels describe their own snapshots and are not current acceptance, so the
+  chain resolves — but only after reading that paragraph; the sub-READMEs alone read stale.
+- **Legacy is local-only.** The branch/worktree are not on the remote; the README marks them 本地, so a
+  fresh clone would not carry them. Retrieval is read-only (no import/restore procedure given, by
+  design: 不要把旧体系当默认治理或在默认根恢复).
+- **`upstreams/` in the legacy paragraph** refers to the legacy copy only (raw ignored assets), not a
+  path in the new root tree; the sentence’s context makes this clear.
+- Scope note: this is a documentation/reference cold read on the promoted local root; it does not
+  re-run package qualification, does not accept M6, and does not cover remote promotion.
