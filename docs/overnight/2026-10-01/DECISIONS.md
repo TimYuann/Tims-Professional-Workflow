@@ -379,3 +379,10 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Package object:** commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`; 19-file manifest SHA-256 `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`; deterministic archive SHA-256 `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`.
 - **Evidence:** independent M6 cold-start-sample PASS (`2b80184e…`) and controlled-copy rollback-evidence PASS (`b7c1fb5a…`) are summarized with their limits. They do not establish app/database/runtime recovery or full M6 acceptance.
 - **Limits/next:** M6 remains a candidate pending the Owner-authorized Pro review timing and final milestone decision. No audit, push, tag, merge, or release action has occurred; Pro remains `0/2`.
+
+## D-049 · Pin the M5/M6 Pro review candidate branch object
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after committing the M3/M5/M6 summary reports.
+- **Pinned repository object:** branch `night/2026-10-01-workflow`, commit `ed3120c3475339fe7140fc4afbb7fa0c1e8e5aa0`, tree `d2e91104c58777242b7f7fde4d82e31837071564`.
+- **Package identity:** the `professional-workflow/` subtree at that commit is `9e4fa14a427f42dc2fc6304a08fa76fd7596313e`, byte/tree-identical to source package commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3` subtree `c88b662421bc44270fdf38bf43267010fe0a1d38`. The branch commit includes M3, M5, M6 reports and current status/decisions.
+- **Acceptance/control:** M3 report `c8cac65c…` is ready but Oracle/Owner acceptance remains pending. Pro review count is `0/2`; no branch push or audit submission has occurred. Oracle chooses timing; `PRO-AUDIT-PREPARATION.md` SHA `c0cc3345…` supplies the readlists and controls. The fixed commit is the review candidate even if later process-only commits advance the night branch.

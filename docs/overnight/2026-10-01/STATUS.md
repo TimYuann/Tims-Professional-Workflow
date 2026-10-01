@@ -37,7 +37,7 @@ Driver: `tpw-night-driver`. Source of phase scope: [accepted overnight plan](../
 
 - `docs/overnight/2026-10-01/PRO-AUDIT-ALLOWANCE.md` records Owner authorization for 2 ChatGPT 6 Pro full-artifact reviews, currently 0/2 sent. Oracle chooses timing; this is not a per-stage gate.
 - A fixed commit on this night branch may be pushed to `origin` solely for those reviews. No push has occurred. `main`, tags, force-push and mixing the original worktree's dirty/index state remain outside the authorization. The allowance file is preserved unchanged.
-- `PRO-AUDIT-PREPARATION.md` (SHA-256 `aaa8950fe58bf96a4ad648b64080347172f80842da0e88fe9ce676b6ab01764b`) contains the M5/M6 complete read lists and submission controls. Final branch commit/tree await M3 closure; no Pro request has been sent.
+- `PRO-AUDIT-PREPARATION.md` (SHA-256 `c0cc3345b902b94cfc6e357207cbf08cee9d9c0188a9ea7823c07debf511a2ff`) contains the M5/M6 read lists and submission controls. The pinned review candidate is branch `night/2026-10-01-workflow`, commit `ed3120c3475339fe7140fc4afbb7fa0c1e8e5aa0`, tree `d2e91104c58777242b7f7fde4d82e31837071564`; its `professional-workflow` subtree matches d672914/tree c88b662. M3 acceptance is pending; Pro usage remains 0/2 and no audit/push has occurred.
 
 ## Active assignments
 
@@ -59,4 +59,4 @@ Herdr diagnosis correction: the separate `test "${HERDR_ENV:-}" = 1` call exited
 
 Restart context: the preserved `DRIVER-COORDINATION-INCIDENT.md` records that the planned 08:00 closure objective remained unmet at the 03:52 pause. Workspace migration preserved the same branch/session identity and changed locators only; it did not create new independence or semantic coverage. Since resumption, case-1 F passed for its fixed code/test commit, B/C v2 has a bounded independent PASS after the Plan challenge FAIL, M5 F1–F4 have a targeted PASS, and M6 has independent cold-start-sample and rollback-evidence PASS reports. These recoveries do not revise the 03:52 outcome or mark M3/M5/M6 complete.
 
-Last updated: 2026-10-01, by Driver after assembling M5/M6 self-contained reports.
+Last updated: 2026-10-01, by Driver after pinning the Pro review candidate and preserving M3 acceptance status.

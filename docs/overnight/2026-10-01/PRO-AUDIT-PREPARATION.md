@@ -1,16 +1,18 @@
 # Pro audit preparation · M5 integration and M6 delivery
 
-**State:** preparation only; not a sendable candidate yet. Pro usage remains `0/2`. Oracle selects timing and operates ego-browser/ChatGPT Pro/GitHub connector. No audit has been sent and no branch push has occurred.
+**State:** fixed review candidate is ready for Oracle's timing decision; no Pro audit has been sent and usage remains `0/2`. Oracle operates ego-browser/ChatGPT Pro/GitHub connector. M3 evidence is complete but its milestone acceptance is pending Oracle/Owner.
 
-## Final object pin to capture after M3 closes
+## Fixed object pin for Oracle's timing decision
 
 - Repository: `https://github.com/TimYuann/Tims-Professional-Workflow.git`
 - Branch: `night/2026-10-01-workflow`
-- Main branch commit/tree: **capture together after the final M3 E/F report and status/decision checkpoint are committed**. Do not substitute the package-source commit below for the final branch commit.
+- Fixed main branch review candidate, captured after both M3 F reports and the M5/M6 report checkpoint: commit `ed3120c3475339fe7140fc4afbb7fa0c1e8e5aa0`, tree `d2e91104c58777242b7f7fde4d82e31837071564`.
+- The `professional-workflow/` subtree at that commit is exactly tree `c88b662421bc44270fdf38bf43267010fe0a1d38`, matching the package source object below. The commit includes M3, M5 and M6 reports. It records M3 evidence ready for acceptance; it does not record M3, M5 or M6 milestone acceptance.
+- The workspace has an unrelated untracked `scan.js`; it is excluded from this committed review object and remains untouched.
 - Package source object currently fixed: commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`.
 - Export identity: 19-file manifest SHA-256 `c40b31e87bdad8374af0bf7b393bec5583dd45deee38601e4fed324c669f1ad0`; deterministic archive SHA-256 `e2571ca9cca6148378d1b6ec1a580c0432252727e135fa0bb29f59ec23c5a39d`.
 
-After M3 closes, freeze the exact main branch commit/tree, verify its package subtree still equals `d672914`/`c88b662`, update `STATUS.md` and this record, and only then offer it for Oracle's review choice. The M6 review must inspect the exact pinned repo branch/commit through the GitHub connector, not `main`, a web summary, or cached content.
+Oracle chooses whether to send the fixed object now or after its separate M3 milestone decision. If submitted, each Pro prompt must identify the exact repository, branch, commit and tree above and inspect that commit through the GitHub connector, not `main`, a web summary, or cached content. The pin includes both local M3 case reports and the M5/M6 evidence reports; it does not record M3 milestone acceptance. This preparation note and later status/decision records are outside the pinned commit and do not change the reviewed object.
 
 ## Audit 1 · M5 full integration
 
