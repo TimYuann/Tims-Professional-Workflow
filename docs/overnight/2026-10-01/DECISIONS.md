@@ -155,3 +155,11 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Passed checks:** package identity, in-package links, both documented text assemblies with synthetic input, Backbone byte identity, upstream pin/path/anchor existence, and the absence of legacy runtime dependencies in the package.
 - **Findings:** F1 (high traceability): shipped M5 method files and two Charter digest pins do not match the exact M4 accepted method object digests; the F method file has no shipped digest. F2 (low status): frozen M1 Profile files still say “待 M4” without a package-level supersession note. F3 (low provenance): the Backbone export disclaimer omits two source-history references. F4 (info): example Profile paths use repo-root form while assembly runs from package root.
 - **Disposition:** M5 package candidate is not accepted. Update only package identity/status/path/provenance metadata to make shipped bytes verifiable, then send the exact diff and hashes for targeted independent recheck. Do not rewrite the frozen Backbone or M1 Profile content. M3/M6 scope remains independent.
+
+## D-021 · Fix package traceability/status/path findings in M5 candidate d672914
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after applying the bounded F1–F4 fixes to the fixed M5 package.
+- **Fixed candidate:** commit `d672914ac80eeed0aa5f04a0c80f448acc9de6f3`, tree `c88b662421bc44270fdf38bf43267010fe0a1d38`.
+- **Disposition:** Methods README now distinguishes exact M4 accepted source hashes from current M5 packaged method hashes; Charter examples cite both. Root README clarifies M1-era candidate-status wording; Backbone provenance note includes the two cited history paths; example Profile paths are relative to the package root. No normative method body, Profile bytes, or Backbone export bytes changed.
+- **Recheck:** The same independent Flash reviewer has fixed prompt `M5-PACKAGE-REPAIR-PROMPT.md` (SHA-256 `33602146bd1899d833b0d3238ddc363b3ee6b93e2d08680b213dcd8f5d620a18`) and is working only on F1–F4 against this commit. Until its result and the M3 dependency are closed, M5 is not accepted and no Pro audit is sent.
+- **Scope:** This is a metadata/source-trace/path repair candidate, not method-body reassessment, M3 acceptance, M6 qualification, or publication authority.
