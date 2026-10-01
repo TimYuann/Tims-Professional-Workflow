@@ -315,3 +315,12 @@ Append-only. Each entry distinguishes accepted direction from observed facts and
 - **Baseline identity:** all seven source/test file hashes match the accepted B/C baseline recorded in the v2 inputs at dispatch preparation. No fixture implementation file has yet changed.
 - **Session relation:** the intended E is existing session `tpw-night-m3-local-impl`; it is reused from case 1 and is not represented as a new identity. The separate F evaluator remains `tpw-night-method`.
 - **Limits:** This binds only the synthetic case-2 implementation exercise; it does not accept implementation/M3, run tests, or expose F criteria. The worker may write only `src/**`, `tests/**`, and `M3-CASE2-E-REPORT.md`.
+
+## D-041 · Dispatch case-2 E on the fixed public input
+
+- **Recorded:** 2026-10-01 by `tpw-night-driver` after the case-2 Charter/startup checkpoint `56635a2`.
+- **Fixed input:** `fixtures/m3-snapshot/M3-CASE2-E-STARTUP-PROMPT.md`, SHA-256 `e0cf4f0e4beac2e777c460e74f3eee5142e1eb2b5ab30b0c1057ac49696ad346`; the active Charter is SHA-256 `75b5f5023c5682bd932069a6a783bc808e5b1c76b447a659f155abe0fee39661`.
+- **Baseline:** immediately before dispatch, all seven `src/**` and `tests/**` file hashes matched the accepted B/C baseline. No implementation file had changed.
+- **Session/state:** existing E session `tpw-night-m3-local-impl` (`w27:pK`, same session UUID as prior case-1 E) was idle in the restored main root. The first Herdr command text had a shell backtick-substitution error and produced no observed lifecycle change; a corrected prompt with the exact fixed path/hash returned `working`. No new independence is claimed. No further ACK/poll was required.
+- **Write set/limits:** `fixtures/m3-snapshot/src/**`, `tests/**`, and `M3-CASE2-E-REPORT.md` only. The prompt contains public B/C/Plan inputs and explicitly excludes the separate F rubric/private criteria. E is not authorized to self-evaluate or alter accepted inputs.
+- **Next:** wait for E's fixed candidate/report, then route an independent F evaluation to `tpw-night-method`. No case-2 PASS or M3 acceptance is yet recorded.
