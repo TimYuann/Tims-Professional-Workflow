@@ -24,3 +24,8 @@ Pro 返回是独立 challenge，不证明真实运行或替代本地 F；发现�
 对话：https://chatgpt.com/c/6abe03be-ad9c-83e8-852e-d882fb600552。
 完整请求与模型证明在仓库 .worktrees/runtime/tpw-night-prompts/pro-audit-1-request.txt、pro-audit-1-model-proof.txt；结果尚未取回，不声称已通过。
 旧Luna Driver已收口退休；新的同名Pi Driver为独立session 01a0f639-ecce-7195-817b-05c3fe8d68ea，Flash/max实测，等待Oracle吸收结果再派明确范围。名字相同不改写旧贡献记录。
+
+### Audit 1 · 结果已返回并吸收
+
+原文完整10525字符保全在 PRO-AUDIT-1-RESPONSE.txt；可见HTML/身份在 PRO-AUDIT-1-RESPONSE.json。生成已结束，未重新生成或重发，预算仍1/2。
+Pro核读19core及固定证据，不运行测试；core候选支持、M3有界、M5集成成立，PW-01适配说明阻断完整M6。Oracle接受有限范围并向新PiDriver派 PRO-AUDIT-1-DISPOSITION 的最小后续，第二笔待最终对象。

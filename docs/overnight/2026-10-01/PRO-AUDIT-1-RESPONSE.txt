@@ -1,0 +1,243 @@
+总体结论
+
+这版 core 已经可以作为本地采用候选；但完整的 M6 计划交付条件尚未达到。 我没有找到足以阻断这个 19 文件通用 core 采用的实质性缺陷。真正尚未交出的，是计划明确要求的 UCBIP adaptive 接入说明、样例及对应现行权威的核读结果。这不能由“core 不依赖 UCBIP”或“没有修改 UCBIP”替代。
+
+对你的两个疑问，我的判断是：
+
+A 的事实边界成立，但不构成推翻 case2 F PASS 的理由。 在本 fixture 的目标、B/C 和 D 明确委派的选择范围内，采用 Turn.page_summary + Turn.cases 是合法的接口实现选择，不是靠 F 擅自缩小契约。旧组合仍可能混修订，则是这个 PASS 的明确适用限制，不能称为“超授权”。补充的无副作用回答证明了 E 对一个具体越界请求的识别和拟议返回路线，没有证明实际路由闭环或工具级阻断。
+
+B 确实暴露了演练启动材料过重，但不能据此判定 core 的日常使用必然过重。 当前 core 的 README 已经提供按任务选择的短装配入口，并未要求每个实例读完整 Backbone、所有 Profile 或 M3 历史。应当收窄的是实际派工材料，不是再造一套压缩、验证或调度机制。
+
+一、实际核读范围与未核项
+1. 固定对象
+
+本次正文审阅使用：
+
+对象	核验结果
+固定候选	62e3792d1f30d4c4838622c2e8630cc0d7de7c34
+候选整仓 tree	c0f3a47faed9f212c178b72042a0c49cac37d045
+professional-workflow/ 子树	9e4fa14a427f42dc2fc6304a08fa76fd7596313e，19 文件
+M5/M6 包来源	d672914ac80eeed0aa5f04a0c80f448acc9de6f3
+来源整仓 tree	c88b662421bc44270fdf38bf43267010fe0a1d38，其 core 子树与本次候选相同
+
+以上候选及来源的 Git 对象关系已通过 connector 读取核对，不把 c88b662… 当作包子树。因此，M5/M6 对该 core 字节对象的有效证据，不会仅因后来增加过程记录而自动失效。
+
+最新 tip d0f208f… 只读取了 PRO-AUDIT-PREPARATION.md、DRIVER-HANDOFF.md 两份定位材料；没有用它们替换固定候选正文，也没有独立重做你提供的 ls-remote 核验。
+
+2. 已完整核读的 19 文件 core
+
+下表路径均相对于 professional-workflow/：
+
+分组	已完整读取的文件
+入口：1	README.md
+权威：2	authority/README.md；authority/RESPONSIBILITY-BACKBONE.md
+Profiles：7	profiles/README.md；intent-voice.md；behavior-domain.md；technical-planning.md；implementation.md；evidence-evaluation.md；driver.md
+Charters：5	charters/README.md；template.md；examples/implementation-local-fix.md；examples/implementation-cross-module.md；examples/technical-planning-cross-module.md
+Methods：4	methods/README.md；local-defect-feedback-loop.md；cross-module-design.md；behavior-claim-evaluation.md
+3. 已完整核读的计划和证据
+
+以下报告均读取固定候选中的正文，而非仅看状态摘要：
+
+分组	文件
+接受与 M3	ORACLE-ACCEPTANCE.md、M3-REPORT.md、M3-AUTHORITY-BOUNDARY-OBSERVATION.md
+M5/M6 总结与包审查	M5-REPORT.md、M6-REPORT.md、M5-PACKAGE-INDEPENDENT-REVIEW.md、M5-PACKAGE-REPAIR-RECHECK.md
+冷启动与回退	M6-COLDSTART-REPORT.md、M6-COLDSTART-VERIFICATION.md、M6-ROLLBACK-REPORT.md、M6-ROLLBACK-VERIFICATION.md
+case1	M3-LOCAL-EVALUATION.md
+case2 契约与结果	fixtures/m3-snapshot/BEHAVIOR-CONTRACT.md、DOMAIN-SEMANTICS.md、TECHNICAL-PLAN.md、M3-CASE2-E-REPORT.md、M3-CASE2-F-EVALUATION.md
+case2 实际代码与测试	src/__init__.py、case_reader.py、page_summary.py、service.py、state_store.py、turn.py；tests/test_existing_behavior.py、test_episode_coherence.py
+
+另读了总计划 docs/OVERNIGHT-WORKFLOW-PLAN-2026-10-01.md；冻结 Backbone 按包内完整导出核读。补充读取了 case2 的 CASE-INPUT.md、D-CHARTER.md、M3-CASE2-E-CHARTER.md、README.md，以及 M6-PACKAGE-CANDIDATE-d672914.md、OVERNIGHT-REPORT.md、旧 docs/downstream-mapping.md；STATUS.md 读取了相关状态和交接段落。
+
+**未核项明确如下：**没有运行测试、重演冷启动或回退，没有访问你的本地工作树、验证目录和原始会话；没有独立重算 tar 摘要、34 份材料的总字节数，也没有读取私有 F criteria。case1 的实现与测试未另行逐文件核读，其判断依据是已读取的独立评价及冷启动复核。原始来源仓库没有重新全量审查；当前 UCBIP 权威文件没有在本轮被读取。长启动包核对了 Git 元数据中的大小，但未将其全部正文再读一遍。
+
+所以，下文的测试结果均指报告记录的实测；源码分析和本次裁定建议不冒充新的测试报告。
+
+二、core 的实际方法与装配是否可用
+方法不是空的，装配也不是仅有概念
+
+三个方法都包含能指导实际工作的步骤：局部缺陷方法要求从已接受行为和可区分的失败观察出发；跨模块方法要求区分必须共同依赖的承诺与实施者可自行选择的内部细节；行为评价方法要求固定比较对象、检查观察是否有效，并使用有区分力的负控制。这些内容不是靠角色名称暗示方法，也没有捆绑固定人数、固定 PR 流程或常驻 gate。
+
+实际装配关系也明确：Profile 选择判断方式，Charter 绑定本次真实委托，方法按任务显式选择，任务输入带当前事实。 同一个 Implementation Profile 的局部修复与跨模块实施可以绑定不同 Charter；跨模块 E 没有被迫再加载一份本来属于 D 的设计方法。这是可组合性，而不是缺了一张 Skill。
+
+证据支持到什么程度，需要分开：
+
+性质	本次材料支持的结论
+这些文件能否用于实际装配和工作	有实际装配、两例实施和独立评价材料支持，不只是填写模板。
+干净包能否让新会话完成一个任务	有 case1 冷启动样本及独立复核支持。
+是否已证明全部 Profile 组合都有效	没有。
+是否已证明方法带来效率或质量增益	没有相应对照和成本测量，不能从成功完成两例推出。
+是否已证明大项目或 UCBIP 业务有效	没有，报告也没有这样声称。
+
+case1 F 报告记录了候选 7 项测试通过、旧实现加载同一候选测试集出现 3 项失败；冷启动复核另有独立观察和负控制。这些支持“任务能够完成、检查能够区分旧缺陷”，不等于证明方法的普遍优势。
+
+接受、验证、动作授权、关闭仍然正交
+
+我没有发现当前 core 把这四件事重新合并成一个 PASS：
+
+判断	当前边界
+契约／Plan 接受	由持有相应委托的责任方接受具体对象；D 接受自己的技术 Plan，不是在进行独立 F。
+验证	F 评价固定实现版本对约定的兑现；作者自测可作输入，但不是独立结论。
+动作授权	来自真实委托与允许动作；Profile、方法、Plan 接受或 F PASS 都不创造权限。
+关闭	根据既有关闭规则和委托作出，Driver 记录，不由任一局部测试自动触发。
+
+这些区分在 Backbone、Charter 模板以及实际 case2 D/E/F 记录中是一致的。
+
+同一外部实例先挑战 D、再评价 E，并不因此失去独立性。应看它是否实质代写了被评价的方案或实现，而不是看它之前出现过几次。现有记录声明其没有编写本实现和测试；我没有读取原始会话来进一步核实这一点，但也没有依据仅因实例复用就否定它。
+
+三、疑问 A：case2 的边界是否合法，补充观察究竟证明了什么
+1. 旧组合确实仍可能混修订
+
+这是可以由当前源码直接推出的，不需要相信 E/F 的总结：
+
+begin_turn() 只读取一次 store.current_view()，返回持有该 StateView 的 Turn；它的两个属性从同一 view 导出。service.cases(store) 则仍经 read_cases() 重新读取当前 view。更新操作发布新的 StateView，不修改旧 view。
+
+因此，以下是一个静态推导的反例场景，不是我新运行的测试：
+
+纯文本
+初始：C-1 OPEN，C-2 OPEN
+t = start(store)                 → t 固定 revision 1
+update_status(C-1, CLOSED)       → store 进入 revision 2
+
+t.page_summary + cases(store)   → open_count=2，但详情仅 1 个 OPEN
+t.page_summary + t.cases        → revision 1 的一致 pair，仍为 2 个 OPEN
+下一次 start(store)              → 取得 revision 2 的新 episode
+
+F 报告不仅承认这一限制，还记录了它对旧组合的实际观察。这不是被本次审阅才发现、却被 F 隐藏的残余。
+
+2. 为什么我不把它判成“缩小 B/C 来保住 PASS”
+
+决定性依据不是 Oracle 已经同意，而是三层输入本身：
+
+目标没有固定旧调用结构。 CASE-INPUT.md 要求定义并实现一次交互中的一致视图及后续交互的行为，同时明确现有模块只是事实输入，不预先决定接口和实施方式。
+
+B 固定可观察量及关系，不固定调用形式。 BEHAVIOR-CONTRACT.md 的 Observable surface 明确不选择命名、wire shape 和 call structure；v2 Conditions 又明确允许保留接受项的接口选择。
+
+D 没有承诺修复所有旧组合。 TECHNICAL-PLAN.md 的 C-8 要求旧 API 保持可调用，并在没有交错更新时保持结果；D-1、D-3、D-5 明确允许选择 carrier、复用 Turn、确定 episode 的具体入口，但要求 E 把选择记录给 F 和消费者。E 的交接与实际实现都做到了这一点。
+
+所以，我认可的准确结论是：
+
+指定的 Turn 入口实现了本 fixture 已接受的一致性与新 episode 新鲜度要求；旧的独立二读组合没有得到同样保证。
+
+这与“原系统所有读取路径已修复”明显不同。若下游真实产品要求保留旧调用组合也必须一致，或者实际消费者仍在使用旧组合，就会出现新的采用缺口；本 fixture 的 PASS 不能替它补齐。
+
+此外，F 没有仅凭旧版本缺少 Turn.cases 所产生的 errors 宣告行为成立。它另外记录了 X-2 行为比较、X-3、读取次数及有限轨迹观察。因此，不能把这个 PASS 简化成“新增接口后，旧代码报错，所以判绿”。
+
+3. “F 不覆盖”不是“超授权”
+
+这里必须纠正原 M3 汇总中的分类，而不是纠正 case2 实现：
+
+旧组合未被该 PASS 覆盖，是验证与采用范围的问题。
+跨进程持久化请求，才同时触及 B-O2 排除范围、D 的无持久化约束和 E Charter 的动作权限。
+
+一个动作可以在授权范围内但尚未验证，也可以技术上可行甚至通过测试但没有授权。两条轴不能互相代替。
+
+4. 无副作用观察：足以作为边界判断样本，不足以作为实际阻断证明
+
+M3-AUTHORITY-BOUNDARY-OBSERVATION.md 支持的，是同一个 E 面对具体持久化请求时，能够识别它不是普通内部实施选择，指出受影响的 B/C、Plan 与授权范围，并提出停止相关实施、经 Driver 返回实际责任方的处理方式。题目没有直接给出正确路线，因此这不是简单复述题目答案。
+
+但它没有证明：请求实际送达了 Driver；相关责任方作出了裁定；新版本被接受并重新绑定；实施随后正确恢复；工具或宿主实际拒绝了越权操作。更重要的是，观察题本身禁止命令、写入和联系其他实例，所以“没有修改文件”不能单独归因于 E 正确执行了授权边界。同一 E 的两次回答，也不是两个独立样本。
+
+**最低成本处理：**在现有接受记录中，把该证据接受为“具体越界请求的识别与返回路线判断样本”，明确实际路由与工具阻断未验；引用补充记录取代原先把 coverage 当 envelope 的解释。Oracle 原先允许的就是一次短、无副作用观察，没有必要为本次 M3 再建设权限执行系统或重跑两例。
+
+四、疑问 B：哪里真的重，应该怎样减
+1. 不能把三个不同数字混成一个成本结论
+
+34 份 / 437,182 bytes 是报告给出的选定 M3 Markdown 归档口径；我没有独立重算总数。E/F 启动包的 97,850 / 115,048 bytes 则能从固定候选的 Git 文件元数据直接核到。精确实施时间、协调时间和各会话 token 总量没有采集，不能用测试耗时倒推，也不能把文件字节换算成可靠的实际上下文成本。
+
+归档大，不必然意味着每次派工重；启动包大，则确实说明那次派工输入重。
+
+2. 实际过重的部分，不是凭数字猜的
+
+case2 的 D Plan 本身约 40KB，其中相当多内容用于保存 B/C v1→v2、摘要排序错误、方法三版本来源差异、挑战和修正历史。E/F 报告又明确记录它们读取、核对了启动包内嵌的 Backbone、B/C、Plan 等内容。M6 的冷启动样本也实际读取了完整 Backbone。
+
+这些历史有审计价值，但大部分不是 E 执行当前 Plan、或 F 评价当前实现时必须反复携带的工作上下文。
+
+另一方面，core README 已经写了正确的默认方向：仅选择适用 Profile、绑定的方法和任务输入；Backbone 在责任边界相关时查阅，只加入活动 Charter 所需的上下文。它的局部修复装配例没有默认加入完整 Backbone。首次认识一个新包时通读 Backbone，也不等于以后每个任务都必须重读。
+
+因此，我把它判为：演练派工材料与产品默认入口之间存在需要收敛的落差，而不是 core 强制重型流程。
+
+3. 最小缩减方式
+
+不需要新系统。在现有 Charter 和派工正文里，把材料分成下面两种即可：
+
+直接进入本次启动上下文	保留固定引用，按需读取
+真实委托、对象范围、允许动作、返回条件和交接对象	完整 Backbone 及不相关责任段落
+本次 Profile、确实绑定的方法正文	其他 Profile、方法及来源研究
+当前工作直接依赖的 B/C 要求和 Plan 承诺、可自行决定项、召回条件	完整 Plan 的历史修正、旧版本及争议处置
+当前事实、失败观察、相关源码和验证入口	其他案例、完整审计报告、旧启动包
+固定对象的可取回引用和必要接受依据	重复的版本等价说明、全套历史摘要核对表
+
+这里不是把必要契约压成一句摘要后让 Agent 猜。影响当前决策的约束必须可见；完整对象必须真能从固定引用取回。 当前引用最好落到 commit + path + section，有必要时再带 blob/digest；不需要每轮复制相同的历史哈希解释。遇到缺失或冲突的相关依据，再读取完整对象，而不是预先把全部历史塞入所有实例。
+
+对 case2 E，通常真正需要的是当前 B/C 有效要求、Plan 的 C/D/R 部分、自己的 Charter 和待改代码；不是重新参与“为什么 v1 Conditions 有问题”的整段历史审理。对 F，需要独立评价依据及实现后的事实，E 的 handoff 只是输入，不是应当继承的结论。
+
+**最低成本落点：**沿用当前 README 的短入口，在下一份实际 Charter／派工正文中采用上述引用方式；保留旧大启动包作为历史证据，不回写它们，也不要求全量重跑 M3 来证明“文档变短了”。
+
+本次仍不能接受“已经证明轻量高效”的结论，但这不应变成无限期阻止本地采用的理由。
+
+五、真正的交付阻断项：M6 缺少新轴下的 UCBIP adaptive 说明
+PW-01 — 阻断完整 M6／UCBIP 接入准备交付，不阻断通用 core
+
+位置与依据
+
+总计划 §1 的最小交付明确包含 UCBIP adaptive 示例；§M6 进一步要求只读核查现行 CARD-STATE、role-binding、current-release、delivery contract、receipts、evidence-ledger 的对象分工，并交出可采用说明、样例和最短核读清单。
+
+但当前 professional-workflow/README.md 的采用入口是通用装配；M6-REPORT.md 与包候选记录给出的资格材料是导出、case1 冷启动和受控副本回退，没有提供这一新版 adaptive 交付。固定候选中的旧 docs/downstream-mapping.md 仍依赖 registry 的 producer/consumers、A1–A9 等旧结构，不能算作本轮要求的接入说明。
+
+反例
+
+一个没有参加本夜开发的新 Driver，拿到这个 19 文件包后，能够装配一个通用局部任务，但仍不能仅凭已交出的说明确定：
+
+本次 Charter 应怎样绑定 UCBIP 现有 role-binding 和任务权威；其自述、独立评价、接受结果分别由现有哪类 receipt／evidence 对象承载；哪个既有对象拥有当前状态；main 单写安排怎样保留；本包的规则何时只是方法建议、何时必须返回下游实际责任方。
+
+这不是要求通用 core 内置 UCBIP，而是计划已经承诺交出一个连接现有治理的说明层。没有它，采用者仍需自行设计这层连接。
+
+影响
+
+不能把当前交付宣称为“已经足以按说明完成 UCBIP adaptive 接入准备”。尤其不能把“不修改 UCBIP”当成完成证据——它只证明边界被保留，不证明接入方法已经交付。
+
+最小修正
+
+补一份短的、放在 core 之外的可选接入说明／示例，并从交付入口引用它。内容只需做到：
+
+固定实际核读的 UCBIP 权威版本和必要锚点，核清上述六类对象的分工。
+用一份有界任务示例，说明哪些已有权威成为 Charter 输入，哪些输出进入现有 packet／receipt／evidence 位置，由谁评价和接受；保留 Integrator 的 main 单写安排。
+明确本包不拥有下游业务行为、权限、当前状态或运行资格，不新建与其竞争的状态源或证据索引。
+
+我没有读取当前 UCBIP 权威，因而不在这里编造它们的具体路径、当前 owner 或绑定值。该缺口需要一次真实的定向核读来补齐，不需要新增角色、目录治理体系、validator 或常驻 gate。也不必修改旧 downstream-mapping.md 来维持本轮已经取消的兼容性。
+
+补完后，独立检查只需针对这份映射是否忠实、引用是否可取回、移除示例是否影响 core；现有 core 的有效冷启动和回退证据不应被无差别推倒重来。
+
+去掉 UCBIP-specific mapping 后，core 是否自洽？
+
+是，就当前 core 而言成立。 它的责任、装配和方法依赖都在包内闭合；authority/README.md 已把冻结文中的外部旧库引用限定为来源记录，而非运行依赖。现有冷启动样本本来就在不依赖 UCBIP 映射的情况下完成。
+
+但这与“完成了移除一个已交付 adaptive 示例的反向演练”不是同一事实：当前缺的是示例本身，不能把没有示例包装成已经完成该反向验证。
+
+六、非阻断小修，以及不值得继续优化的部分
+非阻断小修
+
+把 case2 的有效入口放到 fixture README，而不是只留在 E/F 长报告里。 当前 fixtures/m3-snapshot/README.md 仍主要描述实施前的绑定和状态。加一小段当前采用说明即可：t = start(store)；本 episode 配对读取 t.page_summary 与 t.cases；service.cases(store) 是独立当前读，不属于这个 pinned pair；附固定 F 对象引用。这样减少误用，不改变 B/C，也不要求修复所有旧调用组合。
+
+消除活动输入中的旧状态歧义，不必重审冻结正文。 M1-era“待 M4”标签仍留在 Profile，根 README 虽已解释，但并不总进入实际 E 启动文本。现有复核也把它列为非阻断残余。最小办法是在活动 Charter 的方法绑定处明确当前所用对象，不让执行者为了确认一个已选方法再追 M1→M4→M5 的历史。
+
+旧 A7/A8 字样可以做一次旁注澄清。 Backbone 仍含该字样，而本轮计划取消的是旧编号、schema 和实现机制兼容，不是独立性和三态目标。若担心冷读者误追旧库，在 authority/README.md 加一句解释就够，不应为此改写冻结 Backbone 或恢复旧检查体系。
+
+不建议继续加码
+
+不要求 case2 为本轮补并发、持久化、跨进程恢复或修复一切旧二读组合；这些不是当前接受目标。case1 的 Unicode whitespace 未枚举边界继续诚实保留，不把一个未承诺的穷尽规格变成采用 blocker。
+
+不要求把静态 Backbone 投影换成生成器，不要求每份评价都新开一个身份，不要求把三个方法扩展成完整方法目录，也不要求吸收已明确 deferred 的文章。当前身份、方法来源和元数据修正的问题，已有适当的限定记录；纯过程或状态文字变化不值得重新执行全套语义验证。
+
+回退证据也不应无端升级要求：它支持的是受控包副本恢复到固定对象并重新装配。独立 verifier 没有亲自重演历史恢复动作，不影响它作为受控副本证据的限定价值；但它当然不能证明应用、数据库或业务运行时恢复。
+
+七、最终分别判定
+待判定命题	本次判断	条件与边界
+core 可作为本地采用候选	成立。	对象为已核的 9e4fa14… 子树。真实任务仍须绑定自己的委托、接受输入和允许动作；不能把包本身当权限或下游资格。
+M3 整体演练接受	建议有界接受；固定候选中“已经整体接受”的事实尚未成立。	两例行为证据保留；补充观察只接受为具体越界请求的识别与路线判断，不提升为实际路由／阻断闭环。归档与采用输入分开，精确时间未测继续披露，不接受效率结论。由既有 Oracle 对这些范围落一次处置即可，不重跑两例。
+M5 达到计划交付条件	包集成的实质条件成立，可据此作接受；现有记录尚未正式接受 M5。	独立 core、方法正文、装配入口、来源定位和旧库隔离已经具备；既有 F1–F4 修复与当前对象一致。上述状态文字与输入精简属于小修，不是新增工程门禁。
+M6 达到完整计划交付条件	尚不成立。	case1 冷启动和受控副本回退可按各自范围接受；但 PW-01 的 UCBIP adaptive 说明、样例及现行权威核读尚缺。补齐这层说明后再接受完整 M6，不要求证明生产效果，也不能宣称取得下游资格。
+
+固定候选中的 Oracle 记录确实只接受了两例 M3 运行证据，M5/M6 报告也保持未接受状态；本次建议不应被回填成那些历史时点已经发生的接受。
+
+必要收口只有：准确接受 M3 补充观察的有限性质、让实际派工沿用 core 已有的短入口、补齐计划欠下的 UCBIP adaptive 说明。没有证据支持再扩建这套工作流。
