@@ -102,3 +102,39 @@ listed. The old root现场 is intact at capture state and recoverable from the v
 plus the custody capsule (reconstitution recipe in the capsule README); no root drift since capture was
 observed. This report covers C0 preservation only — it does not perform or accept C1/C2, does not
 touch `professional-workflow/`, UCBIP, M3, remotes, tags or releases, and is not a package acceptance.
+
+## C1 entry check (2026-10-01, tpw-night-check)
+
+Independent, read-only check of C1 commit `5ba5fa54e96b3a0f53fb62e3d585b8bffb48567f`
+("chore(root): promote new default entry and retire legacy active surfaces", parent `2e7ee4d`). Night
+HEAD at check time is `a046e48` (adds only this report). No C0 re-run, no other file changed, no
+commit. Reference base: the accepted core tree `11e6e377` (the `professional-workflow` subtree of the
+accepted delivery — a tree object, not a commit; the comparison below is tree-vs-tree:
+`git diff 11e6e377 5ba5fa5:professional-workflow`).
+
+| # | Check | Evidence | Result |
+| --- | --- | --- | --- |
+| 1 | Package diff vs accepted tree `11e6e377` | **`README.md` only, 2 insertions / 2 deletions**: title line → `Professional Workflow · accepted local-adoption delivery (2026-10-01)`; the Package-state final sentence → the PW-01/M6 accepted-status sentence (records `M6-FINAL-ACCEPTANCE.md` + `PW-01-FINAL-REPORT.md`). No other package path changed; no method/Profile/Charter/Backbone byte touched; package working tree clean (0 porcelain entries) | **PASS** |
+| 2 | Retained set present; retired set absent at tip (listed 16 paths) | Retired 16: `roles`, `skills`, `principles`, `workflow`, `scripts`, `VERSION`, `.decisions`, `docs/artifacts.md`, `docs/coldstart.md`, `docs/ledger.md`, `docs/downstream-mapping.md`, `docs/closure-report.md`, `docs/archive`, `docs/history`, `sources`, `upstreams.lock.yaml` — each **ABSENT** at `5ba5fa5` and in the working tree, each **PRESENT** in `.worktrees/legacy-pre-night-2026-10-01`. Retained at tip: top-level `.gitignore, AGENTS.md, README.md, professional-workflow/, adoption-examples/, docs/` with `docs/{WORKFLOW-INTENT.md, RESPONSIBILITY-BACKBONE.md, OVERNIGHT-WORKFLOW-PLAN-2026-10-01.md, overnight/}`; C1 commit has **0 added paths**, so no new entry/archive directory was smuggled in | **PASS** |
+| 3 | Root AGENTS/README only lead by reference to one current entry; no old registry/render/check chase; legacy pointer resolves | `AGENTS.md` names `README.md` as the entry and the package dirs as the assembly owners; `README.md` short path is `WORKFLOW-INTENT` + `RESPONSIBILITY-BACKBONE` → `professional-workflow/{profiles,charters,methods}` → `professional-workflow/README.md` assembly order. `AGENTS.md` explicitly marks `workflow/registry.yaml`, `scripts/render.py`, `docs/artifacts.md` etc. as retired, “不要求、不查找、不运行”. Legacy pointer `.worktrees/legacy-pre-night-2026-10-01` + branch `legacy/pre-night-2026-10-01` exists on disk at `496b0676e302e2d0eafba129ff61de4c203d258a` | **PASS**, one dangling forward ref (below) |
+| 4 | `.gitignore` contains `.worktrees/` | Added at line 10 with its comment (`# 本地 worktree 与保全/验证目录；fresh clone 不需要`), +2 lines total | **PASS** |
+| 5 | Backbone source and package export both `ce82a700…` | `docs/RESPONSIBILITY-BACKBONE.md` and `professional-workflow/authority/RESPONSIBILITY-BACKBONE.md` both hash `ce82a70016a4a3fc234ea287f39aac8d79a260ddf13747c4fb705bda580453ba` at tip and in the working tree | **PASS** |
+
+Limits and ambiguities recorded:
+
+- **Dangling forward reference (only unresolved pointer).** Root `README.md` “已接受身份与状态” lists
+  `docs/overnight/2026-10-01/MAIN-CUTOVER-REPORT.md` as “本次主线切换与新旧对象”, but that file is
+  **absent** at `5ba5fa5` and in the working tree; per `MAIN-CUTOVER-PLAN.md` §C3 it is a Driver
+  handoff deliverable still to come. Until then the entry chain itself resolves, but this one status
+  pointer 404s. Expected to close at C3; recorded, not patched.
+- **Check level is commit/tip, not the physical root.** The C1 files live on the night branch; the root
+  checkout is still old `main@496b067` with the old entry until the C2 promotion. C0 verified root is
+  unchanged since capture, so this is a staging fact, not drift.
+- **Retired set is directory-level for six entries** (`roles`, `principles`, `scripts`, `skills`,
+  `docs/archive`, `docs/history`); file-level completeness rests on the C1 diff itself (233 `docs`
+  deletions + the other groups), with the bytes C0-verified in the legacy worktree.
+- `upstreams/` (the legacy-section token) is the ignored raw-asset copy, present on disk in the legacy
+  worktree and root but intentionally not in the tip tree; `upstreams.lock.yaml` moved to legacy.
+- Remote state untouched: `origin/main` remains `448c3d67c23994c86f5b0e344b82488823624586`.
+- Scope note: C1 entry check only — no C2 promotion, no C3 cold read, no package semantic acceptance,
+  no M3/UCBIP action.
