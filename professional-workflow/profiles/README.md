@@ -1,6 +1,6 @@
 # Professional Presets · 选择入口（M1 候选）
 
-Current: 本目录内容属于 2026-10-02 absorption candidate；前序 2026-10-01 baseline 已接受，本轮 Pro/Oracle 整体接受未完成（见 `docs/absorption/2026-10-02/LEDGER.md`）。
+Current: 本目录内容属于 2026-10-02 absorption candidate；前序 2026-10-01 baseline 已接受，本轮已由 Oracle 最终接受（Pro #1 RETURN → 三项修订 → Pro #2 PASS，2026-10-03）(`docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`)；状态同步对象另记 Git 身份。
 
 本目录存放可复用的专业预设（Professional Profile）。预设是**可缓存的判断配置**，不是职位表，不产生任务决定权，也不自带方法正文。
 

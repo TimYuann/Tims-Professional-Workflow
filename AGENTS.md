@@ -17,7 +17,7 @@ cwd: ~/Developer/tim-professional-workflow
 - 责任边界：`docs/RESPONSIBILITY-BACKBONE.md` 是唯一可编辑的接受源；`professional-workflow/authority/RESPONSIBILITY-BACKBONE.md`
   是其静态冻结导出，**不得手改**；需要变更时先改源、接受后重新导出。
 - 方法装配：`professional-workflow/profiles/`、`charters/`、`methods/` 各自拥有正文；各自的 README 只描述选择与装配顺序。
-- 交付状态与证据：`docs/overnight/2026-10-01/`（当前接受记录 `M6-FINAL-ACCEPTANCE.md`）。
+- 交付状态与证据：`docs/overnight/2026-10-01/` 为历史；当前接受记录为 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Pro #2 PASS，2026-10-03；接受对象 product `8ba69427105d09b3efa1d3a5f28182d4243b5fea` / core `d0cbbfc8b56f588c183efdf8b6d503d9131b5f58`）。
 
 ## 窄而有效的检查
 
