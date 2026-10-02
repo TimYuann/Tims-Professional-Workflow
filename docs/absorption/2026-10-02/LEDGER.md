@@ -58,3 +58,5 @@
 | B-FIX | B1 e561233 修1项；B2 11136eb 修3项 | — | 已派修复 | — | — | — |
 | W1-a4#1 | CURSOR-DEF ✅ | 编排/取证/交付/D/E/F | 待 gate | — | — | — |
 | R3 | A2R-CURSOR-ABC2 | 5/5: 合并3限缩2 | 落点：测试/切片/评审合并、change-shape、lesson-promotion、handoff/专业解释、bounded-composition、CLI/API 幂等 | 已派 B1/B2 第三批 | — | — |
+| B-D3 | w1 375b40c（R1修复+batch2） | — | 待 gate | — | — | — |
+| B-D4 | w2 f71138b（batch2 only） | — | 待 gate | — | — | — |
