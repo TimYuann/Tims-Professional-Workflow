@@ -121,3 +121,4 @@
 | R-ABC6 | ABC6 6/6（1合并 2/3/4限缩合并 5/6限缩）；patch-id≠行为资格；bucket≠许可 | — | B1/B2 按共同 owner 已派 | — | — | — |
 | INT10 | 切片10 0ff4d0f72feb71828e3ed8ad6b71075f2c0aca31（六 delta PASS；change-review 一句修中） | core 见回执 | — | — | — | — |
 | B-FIX4 | change-review intake 一句限缩（stale auth/validation guard before protected side effect；普通 finding 事后观察） | — | 已派 B1 | — | — | — |
+| R-ABC7 | ABC7 3/3限缩合并；MG4 台账非增量；双 canvas SHA 不同不双计；thirdParty 依 Oracle 474+8 | — | B1(arena/canvas) B2(carrier) 已派 | — | — | — |
