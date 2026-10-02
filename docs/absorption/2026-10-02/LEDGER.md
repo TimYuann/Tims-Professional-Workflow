@@ -234,3 +234,4 @@
 - 送审范围：限 Pro#1 三个 ID、相反案例与直接一致性；非阻断建议不入第二审 gate。
 - 原始送审输入已非空+sha 校验后 tracked：ABSORB-PRO2-REQUEST.txt、ABSORB-PRO2-FIXED-DELTA-PACKET.md、ABSORB-PRO2-RECORD.json。
 - 冻结与后续：candidate 冻结，不派新吸收 scope、不改产品；等完整结果后仅状态与身份收口、local main FF（不推 main、tag/release、不改 UCBIP）。
+| FINAL-SYNC | 最终状态同步 5326b27a561f557baa23f8d66aebd6a5d2152c59（core af695ebf；product diff vs 8ba69427 恰四元数据文件；BB ce82a700 未变）；等 Owner 窄核后 FF local main | — | — | — | — | — |
