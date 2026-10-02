@@ -48,3 +48,4 @@
 | W1-a2r#4 | CURSOR-ABC4 ✅ | A/Voice/B/E | 待 gate | — | — | — |
 | A3-MAP2 | 正文级联动图（25 组核账） | — | 已转 gate | — | — | — |
 | R2 | A2R-CURSOR-ABC | 8/8: 吸收1合并1限缩6 | 落点：rationale/premise、决策启发+原型、CLI契约、domain state、harness、change-review、handoff、decision trajectory | 已派 B1/B2 第二批 | — | — |
+| A1-ADD2 | EF addendum（F9 checklist 实质新机制） | 新 perf 9+sec 3+obs 2+a11y 4+test 1 | 待 gate 补裁 | — | — | — |
