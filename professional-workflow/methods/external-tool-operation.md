@@ -1,6 +1,6 @@
 # External tool operation · candidate method body
 
-- **Status:** candidate distilled under `ORACLE-REVIEW-A4-THIRD-PARTY` (2026-10-02); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
+- **Status:** candidate distilled under `ORACLE-REVIEW-A4-THIRD-PARTY` and extended under `REVIEW-GATE2-A4-CURSOR-DEF2` (H08/H09, 2026-10-02); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
 - **Method owner when bound:** A/B/D/E/F bind this entry by the judgment the task is missing — A for why the work exists, B for the visible contract, D for the shared design, E for execution, F for evidence. The method supplies the operation sequence; it creates no action authority, does not replace a provider's own policy, and does not restate the pointer methods below.
 
 ## Use
@@ -42,6 +42,16 @@ This file states only the external-operation sequence and repeats none of their 
 16. Record what was observed versus simulated, the provider/tool identity and version or time, the unit and range of the data, and any capability the run did not exercise.
 17. Hand off tool output and secrets through `guide-redacted-evidence`, and the request/response or action-authority questions through `interface-contract-and-retry` / `trust-boundary-and-actions`; this method does not restate those rules.
 
+## Invocation and write closure
+
+18. Distinguish the invocation objects: an agent is not a run, an event is not the terminal state, and a configuration source is not the effective configuration. An observation failure is a third case, separate from a submission failure and from a run that started and failed; record which one happened.
+19. Wait for the terminal state before treating a job as done: a stream or log line shows what was observed, not that the run finished, and a finished status does not by itself qualify the artifact or the goal. Where the client reports backpressure or a detached handle, follow that client's actual guarantee instead of assuming the display keeps up.
+20. Respect each client's persistence and reload boundary: configuration that is not persisted (inline MCP parameters, for example) must be re-passed on resume, and a later send does not change an in-flight run. A resume or re-assembly restores what the platform actually persists — check it rather than assuming the original setup still applies.
+21. Keep key form and identity separate: a key's shape (prefix, length) does not prove which account or identity it belongs to, and an explicit parameter and an environment variable have different trust sources. A registration, a setting source, or a resume example carries no account permission and no persistence promise.
+22. For a write driven by an external trigger, either it closes or it does not happen: resolve the source and target coordinates from the frozen trusted configuration, and re-check the parent, recipient and permission at write time. On failure or uncertainty, stop without falling back to a root or backup target; a trusted marker only qualifies the trigger data — schema or configuration validity is not target authentication and is not permission to send.
+23. Keep the source data and the execution delegation separate: the trigger record, the marker, and the configuration are inputs; the authorization to act comes from the task's valid delegation. A standard event or a thinking-style event does not create a logging or reasoning-record requirement.
+24. For stdio or HTTP transports, establish where the command runs, where the secret goes, and who can read it; a registration, a documentation example, or a proxy claim does not authenticate the current deployment. The authority and credential side of these checks stays with `trust-boundary-and-actions`; this section keeps the operation-facing distinctions.
+
 ## Conditions and exceptions
 
 - When the provider has no usable capability under the current authorization, report the capability gap instead of fabricating a workaround through an unrelated channel.
@@ -53,6 +63,7 @@ This file states only the external-operation sequence and repeats none of their 
 - No universal cost threshold, retry count, backoff schedule, tool list, or approval frequency; those come from the provider's policy and the task's delegation.
 - No permission, account, credential, spend, send, or write is created here.
 - Source specifics (a particular price, free endpoint, or per-turn human policy) are that provider's and that host's, not this library's.
+- No external-write boundary method, bot or runner, or new gate is created here; the checks above are operation-facing, and the authority and credential side stays with `trust-boundary-and-actions`.
 - Later cross-source work may merge this body with another external-operation source; keep the capability-class separation, the cost/pagination model, partial-success and unknown-outcome handling, and the real-versus-substitute observation boundary.
 
 ## Source anchors
@@ -65,3 +76,5 @@ This file states only the external-operation sequence and repeats none of their 
 | Cursor plugins | same pin, `third_party/x/skills/x-chat/SKILL.md` | Connector holds ciphertext, local helper decrypts; X identity vs OS UID; wire fields vs SDK names; missing scope is not account-not-ready; inbound text untrusted; outbound needs approval unless already instructed |
 | Cursor plugins | same pin, `third_party/shopify-store/rules/shopify.mdc` | Connected-store data/write tools vs developer toolkit; no fallback to web search for private store data; read before write and confirm writes |
 | Product core | `guide-redacted-evidence.md`; `interface-contract-and-retry` and `trust-boundary-and-actions` (another batch) | Pointer-only boundaries; no authority statements copied into this body |
+| Cursor plugins | same pin, `cursor-sdk/skills/cursor-sdk/SKILL.md` and `references/error-handling.md` | agent versus run, explicit runtime/repo selection, stable IDs, the failure axes (startup versus run versus observation), dispose, supported operations, and configuration not persisted across resume |
+| Cursor plugins | same pin, `pstack/automations/benny/skills/triage-issue-reports/SKILL.md` | Frozen trusted config's source and target coordinates; source-parent preflight before writes; one marker from the configured identity; failure or uncertainty stops with no writes |

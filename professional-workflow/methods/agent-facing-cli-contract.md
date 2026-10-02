@@ -1,6 +1,6 @@
 # Agent-facing CLI contract · candidate method body
 
-- **Status:** candidate distilled under `REVIEW-A2R-CURSOR-ABC` (MG-3) and extended under `REVIEW-A2R-CURSOR-ABC2` (MG-5, 2026-10-02); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
+- **Status:** candidate distilled under `REVIEW-A2R-CURSOR-ABC` (MG-3), extended under `REVIEW-A2R-CURSOR-ABC2` (MG-5), `ORACLE-REVIEW-A4-DEF3` (J4) and `REVIEW-GATE2-A4-CURSOR-DEF` (G12, 2026-10-02); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
 - **Method owner when bound:** B behavioral contract for the CLI's external behavior. Implementation and its authorization stay with E; this method supplies contract operations and failure modes for a specific consumer class.
 
 ## Use
@@ -32,12 +32,16 @@ Use on demand when designing or reviewing a command-line interface that an agent
 12. Repeat safety needs a valid starting state and an operation identity (idempotency key, request id, or equivalent). An idempotency key is built from the fields that define the intent and scope — the operation, the target object, and the fixed inputs that change the outcome; a result-changing element missing from the key lets two different intents collide, and which fields are required is task- and provider-specific (no fixed field count or time window here). Finding an existing active object by name is a lookup heuristic, not a complete idempotency guarantee: the lookup may cover only a time window, a status subset, or a bounded list, and the name may not carry the goal, repository, or base. Reuse therefore needs the task's real intent identifier and scope, and "not found" means "not found in the searched window", not "none exists anywhere". It is not a claim that any starting state converges to the same result; an action that cannot be naturally idempotent declares its duplicate protection, query/recovery path, or compensation instead of promising exactly-once.
 13. Partial failure is visible: report what succeeded, what is still in doubt, and the safe next command. Do not report a partial run as completed, and do not hide an uncertain outcome behind a success exit code.
 14. Technical idempotency pattern details belong to the technical idempotency guide integrated with the API/idempotency sources; this contract states the CLI/API-visible behavior and does not repeat those rules.
+15. Name the runtime and target explicitly and where the key comes from: when the client can silently default (for example to a local runtime), an omitted option is not a decision. Confirm before submission which runtime and target the call will use.
+16. Keep the identity stable and observable: record the agent and run identifiers right after submission, before streaming, and capture the actual terminal state. Separate the failure stages — submission rejected, run refused, run errored, observation failed — because only some of them prove that anything ran. Cancel or dispose the resources the client actually holds, and re-pass configuration the platform does not persist across a resume (inline MCP parameters, for example).
+17. Do not generalize a client library's promise: a client error does not always mean the work never executed, a "retryable" flag does not guarantee no duplicate effect, and a dispose or cancel call does not prove all remote work stopped. A network error may leave the outcome unknown; check the stage's actual guarantee and the existing operation identity before retrying.
+18. Check the platform's supported operations before calling them — an operation may be unsupported on a detached handle — and treat a version or capability mismatch as a real gap rather than assuming parity with the documentation.
 
 ## Effects / preview
 
-15. Destructive or irreversible actions offer `--dry-run` (or equivalent) so the caller can preview what would change before committing.
-16. A dry run may still touch external systems (reads, permission or quota validation). Declare the actual effect and verify it; "dry" does not by itself mean "no effect".
-17. A preview reports the plan; it is not authorization to execute, and it does not replace the accepted contract.
+19. Destructive or irreversible actions offer `--dry-run` (or equivalent) so the caller can preview what would change before committing.
+20. A dry run may still touch external systems (reads, permission or quota validation). Declare the actual effect and verify it; "dry" does not by itself mean "no effect".
+21. A preview reports the plan; it is not authorization to execute, and it does not replace the accepted contract.
 
 ## Examples
 
@@ -54,6 +58,7 @@ Use on demand when designing or reviewing a command-line interface that an agent
 - Treating `--yes` as permission for the action, or `--dry-run` as proving no side effect.
 - Claiming "run it twice and nothing happens" for an action whose repeat semantics were never declared.
 - **Same name reused across repos or goals.** A launcher derives its job name from the goal text and looks up an active job by exact name within a recent window; two different repos (or a changed base) with the same name are treated as one job, so the second intent is never started or the first is adopted for the wrong work. Name plus a window is a heuristic; the key must carry the real scope elements.
+- Treating a client error as proof that the work never ran, or a retryable flag as proof that a retry cannot duplicate the effect.
 
 ## Conditions and exceptions
 
@@ -76,3 +81,5 @@ Use on demand when designing or reviewing a command-line interface that an agent
 | Cursor plugins | `ecc249f1e306fc64ddf83c7bed16cacf7c2239db`, `cli-for-agent/skills/cli-for-agents/SKILL.md` | Non-interactive first; Discoverability without dumping context; `--help` that works; stdin, flags, and pipelines; Fail fast with actionable errors; Idempotency; Destructive actions; Predictable structure; Success output; When reviewing an existing CLI |
 | Cursor plugins | same pin, `pstack/skills/principle-make-operations-idempotent/SKILL.md` | §The test (L19–22): runs twice in a row, crashed partway, re-execution converges; the pattern body is deferred to the a4 technical idempotency integration (shared mechanism with the Addy API source) |
 | Cursor plugins | same pin, `orchestrate/skills/orchestrate/scripts/cli/task.ts` §findActiveRootPlanner/inferKickoffRootSlug (L478–515); `scripts/__tests__/kickoff-dedupe.test.ts` | Exact-name lookup over a bounded list and a recency window heuristically adopts an active object; the slug derives from the goal text only, and `--force` skips the lookup |
+| Cursor plugins | same pin, `cursor-sdk/skills/cursor-sdk/SKILL.md` | Three invocation patterns and Top Five Traps: explicit runtime/repo or local cwd selection, stable agent/run IDs, startup error versus run error, dispose in finally, supported-operations checks, and configuration not persisted across resume |
+| Cursor plugins | same pin, `cursor-sdk/skills/cursor-sdk/references/error-handling.md` | Two failure axes (`CursorAgentError` versus `RunResult.status` error/cancelled), retryable versus configuration/auth errors, unsupported run operations, and run-ID lookups |
