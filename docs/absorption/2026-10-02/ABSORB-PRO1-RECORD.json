@@ -1,0 +1,27 @@
+{
+  "state": "complete-return",
+  "allowance_used": 1,
+  "allowance_total": 2,
+  "conversation_url": "https://chatgpt.com/c/6abfe3b0-d004-83e8-b850-94bf84148db9",
+  "ego_space": 25,
+  "ego_page": "p1",
+  "mode": "Pro (6 Pro observed at preparation)",
+  "recorded_at_utc": "2026-10-02T17:04:50.649360+00:00",
+  "product_commit": "5d7d89d3f8fc295ed7c96e63a2af8952e75398ec",
+  "core_tree": "0e7614cd4eec20b4b43b7b0caba43187d3ec10b4",
+  "remote_review_tip": "edce02a9d9341376a1197503bb20720e1fee6fa0",
+  "remote_readback": "ls-remote MATCH; main448c3d67unchanged",
+  "request_sha256": "958d4e3022380703ea79e6f1c73561185983fee58eee6dbab8321ffcea9eac5e",
+  "fixed_packet_sha256": "e4bbe8802d9253fff9ed06a287d19ced599073e49c944b5323d1f229d82b6469",
+  "full_question_dom_verified": true,
+  "github_chip_verified": true,
+  "stopping_ui_observed": true,
+  "answer_complete": true,
+  "verdict": "RETURN",
+  "must_fix_ids": [
+    "TPW-PRO1-001",
+    "TPW-PRO1-002",
+    "TPW-PRO1-003"
+  ],
+  "response_chars": 11261
+}

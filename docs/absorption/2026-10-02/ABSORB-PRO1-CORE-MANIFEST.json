@@ -1,0 +1,238 @@
+[
+  {
+    "path": "professional-workflow/ADOPTION.md",
+    "sha256": "6a1eb4cdc4c528bbd1098fb5890d0c25c098902e1aff7cd9ed16efd7de0bc2db"
+  },
+  {
+    "path": "professional-workflow/README.md",
+    "sha256": "89c6229fd7821354c5df7659c2d73c7ebf3acc1a24ecf8ce3e0c9b94d7fdc0a9"
+  },
+  {
+    "path": "professional-workflow/authority/README.md",
+    "sha256": "01fe9a811a465786ffec8bfd931a5140663bf9f86e85fdd87e4ace9f7d351d12"
+  },
+  {
+    "path": "professional-workflow/authority/RESPONSIBILITY-BACKBONE.md",
+    "sha256": "ce82a70016a4a3fc234ea287f39aac8d79a260ddf13747c4fb705bda580453ba"
+  },
+  {
+    "path": "professional-workflow/charters/README.md",
+    "sha256": "9d745b0c4cb8fe2f9291cf254991c2257e1ef97d6e59d82f32856b54b1b44cd1"
+  },
+  {
+    "path": "professional-workflow/charters/examples/implementation-cross-module.md",
+    "sha256": "b159bf96323a9b89a286a5d80fdd703a1375da02467a60645e989b4903336627"
+  },
+  {
+    "path": "professional-workflow/charters/examples/implementation-local-fix.md",
+    "sha256": "b0dff7041e7edb970d384231df5582665a8ce7765dd2833fd8ff9ff14de6d927"
+  },
+  {
+    "path": "professional-workflow/charters/examples/technical-planning-cross-module.md",
+    "sha256": "8d1168ae783e5b23c9f21419ac218ac0a193d078c98cc3e856893c9e44306f9c"
+  },
+  {
+    "path": "professional-workflow/charters/template.md",
+    "sha256": "31a2b2c4bcfa4a7e81c5bd62525b6c4235f886114e19945bbc46791aed8a47eb"
+  },
+  {
+    "path": "professional-workflow/methods/README.md",
+    "sha256": "521e3cc058036163ced93e7b2b5c0a8410439dd5d9124005e4394bd6eff11527"
+  },
+  {
+    "path": "professional-workflow/methods/agent-facing-cli-contract.md",
+    "sha256": "e471ee1502adaf4ab4d32a3dcf7eaa97b5107bcf5734f49576d8c0d49f1fd2e0"
+  },
+  {
+    "path": "professional-workflow/methods/architecture-survey.md",
+    "sha256": "682d7d36471806f4809cc627f17d298ac27487a294baa5807b1703e0557fef0e"
+  },
+  {
+    "path": "professional-workflow/methods/behavior-claim-evaluation.md",
+    "sha256": "0d71dcc2063fc28658da4a9726de5467fe3a1f95bebb7d94cc806331613ce7bd"
+  },
+  {
+    "path": "professional-workflow/methods/behavior-contract-examples.md",
+    "sha256": "6c9ae6ba219f9d4c6eee9739c6fdfb1edb760a50163bfdfeb2ffb47e3a13663e"
+  },
+  {
+    "path": "professional-workflow/methods/behavior-preserving-change.md",
+    "sha256": "e635088e3372031ed6a1b89bf80d5c62c1d5b2a6848ab0a7c5cf3545ec485e64"
+  },
+  {
+    "path": "professional-workflow/methods/bounded-composition.md",
+    "sha256": "aa80e19358560d0542310e8bbc14bcb98f98d9a6e54558701a7a1036c8be0644"
+  },
+  {
+    "path": "professional-workflow/methods/bounded-prototype.md",
+    "sha256": "aa65d1ac4a7fdf7c28be9ee4f42cba6929a349377709d0950276b2828916a92d"
+  },
+  {
+    "path": "professional-workflow/methods/change-review.md",
+    "sha256": "214e942e959063a68de10f06853bda982162e7506fa404696db939250d82b1e9"
+  },
+  {
+    "path": "professional-workflow/methods/change-slicing.md",
+    "sha256": "ea9cb37f6d8c63b918dedebb635547018b3129c0a93d63bc841af8643695e964"
+  },
+  {
+    "path": "professional-workflow/methods/cross-module-design.md",
+    "sha256": "373ff499c9b56a8b5426046c017e7b9ab01770f75e670953489858438665a204"
+  },
+  {
+    "path": "professional-workflow/methods/decision-elicitation.md",
+    "sha256": "5ce9b2939b4b2211a69ba6bee4042ec39211a01ec729d2ffaeb02183560a956d"
+  },
+  {
+    "path": "professional-workflow/methods/decision-record.md",
+    "sha256": "7fdc4a510ebd39f71200e32a852fa4132e70f62173553b2b49cc7ca85492f59b"
+  },
+  {
+    "path": "professional-workflow/methods/deprecation-and-migration.md",
+    "sha256": "6c71c209131cd94d2adcc010358c963ff4b82eefa61eedfc74f9960492a0a4f2"
+  },
+  {
+    "path": "professional-workflow/methods/design-alternatives.md",
+    "sha256": "36653fe8d9f809831e7b1c0e4f92e093e54d735eef8864c0595c63af3849be7e"
+  },
+  {
+    "path": "professional-workflow/methods/domain-language.md",
+    "sha256": "7bab573a300b74ddbea93cb0f047dbc677014e97a3a9751fa91fff2308b623f4"
+  },
+  {
+    "path": "professional-workflow/methods/domain-state-and-invariants.md",
+    "sha256": "d82206461adc4c9c6c2d0861d2ecaf37a32427989523b02c47de34f22f02a09b"
+  },
+  {
+    "path": "professional-workflow/methods/external-tool-operation.md",
+    "sha256": "8a52d01960fa6c36a08b2940dc162b0b4c05a4d2eee6f3a4d65ca2a2e9514fc4"
+  },
+  {
+    "path": "professional-workflow/methods/guide-accessibility-observation.md",
+    "sha256": "e08ef8c3b0048ab364d2ad03e4e5780195a56d64d219c0b8e1373c9f4f8e0551"
+  },
+  {
+    "path": "professional-workflow/methods/guide-agent-text.md",
+    "sha256": "9b97dc57f9b363977c2db3506429a3d27a34ec6824d561e3700588e8627948e5"
+  },
+  {
+    "path": "professional-workflow/methods/guide-change-shape.md",
+    "sha256": "56e1e40edb7ccdf01d32d1e73aa66e612e59c273c3c8f302eeaa86620810eb2d"
+  },
+  {
+    "path": "professional-workflow/methods/guide-check-design.md",
+    "sha256": "5a13dcaea0c87e76a1c005cf4b41ae486a243009359e93612a3d230d20487a8e"
+  },
+  {
+    "path": "professional-workflow/methods/guide-lesson-promotion.md",
+    "sha256": "82bcd49e3235fd96b8ab515942b6cd8acbe444cd516207e0fdc1c70cd1b024e5"
+  },
+  {
+    "path": "professional-workflow/methods/guide-mock-adapter-choice.md",
+    "sha256": "967f089fa57d7a803b6657836a1ba4610d27c60b0fe9342e96d9a268b0d7414e"
+  },
+  {
+    "path": "professional-workflow/methods/guide-positioned-artifacts.md",
+    "sha256": "9864a33c0a3f2230e11eb8210484e45e575b670079b381bdfc43b4e37a229aca"
+  },
+  {
+    "path": "professional-workflow/methods/guide-professional-explanation.md",
+    "sha256": "7a79d708454eec70f9462400a20611c0794ceb4fb609f91c6bf8271d98632d28"
+  },
+  {
+    "path": "professional-workflow/methods/guide-redacted-evidence.md",
+    "sha256": "0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335"
+  },
+  {
+    "path": "professional-workflow/methods/guide-test-evidence-quality.md",
+    "sha256": "0ea7a4ec3c1cb5da3286ffe68aec4770f6da370f59a25cc58bcefe496e2063e6"
+  },
+  {
+    "path": "professional-workflow/methods/handoff-and-resume.md",
+    "sha256": "1ac789b455eb42521b6f8e56487b2d180cf324f57b83e67fccd42b2c1d669ca8"
+  },
+  {
+    "path": "professional-workflow/methods/human-procedure.md",
+    "sha256": "00004bc8a95b0f796d40a64391bcc8a512b21f239cb87ff7d1ab9e5bd3f145dd"
+  },
+  {
+    "path": "professional-workflow/methods/interface-contract-and-retry.md",
+    "sha256": "7576b9f1e4a5c173a4d48bf9a1db7948827d49d3081d5e38a592428e20f87b08"
+  },
+  {
+    "path": "professional-workflow/methods/local-defect-feedback-loop.md",
+    "sha256": "0feec14d81db315262f79a9709a67b08d621d8833e3e28ad9c55beedc90a8bd2"
+  },
+  {
+    "path": "professional-workflow/methods/merge-conflict-resolution.md",
+    "sha256": "29f91abdb0bf3daa3c40455f8b007fa0865833fb7f9bc2441dcd721168bc2ebf"
+  },
+  {
+    "path": "professional-workflow/methods/observability-design.md",
+    "sha256": "73334523cc7d452af3dbf8a649dd4e6f7757c976de7d7a58d3dc742176d28d13"
+  },
+  {
+    "path": "professional-workflow/methods/performance-and-neutrality.md",
+    "sha256": "0563362fd89303635617e1550bed834bb849f942f6bdbf8aeb07b3798b5e48e9"
+  },
+  {
+    "path": "professional-workflow/methods/professional-learning.md",
+    "sha256": "925dc0aed5e903d459677d74377b1db64f498993e34bdf2da7e60e311a1413c2"
+  },
+  {
+    "path": "professional-workflow/methods/quality-policy-enforcement.md",
+    "sha256": "2e2f6d86ca1db4f9342b13804e630f8b79001543ed120469cc59cf8689bf2f01"
+  },
+  {
+    "path": "professional-workflow/methods/rationale-and-premise-review.md",
+    "sha256": "bb3c19d3372b109a854361b157294d1adcbb13cee601463aca799b6e5d434a8f"
+  },
+  {
+    "path": "professional-workflow/methods/release-and-recovery.md",
+    "sha256": "11afc4e70e6e729a8d3486cc0000d6c0ae80487e14c57f193ca459854c21fb2e"
+  },
+  {
+    "path": "professional-workflow/methods/test-first-behavior-slice.md",
+    "sha256": "5d664c28b3352576e5a3082c369e29692a6fc6102942567818f45313842b5310"
+  },
+  {
+    "path": "professional-workflow/methods/trust-boundary-and-actions.md",
+    "sha256": "31b23c0d7a86c11a2d992dff731d0de6b14b9ce416a7e27cc340234ad9739a41"
+  },
+  {
+    "path": "professional-workflow/methods/uncertainty-planning.md",
+    "sha256": "d37a4ef1cace6786f31db307d1808a57c7248fb16cb20a62fa387f4adedf5601"
+  },
+  {
+    "path": "professional-workflow/methods/verification-harness-design.md",
+    "sha256": "ae9bafebd5209f8d134019a53ee3f1ebabf297a654806a0550b34f2e5b359c72"
+  },
+  {
+    "path": "professional-workflow/profiles/README.md",
+    "sha256": "8e7449974763e6de656f58699dc345149f86f20c73db630f3d35541df6ec6486"
+  },
+  {
+    "path": "professional-workflow/profiles/behavior-domain.md",
+    "sha256": "ef214632f1d1a601ea045153702e82e2338c3da34513c14b67bf41afa18631b5"
+  },
+  {
+    "path": "professional-workflow/profiles/driver.md",
+    "sha256": "0703cf617940f70d532771c52629ef33ee30ae25b40aa5b358d7b5c526d775ea"
+  },
+  {
+    "path": "professional-workflow/profiles/evidence-evaluation.md",
+    "sha256": "6d11c157c6bd3ff7cb8f90e8a04a57ad08df72fcce5fd26636d3459efe4ec73d"
+  },
+  {
+    "path": "professional-workflow/profiles/implementation.md",
+    "sha256": "8ca992608a1fdf66fda24035ec9ab40f7717f2527adfd37b624f656bdb2855de"
+  },
+  {
+    "path": "professional-workflow/profiles/intent-voice.md",
+    "sha256": "919f3e7d49efe42979e971f1446cae77a7b0238b7e3845fef26e72c4e8f1ab78"
+  },
+  {
+    "path": "professional-workflow/profiles/technical-planning.md",
+    "sha256": "ff3c57ec6ce823cc8cc6aca28248b609df695aa70a3eed69dea7fa0b6b1239b6"
+  }
+]
