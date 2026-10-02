@@ -111,3 +111,4 @@
 | R-ABC3 | ABC3 5/5（MG1限缩 MG2/3/4合并 MG5逐项） | — | B1(MG1/2/3/5) B2(MG5+MG4) 已派 | — | — | — |
 | INT7 | 切片7 1ad49080650cf371b371bbbddb7351f521c4fb59（domain-state J1、external-tool-operation、interface/release/trust/performance + positioned 解 hold） | core 见回执 | C3 残余修中 | — | — | — |
 | READER-VERDICT | gate2：入口/装配层有限 PASS；两案未直接消费方法正文，不记完整正文/两名 fresh PASS；不宣效率/生产资格 | — | 已入库 | — | — | — |
+| B3-C3FIX | 98ba9b4（C3 step3 两条件+快照竞争反例） | — | 优先送 gate2 | — | — | — |
