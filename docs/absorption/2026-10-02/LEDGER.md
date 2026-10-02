@@ -125,3 +125,4 @@
 | G2-PRI | 934c1ec（change-review 句修）+ reader professional-use 送 gate2 优先核 | — | — | — | — | — |
 | G2-B1-B | 934c1ec 单句 PASS（父 a23e9b4，不覆盖其 ABC6 增量）；reader professional-use 有限 PASS（c4668470/f76a5955） | — | ABC6 增量补审中 | — | — | — |
 | G2-CONS | 合并复核 w1 8cdd399..aadcb46 与 w2 941a139..HEAD 未审增量 | — | — | — | — | — |
+| R-ABC8 | ABC8 4/4（1/2/4限缩合并 3限缩）；performance 不与 Addy 重复 | — | B1(§Use+MG3+MG4) B2(MG4) B3(MG1/2) 已派；reader feedback 一轮 | — | — | — |
