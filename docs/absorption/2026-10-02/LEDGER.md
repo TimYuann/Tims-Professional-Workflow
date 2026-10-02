@@ -104,3 +104,4 @@
 | B-FIX3 | w1 d1eed24（domain-state J1）、w2 4f86ae7（EXT8）待核；B3 C1/C3/C4/C6/C9 修复中 | — | — | — | — | — |
 | READER-P21 | p21 由 Owner 窄恢复（cd 工作区 + pi -ne + 同 Flash max）；Driver 暂停启动动作 | — | 等成功身份 | — | — | — |
 | READER-C1 | 现有 reader 案例1（fixed 0e2bc4ba72ab8825b84e0e455de9ae5a2df26fe9；已读 root baseline 限度须报） | — | 进行中 | — | — | — |
+| READER-C2 | reader2 案例2（纯 fresh，fixed 0e2bc4ba） | — | 进行中 | — | — | — |
