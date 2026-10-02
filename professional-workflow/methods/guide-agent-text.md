@@ -1,6 +1,6 @@
 # Agent text guide · on-demand authoring support (candidate)
 
-- **Status:** candidate distilled under `REVIEW-A3-MATT-ABC` (MG-8/MG-11) and extended under `REVIEW-A3-MATT-DEF` (DEF-11, 2026-10-02); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
+- **Status:** candidate distilled under `REVIEW-A3-MATT-ABC` (MG-8/MG-11), extended under `REVIEW-A3-MATT-DEF` (DEF-11) and `REVIEW-A2R-CURSOR-ABC4` (MG-2/MG-4 additions, 2026-10-02); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
 - **Use:** when writing or editing a document an agent consumes — a method, a Profile/Charter entry, an `AGENTS.md` / `CLAUDE.md` line, a spec, a ticket, a hand-off, or a runtime prompt. Apply it to the draft in hand: it governs how the text reads, not what it knows, and it is not a whole-repository optimization or a per-sentence evaluation program.
 
 ## Pointer / disclosure
@@ -24,6 +24,8 @@
 11. Hunt no-ops sentence by sentence: an instruction the model already obeys by default pays load to change nothing. The test is behavioral and model-relative: delete the sentence and ask whether behavior changed; settle disagreement by running the document, not by debate. When a sentence fails, delete the whole sentence rather than trimming words from it.
 12. Prefer a positive target to a prohibition, which drags the forbidden behavior into context; a prohibition earns its place only as a hard guardrail that cannot be phrased positively, and even then pair it with the positive target.
 
+**Semantic-fidelity check** (after any pruning or plain-language rewrite): the edit keeps the same facts, constraints, conditions, and confidence level — a plainer restatement keeps the conclusion, it does not weaken it. Where a derivation exists, name the chain and its source; delete filler and unsupported vague attribution; prefer a concrete mechanism or number to a feeling; use the plain word; keep one term for one concept; a complete sentence beats a decode-only symbol string; and the form follows the actual parallel or sequential relation. Re-read before and after to confirm the meaning did not change. Canonical terms, API names, and accepted mathematical or program notation are not renamed for plainness; material uncertainty stays visible; a number is not invented to sound specific; and a rule that stays true in another project is not a no-op for that reason alone. Discoverability is part of the check: the reader should be able to find the part they need, so headings and pointers name the reader's need and a split happens only on real confusion.
+
 ## Co-editing
 
 13. Ground the reader's starting concepts before the first unit: settle what the audience already knows, and let every other concept be grounded by an earlier unit before a later one leans on it. Land the idea and its term together, and keep the running list of what is grounded as the text grows.
@@ -39,6 +41,8 @@
 20. A semantics-preserving name mapping converts a canonical term to the local name only when both sides mean the same thing. Record the mapping with its meaning, use the glossary's vocabulary in outputs, and surface a conflict with an existing decision record (for example an ADR) explicitly instead of silently overriding it.
 21. A mapping does not create labels, permissions, trackers, or rules; a config file existing does not prove an agent consumes it. Do not add a run-once setup gate, a new registry/schema/validator, or re-confirm facts that already exist. For a hand-off pointer, carry the trade-off — which original basis the receiving task needs, what paraphrase loses, which evidence to fix first — while the receiving-side hand-off operations belong to the hand-off method.
 
+**Assembly check.** When a filled template or assembled prompt is consumed, the load-bearing inputs for this run must be present, and a structural placeholder left unfilled — as opposed to ordinary text that merely contains template-like characters — fails the assembly before the consumer acts. Condition blocks carry only what this run needs, and the actual branch, inputs, and evaluation object must match the delegation. A handoff passed through verbatim is still data with a source, version, and trust level; entering the prompt does not make it a new authorization. Parameter encoding protects the structure, not the trustworthiness of external natural language, and semantic content that looks like template syntax must not be re-injected as a second template. Keep the pointer-based, on-demand discipline instead of inlining every handoff.
+
 ## Evidence limits
 
 22. The levers above are authoring heuristics, not proven behavior laws. In particular, leading-word effects, negation backfiring, and "pointer wording decides success" are source-author claims not validated in this package's tasks; present them as hypotheses, not established rules.
@@ -53,10 +57,13 @@
 - **Completion.** "Understanding reached" is vague; "the unresolved items affecting this task are settled and the remaining unknowns are stated" is checkable.
 - **Environment mapping.** Map five canonical triage roles to the repository's actual label strings in one mapping file, with meanings; do not restate the labels in every document that mentions triage.
 - **Pruning counterexample (hypothesis, not an observation).** "A line the default model already follows is a no-op to delete" is a model-relative hypothesis: deleting a sentence only shows a no-op if the deletion was actually run on a declared model and task and behavior did not change. Without that observation, treat the sentence as a candidate no-op, not as evidence — and note that removing a task-specific obligation such as "write tests" can change behavior. A hard safety constraint is not a no-op just because the default model usually complies — keep it explicit.
+- **Semantic fidelity.** "Modify Y only when X" and "modify Y and nothing else" are different conditions; a plain-language rewrite must not collapse them, and dropping "only when X" removes a constraint rather than trimming words.
+- **Text that looks like a placeholder.** A user-supplied string containing `{{...}}` is content, not an unfilled field; a genuinely unresolved structural placeholder is a different thing and must be filled or revealed before consumption. Treating the former as a template error, or the latter as acceptable, both break the assembly.
 
 ## Limits
 
 - On-demand authoring support only: it does not rewrite the repository, create a framework, or require an evaluation for every sentence.
+- On-demand and non-duplicative: before writing or extending a checklist or guidance section, check whether an existing carrier already owns it — an accepted method, the lesson-promotion guide's carrier-choice rules, or the professional-explanation guide's audience/mechanism sections (another batch) — and update that carrier instead of copying a second list here. This guide does not reproduce their content.
 - It does not change ownership: text craft does not default to domain-semantics ownership, and local mappings do not grant authority or tracker permissions.
 - Effectiveness is not claimed; an improvement claim needs its own model/task/observation coverage.
 
@@ -72,5 +79,8 @@
 | Matt Pocock, `mattpocock-skills` | same pin, `skills/in-progress/writing-beats/SKILL.md` | §Establish the prerequisites (L15) and §Grounding (L25–38): grounded vs introduced concepts; §What is a beat (L40–50); §Pulling from the pile (L52–54); §Writing rhythm (L60–66): re-read before write, preserve user edits |
 | Matt Pocock, `mattpocock-skills` | same pin, `skills/in-progress/writing-shape/SKILL.md` | §Grounding (L28–39); §Pulling from the pile/gap naming (L53–57); §Format arguments (L59–67): prose vs list, callout, table at repeated shape, quote vs paraphrase, code block; §Writing rhythm (L69–71) |
 | Matt Pocock, `mattpocock-skills` | same pin, `skills/in-progress/writing-fragments/SKILL.md` | §What is a fragment (L23–40); §Writing rhythm (L71–79): append, re-read, never overwrite, edit a fragment in place |
+| Cursor plugins | `ecc249f1e306fc64ddf83c7bed16cacf7c2239db`, `pstack/skills/bro/SKILL.md`; `pstack/skills/unslop/SKILL.md` §Process and §Patterns (vague attributions, excessive hedging, plain speech) | Restate in plain language with the same meaning; name or delete an unsupported attribution; concrete mechanism over feeling; prefer the plain word; keep material uncertainty |
+| Cursor plugins | same pin, `pstack/skills/technical-writing/SKILL.md` | Opening rules plus §Vary the rhythm/§Write sentences to the reader/§Leave no sentence open to two readings — carried here only as the semantic-fidelity and discoverability check, not as the four-layer document-purpose checklist |
+| Cursor plugins | same pin, `orchestrate/skills/orchestrate/scripts/core/prompts.ts` §renderPromptTemplate and §buildUpstreamHandoffsSection (L24–48, L83–105) | Template rendering rejects unrendered structural placeholders before use; upstream handoffs are pasted as sourced context, with a missing handoff noted as missing context |
 
 Consumption: on-demand support index in `methods/README.md` (Driver's integration step); no Profile applicability trigger is added by this file.

@@ -29,7 +29,7 @@ Use on demand when designing or reviewing a command-line interface that an agent
 ## Repeat / partial failure
 
 11. Ask the two questions this contract must answer: what happens if the command runs twice in a row, and what happens if the previous run crashed partway? If either answer depends on whatever state was left behind, the operation needs a reconciliation step — the CLI exposes the state or the recovery path, and D/E own the reconciliation design.
-12. Repeat safety needs a valid starting state and an operation identity (idempotency key, request id, or equivalent). It is not a claim that any starting state converges to the same result; an action that cannot be naturally idempotent declares its duplicate protection, query/recovery path, or compensation instead of promising exactly-once.
+12. Repeat safety needs a valid starting state and an operation identity (idempotency key, request id, or equivalent). An idempotency key is built from the fields that define the intent and scope — the operation, the target object, and the fixed inputs that change the outcome; a result-changing element missing from the key lets two different intents collide, and which fields are required is task- and provider-specific (no fixed field count or time window here). Finding an existing active object by name is a lookup heuristic, not a complete idempotency guarantee: the lookup may cover only a time window, a status subset, or a bounded list, and the name may not carry the goal, repository, or base. Reuse therefore needs the task's real intent identifier and scope, and "not found" means "not found in the searched window", not "none exists anywhere". It is not a claim that any starting state converges to the same result; an action that cannot be naturally idempotent declares its duplicate protection, query/recovery path, or compensation instead of promising exactly-once.
 13. Partial failure is visible: report what succeeded, what is still in doubt, and the safe next command. Do not report a partial run as completed, and do not hide an uncertain outcome behind a success exit code.
 14. Technical idempotency pattern details belong to the technical idempotency guide integrated with the API/idempotency sources; this contract states the CLI/API-visible behavior and does not repeat those rules.
 
@@ -42,6 +42,7 @@ Use on demand when designing or reviewing a command-line interface that an agent
 ## Examples
 
 - **Headless missing input.** `mycli deploy --env staging` (no `--tag`) in a non-TTY context exits non-zero with `Error: No image tag specified.` and the repair invocation `mycli deploy --env staging --tag <image-tag>` (plus how to list tags), instead of prompting. The check is observable: run it with stdin/stdout not a TTY and confirm a non-zero exit with no wait for input.
+- **Existing active object.** Before starting a job, search for an existing active object and inspect its real state and parameters. If it matches the same intent and scope, reuse or report it; if an input or the base changed, that is a different intent. Report what was found, in which window, and what was not searched.
 - **Repeated invocation.** `mycli deploy --env staging --tag v1.2.3` run twice reports "already deployed" or no-ops the second time; a notification command instead declares its operation identity and how to query whether it was sent.
 - **Preview effect.** `mycli deploy --dry-run --env production` prints the plan; the run may still validate permissions against the environment, so the observed effect is recorded rather than assumed to be zero.
 
@@ -52,6 +53,7 @@ Use on demand when designing or reviewing a command-line interface that an agent
 - A missing-flag hang instead of a fast exit with a fix.
 - Treating `--yes` as permission for the action, or `--dry-run` as proving no side effect.
 - Claiming "run it twice and nothing happens" for an action whose repeat semantics were never declared.
+- **Same name reused across repos or goals.** A launcher derives its job name from the goal text and looks up an active job by exact name within a recent window; two different repos (or a changed base) with the same name are treated as one job, so the second intent is never started or the first is adopted for the wrong work. Name plus a window is a heuristic; the key must carry the real scope elements.
 
 ## Conditions and exceptions
 
@@ -63,6 +65,7 @@ Use on demand when designing or reviewing a command-line interface that an agent
 ## Limits
 
 - No mandatory flag set, no validator, no fixed output format, and no universal idempotency promise.
+- Detection and termination are bounded by the search: an incomplete directory or unknown state is reported as such, and "not found" does not prove no object exists service-wide. Cancel-running and prune-pending are different operations with different effects, and `--force` is a technical option, not permission to duplicate or to skip the existing-object check. Loops, queues, retry counts, and timeouts belong to the adopting runtime.
 - This method does not replace the accepted behavior contract, the technical Plan, or independent evaluation.
 - Later cross-source work may merge this body with the API/idempotency source; keep the modes, actionable-error, repeat-semantics, preview-effect, and confirmation-bypass boundaries above.
 
@@ -72,3 +75,4 @@ Use on demand when designing or reviewing a command-line interface that an agent
 | --- | --- | --- |
 | Cursor plugins | `ecc249f1e306fc64ddf83c7bed16cacf7c2239db`, `cli-for-agent/skills/cli-for-agents/SKILL.md` | Non-interactive first; Discoverability without dumping context; `--help` that works; stdin, flags, and pipelines; Fail fast with actionable errors; Idempotency; Destructive actions; Predictable structure; Success output; When reviewing an existing CLI |
 | Cursor plugins | same pin, `pstack/skills/principle-make-operations-idempotent/SKILL.md` | §The test (L19–22): runs twice in a row, crashed partway, re-execution converges; the pattern body is deferred to the a4 technical idempotency integration (shared mechanism with the Addy API source) |
+| Cursor plugins | same pin, `orchestrate/skills/orchestrate/scripts/cli/task.ts` §findActiveRootPlanner/inferKickoffRootSlug (L478–515); `scripts/__tests__/kickoff-dedupe.test.ts` | Exact-name lookup over a bounded list and a recency window heuristically adopts an active object; the slug derives from the goal text only, and `--force` skips the lookup |
