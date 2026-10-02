@@ -1,6 +1,6 @@
 # Agent text guide · on-demand authoring support (candidate)
 
-- **Status:** candidate distilled under `REVIEW-A3-MATT-ABC` (MG-8/MG-11, 2026-10-02); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
+- **Status:** candidate distilled under `REVIEW-A3-MATT-ABC` (MG-8/MG-11) and extended under `REVIEW-A3-MATT-DEF` (DEF-11, 2026-10-02); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
 - **Use:** when writing or editing a document an agent consumes — a method, a Profile/Charter entry, an `AGENTS.md` / `CLAUDE.md` line, a spec, a ticket, a hand-off, or a runtime prompt. Apply it to the draft in hand: it governs how the text reads, not what it knows, and it is not a whole-repository optimization or a per-sentence evaluation program.
 
 ## Pointer / disclosure
@@ -24,18 +24,27 @@
 11. Hunt no-ops sentence by sentence: an instruction the model already obeys by default pays load to change nothing. The test is behavioral and model-relative: delete the sentence and ask whether behavior changed; settle disagreement by running the document, not by debate. When a sentence fails, delete the whole sentence rather than trimming words from it.
 12. Prefer a positive target to a prohibition, which drags the forbidden behavior into context; a prohibition earns its place only as a hard guardrail that cannot be phrased positively, and even then pair it with the positive target.
 
+## Co-editing
+
+13. Ground the reader's starting concepts before the first unit: settle what the audience already knows, and let every other concept be grounded by an earlier unit before a later one leans on it. Land the idea and its term together, and keep the running list of what is grounded as the text grows.
+14. Treat the existing material as a quarry, not a script: a fragment may be split, merged, paraphrased, reordered, or dropped, and leftover material is normal. Material is input to the argument, not the argument.
+15. If a needed example or fact is missing from the material, name the gap and ask for it or cut the section; do not fabricate an example, a citation, or a data point. Keep accepted material distinct from candidate material.
+16. Match the form to the content: prose carries argument and lists carry parallel items; a callout is for a genuine aside that would derail the main line; a repeated same-shape item suggests a table (a heuristic, not a rule); quote when the wording is the point and paraphrase when only the idea matters.
+17. Co-edit safely: append one unit at a time and re-read the file from disk before every write, because the human may have edited between turns; preserve their in-flight edits and change only the authorized section. When asked to rewrite or remove a unit, edit that unit in place and leave the rest alone.
+18. These are text-craft rules, not a literary workflow imposed on every engineering document; they do not require the owner to approve every section, do not make raw material immutable when the owner authorizes edits, and do not mandate a fixed number of openings, a coined term, or a table. Cross-reference the professional-explanation guide for audience, mechanism, and report scope rather than duplicating it here.
+
 ## Environment / pointers (local facts)
 
-13. Point to the environment's own sources of truth and their consumer rules instead of restating them — for example a configured issue-tracker file, a domain-doc consumer rule, a label mapping, or the repo's agent-instruction block. Explore what already exists before proposing structure; do not assume it or recreate it.
-14. A semantics-preserving name mapping converts a canonical term to the local name only when both sides mean the same thing. Record the mapping with its meaning, use the glossary's vocabulary in outputs, and surface a conflict with an existing decision record (for example an ADR) explicitly instead of silently overriding it.
-15. A mapping does not create labels, permissions, trackers, or rules; a config file existing does not prove an agent consumes it. Do not add a run-once setup gate, a new registry/schema/validator, or re-confirm facts that already exist. For a hand-off pointer, carry the trade-off — which original basis the receiving task needs, what paraphrase loses, which evidence to fix first — while the receiving-side hand-off operations belong to the hand-off method.
+19. Point to the environment's own sources of truth and their consumer rules instead of restating them — for example a configured issue-tracker file, a domain-doc consumer rule, a label mapping, or the repo's agent-instruction block. Explore what already exists before proposing structure; do not assume it or recreate it.
+20. A semantics-preserving name mapping converts a canonical term to the local name only when both sides mean the same thing. Record the mapping with its meaning, use the glossary's vocabulary in outputs, and surface a conflict with an existing decision record (for example an ADR) explicitly instead of silently overriding it.
+21. A mapping does not create labels, permissions, trackers, or rules; a config file existing does not prove an agent consumes it. Do not add a run-once setup gate, a new registry/schema/validator, or re-confirm facts that already exist. For a hand-off pointer, carry the trade-off — which original basis the receiving task needs, what paraphrase loses, which evidence to fix first — while the receiving-side hand-off operations belong to the hand-off method.
 
 ## Evidence limits
 
-16. The levers above are authoring heuristics, not proven behavior laws. In particular, leading-word effects, negation backfiring, and "pointer wording decides success" are source-author claims not validated in this package's tasks; present them as hypotheses, not established rules.
-17. The no-op test and any improvement claim need a declared model, task, and observation coverage. One run does not establish that all reader-needed information can be deleted. There is no automated eval requirement; use a manual run plus the failure vocabulary (duplication, sediment, no-op, sprawl, premature completion) as the diagnostic.
-18. Keep a recoverable diff and a semantic check when pruning: behavior change is the goal, not length. Do not over-fit a document to one model revision; a new model usually calls for another no-op pass rather than a rewrite.
-19. Improvement observations are evidence about a specific document, model, and task; they do not prove general effectiveness, do not grant action permission, and do not replace independent evaluation of the work the document describes.
+22. The levers above are authoring heuristics, not proven behavior laws. In particular, leading-word effects, negation backfiring, and "pointer wording decides success" are source-author claims not validated in this package's tasks; present them as hypotheses, not established rules.
+23. The no-op test and any improvement claim need a declared model, task, and observation coverage. One run does not establish that all reader-needed information can be deleted. There is no automated eval requirement; use a manual run plus the failure vocabulary (duplication, sediment, no-op, sprawl, premature completion) as the diagnostic.
+24. Keep a recoverable diff and a semantic check when pruning: behavior change is the goal, not length. Do not over-fit a document to one model revision; a new model usually calls for another no-op pass rather than a rewrite.
+25. Improvement observations are evidence about a specific document, model, and task; they do not prove general effectiveness, do not grant action permission, and do not replace independent evaluation of the work the document describes.
 
 ## Examples / counterexamples
 
@@ -60,5 +69,8 @@
 | Matt Pocock, `mattpocock-skills` | same pin, `skills/engineering/setup-matt-pocock-skills/SKILL.md` | §1 Explore (L19–30); §4 Write: pointer block to `docs/agents/*.md` (L72–102) |
 | Matt Pocock, `mattpocock-skills` | same pin, `skills/engineering/setup-matt-pocock-skills/domain.md` | §Use the glossary's vocabulary (L41–45); §Flag ADR conflicts (L47–51) |
 | Matt Pocock, `mattpocock-skills` | same pin, `skills/engineering/setup-matt-pocock-skills/triage-labels.md` | Canonical-role to local-label mapping (L3–15) |
+| Matt Pocock, `mattpocock-skills` | same pin, `skills/in-progress/writing-beats/SKILL.md` | §Establish the prerequisites (L15) and §Grounding (L25–38): grounded vs introduced concepts; §What is a beat (L40–50); §Pulling from the pile (L52–54); §Writing rhythm (L60–66): re-read before write, preserve user edits |
+| Matt Pocock, `mattpocock-skills` | same pin, `skills/in-progress/writing-shape/SKILL.md` | §Grounding (L28–39); §Pulling from the pile/gap naming (L53–57); §Format arguments (L59–67): prose vs list, callout, table at repeated shape, quote vs paraphrase, code block; §Writing rhythm (L69–71) |
+| Matt Pocock, `mattpocock-skills` | same pin, `skills/in-progress/writing-fragments/SKILL.md` | §What is a fragment (L23–40); §Writing rhythm (L71–79): append, re-read, never overwrite, edit a fragment in place |
 
 Consumption: on-demand support index in `methods/README.md` (Driver's integration step); no Profile applicability trigger is added by this file.

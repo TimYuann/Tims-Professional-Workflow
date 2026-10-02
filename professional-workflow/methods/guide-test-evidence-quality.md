@@ -65,7 +65,7 @@ When the evidence concerns whether a change is safe beyond the diff, the quality
 - Does not change verdict mapping, ownership, independence, or task authority; the Charter remains binding.
 - Which evidence, and how much of it, a claim needs is decided by the claim itself, the applicable policy, the task's verification design, and F's judgment. `behavior-claim-evaluation.md` supplies one path (the baseline/treatment comparison) within its own scope, not the only route to F evidence. This guide only examines the quality of the evidence that was produced.
 - The exceptions above are claim-bound: invoking one without naming the claim it serves is the same defect the guide warns about.
-- There is no universal "cannot go red, therefore not evidence" reduction: a negative search, a historical reference, or a type-level proof has its own evidence conditions (see §Risk and safety facts), and none of them is replaced by an oracle-style score or confidence label.
+- There is no universal "cannot go red, therefore not evidence" reduction: a negative search, a historical reference, or a type-level proof has its own evidence conditions (see §Risk and safety facts), and none of them is replaced by an oracle-style score or confidence label. In particular, "can this evidence go red?" is not the same axis as a confidence/evidence grade used for historical or inferred claims: an `unknown` on that scale is an investigation result about the object, not a failure-detection verdict, and historical references, statistical intervals and direct counterexamples each carry their own basis rather than being folded into one red-capability scale.
 
 ## Source anchors
 

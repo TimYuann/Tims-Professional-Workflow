@@ -32,8 +32,21 @@ Gate-reviewed, byte-passed files integrated by Driver; load only what the task n
 | Define acceptance conditions with examples and counterexamples | `behavior-contract-examples.md` | behavior contracts, including consumer/acceptance questions |
 | Write agent-facing text with pointer and pruning discipline | `guide-agent-text.md` | authoring support; no per-sentence evaluation requirement |
 | Bound shared write surfaces and composition | `bounded-composition.md` | logical write surfaces and shared canonical objects; runtime mechanics stay with D/E |
+| Plan under uncertainty | `uncertainty-planning.md` | bounded destination; fog vs statable question; owner record index |
+| Resolve a merge conflict | `merge-conflict-resolution.md` | needs existing action authorization and restore point; stage own files only |
+| Decide what to check before writing | `guide-check-design.md` | scope/real-entry/negative-control; no repo validator; write-time is not atomicity |
+| Promote a lesson into a carrier | `guide-lesson-promotion.md` | one-off vs pattern and carrier choice; no CI/metadata mechanism |
+| Review a change on its two axes | `change-review.md` | axes stay separate and do not cancel; author contribution stated |
+| Prototype to answer one question | `bounded-prototype.md` | question-first, isolated, observed evidence; not production delivery |
+| Shape a change for its readers | `guide-change-shape.md` | reader-load axes; authority decides the tradeoff |
+| Survey architecture against friction | `architecture-survey.md` | grounded friction to candidate strength; may report no candidate |
+| Run a scripted human procedure | `human-procedure.md` | per-value source/destination/sensitivity; helper is not proof of safety |
+| Explain a premise or rationale | `rationale-and-premise-review.md` | evidence tiers per claim; history is not a current constraint |
+| Define an agent-facing CLI contract | `agent-facing-cli-contract.md` | repeat/partial-failure semantics; headless checks; no universal validator |
 
-Also integrated at this batch: tightened `local-defect-feedback-loop.md` (root-cause/observation-surface clarification), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (scope of comparison evidence) and the matching Profile pointers. Pending gate-confirmed fixes and therefore not yet integrated: `handoff-and-resume`, `domain-state-and-invariants`, `verification-harness-design`, `change-review`, `bounded-prototype`, `guide-change-shape`, `guide-professional-explanation`, `rationale-and-premise-review`, `agent-facing-cli-contract`, `decision-elicitation`, plus the second-side Profile pointers (shared `profiles/evidence-evaluation.md` will be merged serially when those targets pass). Reviewed PASS but not yet integrated, to be entry-checked on the next fixed object: `guide-lesson-promotion.md`.
+Also integrated: tightened `local-defect-feedback-loop.md` (root-cause/observation-surface clarification), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (comparison scope) and the matching Profile pointers. `architecture-survey.md` uses the B2 canonical version; the B1 duplicate is not installed.
+
+Held for pending fixes or dependencies (do not treat as consumed): `handoff-and-resume` (belief sentence fix), `local-defect-feedback-loop` diagnosis update (fix pending; the earlier integrated version stays), `guide-professional-explanation` (waits for handoff), `decision-elicitation` (prototype-claim scope fix), `professional-learning` (waits for professional-explanation), the `decision-record`/`change-slicing` C2/C8 merges, the seven C1/C3/C4/C5/C6/C7/C9 methods in `absorb/w3` (awaiting gate), the A4 third-party pair `external-tool-operation`/`guide-positioned-artifacts` (in distillation), and the second-side Profile pointers (shared `profiles/evidence-evaluation.md` merges serially when those targets pass).
 
 ## Status and source trace
 
