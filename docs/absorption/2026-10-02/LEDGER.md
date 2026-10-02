@@ -138,3 +138,4 @@
 | R-DEF2 | H01-H09 九组（H02/05/06/08/09 窄限缩；其余已充分覆盖）；不建新平台 | — | B1(H02/04) B2(H06) B3(H05/08/09) 派工 | — | — | — |
 | B-DEF2 | B1(H02/04+harness/local-defect 承载)、B2(H06)、B3(H05/08/09) | — | 已派 | — | — | — |
 | INT12 | 切片12 a05db3f6aad69c54a0d034c4264bdba5004f332f（performance 5d5dfcb + DEF 四文件 875033a） | core 见回执 | B3 线全闭 | — | — | — |
+| G2-CONS2 | 合并复核 w1 aadcb46..b8358cd 与 w2 dbd7e84..9dcc85a | — | — | — | — | — |
