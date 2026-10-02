@@ -37,6 +37,12 @@ The concrete omissions to look for — the check never runs the subject, or asse
 
 **The undefined-substitution check is a heuristic, not a mechanical criterion.** Asking "would this still pass if every imported function returned `undefined`?" exposes the weak/absence/mock/fixture families, but `toBeDefined()` fails when the subject returns `undefined`, so the source's blanket "still passes" claim does not hold for that assertion. Use the question to look for the concrete omission (the subject does not execute, or nothing about its output is asserted); do not turn it into an automatic pass/fail rule or a quality score. *(Authored qualification of the source's check; source L11.)*
 
+## Waits, retries and flakes
+
+- **Prefer a deterministic wait over a timeout.** A fixed sleep is a brittle assertion: wait on the observable condition (the element, state, event, or log line) rather than on elapsed time, and assert the specific expected state rather than the absence of an immediate crash. *(Source: cursor `ecc249f1…`, `cursor-team-kit/skills/run-smoke-tests/SKILL.md`; gate2 MG3 ruling.)*
+- **A flaky result is evidence about the check.** Record each retry's object, conditions and result; a rerun that goes green does not erase the first real failure, and the retry itself may be the flake. The retry count follows the sampling cost and the phenomenon — not a fixed one, and not an unbounded loop until green. *(Same source; gate2 MG3 ruling.)*
+- **Quarantine or skip changes the accepted evidence policy.** It needs a valid owner, a stated reason, and a follow-up verification plan; it is not a way to make a failing claim pass. A bypassed hook (for example `--no-verify`) must record the skipped coverage and its basis, and the run is not presented as fully green. *(Authored, from the gate2 MG3 ruling.)*
+
 ## Examples and exceptions
 
 - **Correlated oracle (rejected):** `const expected = items.reduce(…); expect(calculateTotal(items)).toBe(expected)` — if both sides use the same wrong formula, the check agrees. **Independent oracle (kept):** `expect(calculateTotal([{price:10},{price:5}])).toBe(15)`, with 15 traceable to the spec or a worked example. *(Source: `tdd/tests.md` L63–76.)*
@@ -75,6 +81,7 @@ When the evidence concerns whether a change is safe beyond the diff, the quality
 | mattpocock-skills | `c55ee460…`, `skills/engineering/tdd/tests.md` | §Good Tests L3–23; §Bad Tests L25–77 |
 | cursor-plugins | `ecc249f1…`, `pstack/skills/principle-test-behavior-not-implementation/SKILL.md` | The five still-passes shapes L15–23; the fix L23; the kept exceptions L25 |
 | cursor-plugins | `ecc249f1…`, `pstack/skills/blast-radius/SKILL.md` | §Don't trust your own writeup L15–17; §How sure are you L19–29; §Steps L31–38; §What to hand back L40–48 |
+| cursor-plugins | `ecc249f1…`, `cursor-team-kit/skills/run-smoke-tests/SKILL.md` | Deterministic waits/assertions over brittle timeouts; flake retries record object/conditions/result instead of letting one green rerun erase the first failure; quarantine/skip requires a valid owner, reason and follow-up verification. *(Gate2 MG3.)* |
 | mattpocock-skills | `c55ee460…`, `docs/engineering/tdd.md` | §The loop and the seam L27–45; §It's working if L77–84 |
 
 Authored additions: the correlated-error precision, the constant-pin and type-check exceptions, the cross-table relational exception, the evidence-defect/verdict separation, and the claim-binding requirement for exceptions.
