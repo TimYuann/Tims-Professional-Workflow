@@ -212,3 +212,9 @@
 | PRO1-B2 | fix/pro1-b2@65d9408（external 002，4+/4−）已送 gate2 独立核 | — | — | — | — | — |
 | PRO1-002B | gate2：002 未关（只读 query 条件冲突）；B2 最小修中 | — | — | — | — | — |
 | PRO1-B3 | fix/pro1-b3@054b30c（001/003+低影响，4 文件 +29/−18）送 gate2 独立核 | — | — | — | — | — |
+
+### 更正：Pro#1 史料实际保全（2026-10-03）
+- 此前“原始送审输入/记录已逐字节保全”的记录有误：当时源路径 `runtime/absorption-1002/` 实际为空（真实位置在 `.worktrees/runtime/absorption-1002/`），空源 cp 失败后空=空比较假报 MATCH；未被 git track（0712986 只加 PRO1-DISPOSITION.md，7e52777 只改 ledger）。
+- 现已带非空+sha 校验真正保全并 track（commit `d8164b2fa179cb2ba58a0ecae4e60214c81a83b2`）：
+  - `ABSORB-PRO1-REQUEST.txt`（5800B, 958d4e30…）、`ABSORB-PRO1-RESPONSE.txt`（25527B, 10ce0701…）、`ABSORB-PRO1-RESPONSE-RAW.json`（286208B, 206123da…）、`ABSORB-PRO1-VISIBLE-MAIN.txt`（31511B, 40ec9d60…）、`ABSORB-PRO1-RECORD.json`（1005B, da14794b…）、`ABSORB-PRO1-READ-SCOPE.md`（18118B, 967ab58c…）、`ABSORB-PRO1-FIXED-PACKET.md`（784021B, e4bbe880…）、`ABSORB-PRO1-CORE-MANIFEST.json`（9399B, 3df421b7…）、`ABSORB-PRO1-ORACLE-CONTINUATION.json`（3153B）。
+- 存储说明：完整包 784KB 与 raw JSON 286KB 均由 Git 追踪可取回；其来源为 workspace 内 `.worktrees/runtime/absorption-1002/`（本仓工作区过程材料，非 root runtime）。完整包内容可由候选 pin 重建并保 SHA，但实际送审字节以上述文件为准。
