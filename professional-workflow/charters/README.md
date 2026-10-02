@@ -1,6 +1,6 @@
 # Instance Charters · M2 candidate
 
-Status note (2026-10-01): “M2 candidate” labels this directory's design snapshot; current package status and acceptance are recorded in `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`, the later correction/candidate records, and `docs/absorption/2026-10-02/LEDGER.md` (the 2026-10-02 candidate is accepted by Oracle 2026-10-03, `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`; this status-sync object records a new Git identity).
+Status note (2026-10-03): “M2 candidate” labels this directory's design snapshot; current package status and acceptance are recorded in `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`, the later correction/candidate records, and `docs/absorption/2026-10-02/LEDGER.md` (the 2026-10-02 candidate is accepted by Oracle 2026-10-03, `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`; this status-sync object records a new Git identity).
 
 A Charter binds one use of a reusable Profile to the actual task. It cites the source of delegation and accepted inputs, then states this instance's responsibility, output, recall path, independence relation, and permitted tools/actions.
 

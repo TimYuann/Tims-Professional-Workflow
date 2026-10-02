@@ -235,3 +235,6 @@
 - 原始送审输入已非空+sha 校验后 tracked：ABSORB-PRO2-REQUEST.txt、ABSORB-PRO2-FIXED-DELTA-PACKET.md、ABSORB-PRO2-RECORD.json。
 - 冻结与后续：candidate 冻结，不派新吸收 scope、不改产品；等完整结果后仅状态与身份收口、local main FF（不推 main、tag/release、不改 UCBIP）。
 | FINAL-SYNC | 最终状态同步 5326b27a561f557baa23f8d66aebd6a5d2152c59（core af695ebf；product diff vs 8ba69427 恰四元数据文件；BB ce82a700 未变）；等 Owner 窄核后 FF local main | — | — | — | — | — |
+
+### 最终状态修正（2026-10-03）
+- 根 README 第4步与接受节加入本�ed FINAL-ACCEPTANCE 为当前接受（历史保留）；charters 状态行日期由 2026-10-01 更正为 2026-10-03（避免时点误导）。纯状态修正，不改方法/BB。

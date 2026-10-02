@@ -16,10 +16,11 @@
 2. 在 `professional-workflow/profiles/` 选择 Profile；按 `professional-workflow/charters/README.md` 填本次 Instance Charter；
    按 `professional-workflow/methods/README.md` 只绑定任务需要的方法。
 3. 按 `professional-workflow/README.md` 的装配顺序生成任务启动文本；任务输入携带当前事实与固定引用。
-4. 交付状态、接受与证据入口：`docs/overnight/2026-10-01/`。
+4. 交付状态、接受与证据入口：当前接受为 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（2026-10-03，Pro #2 PASS）；历史过程与证据在 `docs/overnight/2026-10-01/` 与 `docs/absorption/2026-10-02/`。
 
 ## 已接受身份与状态（本地）
 
+- 2026-10-03 Oracle 最终接受三仓实质吸收（bounded cross-repository adoption；Pro #1 RETURN → 三项修订 → Pro #2 PASS）：`docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（接受对象 product `8ba69427105d09b3efa1d3a5f28182d4243b5fea` / core `d0cbbfc8b56f588c183efdf8b6d503d9131b5f58`；状态同步对象另记新 Git 身份）。
 - 2026-10-02 Oracle 接受修正后的首版（bounded usable first edition）：`docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md`（reviewed source `16c554de`；最终整合身份见 `ABSORB-CORRECTED-CORE-MANIFEST.md` Rev.7 与 `ABSORB-FINAL-INTEGRATION.md`）。
 - 跨仓接入与使用：`professional-workflow/ADOPTION.md` 与 `adoption-examples/cross-module-start.md`（其他仓库如何固定版本引入/使用 TPW）。
 - 2026-10-01 Oracle 接受有界本地采用交付（bounded local-adoption delivery）：`docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`（前序）。
