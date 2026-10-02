@@ -225,3 +225,4 @@
 | INT-PRO1-001 | fdf02e62101d32159c8db80bce4e18d1a4913b01（release/interface/trust 001+低影响集成；performance 待 003 两句）；README 历史噪声留 post-Pro#2 措辞批 | core 见回执 | — | — | — |
 | PRO1-003C | fix/pro1-b3@5353588（003 两句 +2/−2）送 gate2 定向核 | — | — | — | — | — |
 | INT-PRO1-003 | 8ba69427105d09b3efa1d3a5f28182d4243b5fea（performance 003 集成；Pro#1 三 ID 全 CLOSED，修复集齐） | core 见回执 | 交 Oracle 读回+Pro#2 | — | — | — |
+| PRO1-DONE | 修复集 8ba69427（core d0cbbfc8, archive d2aac3b8；5 文件变更）；三 ID CLOSED；交 Oracle 读回+Pro#2（余 1/2） | — | — | — | — | — |
