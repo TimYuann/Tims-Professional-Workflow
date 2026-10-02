@@ -109,3 +109,4 @@
 | READER-DONE | 两案例报告已保全（d6a73b03c353ac74043c8d9cc06782357c1f4468）；送 gate2 边界评估 | — | — | — | — | — |
 | READER-NOTE | reader2 发现 adoption-examples 在仓库根、非包内；ADOPTION.md L84 已用 ../adoption-examples 且声明 core 不依赖 → 非断链，属可选外部指针设计 | — | — | — | — | — |
 | R-ABC3 | ABC3 5/5（MG1限缩 MG2/3/4合并 MG5逐项） | — | B1(MG1/2/3/5) B2(MG5+MG4) 已派 | — | — | — |
+| INT7 | 切片7 1ad49080650cf371b371bbbddb7351f521c4fb59（domain-state J1、external-tool-operation、interface/release/trust/performance + positioned 解 hold） | core 见回执 | C3 残余修中 | — | — | — |
