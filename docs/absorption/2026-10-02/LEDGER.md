@@ -30,7 +30,7 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | W1-a1 | ADDY-AB | A/B | — | — | — | — |
 | W1-a2r | CURSOR-AB | A/B/C | — | — | — | — |
-| W1-a3 | MATT-ABC | A/B/C | — | — | — | — |
+| W1-a3 | MATT-ABC ✅ | A/B/C | 待 gate | — | — | — |
 | W1-a4 | CURSOR-DE | D/E/F + 支持/脚本 | — | — | — | — |
 
 ## 固定引用约定（gate 基线核清）
