@@ -94,3 +94,4 @@
 | GATE1-RET | 旧 gate 退休（handoff 7c1dc32，无在飞） | — | 已退休 | — | — | — |
 | GATE2-ACT | gate2 正式接班（读 GATE-HANDOFF，队列：w1/w2 修复、w3 七文件、ABC3/5-8、A1-EF+addendum、A4-DEF 系） | w27:p10 | active | — | — | — |
 | ORACLE-A4DEF3 | A4-CURSOR-DEF3 归 Oracle（可迁移边界/脚本候选准入，非runtime整包） | — | Oracle 接手；gate2 排除 | — | — | — |
+| ORACLE-A4DEF3 | A4-DEF3 6/6（J1/J5限缩，其余合并）已保全 10912de | 落点：interface/domain-state、CLI/handoff、agent-text、trust/external/harness | 已派 B3 主接 + B1/B2 各文件 | — | — | — |
