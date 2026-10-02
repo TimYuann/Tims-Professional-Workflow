@@ -73,3 +73,9 @@
 | ENTRY-FIX | Oracle读回两处入口修正 + check 报告 | — | 已提交 def5dcfae0efeb597da7a9ae67989a68449d560b | — | — | — |
 | ADOPT-FIX | 9d5859e 需修3处（常驻指针/五级硬化/比较泛化） | — | 已派 | — | — | — |
 | ADOPT-FIX2 | d8d1532 修3处（常驻指针/五级删阶梯/比较限定） | — | 待 gate 复审 | — | — | — |
+
+## 收束要求（Owner 2026-10-02）
+- 最终汇报分开：产品方法/guide 增量（责任位置→可执行操作→例子/反例→消费入口）｜源 SKILL 贡献数 vs playbook/support 贡献另列（不沿用旧 5/159）｜机制组裁定→落地 commit/merge/defer/reject 轨迹。
+- 不编覆盖百分比、不重复计同源机制；三仓尾部 pending/未裁包继续，最小通过切片非总体结束。
+- Pro 第一次=完整固定产品+通用接入+fresh 消费观察+诚实残余。
+- EF addendum bfcache/no-store 绝对断言未裁：若 B 采用须按实际浏览器核官方适用性或写明源版本限度，不为性能否定有效 security/cache policy。
