@@ -153,3 +153,39 @@
 | G2-B2C33 | b2c33a1 裁定已处理：handoff 集成 slice16 74d4176；design 两修 B1 在飞 | — | — | — | — | — |
 | CAND | 固定候选齐：c721569460eeef7f4b312f1b7ab363520576a1bf；core 见回执；全部已审 delta 集成、无 held | — | check 机械核 + Oracle 准备 | — | — | — |
 | HANDOFF | 固定候选 c7215694（core a1a27613）交 check 机械核 + Oracle 准备 Pro#1（Pro 0/2 Owner 持有） | — | — | — | — | — |
+
+
+## 三仓 tail 处置与采纳统计入口（2026-10-03，供 Oracle/Pro#1 读取）
+
+固定候选：commit `c721569460eeef7f4b312f1b7ab363520576a1bf`；core subtree `a1a276138e1e28542541d6c10c8a6a8ad1df6230`；archive `6ad60594713bc00291fb4cab00439201701d3883165be3c1d01e3e0007ee076b`。产品 59 文件、其中 `methods/` 42 个（含两 guide 与新增方法），全部在 `methods/README.md` 有选择索引。计数=各 review 的机制组处置，不是知识增量/文件数/完成百分比。
+
+| 源 | review（计数） | 处置 | 落地 / 合并进 |
+| --- | --- | --- | --- |
+| Matt | A3-MATT-ABC（11：absorb 1、merge 3、narrow 7） | 吸收 MG-2；合并 MG-3/7/11；限缩其余 | test-first-behavior-slice、guide-test-evidence-quality、change-slicing、design-alternatives、decision-record、domain-language、local-defect-feedback-loop |
+| Matt | A3-MATT-DEF（14：merge 9、narrow 5） | 合并 DEF-1/2/5/6/9/11/12/13/14；限缩 DEF-3/4/7/8/10 | change-review、bounded-prototype、architecture-survey、uncertainty-planning、merge-conflict-resolution、rationale-and-premise-review、handoff-and-resume、professional-learning、guide-lesson-promotion、guide-check-design、human-procedure |
+| Cursor(A2R) | ABC（8：absorb 1、merge 1、narrow 6） | 吸收 MG-3；合并 MG-2 | agent-facing-cli-contract 等 |
+| Cursor(A2R) | ABC2（5：merge 3、narrow 2） | 合并 MG-1/3/4；限缩 MG-2/5 | guide-change-shape、guide-lesson-promotion、handoff、bounded-composition |
+| Cursor(A2R) | ABC3（5：MG1 narrow；MG2/3/4 merge；MG5 covered/narrow） | 补证组不计新增 | verification-harness-design、change-review、local-defect、guide-test-evidence-quality、merge-conflict-resolution |
+| Cursor(A2R) | ABC4（4：merge 2、narrow 2） | 合并 MG-1/4；限缩 MG-2/3 | guide-professional-explanation、guide-agent-text、change-review、guide-lesson-promotion |
+| Cursor(A2R) | ABC5（5：narrow-merge 1/3、dedupe 2、narrow 4、merge 5） | 双 code-quality SKILL 同字节、不同 host 标签去重 | behavior-preserving-change、verification-harness-design、guide-professional-explanation |
+| Cursor(A2R) | ABC6（6：merge 1、narrow-merge 2/3/4、narrow 5/6） | patch-id 仅线索；bucket≠许可 | change-review、change-slicing、handoff、bounded-composition |
+| Cursor(A2R) | ABC7（3：narrow-merge） | MG4 台账非机制 | design-alternatives、change-review、guide-professional-explanation |
+| Cursor(A2R) | ABC8（4：narrow-merge 1/2/4、narrow 3） | 性能不与 Addy 重复；live=mutation | performance-and-neutrality、local-defect、handoff、decision-record |
+| Cursor(A4) | THIRD-PARTY（Oracle：474 载体+8 指南） | 474 归组并入 DEF1 G-13；8 指南限缩 | external-tool-operation、guide-positioned-artifacts |
+| Cursor(A4) | DEF（13：G01–G13；G14 限度） | 限缩合并/吸收 | handoff、decision-record、harness、trust、external-tool、observability、release 等 |
+| Cursor(A4) | DEF2（9：H01–H09） | 已充分覆盖+限缩合并 | cli-contract、trust、observability、rationale、harness、design-alternatives |
+| Cursor(A4) | DEF3（Oracle：6；J1/J5 narrow 其余 merge） | 可迁移边界/脚本候选准入，不搬 runtime | interface-contract-and-retry、domain-state、cli-contract、agent-text、trust、harness |
+| Addy | A1-ADDY-AB（7：narrow 4、merge 3） | 合并 G3/G4/G6；限缩 G1/G2/G5/G7 | change-review、decision-record、handoff 等 |
+| Addy | A1-ADDY-CD（Oracle：9；C2/C8 merge、7 narrow） | 接口/迁移/发布/质量/信任/可观测/性能限缩 | interface-contract-and-retry、deprecation-and-migration、release-and-recovery、quality-policy-enforcement、trust-boundary-and-actions、observability-design、performance-and-neutrality；C2→decision-record、C8→change-slicing |
+| Addy | A1-ADDY-EF（9）+ addendum（P/S/O/A/T 22 条） | F1–F8 限缩合并、F7 归效果评估；22 条逐项 | 性能支线（pool/negative-cache/coalescing/query-plan）入 performance；test-API/effect-eval 入 test-evidence；a11y 三支线→guide-accessibility-observation；S1/S2/O2 与 P1/P2 已覆盖不重写 |
+
+### 未采/延后（明确理由，非“诚实残余”空称）
+- 脚本/运行体不移植：loop/store/watcher/hooks/audit/check-plan/measurement/connector runner、eval runner、floor-guard、外部 bot、external-write-boundary——当前库消费不依赖，且 predicate/权限/副作用/覆盖有明确限度；真实 helper 需求出现时按项目已有准入择最小工具并补接口/negative control/清理观察。
+- 硬门槛不采：每任务真实 e2e/五等级/fixed N/attempt floor/三格必绿/固定重跑次数/每 commit 即 PR/固定 drain 点/统一 hard iteration 数。
+- 平台与权限：不建 registry/store schema/任务平台/权限引擎；不授 runtime/发布/网络/资源操作；不把只读消费测试写成“不写/不联网”产品政策。
+
+### 未读 tail（按源，触发条件才补原文）
+- Cursor：orchestrate 其余 prompts/adapters、claude-handoff 包装、workspace-audit 实现、third_party 474 模板 README/CHANGELOG、SIM/CI 平台细节；79 连接器仅统一模板归组，未逐服务资格化（用真实服务前读其实际规则）。
+- Addy：F9 四 checklist 已读入 addendum；其余 tests/runner fixtures、hook/metadata/CI/docs 尾部、eval fixtures；React/manager/DevTools/版本矩阵只作源例，不是本版 spec。
+- Matt：teach 支持格式余部、tracker 模板、真实阻塞 API、prototype HTML scaffold；教学效果/长期 retention 未被本库实验。
+- 三源共有：任何未执行/未观察的模型、宿主、Provider、UCBIP、并发/资源效果均不作已证；扩展相应 claim 或采纳工具时再补承重原文与运行。
