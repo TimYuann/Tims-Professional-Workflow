@@ -52,3 +52,4 @@
 | W1-a2r#5 | CURSOR-ABC5 ✅ | F/编排/重构/记忆 | 待 gate | — | — | — |
 | B-D1 | w1 e561233（A3 T/P/C 蒸馏） | — | 待 gate 差分 | — | — | — |
 | B-D2 | w2 11136eb（A3 B/A/W 蒸馏） | — | 待 gate 差分 | — | — | — |
+| W1-a2r#6 | CURSOR-ABC6 ✅ | F/交付/验证/清理 | 待 gate | — | — | — |
