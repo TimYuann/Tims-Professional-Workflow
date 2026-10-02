@@ -222,3 +222,4 @@
 | PRO1-001/003 | gate2@054b30c：release/interface/trust PASS、001 CLOSED；003 两句 held（裸 3%±5% 不能单判、Repeating 按 claim/noise）；002 等独立核 | — | B3 两句修中 | — | — | — |
 | PRO1-003FIX | B3 两句修（裸数不能单判、Repeating 按 claim/noise）派工 | — | — | — | — | — |
 | INT-PRO1-002 | 5e676fcd108e469c8b2951178f0cfe85420cfb07（external 002 CLOSED 集成）；65d 条件证据保全 | core 见回执 | — | — | — |
+| INT-PRO1-001 | fdf02e62101d32159c8db80bce4e18d1a4913b01（release/interface/trust 001+低影响集成；performance 待 003 两句）；README 历史噪声留 post-Pro#2 措辞批 | core 见回执 | — | — | — |
