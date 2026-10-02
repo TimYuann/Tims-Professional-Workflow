@@ -140,3 +140,4 @@
 | INT12 | 切片12 a05db3f6aad69c54a0d034c4264bdba5004f332f（performance 5d5dfcb + DEF 四文件 875033a） | core 见回执 | B3 线全闭 | — | — | — |
 | G2-CONS2 | 合并复核 w1 aadcb46..b8358cd 与 w2 dbd7e84..9dcc85a | — | — | — | — | — |
 | B3-DEF2 | e3c77c8（H05/H08/H09 三文件；external-tool-operation 部分转 B2） | — | gate2 审 + B2 承接 | — | — | — |
+| INT13 | 切片13 92351c9eeeb40c5adaa39a6f5d91f3c822b85d3b（9 PASS 文件含 accessibility guide） | core 见回执 | 6 窄修派工 | — | — | — |
