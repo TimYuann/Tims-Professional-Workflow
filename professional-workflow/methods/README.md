@@ -1,6 +1,6 @@
-# Selected methods · M4 accepted references
+# Selected methods · current package selection
 
-Profiles remain the owners of reusable responsibility mental models; this directory owns the selected method bodies. The method links below resolve bounded needs for the two M3 exercise paths. Use one when the task Charter binds it; this list does not add applicability triggers, authority, or a fixed phase chain.
+Profiles remain the owners of reusable responsibility mental models; this directory owns the selected method bodies. The tables below are the current selection: the three original method bodies (extended at demonstrated gaps), the two on-demand guides, and the 2026-10-02 absorption slice. Load one when the task Charter binds it; this list does not add applicability triggers, authority, or a fixed phase chain.
 
 | Task need | Method file | Judgment focus |
 | --- | --- | --- |
@@ -37,15 +37,10 @@ Also integrated at this batch: tightened `local-defect-feedback-loop.md` (diagno
 
 ## Status and source trace
 
-The accepted M4 source objects are fixed at commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c378882c89c2328505fddee`. M4 acceptance applies to those exact source digests. The M5 candidate carries package-status/source-trace metadata edits; it is not byte-identical to the accepted M4 tree, and this directory does not claim those M5 package bytes have been accepted. The table makes both identities explicit. The normative method body remains linked to its M4 source; task applicability, independence, and authority remain in the actual Charter.
+Historical source trace: the original three method bodies were accepted at M4 commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. Per-file M4/M5 digests, the historical M5 snapshot and the corrected/final integration identities are recorded in `docs/overnight/2026-10-01/ABSORB-CORRECTED-CORE-MANIFEST.md` and `docs/overnight/2026-10-01/ABSORB-FINAL-INTEGRATION.md`; the absorption batch identity is in `docs/absorption/2026-10-02/LEDGER.md`. Those records describe their own snapshots; the current package state is the selection tables above. Acceptance of any historical object does not establish actual task binding, final M3 coverage, runtime dependency closure, or whole-package qualification.
 
-| Package method file | Accepted M4 SHA-256 | Historical M5 candidate SHA-256 |
-| --- | --- | --- |
-| `local-defect-feedback-loop.md` | `3ca23a74a1a1890123bbab01a114aba813d7e20a7ffcb21b7b2289d5047cb32c` | `1ba8f8f2fb46a0094c22e7ac946e27f30a27b1ce25e201fd5ede819ddc2e4215` |
-| `cross-module-design.md` | `30066c8b3ccee2b85e98c8bc36975f57161e2c93d0bd71c9c668b27bf79bae6f` | `ab0a0bc03448407479fe82b92b2355384e7f2acf49c2ff3026882670f955a0a5` |
-| `behavior-claim-evaluation.md` | `06b0692290a9ce8cdc7048b33a89ec21f3636ee00138a613121ec4b72457af06` | `cfacc0f57cedadc6360ad0338645e43740dad4b1e15cc6876088eb89b4034f02` |
 
-The accepted M4 selection entry `methods/README.md` itself had SHA-256 `72a6ffb46277e3974f27d41e078623ce5b46865074898dae24cbdb6de2205e73`. This M5 selection entry is a package-status derivative; its exact bytes are fixed by the M5 package tree/manifest, not by the M4 digest. Acceptance of either object does not establish actual task binding, final M3 coverage, runtime dependency closure, or whole-package qualification.
+The M4 selection entry's own historical digest and per-file snapshot values are preserved in the manifest pointer above; this README no longer duplicates them. Acceptance of either historical object does not establish actual task binding, final M3 coverage, runtime dependency closure, or whole-package qualification.
 
 | Source repository | Fixed locator and pin | Used by |
 | --- | --- | --- |
@@ -59,6 +54,6 @@ Deferred alternatives: the S2 bug-fix playbook's control/loop/model/PR defaults,
 
 Nothing here grants authority, permissions, risk acceptance, or permission for consequential actions.
 
-## Scope and current state (2026-10-01)
+## Current state
 
-This selection entry ships three method bodies (`local-defect-feedback-loop`, `cross-module-design`, `behavior-claim-evaluation`) plus the two on-demand guides above. It does not contain `path-trace`, `blast-radius`, `design-compare` or `drive-preview`; those four retired names have no equivalent body here and are not revived. Current package acceptance/status is recorded in `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` and the later correction/candidate records; the M4/M5 digests above describe their own snapshots. The 2026-10-01 corrected package extends the three methods at demonstrated gaps and is accepted as a bounded usable reference (`docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md`); it does not by itself grant authority or task applicability. The 2026-10-02 absorption batch adds the reviewed-object slice above from the three-source absorption; its integration commit and the still-pending fix targets are recorded in `docs/absorption/2026-10-02/LEDGER.md` and the batch reviews. This index records consumption only; it grants no applicability trigger and no authority.
+Current shipped selection: the three original method bodies (`local-defect-feedback-loop`, `cross-module-design`, `behavior-claim-evaluation`, extended at demonstrated gaps), the two on-demand guides above, and the gate-passed absorption slice. The package does not contain `path-trace`, `blast-radius`, `design-compare` or `drive-preview`; those four retired names have no equivalent body here and are not revived. Pending gate-confirmed fixes and the shared Profile merge are listed in the absorption batch section and `docs/absorption/2026-10-02/LEDGER.md`. Package acceptance status: `docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md` (2026-10-01 bounded usable reference). This index records consumption only; it grants no applicability trigger and no authority.
