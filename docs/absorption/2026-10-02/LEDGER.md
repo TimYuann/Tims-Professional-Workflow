@@ -86,3 +86,4 @@
 | A4TP-LAND | external-tool-operation + guide-positioned-artifacts | 474+8 归组；7来源不造7文件 | 已派 B2 | — | — | — |
 | INT2 | 第二通过切片 5bf9333（B1 10 + B2 5 canonical + README） | core 7aa1ae82 | Oracle 入口核 | — | — | — |
 | B-D9 | w3 7e9e4da（CD 7 文件） | — | 待 gate | — | — | — |
+| GATE2 | tpw-absorb-gate2（Codex GPT-6.1 SOL medium 冷接班） | w27:p10 | ready，按承载接 A2R-ABC4 起 | — | — | — |
