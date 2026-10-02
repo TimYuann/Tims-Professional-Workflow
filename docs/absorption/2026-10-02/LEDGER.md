@@ -209,3 +209,4 @@
 - 原始送审输入/记录已逐字节保全到 docs/absorption/2026-10-02/：ABSORB-PRO1-REQUEST.txt、ABSORB-PRO1-FIXED-PACKET.md、ABSORB-PRO1-CORE-MANIFEST.json、ABSORB-PRO1-RECORD.json（root runtime/absorption-1002 同字节）。
 - 送审期间：产品冻结 5d7d89d3/0e7614cd；不跑新 scope、不移动 candidate；可保全记录；静态 PASS 不转 runtime 资格。
 | PRO1-FIX | worktrees: fix-pro1-b3（B3: release/perf/interface/trust）、fix-pro1-b2（B2: external）从 5d7d89d3 建；处置已保全 07129861 | — | — | — | — | — |
+| PRO1-B2 | fix/pro1-b2@65d9408（external 002，4+/4−）已送 gate2 独立核 | — | — | — | — | — |
