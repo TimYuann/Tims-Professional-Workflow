@@ -129,3 +129,4 @@
 | INT11 | 切片11 ebcafa9dc478ac183aa6e94602c378b14a46e8dd（behavior-preserving/harness/explanation 三 PASS） | core 见回执 | 四项窄修派工 | — | — | — |
 | B-FIX5 | G2-LABEL(handoff/composition)、G2-SOURCE(change-review/slicing/handoff)、G2-PIN(design) B1；G2-LABEL(composition)、G2-ORACLE(agent-text) B2 | — | 已派 | — | — | — |
 | B3-ABC8 | 76976e2（performance MG1/MG2；蒸馏自 review+summary，非直读 playbooks） | — | 送 gate2 队列 | — | — | — |
+| R-EF | EF F1-F9 9/9 + addendum 22 条；增量=perf 支线/a11y/testAPI+eval 分层；S1/S2/O2/P1/P2 不动 | — | B3(perf) B1(testAPI+a11y) 已派 | — | — | — |
