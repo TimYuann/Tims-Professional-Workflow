@@ -63,3 +63,5 @@
 | W2-a4#2 | CURSOR-DEF2 ✅ | 交付/扇出/TDD/reflect/SDK/安全 | 待 gate | — | — | — |
 | W3-a4 | DEF3（orchestrate 正文）+ third_party 全量 | 尾账 | 已派 | — | — | — |
 | R4 | A3-MATT-DEF | 14/14: 合并9限缩5 | 落点：local-defect/change-review/arch-survey/uncertainty/bounded-prototype/source-evidence/human-procedure/merge/handoff/learning/explanation/lesson+check-design | 已派 B1/B2 第四批 | — | — |
+| W3-a4 | DEF3 ✅ + THIRD-PARTY ✅ | orchestrate 正文 6 组 + 482 全账 | 待 gate | — | — | — |
+| PRO-ALLOW2 | 本轮新额度 2/2 未用（Oracle 持有；与旧已用额分账） | — | — | — | — | — |
