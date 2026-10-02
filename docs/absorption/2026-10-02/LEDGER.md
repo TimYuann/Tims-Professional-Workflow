@@ -72,3 +72,4 @@
 | ADOPT | absorb/adopt 9d5859e（ADOPTION.md + cross-module-start） | — | 待 gate 边界 | — | — | — |
 | ENTRY-FIX | Oracle读回两处入口修正 + check 报告 | — | 已提交 def5dcfae0efeb597da7a9ae67989a68449d560b | — | — | — |
 | ADOPT-FIX | 9d5859e 需修3处（常驻指针/五级硬化/比较泛化） | — | 已派 | — | — | — |
+| ADOPT-FIX2 | d8d1532 修3处（常驻指针/五级删阶梯/比较限定） | — | 待 gate 复审 | — | — | — |
