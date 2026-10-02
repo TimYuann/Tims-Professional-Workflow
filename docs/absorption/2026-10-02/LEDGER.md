@@ -70,3 +70,5 @@
 | B-FIX2 | B1 batch2 R1-R4；B2 batch2 newR1-R2（旧3项待新对象复查） | — | 已派修复 | — | — | — |
 | INT1 | 最小通过切片集成 6b64b59（16 文件，core 7dcac80f） | — | Oracle/check 核中 | — | — | — |
 | ADOPT | absorb/adopt 9d5859e（ADOPTION.md + cross-module-start） | — | 待 gate 边界 | — | — | — |
+| ENTRY-FIX | Oracle读回两处入口修正 + check 报告 | — | 已提交 def5dcfae0efeb597da7a9ae67989a68449d560b | — | — | — |
+| ADOPT-FIX | 9d5859e 需修3处（常驻指针/五级硬化/比较泛化） | — | 已派 | — | — | — |
