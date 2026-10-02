@@ -218,3 +218,4 @@
 - 现已带非空+sha 校验真正保全并 track（commit `d8164b2fa179cb2ba58a0ecae4e60214c81a83b2`）：
   - `ABSORB-PRO1-REQUEST.txt`（5800B, 958d4e30…）、`ABSORB-PRO1-RESPONSE.txt`（25527B, 10ce0701…）、`ABSORB-PRO1-RESPONSE-RAW.json`（286208B, 206123da…）、`ABSORB-PRO1-VISIBLE-MAIN.txt`（31511B, 40ec9d60…）、`ABSORB-PRO1-RECORD.json`（1005B, da14794b…）、`ABSORB-PRO1-READ-SCOPE.md`（18118B, 967ab58c…）、`ABSORB-PRO1-FIXED-PACKET.md`（784021B, e4bbe880…）、`ABSORB-PRO1-CORE-MANIFEST.json`（9399B, 3df421b7…）、`ABSORB-PRO1-ORACLE-CONTINUATION.json`（3153B）。
 - 存储说明：完整包 784KB 与 raw JSON 286KB 均由 Git 追踪可取回；其来源为 workspace 内 `.worktrees/runtime/absorption-1002/`（本仓工作区过程材料，非 root runtime）。完整包内容可由候选 pin 重建并保 SHA，但实际送审字节以上述文件为准。
+| PRO1-002C | fix/pro1-b2@21bd9cd（§12 一行修：只读 status 查询不受写键窗限制）送 gate2 定向核 | — | — | — | — | — |
