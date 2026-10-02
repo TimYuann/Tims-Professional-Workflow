@@ -195,3 +195,8 @@
 - 唯一非阻断：methods/README L89 “Pending gate-confirmed fixes and the shared Profile merge are listed…” 指向的 pending 列表已不存在（stale 措辞句）。按 Owner “勿改 c721 产品字节”，本句留待下一次措辞批删除/改写，不计入当前候选缺陷；产品字节保持 c7215694/a1a27613。
 | NEWPIN | 元数据修正 5d7d89d3（core 0e7614cd, archive 2758099e）；仅 4 元数据文件；check 中 | — | Oracle push/readback | — | — | — |
 | PIN-VERIFIED | 5d7d89d3 check PASS 6/6；报告已保全；交 Oracle push/readback + Pro#1 | — | — | — | — | — |
+
+### Pro 额度与送审期约束（2026-10-03）
+- 本轮新 Pro 授权额度：**2 可用 / 已用 0**（与上一轮已消费额度分账；额度由 Owner 持有）。计划：Pro#1 新会话送完整固定产品+通用接入+fresh 消费观察+诚实残余；Pro#2 在同一会话定向复查（若需）。
+- 送审期间候选冻结：commit `5d7d89d3f8fc295ed7c96e63a2af8952e75398ec`，core `0e7614cd4eec20b4b43b7b0caba43187d3ec10b4`，archive `2758099e…`；不移动 candidate、不派新 workers/新 scope；已读尾账可保全；静态 PASS/文本可消费观察不转 runtime/host/Provider/UCBIP 资格；未读 tail 与平台效应作为明确残余送 Pro。
+- check 报告 `INTEGRATION-CHECK-5d7d89d3.md`（SHA a419d4c0…）已提交于 `76a0339`；STOPPAGE `c9d1a97` 与 root 同字节 `12c4c278`。
