@@ -45,3 +45,4 @@
 | W1-a2r#3 | CURSOR-ABC3 ✅ | B/F/E/A/Driver | 待 gate | — | — | — |
 | W1-a1#3 | ADDY-EF ✅ | F/E/评估 | 待 gate | — | — | — |
 | A1-ADD | EF 尾部补读（F9 四 checklist + testing-patterns 六节 + 已读待用清单） | — | 待 gate | — | — | — |
+| W1-a2r#4 | CURSOR-ABC4 ✅ | A/Voice/B/E | 待 gate | — | — | — |
