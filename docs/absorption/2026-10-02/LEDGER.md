@@ -40,3 +40,4 @@
 - core 自 `9085d75` 起未变：`9085d75`/`d3aab6a`/`800414d`（及后续 docs-only）的 `:professional-workflow` 均为 `7c814e54`。
 | W1-a2r#2 | CURSOR-ABC2 ✅ | F/B/C/A/Driver | 待 gate | — | — | — |
 | W1-a3#2 | MATT-DEF ✅ | D/E/F+支持 | 待 gate | — | — | — |
+| W1-a1#2 | ADDY-CD ✅ | C+尾部 | 待 gate | — | — | — |
