@@ -96,3 +96,4 @@
 | ORACLE-A4DEF3 | A4-CURSOR-DEF3 归 Oracle（可迁移边界/脚本候选准入，非runtime整包） | — | Oracle 接手；gate2 排除 | — | — | — |
 | ORACLE-A4DEF3 | A4-DEF3 6/6（J1/J5限缩，其余合并）已保全 10912de | 落点：interface/domain-state、CLI/handoff、agent-text、trust/external/harness | 已派 B3 主接 + B1/B2 各文件 | — | — | — |
 | G2-WORK1 | w1 c537ed0 / w2 eb24161 / w3 7e9e4da 差分+源族 | — | 已派 gate2 连续审 | — | — | — |
+| w3-DEF3 | 016e004（J1/J5 并入两文件；未建 guide 附比例理由） | — | 已并入 gate2 审单 | — | — | — |
