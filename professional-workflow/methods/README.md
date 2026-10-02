@@ -43,6 +43,8 @@ Gate-reviewed, byte-passed files integrated by Driver; load only what the task n
 | Run a scripted human procedure | `human-procedure.md` | per-value source/destination/sensitivity; helper is not proof of safety |
 | Explain a premise or rationale | `rationale-and-premise-review.md` | evidence tiers per claim; history is not a current constraint |
 | Define an agent-facing CLI contract | `agent-facing-cli-contract.md` | repeat/partial-failure semantics; headless checks; no universal validator |
+| Keep domain state and invariants visible | `domain-state-and-invariants.md` | state model and invariants at a module boundary; no schema framework |
+| Design the verification harness for a claim | `verification-harness-design.md` | harness maintenance scoped to affected features/claims/recipes; source-only checks do not claim live |
 
 Also integrated: tightened `local-defect-feedback-loop.md` (root-cause/observation-surface clarification), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (comparison scope) and the matching Profile pointers. `architecture-survey.md` uses the B2 canonical version; the B1 duplicate is not installed.
 
