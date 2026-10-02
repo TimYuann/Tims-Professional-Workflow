@@ -134,3 +134,4 @@
 | R-DEF | DEF G01-G13 实质；G14 限度/locator；scripts 不移植 | — | B1(G01/02/05/07/08/10/11) B2(G04/09/12) B3(G03/04/06/09/12) 已派 | — | — | — |
 | G2-B3-PERF | EF@56内容PASS保全；ABC8@769 两句需限缩（single run 仍是 measurement、跨 module 路由仅实际承诺变化）→ 整 56 文件 held | — | 已派 B3 | — | — | — |
 | B3-DEF | 875033a（G03/G04/G05/G06/G09/G12 并入四文件；反例保留） | — | 送 gate2 队列（DEF2 后） | — | — | — |
+| B3-PERF2 | 5d5dfcb（两句限缩：single-run 测量充分性按 claim/noise；路由按实际影响） | — | 送 gate2 队列 | — | — | — |
