@@ -221,3 +221,4 @@
 | PRO1-002C | fix/pro1-b2@21bd9cd（§12 一行修：只读 status 查询不受写键窗限制）送 gate2 定向核 | — | — | — | — | — |
 | PRO1-001/003 | gate2@054b30c：release/interface/trust PASS、001 CLOSED；003 两句 held（裸 3%±5% 不能单判、Repeating 按 claim/noise）；002 等独立核 | — | B3 两句修中 | — | — | — |
 | PRO1-003FIX | B3 两句修（裸数不能单判、Repeating 按 claim/noise）派工 | — | — | — | — | — |
+| INT-PRO1-002 | 5e676fcd108e469c8b2951178f0cfe85420cfb07（external 002 CLOSED 集成）；65d 条件证据保全 | core 见回执 | — | — | — |
