@@ -79,3 +79,5 @@
 - 不编覆盖百分比、不重复计同源机制；三仓尾部 pending/未裁包继续，最小通过切片非总体结束。
 - Pro 第一次=完整固定产品+通用接入+fresh 消费观察+诚实残余。
 - EF addendum bfcache/no-store 绝对断言未裁：若 B 采用须按实际浏览器核官方适用性或写明源版本限度，不为性能否定有效 security/cache policy。
+| B-D7 | w1 57b4aad（batch4+R1-R5） | — | 优先复核 | — | — | — |
+| B-D8 | w2 a64bbc2（batch4+修复关闭） | — | 优先复核 | — | — | — |
