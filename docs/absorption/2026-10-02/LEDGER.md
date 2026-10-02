@@ -83,3 +83,4 @@
 | B-D8 | w2 a64bbc2（batch4+修复关闭） | — | 优先复核 | — | — | — |
 | ORACLE-A4TP | A4-THIRD-PARTY 归 Oracle 裁定（474+8 分母/8指南可迁移、不硬化价格审批） | — | Oracle 接手 | — | — | — |
 | ORACLE-A1CD | A1-ADDY-CD 9/9 已裁（C2/C8→B1，其余→B3） | — | 进行中 | — | — | — |
+| A4TP-LAND | external-tool-operation + guide-positioned-artifacts | 474+8 归组；7来源不造7文件 | 已派 B2 | — | — | — |
