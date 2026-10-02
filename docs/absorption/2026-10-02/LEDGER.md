@@ -68,3 +68,5 @@
 | B-D5 | w1 f321c8c（fix+2批完整） | — | 优先复核 | — | — | — |
 | B-D6 | w2 b8b1d28（fix+2批完整） | — | 优先复核 | — | — | — |
 | B-FIX2 | B1 batch2 R1-R4；B2 batch2 newR1-R2（旧3项待新对象复查） | — | 已派修复 | — | — | — |
+| INT1 | 最小通过切片集成 6b64b59（16 文件，core 7dcac80f） | — | Oracle/check 核中 | — | — | — |
+| ADOPT | absorb/adopt 9d5859e（ADOPTION.md + cross-module-start） | — | 待 gate 边界 | — | — | — |
