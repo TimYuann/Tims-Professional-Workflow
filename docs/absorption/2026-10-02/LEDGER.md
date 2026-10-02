@@ -87,3 +87,5 @@
 | INT2 | 第二通过切片 5bf9333（B1 10 + B2 5 canonical + README） | core 7aa1ae82 | Oracle 入口核 | — | — | — |
 | B-D9 | w3 7e9e4da（CD 7 文件） | — | 待 gate | — | — | — |
 | GATE2 | tpw-absorb-gate2（Codex GPT-6.1 SOL medium 冷接班） | w27:p10 | ready，按承载接 A2R-ABC4 起 | — | — | — |
+| GATE2 | 仅待命（不并行裁，不用量扩大） | w27:p10 | standby only | — | — | — |
+| GATE1-HO | 旧 gate 完成 ABC4 后写最短 handoff 再退 | w27:p12 | 已通知 | — | — | — |
