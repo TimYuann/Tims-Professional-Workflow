@@ -150,3 +150,4 @@
 | B1-FIX-DONE | b2c33a1（measurement reuse + swarm anchors）送 gate2；补 behavior-preserving 索引 | — | — | — | — | — |
 | INT16 | 切片16 74d41762e81efe1b3d6fe76642556c624ab28a88（handoff PASS 集成；design 两处修中） | core 见回执 | — | — | — | — |
 | B-FIX7 | design-alternatives N-H02-SOURCE/RETRY 两处修（去固定重跑、swarm 行承载聚合） | — | 已派 B1 | — | — | — |
+| G2-B2C33 | b2c33a1 裁定已处理：handoff 集成 slice16 74d4176；design 两修 B1 在飞 | — | — | — | — | — |
