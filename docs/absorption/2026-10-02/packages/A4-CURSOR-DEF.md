@@ -27,7 +27,7 @@
 
 **只读标题级/结构级**（不作机制断言）：orchestrate `scripts/__tests__/` 28 个测试文件的 `describe/test` 名称与计数；`pstack/skills/poteto-mode/scripts/orch/orch.ts`、`orch.test.ts`（grep 签名/标题）；`watch-pr/{render,cli}.ts`（结构面）。
 
-**本包明确未读**（列入 §13 尾部，不假装已评估）：orchestrate `schemas/*.json` 全文、`cli/util.ts`、多数测试正文、`adapters/slack/index.ts` 正文；pstack 未读 playbook（`bug-fix,feature,refactoring,prototype,visual-parity,authoring-a-skill,opening-a-pr,investigation`）、`skills/{arena,swarm,architect,how,reflect,recall,tdd,unslop,automate-me,figure-it-out,setup-pstack,make-bot-ui,typescript-best-practices}/` 正文、`why` 其余 reference 与 sources、`interrogate/{SKILL.md,references/code-quality-review.md,reviewer-prompt.md}`；cursor-sdk 五个 reference（auth/streaming/mcp/advanced/patterns）；benny 三个 SKILL 正文与 `templates/{triage,reproduce}-automation-prompt.md`；third_party 79 份 README/CHANGELOG 散文、94 个 LICENSE、91 个品牌资产；cursor-team-kit 其余 skills、grok-voice 四技能、advisor/ralph-loop/continual-learning 的 skills+agents 正文（a2r 已读 advisor SKILL）。
+**本包明确未读**（列入 G-14/T-* 尾部，不假装已评估）：orchestrate `schemas/*.json` 全文、`cli/util.ts`、多数测试正文、`adapters/slack/index.ts` 正文；pstack 未读 playbook（`bug-fix,feature,refactoring,prototype,visual-parity,authoring-a-skill,opening-a-pr,investigation`）、`skills/{arena,swarm,architect,how,reflect,recall,tdd,unslop,automate-me,figure-it-out,setup-pstack,make-bot-ui,typescript-best-practices}/` 正文、`why` 其余 reference 与 sources、`interrogate/{SKILL.md,references/code-quality-review.md,reviewer-prompt.md}`；cursor-sdk 五个 reference（auth/streaming/mcp/advanced/patterns）；benny 三个 SKILL 正文与 `templates/{triage,reproduce}-automation-prompt.md`；third_party 79 份 README/CHANGELOG 散文、94 个 LICENSE、91 个品牌资产；cursor-team-kit 其余 skills、grok-voice 四技能、advisor/ralph-loop/continual-learning 的 skills+agents 正文（a2r 已读 advisor SKILL）。
 
 ---
 
@@ -312,7 +312,7 @@
 - `pstack/skills/poteto-mode/scripts/orch/orch.ts`（签名面）：`--store/ORCH_STORE`、`--repo/ORCH_REPO`、`--json`、`--force`；`frontierLine`、`statusLines`、`leaf` 子命令。
 - `pstack/skills/poteto-mode/scripts/check-plan.mjs`（全文）：plan 文档的机器校验（固定 H2/H3 顺序、十个 sub-block 与顺序、`Ten lanes on ... at the PR head`、lane 1–10 且每 lane 必须有截图与 `Pass when`、perf 四项顺序、Review gate 的三种词、长破折号/弯引号/句中冒号、尾部只能 Appendix 且必须有 Prototype evidence）。
 - `pstack/skills/poteto-mode/playbooks/orchestrate.md`（前 90 行）：store 布局与"每个文件恰好一个写者"、`units.tsv`/`ledger.tsv`/`inbox/`/`gates.md`/`frontier.json`/`decisions.tsv`/`status.md`（派生）、brief 模板（GOAL/SCOPE/CONTEXT/ACCEPTANCE/VERIFY/TIMEBOX/FORBIDDEN/REPORT/STANDING）、"补不上字段就是还没界定清楚的单元"、"Never resume-chain a brief"、rolling window（约十个 in-flight）、pilot 先跑通一个单元再 fan-out。
-- `pstack/skills/poteto-mode/scripts/orch/orch.test.ts`（标题级）。
+- `pstack/skills/poteto-mode/scripts/orch/orch.test.ts`（标题级，现已核实含：`initializes an idempotent plain-file store and releases its lock`；`replaces a stale lock whose holder pid is dead`；`blocks a writer and steals the pid lock only with force`；`rejects malformed TSV, verdict, frontier, and inbox data`）。
 
 已读：上述；尚缺：`store.ts` 的 inbox/gates/frontier 全实现与测试正文、`orch.ts` 全文、`check-plan.mjs` 之外的多阶段计划正文其余段。
 
@@ -320,7 +320,7 @@
 
 - **单写者 + 派生文件**：每个文件恰好一个写者；`status.md` 由 `units.tsv`+`ledger.tsv` 派生，不手工维护；`decisions.tsv` 只 append。`frontier.json` 是计算对象，不是叙述。
 - **原子写**：临时文件与被写文件同目录、`wx` 独占创建、`rename` 替换、finally 清理；写缺失语义（`writeIfMissing`）用于幂等初始化。TSV 有显式表头常量；cell 清洗（去 tab/换行）与必填校验。
-- **锁**：锁文件写 PID；`EEXIST` 时探活；死 PID 自动接管；活 PID 必须 `--force` 才抢；释放前核对 PID 归属（防误删他人的锁）。测试点覆盖 stale takeover 与 force。
+- **锁**：锁文件写 PID；`EEXIST` 时探活；死 PID 自动接管；活 PID 必须 `--force` 才抢；释放前核对 PID 归属（防误删他人的锁）。测试标题级证据：`replaces a stale lock whose holder pid is dead`、`blocks a writer and steals the pid lock only with force`；另有 `rejects malformed TSV, verdict, frontier, and inbox data` 与 `initializes an idempotent plain-file store and releases its lock`。
 - **ledger 语义**：`pr+sha` 唯一键 upsert；查不到抛"NOT-VERIFIED"（显式非通过态）；五值 verdict。与 orchestrate playbook 的规则一致：**新 head SHA 作废该行**，CI 绿是输入不是 verdict。
 - **gates**：`OpenGate{question,options,defaultAnswer}` → `ResolvedGate{answer}`；默认答案使"无人回答"也可推进；gates.md 有严格解析（重复 id/非法 status 报错）。
 - **check-plan 是"把评审规则编码成脚本"的样例**：源文 `multi-phase-plan.md` 第 6 步要求跑 `check-plan.mjs` 并修掉每行；脚本把"测试不够、必须有 unit/live/perf 三格"、"live 必须十条车道且每条有截图与通过谓词"、"perf 四项"等从口诀变成可执行失败。这同时是 `principle-encode-lessons-in-structure` 与 `principle-build-the-lever` 的实证。
@@ -746,7 +746,7 @@
 
 - `pstack/skills/interrogate/references/rubric.md` + `lead-judgment.md`（a2r 已读并转述）→ 本包不重复，只在 G-10 的"重复载体"与 a2r 未读件上补充。
 - `cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md`（全文，a2r 已读）→ 本包补"结构判断的三条 presumptive blocker 与 code judo"作为 G-11 的来源，不重复。
-- thermos 重复载体：`thermos/skills/thermo-nuclear-code-quality-review/SKILL.md`（12.4KB）与 `cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md` 同内容；`thermos/skills/{thermo-nuclear-review,thermos}/SKILL.md`、`thermos/agents/*`。本包核对：两份质量 rubric 是否逐字一致（sha256 比对）。
+- thermos 重复载体：`thermos/skills/thermo-nuclear-code-quality-review/SKILL.md`（12.4KB）与 `cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md` 同内容；`thermos/skills/{thermo-nuclear-review,thermos}/SKILL.md`、`thermos/agents/*`。本包核对：两份质量 rubric **逐字节一致**——`git hash-object` 均为 `ac76a2bc88bb2d895e83ab1788aa584a82346cfc`。
 - `agent-compatibility/README.md`（前 80 行）：评分模型 `round(deterministic*0.7 + workflow*0.3)`、四个 review agents、"scanner 不打包，npx 运行"、启发式声明（"not a full quality verdict"）。
 - `pstack/skills/interrogate/references/code-quality-review.md`（a2r 残余；本包**未读**，列尾部）。
 
@@ -948,7 +948,7 @@
 
 - 79 个 `third_party/*/.cursor-plugin/plugin.json` + `mcp.json`（jq 提取）：传输 **77 http / 2 stdio**（`playwright` 用 `npx -y @playwright/mcp@latest`；`xero` 用 `npx -y @xeroapi/xero-mcp-server@latest` 且 `env` 注入 client id/secret）。注意：`type` 字段可缺省，缺省按 http 处理（`gong` 即 `url`+`auth` 无 `type`；用"是否有 command"判断更稳）。
 - 凭据形态四类：**headers 注入用户键 7 个**（`brevo, excalidraw, github, hunter, similarweb, smartsheet, wrike`，值走 `${VAR}`）；**`auth` OAuth 7 个**（`docusign, gong, hubspot, salesforce, x, x-ads, zoom`；其中 **x 与 x-ads 在仓库内硬编码同一个 `CLIENT_ID`**，其余走 `${VAR}`）；**env 注入本地进程 1 个**（xero）；**none 64 个**（依赖宿主浏览器/OAuth 流程）。12 个 `plugin.json` 声明 `variables`（JSON Schema：type/properties/required）用于让用户填值；其余靠 OAuth。
-- 宿主门：`marketplace.json` 94 条目 = 15 first-party + 79 third_party；`minClientVersions` 三态——3 个 `cursor: "never"`（`finance`、`x-money`、`shopify-store`，对 Cursor 不可见，面向 Grok Bot/sand），其余多数 `3.13.0`，`google-docs/sheets/slides` 与 `webull` 为 `3.22.0`，`onedrive/outlook*/sharepoint/teams` 为 `3.19.0`；`schemas/marketplace.schema.json` 定义 `clientVersionRequirement` 为 semver 或字面量 `never`，并声明 `grokbot` 与 deprecated `sand`。
+- 宿主门：`marketplace.json` 94 条目 = 15 first-party + 79 third_party；`minClientVersions` 分布（third_party，本 session 逐文件核对）——`3.13.0` 62 个；`3.19.0` 5 个（`onedrive, outlook, outlook-calendar, sharepoint, teams`）；`3.22.0` 4 个（`google-docs, google-sheets, google-slides, webull`）；**字段缺省 5 个**（`docusign, gong, hubspot, salesforce, zoom`，即无宿主门声明，不等于不兼容）；`cursor: "never"` 3 个（`finance`、`x-money`、`shopify-store`，对 Cursor 不可见，面向 Grok Bot/sand）。15 个 first-party 清单均无 `minClientVersions`。`schemas/marketplace.schema.json` 定义 `clientVersionRequirement` 为 semver 或字面量 `never`，并声明 `grokbot` 与 deprecated `sand`。
 - 校验面：`scripts/validate-plugins.mjs`（全文）只做 marketplace schema + 每个 plugin schema + marketplace↔plugin `name` 相等 + source 目录/`plugin.json` 存在；**不校验声明的 skills/agents/rules/hooks/mcpServers 路径是否存在，不校验 frontmatter**；`schemas/plugin.schema.json` 的组件字段为 `stringOrStringArray`（skills/agents/rules/commands）与 `hooks: string|object`、`mcpServers: path|inline|array`、`variables` JSON Schema。CI workflow 仅在 `marketplace.json`、`**/plugin.json`、`schemas/**` 变化时触发，`npm install --no-save ajv ajv-formats` 后运行同一脚本。
 - 前端质量门是**散文**：`create-plugin/rules/plugin-quality-gates.mdc` 六条（manifest name、相对路径无上溯、声明路径对应真实文件、frontmatter 必备、范围聚焦、默认装到 `~/.cursor/plugins/local/<name>/`）。
 - 示例 README/CHANGELOG：`third_party/github/README.md` 的 PAT 最小权限与轮换说明；`CHANGELOG.md` 记录 logo/服务器/变量声明。
@@ -1052,6 +1052,6 @@
 
 - 本包只写 `docs/absorption/2026-10-02/packages/A4-CURSOR-DEF.md` 一个文件；未改产品、未改他人文档、未 commit、未执行源内任何脚本或测试。
 - 所有源引用均给 `cursor-plugins` + pin `ecc249f1…` + repo-relative path + section/函数/行段；行号来自本 session `git show` 输出。
-- 未执行观察一律标注"未执行"；未读面集中在 §0 与 §13（T-*），未把未读写成已评估。
+- 未执行观察一律标注"未执行"；未读面集中在 §0 与 G-14（T-*），未把未读写成已评估。
 - 与 a2r 的重复面已在 §1 声明并逐项指向其包；本包不重述其已拟入方法的正文。
 - 本包产生的候选类型：机制组 14 个（G-01..G-14），其中 G-14 为归组/尾部，不含新机制主张。
