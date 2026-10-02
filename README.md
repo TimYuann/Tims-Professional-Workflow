@@ -21,6 +21,7 @@
 ## 已接受身份与状态（本地）
 
 - 2026-10-02 Oracle 接受修正后的首版（bounded usable first edition）：`docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md`（reviewed source `16c554de`；最终整合身份见 `ABSORB-CORRECTED-CORE-MANIFEST.md` Rev.7 与 `ABSORB-FINAL-INTEGRATION.md`）。
+- 跨仓接入与使用：`professional-workflow/ADOPTION.md` 与 `adoption-examples/cross-module-start.md`（其他仓库如何固定版本引入/使用 TPW）。
 - 2026-10-01 Oracle 接受有界本地采用交付（bounded local-adoption delivery）：`docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`（前序）。
 - 修正后的交付身份与 R1/R2 独立结论：`docs/overnight/2026-10-01/PW-01-FINAL-REPORT.md`。
 - 本次主线切换与新旧对象：`docs/overnight/2026-10-01/MAIN-CUTOVER-REPORT.md`。

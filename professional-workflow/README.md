@@ -7,6 +7,7 @@ This directory is a self-contained package accepted as a bounded usable referenc
 1. Select a suitable [Profile](profiles/README.md) for the judgment needed.
 2. Fill an [Instance Charter](charters/README.md) with the current task's actual delegation, accepted inputs, object scope, handoff, evaluator and permitted actions.
 3. Consult the [method selection entry](methods/README.md). Bind only task-relevant method files in the task Charter; the Profile name alone does not activate them.
+   For another repository introducing or vendoring this package, start from [ADOPTION.md](ADOPTION.md) (fixed-commit read or vendor, minimal entry, pinning/upgrade, pure-text consumption).
 4. From this directory, assemble the Profile, any authority context the Charter needs, the filled Charter, its bound method files, and task-specific input in that order:
 
    ```sh
