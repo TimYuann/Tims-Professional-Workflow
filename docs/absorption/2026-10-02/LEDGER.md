@@ -122,3 +122,4 @@
 | INT10 | 切片10 0ff4d0f72feb71828e3ed8ad6b71075f2c0aca31（六 delta PASS；change-review 一句修中） | core 见回执 | — | — | — | — |
 | B-FIX4 | change-review intake 一句限缩（stale auth/validation guard before protected side effect；普通 finding 事后观察） | — | 已派 B1 | — | — | — |
 | R-ABC7 | ABC7 3/3限缩合并；MG4 台账非增量；双 canvas SHA 不同不双计；thirdParty 依 Oracle 474+8 | — | B1(arena/canvas) B2(carrier) 已派 | — | — | — |
+| G2-PRI | 934c1ec（change-review 句修）+ reader professional-use 送 gate2 优先核 | — | — | — | — | — |
