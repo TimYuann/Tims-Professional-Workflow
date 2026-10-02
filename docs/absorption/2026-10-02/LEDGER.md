@@ -28,7 +28,7 @@
 ## 批次台账（A 包 → gate 裁定 → B 落地 → gate 差分 → Driver 集成）
 | 批次 | A 包（packages/） | 覆盖族 | gate 裁定（reviews/） | B 落地 | check | 集成 |
 | --- | --- | --- | --- | --- | --- | --- |
-| W1-a1 | ADDY-AB | A/B | — | — | — | — |
+| W1-a1 | ADDY-AB ✅ | A/B | 待 gate | — | — | — |
 | W1-a2r | CURSOR-ABC ✅ | A/B/C | 待 gate | — | — | — |
 | W1-a3 | MATT-ABC ✅ | A/B/C | 待 gate | — | — | — |
 | W1-a4 | CURSOR-DE | D/E/F + 支持/脚本 | — | — | — | — |
