@@ -37,7 +37,8 @@
 
 ## 按需方法入口（候选）
 
-- 验证设计方法：从 claim 反推可观察证据与负控制。
+- 验证设计方法：从 claim 反推可观察证据与负控制（`methods/behavior-claim-evaluation.md`）。
 - 证据评价方法：区分观察、推断与结论，核对来源与独立性。
-- 复现/取证方法：命令、环境、输入与输出如实记录，可被他人重放。
+- 复现/取证方法：命令、环境、输入与输出如实记录，可被他人重放；敏感工件参照 `methods/guide-redacted-evidence.md`。
+- 测试证据质量参照：`methods/guide-test-evidence-quality.md`（期望值来源、耦合、弱信号；不改三态映射）。
 - 绑定状态：方法正文与当前选择入口由 `methods/README.md` 拥有；本预设不含方法正文。

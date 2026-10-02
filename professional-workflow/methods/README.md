@@ -17,6 +17,24 @@ Profiles remain the owners of reusable responsibility mental models; this direct
 
 These guides are on-demand references at demonstrated knowledge gaps; they add no applicability triggers, authority, or fixed phase chain. When the support is needed, add the relevant guide to this task's existing bound/read set; no mandatory loading for tasks without that need. The task Charter still binds applicability, independence, and action permission.
 
+## Absorption batch (2026-10-02) · integrated reviewed-object slice
+
+Gate-reviewed, byte-passed files integrated by Driver; load only what the task needs, applicability and authority stay in the Charter.
+
+| Need (on demand) | Method | Boundary |
+| --- | --- | --- |
+| Add a behavior change with test-first evidence | `test-first-behavior-slice.md` | loop and slice; no universal TDD gate |
+| Judge whether produced evidence can support the claim | `guide-test-evidence-quality.md` | evidence quality; not a product-verdict owner |
+| Split a change into independently demonstrable slices | `change-slicing.md` | planning; wide-refactor exception preserved |
+| Compare materially different designs | `design-alternatives.md` | design comparison; no mandatory option count |
+| Record a decision or a rejection | `decision-record.md` | minimal decision/rejection memory and execution trail |
+| Keep domain terms and local mappings consistent | `domain-language.md` | semantics; local mapping stays separate from definition |
+| Define acceptance conditions with examples and counterexamples | `behavior-contract-examples.md` | behavior contracts, including consumer/acceptance questions |
+| Write agent-facing text with pointer and pruning discipline | `guide-agent-text.md` | authoring support; no per-sentence evaluation requirement |
+| Bound shared write surfaces and composition | `bounded-composition.md` | logical write surfaces and shared canonical objects; runtime mechanics stay with D/E |
+
+Also integrated at this batch: tightened `local-defect-feedback-loop.md` (diagnosis sampling/minimisation), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (scope of comparison evidence) and the matching Profile pointers. Pending gate-confirmed fixes and therefore not yet integrated: `handoff-and-resume`, `domain-state-and-invariants`, `verification-harness-design`, `change-review`, `bounded-prototype`, `guide-change-shape`, `guide-professional-explanation`, `rationale-and-premise-review`, `agent-facing-cli-contract`, `decision-elicitation`, plus the second-side Profile pointers (shared `profiles/evidence-evaluation.md` will be merged serially when those targets pass).
+
 ## Status and source trace
 
 The accepted M4 source objects are fixed at commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c378882c89c2328505fddee`. M4 acceptance applies to those exact source digests. The M5 candidate carries package-status/source-trace metadata edits; it is not byte-identical to the accepted M4 tree, and this directory does not claim those M5 package bytes have been accepted. The table makes both identities explicit. The normative method body remains linked to its M4 source; task applicability, independence, and authority remain in the actual Charter.
@@ -43,4 +61,4 @@ Nothing here grants authority, permissions, risk acceptance, or permission for c
 
 ## Scope and current state (2026-10-01)
 
-This selection entry ships three method bodies (`local-defect-feedback-loop`, `cross-module-design`, `behavior-claim-evaluation`) plus the two on-demand guides above. It does not contain `path-trace`, `blast-radius`, `design-compare` or `drive-preview`; those four retired names have no equivalent body here and are not revived. Current package acceptance/status is recorded in `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` and the later correction/candidate records; the M4/M5 digests above describe their own snapshots. The 2026-10-01 corrected package extends the three methods at demonstrated gaps and is accepted as a bounded usable reference (`docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md`); it does not by itself grant authority or task applicability.
+This selection entry ships three method bodies (`local-defect-feedback-loop`, `cross-module-design`, `behavior-claim-evaluation`) plus the two on-demand guides above. It does not contain `path-trace`, `blast-radius`, `design-compare` or `drive-preview`; those four retired names have no equivalent body here and are not revived. Current package acceptance/status is recorded in `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` and the later correction/candidate records; the M4/M5 digests above describe their own snapshots. The 2026-10-01 corrected package extends the three methods at demonstrated gaps and is accepted as a bounded usable reference (`docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md`); it does not by itself grant authority or task applicability. The 2026-10-02 absorption batch adds the reviewed-object slice above from the three-source absorption; its integration commit and the still-pending fix targets are recorded in `docs/absorption/2026-10-02/LEDGER.md` and the batch reviews. This index records consumption only; it grants no applicability trigger and no authority.

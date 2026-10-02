@@ -16,6 +16,8 @@ The verification surface follows the claim's natural requirement. Synthetic or f
 3. Decide whether the comparison is valid before interpreting its result. A missing/invalid baseline, noisy or incomparable data, failed measurement, or material environment difference makes the observation inconclusive.
 4. Report the verdict, exact command and inputs, observed result, coverage and limitations.
 
+When the comparison's evidence is a test or a suite, its quality check is bounded and separate: `guide-test-evidence-quality.md` covers the expected-value source, coupling, and weak-signal tells. This method stays a comparison-and-verdict method; the short reference does not expand it into a test-suite review.
+
 ## Verdict mapping
 
 - **PASS:** a valid comparison supports the predicted direction and threshold, without a material confound.
@@ -26,7 +28,7 @@ This mapping is semantic, not label substitution. In the source method, `VERIFIE
 
 ## Limits
 
-This method evaluates a specific observable claim, not user value or overall task closure. It does not accept residual risk or authorize release, deployment or other actions. The Charter must identify the actual evaluator and its independence for the object.
+This method evaluates a specific observable claim, not user value or overall task closure. It does not accept residual risk or authorize release, deployment or other actions. The Charter must identify the actual evaluator and its independence for the object. Test-quality diagnosis, when that is the question, belongs to `guide-test-evidence-quality.md`; it changes neither the three-state mapping nor this method's scope.
 
 ## Source anchors
 

@@ -38,8 +38,11 @@
 
 ## 按需方法入口（候选）
 
-- 接口/边界设计方法：明确共享承诺与局部自由。
+- 接口/边界设计方法：明确共享承诺与局部自由（`methods/cross-module-design.md`）。
+- 变更切片方法：`methods/change-slicing.md`（行为切片、实际阻塞边、wide refactor 的 expand–migrate–contract 例外）。
 - 影响与依赖分析方法：从真实系统事实查清改动因果与回归面。
-- 方案比较方法：存在实质方案分歧时使用。
-- 兼容/恢复判断方法：涉及持久化、状态或部署时使用。
+- 方案比较方法：`methods/design-alternatives.md`（约束→差异化方案→调用例/依赖策略→depth/locality/seam→推荐）；仅当存在实质方案分歧时使用。
+- 决定记录方法：`methods/decision-record.md`（三条件决定是否单独记录、最小足够 why、拒绝与暂缓之分）。
+- 术语与本地映射方法：`methods/domain-language.md`（canonical term、冲突显露、canonical→local 映射）。
+- 兼容/恢复判断方法：涉及持久化、状态或部署时使用；删除/替换旧覆盖的规则见 `methods/cross-module-design.md` §Method 4。
 - 绑定状态：方法正文与当前选择入口由 `methods/README.md` 拥有；本预设不含方法正文。
