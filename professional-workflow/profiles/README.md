@@ -1,8 +1,10 @@
 # Professional Presets · 选择入口（M1 候选）
 
+Current: 本目录内容属于 2026-10-02 absorption candidate；前序 2026-10-01 baseline 已接受，本轮 Pro/Oracle 整体接受未完成（见 `docs/absorption/2026-10-02/LEDGER.md`）。
+
 本目录存放可复用的专业预设（Professional Profile）。预设是**可缓存的判断配置**，不是职位表，不产生任务决定权，也不自带方法正文。
 
-状态：M1 候选内容已由 Oracle 接受为后续设计输入（见 `docs/overnight/2026-10-01/ORACLE-ACCEPTANCE.md` M1 节，TPW 过程记录）；当前包状态与接受以 `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` 及后续更正/候选记录为准。方法入口由方法目录按任务绑定，本目录不激活方法。
+状态：M1 候选内容已由 Oracle 接受为后续设计输入（见 `docs/overnight/2026-10-01/ORACLE-ACCEPTANCE.md` M1 节，TPW 过程记录）；当前包状态与接受以 `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`、后续更正/候选记录与 `docs/absorption/2026-10-02/LEDGER.md` 为准。方法入口由方法目录按任务绑定，本目录不激活方法。
 
 ## 选择入口
 

@@ -1,6 +1,6 @@
 # Instance Charters · M2 candidate
 
-Status note (2026-10-01): “M2 candidate” labels this directory's design snapshot; current package status and acceptance are recorded in `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md` and the later correction/candidate records.
+Status note (2026-10-01): “M2 candidate” labels this directory's design snapshot; current package status and acceptance are recorded in `docs/overnight/2026-10-01/M6-FINAL-ACCEPTANCE.md`, the later correction/candidate records, and `docs/absorption/2026-10-02/LEDGER.md` (the 2026-10-02 candidate's Oracle/Pro overall acceptance is not yet complete).
 
 A Charter binds one use of a reusable Profile to the actual task. It cites the source of delegation and accepted inputs, then states this instance's responsibility, output, recall path, independence relation, and permitted tools/actions.
 
