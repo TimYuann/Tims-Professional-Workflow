@@ -211,3 +211,4 @@
 | PRO1-FIX | worktrees: fix-pro1-b3（B3: release/perf/interface/trust）、fix-pro1-b2（B2: external）从 5d7d89d3 建；处置已保全 07129861 | — | — | — | — | — |
 | PRO1-B2 | fix/pro1-b2@65d9408（external 002，4+/4−）已送 gate2 独立核 | — | — | — | — | — |
 | PRO1-002B | gate2：002 未关（只读 query 条件冲突）；B2 最小修中 | — | — | — | — | — |
+| PRO1-B3 | fix/pro1-b3@054b30c（001/003+低影响，4 文件 +29/−18）送 gate2 独立核 | — | — | — | — | — |
