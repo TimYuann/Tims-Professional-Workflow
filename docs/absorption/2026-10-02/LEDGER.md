@@ -152,3 +152,4 @@
 | B-FIX7 | design-alternatives N-H02-SOURCE/RETRY 两处修（去固定重跑、swarm 行承载聚合） | — | 已派 B1 | — | — | — |
 | G2-B2C33 | b2c33a1 裁定已处理：handoff 集成 slice16 74d4176；design 两修 B1 在飞 | — | — | — | — | — |
 | CAND | 固定候选齐：c721569460eeef7f4b312f1b7ab363520576a1bf；core 见回执；全部已审 delta 集成、无 held | — | check 机械核 + Oracle 准备 | — | — | — |
+| HANDOFF | 固定候选 c7215694（core a1a27613）交 check 机械核 + Oracle 准备 Pro#1（Pro 0/2 Owner 持有） | — | — | — | — | — |
