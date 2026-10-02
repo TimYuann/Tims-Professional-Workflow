@@ -152,7 +152,7 @@ skill；以及"写明检查抓不到什么"的诚实边界条款。**对方在"�
 
 **冲突点（需 gate 裁定，非我裁定）：** 我方 DEF-9 以“写一份转移文档”为前提，并以“已落盘者只引用不复写”为规则；A1 G4 更进一步——**不该另写文档，工作产物本身就是交接**，另写即为第二份真源。我方那条规则是 A1 G4 的弱化版。**故 DEF-9 的剩余增量仅为：**（a）“可移植性而非压缩”的定位与四情境触发（含“不旅行就别写”的原地选项 continue/clear/compress）；（b）分叉案例（出去—拿答案—回来并从未结束的线程指回）。其“引用不复写”应**让位于** A1 G4 的“产物即交接”，或改为对它的补充条款（“若产物不足，补产物而非另写摘要”）。
 
-**依据 [标题级]：** A1 **G4 交接与恢复纪律**（源 `docs/getting-started.md#Working across sessions`、
+**依据：** 正文级（本轮补读）。 A1 **G4 交接与恢复纪律**（源 `docs/getting-started.md#Working across sessions`、
 `skills/context-engineering/SKILL.md#Restartable Session Boundaries`）；A2R-CURSOR-ABC **MG-7
 交接格式与证据等级**（源 `orchestrate/references/handoffs.md`、`references/planner.md#Failure recovery`）；
 A2R-CURSOR-ABC2 **MG-4 上下文重建、解释与状态报告**（源 `principle-guard-the-context-window`、`skills/recall`、
@@ -172,7 +172,7 @@ A2R-CURSOR-ABC2 **MG-4 上下文重建、解释与状态报告**（源 `principl
 **三方向张力：** A1 G3 = 单一二值裁决 + 轴内杠杆排序；A2R-ABC MG-6 = 多透镜合成 + lead judgment 四桶（**它确实合并**）；我方 DEF-2 = 两轴产出后**禁止合并、禁止跨轴排序**。三者对“评审结论能否合并”给出三种不同答案。
 **我方增量经补读后仍然成立且收窄为：**（i）**反混淆规则本身**（禁止把通过轴与失败轴合成一个裁决，理由是“混合裁决让通过的那一轴遮住失败的那一轴”）；（ii）**每条发现必须携带引用**（标准规则/命名 smell + 片段/契约行）；（iii）**fail-fast 校验基点**（先确认被比较的版本能解析、范围非空，再开始评价）与三点 diff 排除未提交工作。注意（iii）与 A1 G3 的“拿不到意图只能审风格，把这点当缺口说出来”同源，属于互相印证。
 
-**依据 [标题级]：** A1 **G3 变更评审纪律**自述为"五轴/分级/规模/描述/分歧/诚实/依赖"（源
+**依据：** 正文级（本轮补读）。 A1 **G3 变更评审纪律**自述为"五轴/分级/规模/描述/分歧/诚实/依赖"（源
 `skills/code-review-and-quality/SKILL.md`、`agents/code-reviewer.md`、`.claude/commands/review.md`）；
 A2R-CURSOR-ABC **MG-6 独立评审裁决与完成前复核**（源 `thermo-nuclear-review`、
 `thermo-nuclear-code-quality-review`、`thermos`、`interrogate`、`advisor`）。两条正文我均未读。
@@ -215,7 +215,7 @@ pointer 指回（理由是"下一会话的人要从什么出发；原型的文�
 
 **结论：** 对方**没有** mission 门、learning records、zone of proximal development，也**明确反对 quiz/演练**——即对方只覆盖“理解期”（difficulty 是敌人）这一半，**未覆盖“能力期”（difficulty 是工具）**。故我方 DEF-10 的“difficulty 符号随阶段反转”**成立**，并因此获得**跨源印证**：一个源主张理解期不设难度、另一个源主张能力期以难度为工具，两者在同一不对称性上相容。coverage-不是-learning 的**记录门**与 reuse-预测决定载体亦**未见对方**，增量成立。**建议并入**对方的“hedge 是 finding，不是文风”（对 DEF-9/DEF-6 的证据状态保全同样适用）与“最小完整答案先行再停”。
 
-**依据 [标题级]：** A2R-ABC2 **MG-4** 的源文件清单**含 `skills/teach`**，同组还有
+**依据：** 正文级（本轮补读）。 A2R-ABC2 **MG-4** 的源文件清单**含 `skills/teach`**，同组还有
 `principle-guard-the-context-window`、`skills/recall`；**MG-3** 含 `principle-encode-lessons-in-structure`
 与 `skills/reflect`。两条正文我均未读。
 
@@ -235,7 +235,7 @@ pointer 指回（理由是"下一会话的人要从什么出发；原型的文�
 
 **我方仍未被覆盖的增量：**（i）**指针措辞工程**（措辞而非目标决定可达性；一分支一触发、同义词即同一分支写两遍；前导词前置；删掉 body 已携带的身份信息）；（ii）**no-op 检验的模型相对性**（是否改变行为相对于默认，只能靠跑文档定，不能靠辩论；句子不过关就整句删）；（iii）**否定指令的失效模式**（“Don't think of an elephant”；只能作为无法正面表述的硬护栏并配正面目标）；（iv）**面向 agent 文档**这一框架本身。
 
-**依据 [标题级]：** MG-2 含 **`principle-minimize-reader-load`**、`principle-subtract-before-you-add`、
+**依据：** 正文级（本轮补读）。 MG-2 含 **`principle-minimize-reader-load`**、`principle-subtract-before-you-add`、
 `principle-experience-first`；MG-3 为"原则语言与学习编码"。两条正文我均未读。
 
 **我的可辨增量：** 指针**措辞**工程（措辞而非目标决定可达性；一分支一触发、同义词即同一分支写两遍；
