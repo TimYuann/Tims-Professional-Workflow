@@ -56,3 +56,4 @@
 | W1-a2r#7 | CURSOR-ABC7 ✅ | meta/仲裁/走查/台账 | 待 gate | — | — | — |
 | W1-a2r#8 | CURSOR-ABC8 ✅ | 实验/性能/取证/协调 | 待 gate | — | — | — |
 | B-FIX | B1 e561233 修1项；B2 11136eb 修3项 | — | 已派修复 | — | — | — |
+| W1-a4#1 | CURSOR-DEF ✅ | 编排/取证/交付/D/E/F | 待 gate | — | — | — |
