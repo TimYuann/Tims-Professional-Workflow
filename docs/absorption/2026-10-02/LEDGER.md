@@ -90,3 +90,4 @@
 | GATE2 | 仅待命（不并行裁，不用量扩大） | w27:p10 | standby only | — | — | — |
 | GATE1-HO | 旧 gate 完成 ABC4 后写最短 handoff 再退 | w27:p12 | 已通知 | — | — | — |
 | INDEX-FIX | 补 domain-state-and-invariants / verification-harness-design 两行索引 | — | 280fbf4521abca30134ed94a346db75e9bd8221c | — | — | — |
+| R-ABC4 | A2R-CURSOR-ABC4 4/4（合并2限缩2） | 落点：explanation/agent-text、change-review+lesson/check、lesson-promotion/learning | B1/B2 补正文；explanation/learning 部分随 handoff 链 | — | — | — |
