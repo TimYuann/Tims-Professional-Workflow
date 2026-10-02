@@ -144,3 +144,4 @@
 | B-FIX6 | B1 五项（N-REUSE/N-DELIVERY/N-CHARACTERIZATION/N-HANDOFF/N-HARNESS）；B2 N-CLI-ORACLE | — | 已派 | — | — | — |
 | INT14 | 切片14 7228dffa88f2fdf9400a017355ba006a7ad12a8b（B3 DEF2 三文件 PASS） | core 见回执 | B1/B2 修后对象待审 | — | — | — |
 | G2-WAKE | 停止原因：两 B 修复 commit 18:54/18:56 到达但无 wake 消息，Driver 待命未主动轮询；现补送 w1 b8358cd..c62bf5e、w2 9dcc85a..f88e105 定向复核 | — | gate2 审中 | — | — | — |
+| INT15 | 切片15 07b45124322e6ce24d1b6c3ad1bc646cdb70c3f3（8 PASS；handoff/design 两窄修 held） | core 见回执 | — | — | — | — |
