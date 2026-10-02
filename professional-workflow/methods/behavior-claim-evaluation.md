@@ -9,6 +9,8 @@ Use when a contract can be evaluated by comparing a concrete baseline with a tre
 
 The verification surface follows the claim's natural requirement. Synthetic or fixture-based evidence is appropriate when the claim is about logic isolation or mapping under controlled input; when the claim is about a real Provider, an actual SDK, wire behavior, deployment or end-user experience, an appropriate real leg is required under the task's existing policy and Charter authorization — a cheaper substitute's green result does not establish such a claim, and this method does not require a real leg for every task. If the needed real evidence lies beyond the existing authorization or boundary, use the task's recall path instead of self-granting access. Test mode is a professional choice, not a whitelist.
 
+A real leg means actually executing the declared object, code or interaction; it does not mean remote or network access. A real SDK or production mapping may be exercised locally under a legal stub or fixture and can prove that scope; a local service does not automatically exceed the local test authorization merely by being called real, while remote Provider or deployment behavior still needs its own corresponding evidence. *(Authored addition from the reader-misreading fix; guides reference this definition rather than restating it.)*
+
 ## Method
 
 1. State one falsifiable claim and its conditions, measure and threshold. Name the exact object and version.

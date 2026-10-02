@@ -60,6 +60,8 @@ When a new requirement is being integrated, consider the alternative of treating
 
 Authored boundaries: this is an **alternative to weigh, not an obligation**; it does not authorize a big-bang rewrite, and it does not by itself permit intermediate breakage or migration of external commitments — those are D decisions inside accepted constraints, and the outcome/migration operational face is handled elsewhere. Preserve the current design's accepted behavior while the alternative is only a proposal.
 
+- **Similar-looking before/after is not equivalence.** A language example that reads similarly after the change does not show that all inputs, exception paths, ordering or side effects are unchanged; the comparison needs this call site's actual inputs and behavior (`behavior-preserving-change.md`). An old test can be legitimately replaced or removed when a demonstrated replacement covers its accepted claim (`cross-module-design.md` §Method 4) — a suite does not have to stay frozen, and it must not be changed merely to make a result green. *(Source: addy `2686b620…`, `skills/code-simplification/SKILL.md`; gate2 F4.)*
+
 ## Limits
 
 - No fixed number of design options (2–3 is not a quota), no fixed layer count, no enforced 30-second threshold, and no requirement to build a scaffold.

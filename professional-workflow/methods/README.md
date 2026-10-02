@@ -57,6 +57,7 @@ Gate-reviewed, byte-passed files integrated by Driver; load only what the task n
 | Operate an external tool within authorization | `external-tool-operation.md` | cost/permission/availability/retry in one short sequence; pagination/bulk follow valid authorization, cost scope and real host policy |
 | Change positioned artifacts (docs/sheets/slides) | `guide-positioned-artifacts.md` | position/revision semantics; lint is not visual proof; real-host claims need real observation |
 | Deprecate or migrate a capability | `deprecation-and-migration.md` | design the removal; expand/contract needs all writers dual-writing and real copy coordination; no unconditional deploy safety |
+| Observe accessibility behaviour on demand | `guide-accessibility-observation.md` | keyboard/focus, modal exit and return, semantics/non-colour, live-region announcements; framework green is not real experience |
 | Ask clarifying questions by dependency | `decision-elicitation.md` | facts first, then dependency-ordered questions; an unaccepted recommendation does not settle a decision |
 
 Also integrated: tightened `local-defect-feedback-loop.md` (root-cause/observation-surface clarification), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (comparison scope) and the matching Profile pointers. `architecture-survey.md` uses the B2 canonical version; the B1 duplicate is not installed.
