@@ -189,3 +189,7 @@
 - Addy：F9 四 checklist 已读入 addendum；其余 tests/runner fixtures、hook/metadata/CI/docs 尾部、eval fixtures；React/manager/DevTools/版本矩阵只作源例，不是本版 spec。
 - Matt：teach 支持格式余部、tracker 模板、真实阻塞 API、prototype HTML scaffold；教学效果/长期 retention 未被本库实验。
 - 三源共有：任何未执行/未观察的模型、宿主、Provider、UCBIP、并发/资源效果均不作已证；扩展相应 claim 或采纳工具时再补承重原文与运行。
+
+### 机械核结果（check，2026-10-03）
+- c7215694 机械核 PASS 7/7：core 59 文件、相对 6b64b59 零删除零重命名、subtree a1a27613 与 archive 6ad60594 对上；methods 42/42 全索引、held 段已消；7 条相对链接全解析、0 悬空；evidence-evaluation 同时保 B1+B2 指针；Backbone ce82a700 未变；diff --check 干净、无混入；LEDGER/reader 3 份/reviews 51 份在场。
+- 唯一非阻断：methods/README L89 “Pending gate-confirmed fixes and the shared Profile merge are listed…” 指向的 pending 列表已不存在（stale 措辞句）。按 Owner “勿改 c721 产品字节”，本句留待下一次措辞批删除/改写，不计入当前候选缺陷；产品字节保持 c7215694/a1a27613。
