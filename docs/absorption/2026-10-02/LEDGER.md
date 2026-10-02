@@ -42,3 +42,4 @@
 | W1-a3#2 | MATT-DEF ✅ | D/E/F+支持 | 待 gate | — | — | — |
 | W1-a1#2 | ADDY-CD ✅ | C+尾部 | 待 gate | — | — | — |
 | R1 | A3-MATT-ABC | 11/11: 吸收1合并3限缩7 | 可蒸馏 T/P/B/C/A/W 批 | 已派 B1(T/P/C) B2(B/A/W) | — | — |
+| W1-a2r#3 | CURSOR-ABC3 ✅ | B/F/E/A/Driver | 待 gate | — | — | — |
