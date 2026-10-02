@@ -106,3 +106,4 @@
 | READER-C1 | 现有 reader 案例1（fixed 0e2bc4ba72ab8825b84e0e455de9ae5a2df26fe9；已读 root baseline 限度须报） | — | 进行中 | — | — | — |
 | READER-C2 | reader2 案例2（纯 fresh，fixed 0e2bc4ba） | — | 进行中 | — | — | — |
 | B3-FIX-DONE | 08dca20（C1/C3/C4/C6/C9 五处修） | — | 已送 gate2 定向复核 | — | — | — |
+| READER-DONE | 两案例报告已保全（d6a73b03c353ac74043c8d9cc06782357c1f4468）；送 gate2 边界评估 | — | — | — | — | — |
