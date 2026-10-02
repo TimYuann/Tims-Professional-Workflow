@@ -98,3 +98,4 @@
 | G2-WORK1 | w1 c537ed0 / w2 eb24161 / w3 7e9e4da 差分+源族 | — | 已派 gate2 连续审 | — | — | — |
 | w3-DEF3 | 016e004（J1/J5 并入两文件；未建 guide 附比例理由） | — | 已并入 gate2 审单 | — | — | — |
 | INT3 | 第三切片 84ffaa6d（8 w1 修后 + professional-learning + README） | core 90956104 | gate2/Oracle 知悉 | — | — | — |
+| INT4 | 第四切片 ee50a7fdc87e54828a22a8825928a1e119f82c1d（elicitation/cli-contract/agent-text/positioned-artifacts） | core 见回执 | external-tool-operation §8 修中 | — | — | — |
