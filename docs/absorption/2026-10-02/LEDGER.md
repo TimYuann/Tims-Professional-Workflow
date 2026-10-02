@@ -200,3 +200,11 @@
 - 本轮新 Pro 授权额度：**2 可用 / 已用 0**（与上一轮已消费额度分账；额度由 Owner 持有）。计划：Pro#1 新会话送完整固定产品+通用接入+fresh 消费观察+诚实残余；Pro#2 在同一会话定向复查（若需）。
 - 送审期间候选冻结：commit `5d7d89d3f8fc295ed7c96e63a2af8952e75398ec`，core `0e7614cd4eec20b4b43b7b0caba43187d3ec10b4`，archive `2758099e…`；不移动 candidate、不派新 workers/新 scope；已读尾账可保全；静态 PASS/文本可消费观察不转 runtime/host/Provider/UCBIP 资格；未读 tail 与平台效应作为明确残余送 Pro。
 - check 报告 `INTEGRATION-CHECK-5d7d89d3.md`（SHA a419d4c0…）已提交于 `76a0339`；STOPPAGE `c9d1a97` 与 root 同字节 `12c4c278`。
+
+### Pro#1 送审记录（2026-10-03）
+- 状态：已发送并真实 generating；**不视为接受**，等实际响应文件。
+- 会话 URL：https://chatgpt.com/c/6abfe3b0-d004-83e8-b850-94bf84148db9（同 space 25/p1；Pro 模式 + GitHub 芯片 + 全文包 784KB + 提问 2854 字，DOM 核 full）。
+- 候选：product pin `5d7d89d3` / core `0e7614cd`；远端 night tip `edce02a9` ls-remote MATCH；origin/main 仍 `448c3d67`（未动）。
+- 额度：**本轮新额度 1/2 已用**（与上一轮已消费额度分账；剩余 1 次计划同会话定向复查）。
+- 原始送审输入/记录已逐字节保全到 docs/absorption/2026-10-02/：ABSORB-PRO1-REQUEST.txt、ABSORB-PRO1-FIXED-PACKET.md、ABSORB-PRO1-CORE-MANIFEST.json、ABSORB-PRO1-RECORD.json（root runtime/absorption-1002 同字节）。
+- 送审期间：产品冻结 5d7d89d3/0e7614cd；不跑新 scope、不移动 candidate；可保全记录；静态 PASS 不转 runtime 资格。
