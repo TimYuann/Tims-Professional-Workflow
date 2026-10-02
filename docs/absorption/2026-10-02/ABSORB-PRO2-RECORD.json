@@ -1,0 +1,22 @@
+{
+  "state": "sent-generating",
+  "allowance_used": 2,
+  "allowance_total": 2,
+  "completed_reviews": 1,
+  "conversation_url": "https://chatgpt.com/c/6abfe3b0-d004-83e8-b850-94bf84148db9",
+  "ego_space": 25,
+  "ego_page": "p1",
+  "mode": "Pro",
+  "recorded_at_utc": "2026-10-02T17:55:17.253843+00:00",
+  "product_commit": "8ba69427105d09b3efa1d3a5f28182d4243b5fea",
+  "core_tree": "d0cbbfc8b56f588c183efdf8b6d503d9131b5f58",
+  "remote_review_tip": "7357f0b178d0b314c4276e7a213afb81a46f1d79",
+  "remote_readback": "ls-remote MATCH; main448c3d67unchanged",
+  "question_full_dom_verified": true,
+  "attachment_ready_verified": true,
+  "github_chip_verified": true,
+  "stopping_ui_observed": true,
+  "answer_complete": false,
+  "request_sha256": "089a6b06c0b65869cb76c51fae87e7bb34324eb2bc42f0d1efcfcf76c49d8ed6",
+  "delta_packet_sha256": "7271e3f5971f4923289f2fde56f8a81ad360aeb0ca2e10d2ab8a286db4047ed9"
+}

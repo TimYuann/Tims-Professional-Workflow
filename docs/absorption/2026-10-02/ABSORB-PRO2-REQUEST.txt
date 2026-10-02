@@ -1,0 +1,11 @@
+请在本对话沿你刚才的 Pro#1 RETURN 做唯一剩余的 Pro#2 定向复查，不开新设计/全源审/运行资格门。
+
+GitHub connector 同 repo TimYuann/Tims-Professional-Workflow，branch night/2026-10-01-workflow 已正常 push，ls-remote MATCH tip 7357f0b178d0b314c4276e7a213afb81a46f1d79（main仍448c3d6旧版不读）。修订产品commit 8ba69427105d09b3efa1d3a5f28182d4243b5fea，root tree 2e69f1759960ac6a5832012dba602b10f2dd2b61，core subtree d0cbbfc8b56f588c183efdf8b6d503d9131b5f58（仍59文件/42方法）；archive SHA256 d2aac3b851a9c9dee3ff83ebdea762581e5f78d9b7354d0c1632d5ab5d9de019；冻结Backbone ce82a70016a4a3fc234ea287f39aac8d79a260ddf13747c4fb705bda580453ba未变。
+
+相对你Pro1固定5d7d89d3恰5方法文件变化：release(001)、external(002)、performance(003)，以及你列为非阻断的interface shape-only措辞/trust source路径和不存在guide指针低影响精确化。附件是逐字git diff、五完整修订文件及固定专业复核/条件证据；原59正文仍在本对话附件，未改的54文件不重开。
+
+请核TPW-PRO1-001~003：001观察可用≠有权接受，两相反案例；002按恢复阶段区分只读query与会再次施加效果的重放/补偿，同key/payload/有效retention/明确no-duplicate保证/有效授权的响应丢失可恢复，禁重发/保证不明/过期/变载荷仍不可重放；只读合法查询不被write-key过期绑死。003原始spread≠效果估计不确定性≠实际价值，重叠分布但均值精确的构造例与不可比/混杂/不足例分开；裸3%/±5%两数不给方向结论；单run/重复由claim/noise/coverage决定，无统一统计工具/95%/N；正确性与可靠性独立目的不被neutral否决。SE≈0.2236068为假设计算不是实测跑分。
+
+三个ID已获非作者Codex固定差分复核CLOSED，仍由你独立核，不据我们标签通过。请用connector核对应固定对象/必要段落；报告实际读/未核范围。只给三ID与直接一致性的PASS或RETURN（若真残余，稳定ID+具体failure+最小修）。你上一轮非阻断建议不升级新gate；不要求全源精读/Provider/生产/重做fresh reader，也不把论文/SDK临时前提当现行资格。
+
+两次Pro结束后停止本轮；你的意见不授Owner/下游/发布权限。若通过，请明确有界采用范围与仍未验证的运行效果/效率/生产/host/Provider/UCBIP，不用全面认证措辞。

@@ -226,3 +226,11 @@
 | PRO1-003C | fix/pro1-b3@5353588（003 两句 +2/−2）送 gate2 定向核 | — | — | — | — | — |
 | INT-PRO1-003 | 8ba69427105d09b3efa1d3a5f28182d4243b5fea（performance 003 集成；Pro#1 三 ID 全 CLOSED，修复集齐） | core 见回执 | 交 Oracle 读回+Pro#2 | — | — | — |
 | PRO1-DONE | 修复集 8ba69427（core d0cbbfc8, archive d2aac3b8；5 文件变更）；三 ID CLOSED；交 Oracle 读回+Pro#2（余 1/2） | — | — | — | — | — |
+
+### Pro#2 送审记录（2026-10-03）
+- 状态：已提交并真实 generating（同一 URL）；**不视为接受**，等完整结果。
+- 额度：本轮 **2/2 submitted**（completed 目前 1；第二笔在飞；无第三笔 Pro）。
+- 候选：product `8ba69427105d09b3efa1d3a5f28182d4243b5fea` / core `d0cbbfc8b56f588c183efdf8b6d503d9131b5f58`；remote night tip `7357f0b178d0b314c4276e7a213afb81a46f1d79` ls-remote MATCH；origin/main 仍 `448c3d67`（未动）。
+- 送审范围：限 Pro#1 三个 ID、相反案例与直接一致性；非阻断建议不入第二审 gate。
+- 原始送审输入已非空+sha 校验后 tracked：ABSORB-PRO2-REQUEST.txt、ABSORB-PRO2-FIXED-DELTA-PACKET.md、ABSORB-PRO2-RECORD.json。
+- 冻结与后续：candidate 冻结，不派新吸收 scope、不改产品；等完整结果后仅状态与身份收口、local main FF（不推 main、tag/release、不改 UCBIP）。
