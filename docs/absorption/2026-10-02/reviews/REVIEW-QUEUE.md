@@ -18,6 +18,8 @@ Owner/Oracle更新：先B固定候选通过、Driver串行集成、核真实消�
 
 合计45机制组得到专业处置，不等于45新增能力/文件或全三仓完成。关键统一落点/限制各review可恢复；不只用这份summary替代承重正文。
 
+交接更新：ABC4已完成4组（合并2/限缩2），共49组。最新w1@57b4aad/w2@a64bbc2复核、w3@7e9e4da未审及Oracle接THIRD-PARTY的队列变化，以`GATE-HANDOFF.md`为最新续接摘要；旧本文保历史，不把其旧candidate/R状态当当前。
+
 ## B最新固定差分
 
 - base共同`d3aab6ad30f36789664287f304e4e91ffd61d96a`。
