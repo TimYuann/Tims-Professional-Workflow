@@ -32,3 +32,9 @@
 | W1-a2r | CURSOR-AB | A/B/C | — | — | — | — |
 | W1-a3 | MATT-ABC | A/B/C | — | — | — | — |
 | W1-a4 | CURSOR-DE | D/E/F + 支持/脚本 | — | — | — | — |
+
+## 固定引用约定（gate 基线核清）
+- Accepted core 引用是 **tree** `7c814e54c5e775045bc1c5155e3c181ceb1345fb`（professional-workflow 子树），不是 commit。
+- 文件级引用两种等价形式：`git show <commit>:professional-workflow/<path>`（repo-root 相对，commit 用 night tip 或产品 commit `9085d75`）或 `git show 7c814e54:<path-within-professional-workflow>`（子树相对）。
+- 产品不含 docs/；docs/absorption 的包/裁定/台账不属于 Accepted core，但属于固定审核对象记录。
+- core 自 `9085d75` 起未变：`9085d75`/`d3aab6a`/`800414d`（及后续 docs-only）的 `:professional-workflow` 均为 `7c814e54`。
