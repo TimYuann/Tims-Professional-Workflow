@@ -63,7 +63,7 @@ Gate-reviewed, byte-passed files integrated by Driver; load only what the task n
 
 Also integrated: tightened `local-defect-feedback-loop.md` (root-cause/observation-surface clarification), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (comparison scope) and the matching Profile pointers. `architecture-survey.md` uses the B2 canonical version; the B1 duplicate is not installed.
 
-Held for pending fixes or dependencies (do not treat as consumed): the second-side Profile pointers (shared `profiles/evidence-evaluation.md` merges serially when those targets pass).
+All gate-reviewed absorption deltas are integrated; no held items remain. The candidate identity and the per-file index are recorded in the tables above and in `docs/absorption/2026-10-02/LEDGER.md`; source tails listed in the reviews remain service-specific references, and runtime effectiveness is not claimed.
 
 ## Status and source trace
 
