@@ -25,6 +25,8 @@ Owner/Oracle更新：先B固定候选通过、Driver串行集成、核真实消�
 - B2 branch absorb/w2候选`b8b1d28f1a50be3f2954c69d17b59fce2435951b`。最新`REVIEW-B2-LATEST-b8b1d28.md`：第一批三个finding均关；仍开rationale仅准no-access/provably-irrelevant跳搜、CLI缺env却报tag；新prototype §18/22 blanket synthetic。整笔需修。behavior-contract-examples、guide-agent-text、bounded-composition整文件PASS。其他目标及依赖Profile待修。
 - 两最新完整对象取代之前分笔请求，但已关闭结论不重开，原reviews保历史。Driver已收到两review及消费依赖补充。作者在飞工作不混入fixed对象；后续优先只核修复/新增consumer。不可整笔cherry-pick尚未通过的candidate。
 - 通用接入候选branch absorb/adopt `9d5859eabc6020355b9ddc6e09b9329ad72e671d`已核，`REVIEW-ADOPTION-9d5859e.md`需修3项：常驻一行pointer而非整说明/入口；例2不必选五级证据或机械阶梯；comparison不泛化所有行为claim。其他授权/固定版本/vendor/轻量接入/不联网非政策边界通过；目标change-review/handoff通过后条件集成，最终fresh reader另作实际消费观察。
+- 通用接入修订`d8d153278aa87dd63475ed2c7c26ee236999f77b`三项定向复核PASS，见`REVIEW-ADOPTION-d8d1532.md`，原3项关闭；仍按上述消费目标通过后条件集成，未进行fresh-reader。
+- Driver首slice`6b64b59`+入口修正`def5dcfae0efeb597da7a9ae67989a68449d560b`已核，core tree `7bd8908d71ddff7eabb40e01b4fa369fbb06f086`；14正文/Profile blob与已审B对象均MATCH、Backbone不变，集成专业一致性PASS，README需分开前序接受baseline/本轮未最终接受slice及按实际root-cause/observation增量命名。见`REVIEW-INTEGRATION-def5dcf.md`。guide-lesson-promotion尚未采用，不误记需修。
 - methods/README与Profile合并由Driver单写；实际整合commit+范围、通用跨仓采用说明到达时，核Profile≠权限、有效委托、最短可启动消费、固定引用与无强制项目平台，不能新增普遍validator/gate。个别正文PASS不自动整体一致。
 
 Oracle prototype提疑已**回源成立**，不是仅转述指令：Cursor prototype允许用最小脚本测behavior/timing；Matt prototype允许scratch DB与现有页面fetch/auth。应按实际输入/runtime/真实或替身依赖/观察claim说明证据，保throwaway≠生产交付、局部green≠生产全域。gate没有写B修复。
