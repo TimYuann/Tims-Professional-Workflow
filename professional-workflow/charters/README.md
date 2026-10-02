@@ -13,6 +13,19 @@ A Charter binds one use of a reusable Profile to the actual task. It cites the s
 - State who authored, challenges, and evaluates the relevant object. Profile names and different labels in one session do not establish independence.
 - Name the actual tools and action limits. Tool access does not grant permission; permission does not bypass tool restrictions.
 
+## Shortest startup path
+
+Before other detail, the filled Charter should make these six things resolvable in one read:
+
+- **Goal:** the task/outcome and its non-goals. If a new goal arrives mid-task, mark whether it is a new task or steering of the original, and keep the original's open and closed work.
+- **Known facts:** the accepted inputs and current facts this run depends on, with version/source, separating facts, assumptions, and unknowns.
+- **Behaviors that must not change:** accepted commitments and boundaries to preserve.
+- **Fixed inputs:** the objects, references, and versions the task actually consumes.
+- **Observation and closure:** how the work will be observed or verified and what basis closes this delegation; acceptance, verification, action authorization, and closure stay separate.
+- **Write surface:** the objects this instance may change, the single writer for shared files, and the integrator or merge point.
+
+Method selection stays with [`../methods/README.md`](../methods/README.md) and the assembly order below; these six items are a startup checklist, not a new planning platform, schema, or task-framing service. A short continuation prompt is fine when this basis is complete and current, but it cannot omit a missing or stale basis. A read-only goal makes its "no code change" intent visible in the same six items.
+
 ## Assembly
 
 From the `professional-workflow/` package root, use the selected Profile, only the authority context the Charter needs, the filled Charter, its method files, and task-specific inputs. The example below shows the deterministic text order; the package intentionally has no schema validator or general permission engine.

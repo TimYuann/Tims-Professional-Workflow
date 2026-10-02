@@ -9,7 +9,7 @@
 - **Task / outcome:** <what this instance is asked to do; scope and non-goals>
 - **Delegation source:** <actual request or policy object, decision owner, and granted authority; if absent, no authority is implied>
 - **Object scope:** <the object(s) this instance may inspect or change; distinguish expected touch set from explicit boundary>
-- **Accepted inputs:** <contract / domain / plan / evidence references, versions, conditions, and accepting authority>
+- **Accepted inputs:** <contract / domain / plan / evidence references, versions, conditions, accepting authority, and the current facts/assumptions/unknowns this run relies on>
 - **Applicable methods:** <none, or the exact `methods/` path(s) and accepted source commit/digest. Bind only methods needed for this task; their bodies add no authority, trigger, or scope>
 
 ## Work and limits
