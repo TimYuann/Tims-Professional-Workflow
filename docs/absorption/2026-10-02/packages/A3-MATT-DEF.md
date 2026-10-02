@@ -58,25 +58,47 @@ mapping (already in `behavior-claim-evaluation.md`). Nothing in this package re-
 
 ## 1 · Accounting for this wave
 
-42 paths. Group primary-path counts:
+**44 paths are screened in this wave**, two of which are shared with `A3-MATT-ABC.md` and therefore
+count as 42 DEF-exclusive. Per-group counts:
 
 | Group | Paths | Group | Paths |
 | --- | --- | --- | --- |
 | DEF-1 diagnosis under uncertainty | 3 | DEF-8 merge/rebase resolution | 2 |
 | DEF-2 two-axis review (F) | 2 | DEF-9 context transfer | 3 |
-| DEF-3 periodic structural upkeep | 3 | DEF-10 durable learning workspace | 6 |
+| DEF-3 periodic structural upkeep | 3 | DEF-10 durable learning workspace | 5 |
 | DEF-4 large-effort planning under fog | 2 | DEF-11 long-form drafting | 3 |
 | DEF-5 prototype as bounded evidence | 4 | DEF-12 post-session retro | 1 |
-| DEF-6 delegated investigation | 2 | DEF-13 guardrails and tooling | 4 |
+| DEF-6 delegated investigation | 2 | DEF-13 guardrails and tooling | 9 |
 | DEF-7 human-only procedure | 3 | DEF-14 repo tooling patterns | 2 |
+| **Sum** | | | **44** |
 
-One path is multi-labelled: `skills/in-progress/setup-ts-deep-modules/SKILL.md` is screened in ABC
-MG-10 (as the enforcement answer to a design vocabulary) and again in DEF-13 (as the
-"prove the check fails before trusting it" mechanism). Same file, two mechanisms that must be judged
-separately; the count above lists it once in DEF-13 and it is not double-added. The remaining 127 of
-the 169 paths are the 59 A/B/C paths of `A3-MATT-ABC.md` and the 68 asset/metadata paths (38
-`agents/openai.yaml`, 13 `.changeset/*`, 6 READMEs, 4 manifests, 3 distribution/CI, 2 governance ADRs,
-2 repo-governance files) — no path in the pin is unaccounted across the two packages.
+**The two cross-package multi-labels, declared explicitly** (same file, two independently judged
+mechanisms, one in each package's territory):
+
+- `skills/in-progress/setup-ts-deep-modules/SKILL.md` — screened in ABC MG-10 as the enforcement answer
+to a design vocabulary, and here in DEF-13 as the *prove-the-check-fails* mechanism. Its
+`dependency-cruiser.config.cjs` is ABC-only.
+- `skills/in-progress/retro/SKILL.md` — screened in ABC MG-8 for its file-role / context-load allocation
+("the always-loaded instruction file should be used incredibly sparingly, usually only for navigation
+pointers"), and here in DEF-12 for the mechanical-vs-judgement classifier. Two different mechanisms in
+one file.
+
+Reconciliation across the two packages, by set equality against `git ls-tree -r --name-only <pin>`:
+
+```
+A3-MATT-ABC screened paths         59
+A3-MATT-DEF screened paths         44
+  shared by both packages           -2
+DEF-exclusive                      42
+asset / metadata / governance       68
+  (38 agents/openai.yaml, 13 .changeset/*, 6 READMEs, 4 manifests+hygiene,
+   3 distribution/CI, 2 governance ADRs, 2 repo-governance files)
+TOTAL                              169
+```
+
+No path in the pin is unaccounted across the two packages, and no path is counted as a knowledge
+increment twice: the two shared paths are declared here and in `A3-MATT-ABC.md` §1, so their mechanism
+is judged once.
 
 ---
 

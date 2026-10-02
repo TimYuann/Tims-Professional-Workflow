@@ -79,6 +79,13 @@ standard + MG-3 the two anti-pattern pairs).
 Per-group primary paths (a path may appear in more than one row only for the two multi-labelled
 files above; the column sums to 61 because of those two):
 
+**Cross-package overlap, declared so neither package counts the same mechanism twice:**
+`skills/in-progress/setup-ts-deep-modules/SKILL.md` (here in MG-10; also screened in
+`A3-MATT-DEF.md` DEF-13 for the *prove-the-check-fails* mechanism) and `skills/in-progress/retro/SKILL.md`
+(here in MG-8 for the file-role / context-load allocation; also screened in DEF-12 for the
+mechanical-vs-judgement classifier). Both are counted in this package's 59 and in that package's 44,
+so the two-package reconciliation is `59 + 44 − 2 + 68 = 169`.
+
 | Group | Paths screened here |
 | --- | --- |
 | MG-1 red-before-green loop | 6 |
