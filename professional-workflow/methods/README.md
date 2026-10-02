@@ -49,11 +49,10 @@ Gate-reviewed, byte-passed files integrated by Driver; load only what the task n
 | Explain a mechanism or rationale | `guide-professional-explanation.md` | audience/mechanism/report scope; plain restatement without fake certainty |
 | Learn a professional skill explicitly | `professional-learning.md` | only explicit learning tasks; coverage is not mastery; no default curriculum |
 | Ask clarifying questions by dependency | `decision-elicitation.md` | facts first, then dependency-ordered questions; an unaccepted recommendation does not settle a decision |
-| Change positioned artifacts (docs/sheets/slides) | `guide-positioned-artifacts.md` | position/revision semantics; lint is not visual proof; real-host claims need real observation |
 
 Also integrated: tightened `local-defect-feedback-loop.md` (root-cause/observation-surface clarification), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (comparison scope) and the matching Profile pointers. `architecture-survey.md` uses the B2 canonical version; the B1 duplicate is not installed.
 
-Held for pending fixes or dependencies (do not treat as consumed): `domain-state-and-invariants` J1 update (narrowing fix pending; the earlier integrated version stays), `external-tool-operation` §8 (pagination/bulk owner-gate narrowing pending), the seven C1/C3/C4/C5/C6/C7/C9 methods in `absorb/w3` (awaiting gate2), and the second-side Profile pointers (shared `profiles/evidence-evaluation.md` merges serially when those targets pass).
+Held for pending fixes or dependencies (do not treat as consumed): `domain-state-and-invariants` J1 update (narrowing fix pending; the earlier integrated version stays), `external-tool-operation` §8 (pagination/bulk owner-gate narrowing pending) together with `guide-positioned-artifacts` (its §Use/§16/Source anchors reference that method; the pair integrates in the same fixed object, or gate directs the references to existing sufficient commitments), the seven C1/C3/C4/C5/C6/C7/C9 methods in `absorb/w3` (awaiting gate2), and the second-side Profile pointers (shared `profiles/evidence-evaluation.md` merges serially when those targets pass).
 
 ## Status and source trace
 
