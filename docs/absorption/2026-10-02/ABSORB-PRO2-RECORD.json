@@ -1,8 +1,8 @@
 {
-  "state": "sent-generating",
+  "state": "complete-pass",
   "allowance_used": 2,
   "allowance_total": 2,
-  "completed_reviews": 1,
+  "completed_reviews": 2,
   "conversation_url": "https://chatgpt.com/c/6abfe3b0-d004-83e8-b850-94bf84148db9",
   "ego_space": 25,
   "ego_page": "p1",
@@ -16,7 +16,13 @@
   "attachment_ready_verified": true,
   "github_chip_verified": true,
   "stopping_ui_observed": true,
-  "answer_complete": false,
+  "answer_complete": true,
   "request_sha256": "089a6b06c0b65869cb76c51fae87e7bb34324eb2bc42f0d1efcfcf76c49d8ed6",
-  "delta_packet_sha256": "7271e3f5971f4923289f2fde56f8a81ad360aeb0ca2e10d2ab8a286db4047ed9"
+  "delta_packet_sha256": "7271e3f5971f4923289f2fde56f8a81ad360aeb0ca2e10d2ab8a286db4047ed9",
+  "verdict": "PASS bounded adoption",
+  "closed_ids": [
+    "TPW-PRO1-001",
+    "TPW-PRO1-002",
+    "TPW-PRO1-003"
+  ]
 }
