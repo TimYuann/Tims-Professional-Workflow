@@ -141,3 +141,4 @@
 | G2-CONS2 | 合并复核 w1 aadcb46..b8358cd 与 w2 dbd7e84..9dcc85a | — | — | — | — | — |
 | B3-DEF2 | e3c77c8（H05/H08/H09 三文件；external-tool-operation 部分转 B2） | — | gate2 审 + B2 承接 | — | — | — |
 | INT13 | 切片13 92351c9eeeb40c5adaa39a6f5d91f3c822b85d3b（9 PASS 文件含 accessibility guide） | core 见回执 | 6 窄修派工 | — | — | — |
+| B-FIX6 | B1 五项（N-REUSE/N-DELIVERY/N-CHARACTERIZATION/N-HANDOFF/N-HARNESS）；B2 N-CLI-ORACLE | — | 已派 | — | — | — |
