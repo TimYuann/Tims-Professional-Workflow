@@ -193,3 +193,4 @@
 ### 机械核结果（check，2026-10-03）
 - c7215694 机械核 PASS 7/7：core 59 文件、相对 6b64b59 零删除零重命名、subtree a1a27613 与 archive 6ad60594 对上；methods 42/42 全索引、held 段已消；7 条相对链接全解析、0 悬空；evidence-evaluation 同时保 B1+B2 指针；Backbone ce82a700 未变；diff --check 干净、无混入；LEDGER/reader 3 份/reviews 51 份在场。
 - 唯一非阻断：methods/README L89 “Pending gate-confirmed fixes and the shared Profile merge are listed…” 指向的 pending 列表已不存在（stale 措辞句）。按 Owner “勿改 c721 产品字节”，本句留待下一次措辞批删除/改写，不计入当前候选缺陷；产品字节保持 c7215694/a1a27613。
+| NEWPIN | 元数据修正 5d7d89d3（core 0e7614cd, archive 2758099e）；仅 4 元数据文件；check 中 | — | Oracle push/readback | — | — | — |
