@@ -89,3 +89,4 @@
 | GATE2 | tpw-absorb-gate2（Codex GPT-6.1 SOL medium 冷接班） | w27:p10 | ready，按承载接 A2R-ABC4 起 | — | — | — |
 | GATE2 | 仅待命（不并行裁，不用量扩大） | w27:p10 | standby only | — | — | — |
 | GATE1-HO | 旧 gate 完成 ABC4 后写最短 handoff 再退 | w27:p12 | 已通知 | — | — | — |
+| INDEX-FIX | 补 domain-state-and-invariants / verification-harness-design 两行索引 | — | 280fbf4521abca30134ed94a346db75e9bd8221c | — | — | — |
