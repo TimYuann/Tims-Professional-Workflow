@@ -155,3 +155,45 @@
 本报告消费 fixed 对象：commit `f76a5955a89e4d703f66c120a90ab2b37901b7f2`，core 子树 `professional-workflow/` = tree `01514a3918dbf5a08d47b2f8e046c30e6ee0ee82`；序列上一轮消费 `0e2bc4ba72ab8825b84e0e455de9ae5a2df26fe9`（同为 `professional-workflow/`）。报告内所有引用均来自上述对象内文件；未使用 mutable 工作区内容，未执行任何代码、网络或 Provider 操作。
 
 **文本可消费观察，非运行效果。**
+
+## Correction (one feedback round, original retained as history)
+
+本节为 reader2 的一次 feedback 轮：纠正上文中两处实际误读。只追加本节，不改其他内容；原文保留作为历史，凡与本节冲突处，以本节为准。未重跑 cold read，未执行代码/网络/Provider 操作，消费对象不变（commit `f76a5955…`）。
+
+### (a) 动作 4：把「真实 app/service 或 Provider」一并当作超出本地测试授权
+
+**原文（动作 4）：**「若需要真实 app/service 或真实 Provider 才能驱动 → 超出当前授权/环境，停（进入 §7 召回）。」
+
+**误读：** 把「真实」与「远端/授权外」画了等号，于是把可在本地实际执行的对象也一并推进了召回。
+
+**正确语义：**
+
+- **real leg 指实际执行被声明的对象/代码/交互，不等于远端联网。** 真实 SDK、production mapping、序列化/解析代码在被声明的对象上真正跑起来，就是 real leg 的一种形式；它不因「真实」二字自动越出「只允许本地测试运行」的授权。
+- **local service 不因叫「真实」就自动越出 local 测试授权**；本地启动、本地驱动属于本地测试运行的范畴，是否在授权内取决于任务对象与工具边界，而不是取决于它是不是「真实服务」。
+- **远端 Provider/部署行为另需其相应证据**（真实远端交互、部署环境观察），这部分才可能超出「本地测试运行」的授权，按 §7 召回。
+- **修正后的动作 4 执行判定：** 先做本地可执行的部分——用本地合法 stub/fixture 实际执行 production adapter 的 mapping、实际执行真实 SDK/序列化代码并捕获观察；只有确实需要远端 Provider 或部署环境观察的 claim 才停下并召回。
+
+**fixed 文本可核对句（f76a5955）：** `behavior-claim-evaluation.md` §Use：「The verification surface follows the claim's natural requirement. Synthetic or fixture-based evidence is appropriate when the claim is about logic isolation or mapping under controlled input」；「Test mode is a professional choice, not a whitelist.」（该 §Use 的 author addition 即「verification surface follows the claim's natural requirement」这一表述。）`guide-mock-adapter-choice.md` Rule 3：「observe the adapter at its own surface — a local stub or recorded fixture is one option for contract mapping」「this is not a universal no-network rule.」
+
+### (b) §6 C4：把 SDK/wire/Provider/部署混成一桶判「全不能证」
+
+**原文（§6 C4）：**「**C4（真实 Provider/SDK/wire/部署）**：**在现有授权内无法建立**……保持 UNVERIFIED。」
+
+**误读：** 把四类观察合并成一个整体判定，连带把可在本地合法执行的 SDK/production mapping 部分也判为不可证。
+
+**正确拆分：**
+
+| 观察类别 | 修正后的判定 |
+| --- | --- |
+| production mapping / 真实 SDK 的本地执行 | 属于动作 4 可达范围：在本地合法 stub/fixture 下实际执行适配器/序列化代码即可证明该范围。在给定事实下其状态是「尚未执行」，不是「无权执行」；不因「无真实 Provider 可用」而判不可证。 |
+| wire 行为 | 拆开看：本地可观察的序列化字节/字段形状/构造结果，可在本地执行中观察到；真实远端链路上的 wire 行为，随远端 Provider 一并另需证据。 |
+| 远端 Provider 行为 | 另需其相应证据（真实 Provider 交互）；在现有授权下不可建立的部分保持 UNVERIFIED，并按 §7 召回。 |
+| 部署行为 | 同理，另需相应证据；部署/发布动作不在本次任务授权内。 |
+
+因此 §6 的 C4 条按上表拆分替换；§6 中 C2/C3「本地 fixture 驱动 production mapping 可达」的结论与本节一致，不受影响；C4 中「不依赖远端观察即可证明的部分」改判为「尚未执行（可达）」，只有「远端 Provider/部署」保持「现有授权内不可建立 + 召回」。不声称任何观察已被执行。
+
+**fixed 文本可核对句（f76a5955）：** `verification-harness-design.md` §Use：「A real leg is required only for the claims that need one」；`guide-mock-adapter-choice.md` Rule 3 与 §Counterexample：「observe the production adapter against a local stub/recorded fixture covering nested/missing/null shapes and assert request + parsed output, with the mapping path actually invoked」。
+
+**来源说明：** 本节接受的语义（real leg = 实际执行被声明的对象/代码/交互，不等于远端联网；真实 SDK/production mapping 可在本地合法 stub/fixture 下实际执行并证明该范围；local service 不因叫真实就自动越出 local 测试授权；远端 Provider/部署行为另需其相应证据）来自本次 tpw-night-driver feedback，与上列 fixed 文本句子一致。该定义在消费的 f76a5955 版本中无逐字原句，以本次反馈为准接受。
+
+消费 commit 仍为 `f76a5955a89e4d703f66c120a90ab2b37901b7f2`（core tree `01514a3918dbf5a08d47b2f8e046c30e6ee0ee82`）；本节为**文本可消费观察，非运行效果**。
