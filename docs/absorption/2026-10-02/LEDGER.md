@@ -100,3 +100,6 @@
 | INT3 | 第三切片 84ffaa6d（8 w1 修后 + professional-learning + README） | core 90956104 | gate2/Oracle 知悉 | — | — | — |
 | INT4 | 第四切片 ee50a7fdc87e54828a22a8825928a1e119f82c1d（elicitation/cli-contract/agent-text/positioned-artifacts） | core 见回执 | external-tool-operation §8 修中 | — | — | — |
 | DEP-FIX | guide-positioned-artifacts 消费索引暂 hold（依赖 external-tool-operation §8） | — | 8d162269993cb0c8ccc6b61a5131d19cace02edf | — | — | — |
+| INT6 | C5/C7 整文件 PASS 集成 9916f23b（core 1f509b6f） | — | gate2 知悉 | — | — | — |
+| B-FIX3 | w1 d1eed24（domain-state J1）、w2 4f86ae7（EXT8）待核；B3 C1/C3/C4/C6/C9 修复中 | — | — | — | — | — |
+| READER-P21 | p21 由 Owner 窄恢复（cd 工作区 + pi -ne + 同 Flash max）；Driver 暂停启动动作 | — | 等成功身份 | — | — | — |
