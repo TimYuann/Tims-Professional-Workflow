@@ -65,3 +65,5 @@
 | R4 | A3-MATT-DEF | 14/14: 合并9限缩5 | 落点：local-defect/change-review/arch-survey/uncertainty/bounded-prototype/source-evidence/human-procedure/merge/handoff/learning/explanation/lesson+check-design | 已派 B1/B2 第四批 | — | — |
 | W3-a4 | DEF3 ✅ + THIRD-PARTY ✅ | orchestrate 正文 6 组 + 482 全账 | 待 gate | — | — | — |
 | PRO-ALLOW2 | 本轮新额度 2/2 未用（Oracle 持有；与旧已用额分账） | — | — | — | — | — |
+| B-D5 | w1 f321c8c（fix+2批完整） | — | 优先复核 | — | — | — |
+| B-D6 | w2 b8b1d28（fix+2批完整） | — | 优先复核 | — | — | — |
