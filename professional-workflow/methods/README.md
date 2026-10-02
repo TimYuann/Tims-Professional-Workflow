@@ -48,6 +48,8 @@ Gate-reviewed, byte-passed files integrated by Driver; load only what the task n
 | Resume work from a handoff | `handoff-and-resume.md` | reconstruct from artifacts; verify necessary claims against the fixed object; no contract-like non-recheck |
 | Explain a mechanism or rationale | `guide-professional-explanation.md` | audience/mechanism/report scope; plain restatement without fake certainty |
 | Learn a professional skill explicitly | `professional-learning.md` | only explicit learning tasks; coverage is not mastery; no default curriculum |
+| Set a quality policy or gate | `quality-policy-enforcement.md` | four questions per threshold row; examples and exceptions carry owners; no universal checker |
+| Design observability for a service | `observability-design.md` | on-call questions first; symptom alerts; trial-fire within valid permission; allowed fields follow the redacted guide |
 | Ask clarifying questions by dependency | `decision-elicitation.md` | facts first, then dependency-ordered questions; an unaccepted recommendation does not settle a decision |
 
 Also integrated: tightened `local-defect-feedback-loop.md` (root-cause/observation-surface clarification), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (comparison scope) and the matching Profile pointers. `architecture-survey.md` uses the B2 canonical version; the B1 duplicate is not installed.
