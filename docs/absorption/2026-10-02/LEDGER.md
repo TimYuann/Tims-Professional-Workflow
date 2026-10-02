@@ -142,3 +142,4 @@
 | B3-DEF2 | e3c77c8（H05/H08/H09 三文件；external-tool-operation 部分转 B2） | — | gate2 审 + B2 承接 | — | — | — |
 | INT13 | 切片13 92351c9eeeb40c5adaa39a6f5d91f3c822b85d3b（9 PASS 文件含 accessibility guide） | core 见回执 | 6 窄修派工 | — | — | — |
 | B-FIX6 | B1 五项（N-REUSE/N-DELIVERY/N-CHARACTERIZATION/N-HANDOFF/N-HARNESS）；B2 N-CLI-ORACLE | — | 已派 | — | — | — |
+| INT14 | 切片14 7228dffa88f2fdf9400a017355ba006a7ad12a8b（B3 DEF2 三文件 PASS） | core 见回执 | B1/B2 修后对象待审 | — | — | — |
