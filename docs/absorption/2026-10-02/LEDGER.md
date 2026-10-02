@@ -54,3 +54,5 @@
 | B-D2 | w2 11136eb（A3 B/A/W 蒸馏） | — | 待 gate 差分 | — | — | — |
 | W1-a2r#6 | CURSOR-ABC6 ✅ | F/交付/验证/清理 | 待 gate | — | — | — |
 | W1-a2r#7 | CURSOR-ABC7 ✅ | meta/仲裁/走查/台账 | 待 gate | — | — | — |
+| W1-a2r#8 | CURSOR-ABC8 ✅ | 实验/性能/取证/协调 | 待 gate | — | — | — |
+| B-FIX | B1 e561233 修1项；B2 11136eb 修3项 | — | 已派修复 | — | — | — |
