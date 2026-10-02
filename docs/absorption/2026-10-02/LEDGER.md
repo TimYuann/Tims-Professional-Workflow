@@ -81,3 +81,5 @@
 - EF addendum bfcache/no-store 绝对断言未裁：若 B 采用须按实际浏览器核官方适用性或写明源版本限度，不为性能否定有效 security/cache policy。
 | B-D7 | w1 57b4aad（batch4+R1-R5） | — | 优先复核 | — | — | — |
 | B-D8 | w2 a64bbc2（batch4+修复关闭） | — | 优先复核 | — | — | — |
+| ORACLE-A4TP | A4-THIRD-PARTY 归 Oracle 裁定（474+8 分母/8指南可迁移、不硬化价格审批） | — | Oracle 接手 | — | — | — |
+| ORACLE-A1CD | A1-ADDY-CD 9/9 已裁（C2/C8→B1，其余→B3） | — | 进行中 | — | — | — |
