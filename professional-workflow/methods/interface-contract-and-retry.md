@@ -34,7 +34,7 @@ The reason is the writer, not the channel or the store. "It came from our own da
 
 ## 3. Structural checks do not cover cross-field semantics
 
-A schema validates shape, field constraints and unified enumerations. It does not validate invariants that span fields. Before consuming the data, check the cross-field invariants the contract depends on:
+A shape-only schema (and a JSON schema generated from a type) checks field constraints and unified enumerations. It does not carry the runtime cross-field checks that a `refine`/`superRefine` or an equivalent actually performs (see the generated-artifact bullet below). Before consuming the data, check the invariants the contract depends on:
 
 - referenced identifiers exist in the consumed set
 - no self-reference, and no reference cycle where the model requires an acyclic graph

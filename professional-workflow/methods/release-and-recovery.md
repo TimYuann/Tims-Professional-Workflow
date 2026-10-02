@@ -1,6 +1,6 @@
 # Release and recovery · candidate method body
 
-- **Status:** candidate distilled under `docs/absorption/2026-10-02/reviews/ORACLE-REVIEW-A1-ADDY-CD.md` (C4, 2026-10-02, source `addy@2686b620`) and further extended under `docs/absorption/2026-10-02/reviews/REVIEW-GATE2-A4-CURSOR-DEF.md` (G05 gate-status counterexample, G04 gate-answer semantics, 2026-10-02, source Cursor `ecc249f1`); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
+- **Status:** candidate distilled under `docs/absorption/2026-10-02/reviews/ORACLE-REVIEW-A1-ADDY-CD.md` (C4, 2026-10-02, source `addy@2686b620`) and further extended under `docs/absorption/2026-10-02/reviews/REVIEW-GATE2-A4-CURSOR-DEF.md` (G05 gate-status counterexample, G04 gate-answer semantics, 2026-10-02, source Cursor `ecc249f1`); revised under `docs/absorption/2026-10-02/PRO1-DISPOSITION.md` (TPW-PRO1-001: observed usability separated from the acceptance act); not yet an accepted reference; creates no authority, trigger, or gate. A fixed-diff review still applies.
 - **Method owner when bound:** D/E plan the change, its rollout and its recovery path; the go/no-go decision, risk acceptance and any external communication stay with the authority that actually owns them.
 
 ## Use
@@ -11,10 +11,16 @@ Four different things are often called "release". Keep them separate, because cl
 
 - **deployed** — the artifact is present in the target environment
 - **enabled** — the feature is active for someone (flag on, route serving, job scheduled)
-- **accepted** — the intended user path actually works and is observed to work
+- **observed / verified usable** — the intended user path has been observed (or otherwise verified) to work for a definite object and version within a stated boundary: which path, when, under what conditions, and with what evidence — or the honest gap
 - **shut down** — the old path is removed and the temporary machinery (flag, dual path, migration task) is gone
 
-**Deployed is not enabled, and enabled is not usable.** A deployment that reports success while the user path fails is a deployment, not a release.
+**Deployed is not enabled, and enabled is not observed usable.** A deployment that reports success while the user path fails is a deployment, not a usable release.
+
+**Acceptance is an act, not an observation.** The responsible party — a role, or an existing valid rule that already covers the object — accepts a definite object and version, and the record names who or which rule accepted it, when, and under what scope or conditions. An observed or verified usable path is evidence for that decision; it is not the decision, and an F PASS does not produce acceptance. Do not route every acceptance to a human by default: an existing valid delegation can accept within its own boundary, and the record then names that rule.
+
+Record the two separately — `observed` (object/version, path, time and conditions, evidence or gap) and `accepted` (object/version, acceptor or rule, time, scope) — because they have different truth conditions and different owners. Collapsing them either blocks a working release on an unrecorded decision or treats authority as proof that the implementation works. Two cases show why:
+- the observed path passes (the canary is stable and the critical flow was exercised) but the authorized acceptance for this object has not happened: observed, not yet accepted;
+- the behaviour contract is accepted (for example by B/C) but the implementation was never observed: accepted contract, unobserved implementation — acceptance of the design is not evidence that the built version works.
 
 ## Preconditions
 
@@ -62,7 +68,7 @@ The error budget is a policy signal, not a negotiation: what action follows when
 
 ## Observation after enablement
 
-The first hour after enabling is when "deployed" is tested against "usable". The source's checks are a usable starting set: the health check returns successfully, error monitoring shows no new error class, latency shows no regression, the **critical user flow is exercised by hand**, logs are flowing and readable, and the rollback mechanism is confirmed ready (a dry run where possible). These are observation steps, not a universal gate; the actual set follows the change's critical path.
+The first hour after enabling is when "deployed" is tested against "observed usable". The source's checks are a usable starting set: the health check returns successfully, error monitoring shows no new error class, latency shows no regression, the **critical user flow is exercised by hand**, logs are flowing and readable, and the rollback mechanism is confirmed ready (a dry run where possible). These are observation steps, not a universal gate; the actual set follows the change's critical path.
 
 ## Recovery and data
 
@@ -81,7 +87,7 @@ The first hour after enabling is when "deployed" is tested against "usable". The
 
 | Source | Retained contribution |
 | --- | --- |
-| Addy Osmani, `addyosmani-agent-skills` at `2686b620fc1fed2e8f60c704839c766b8594c6b6`, `skills/shipping-and-launch/SKILL.md` (`Feature Flag Strategy`, `Staged Rollout`, `Rollout Decision Thresholds`, `When to Roll Back`, `Monitoring and Observability`, `Post-Launch Verification`, `Error Budget Release Gate`, `Rollback Strategy`, `Red Flags`) | Deployment/enablement/acceptance/shutdown distinction; flag owner, expiry, no nesting, both states tested; advance/hold/rollback relative to a baseline; burn rate as a hold signal even when individual thresholds pass; the four-part rollback plan with a time magnitude; data reversibility; first-hour verification including the critical user flow; error-budget policy as an owner decision. |
+| Addy Osmani, `addyosmani-agent-skills` at `2686b620fc1fed2e8f60c704839c766b8594c6b6`, `skills/shipping-and-launch/SKILL.md` (`Feature Flag Strategy`, `Staged Rollout`, `Rollout Decision Thresholds`, `When to Roll Back`, `Monitoring and Observability`, `Post-Launch Verification`, `Error Budget Release Gate`, `Rollback Strategy`, `Red Flags`) | Deployment/enablement/observed-usability/shutdown distinction, with acceptance as a separate act by an authorized party or existing rule; flag owner, expiry, no nesting, both states tested; advance/hold/rollback relative to a baseline; burn rate as a hold signal even when individual thresholds pass; the four-part rollback plan with a time magnitude; data reversibility; first-hour verification including the critical user flow; error-budget policy as an owner decision. |
 | Same pin, same file (`The Pre-Launch Checklist`, `Common Rationalizations`) | The deployed-is-not-usable mechanism. The full pre-launch checklist (code quality, security, performance, accessibility, infrastructure, documentation) is not adopted as a universal gate; its applicable parts follow the actual change and the accepted quality policy. |
 | Cursor plugins, `ecc249f1e306fc64ddf83c7bed16cacf7c2239db`, `pstack/skills/poteto-mode/scripts/watch-pr/policy.ts` (`resolveChecks` / gate status rollup) | A gate or status field is not release permission: null/pending/`UNKNOWN` is not clear, review-required is not an allow, "not FAILURE" is not a pass, structural fields do not satisfy the required policy, prior CI green or automated approval is not risk acceptance, `READY` is neither merged nor released, and a default "(no answer) = accepted risk" field is not a decision. The watcher/rules are not ported. |
 
