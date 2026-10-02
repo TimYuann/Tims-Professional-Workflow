@@ -6,7 +6,7 @@ Profiles remain the owners of reusable responsibility mental models; this direct
 | --- | --- | --- |
 | Reproduce and repair a known local defect | `local-defect-feedback-loop.md` | E, with evidence supplied to F |
 | Plan a change with cross-module dependencies | `cross-module-design.md` | D, preserving B/C ownership |
-| Evaluate a specific behavior claim | `behavior-claim-evaluation.md` | F |
+| Evaluate a specific baseline/treatment behavior claim | `behavior-claim-evaluation.md` | F (comparison scope) |
 
 ## On-demand guides
 
@@ -33,7 +33,7 @@ Gate-reviewed, byte-passed files integrated by Driver; load only what the task n
 | Write agent-facing text with pointer and pruning discipline | `guide-agent-text.md` | authoring support; no per-sentence evaluation requirement |
 | Bound shared write surfaces and composition | `bounded-composition.md` | logical write surfaces and shared canonical objects; runtime mechanics stay with D/E |
 
-Also integrated at this batch: tightened `local-defect-feedback-loop.md` (diagnosis sampling/minimisation), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (scope of comparison evidence) and the matching Profile pointers. Pending gate-confirmed fixes and therefore not yet integrated: `handoff-and-resume`, `domain-state-and-invariants`, `verification-harness-design`, `change-review`, `bounded-prototype`, `guide-change-shape`, `guide-professional-explanation`, `rationale-and-premise-review`, `agent-facing-cli-contract`, `decision-elicitation`, plus the second-side Profile pointers (shared `profiles/evidence-evaluation.md` will be merged serially when those targets pass).
+Also integrated at this batch: tightened `local-defect-feedback-loop.md` (root-cause/observation-surface clarification), `cross-module-design.md` (observation surface/module judgment references), `behavior-claim-evaluation.md` (scope of comparison evidence) and the matching Profile pointers. Pending gate-confirmed fixes and therefore not yet integrated: `handoff-and-resume`, `domain-state-and-invariants`, `verification-harness-design`, `change-review`, `bounded-prototype`, `guide-change-shape`, `guide-professional-explanation`, `rationale-and-premise-review`, `agent-facing-cli-contract`, `decision-elicitation`, plus the second-side Profile pointers (shared `profiles/evidence-evaluation.md` will be merged serially when those targets pass). Reviewed PASS but not yet integrated, to be entry-checked on the next fixed object: `guide-lesson-promotion.md`.
 
 ## Status and source trace
 
@@ -56,4 +56,4 @@ Nothing here grants authority, permissions, risk acceptance, or permission for c
 
 ## Current state
 
-Current shipped selection: the three original method bodies (`local-defect-feedback-loop`, `cross-module-design`, `behavior-claim-evaluation`, extended at demonstrated gaps), the two on-demand guides above, and the gate-passed absorption slice. The package does not contain `path-trace`, `blast-radius`, `design-compare` or `drive-preview`; those four retired names have no equivalent body here and are not revived. Pending gate-confirmed fixes and the shared Profile merge are listed in the absorption batch section and `docs/absorption/2026-10-02/LEDGER.md`. Package acceptance status: `docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md` (2026-10-01 bounded usable reference). This index records consumption only; it grants no applicability trigger and no authority.
+Current shipped selection: the three original method bodies (`local-defect-feedback-loop`, `cross-module-design`, `behavior-claim-evaluation`, extended at demonstrated gaps), the two on-demand guides above, and the gate-passed absorption slice. The package does not contain `path-trace`, `blast-radius`, `design-compare` or `drive-preview`; those four retired names have no equivalent body here and are not revived. Pending gate-confirmed fixes and the shared Profile merge are listed in the absorption batch section and `docs/absorption/2026-10-02/LEDGER.md`. Package acceptance status: `docs/overnight/2026-10-01/ABSORB-FINAL-ACCEPTANCE.md` accepts the 2026-10-01 prior baseline package; it does not cover the 2026-10-02 absorption slice, whose reviewed integration and residuals are recorded in the absorption batch section and `docs/absorption/2026-10-02/LEDGER.md`. This index records consumption only; it grants no applicability trigger and no authority.
