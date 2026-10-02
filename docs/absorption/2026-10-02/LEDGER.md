@@ -220,3 +220,4 @@
 - 存储说明：完整包 784KB 与 raw JSON 286KB 均由 Git 追踪可取回；其来源为 workspace 内 `.worktrees/runtime/absorption-1002/`（本仓工作区过程材料，非 root runtime）。完整包内容可由候选 pin 重建并保 SHA，但实际送审字节以上述文件为准。
 | PRO1-002C | fix/pro1-b2@21bd9cd（§12 一行修：只读 status 查询不受写键窗限制）送 gate2 定向核 | — | — | — | — | — |
 | PRO1-001/003 | gate2@054b30c：release/interface/trust PASS、001 CLOSED；003 两句 held（裸 3%±5% 不能单判、Repeating 按 claim/noise）；002 等独立核 | — | B3 两句修中 | — | — | — |
+| PRO1-003FIX | B3 两句修（裸数不能单判、Repeating 按 claim/noise）派工 | — | — | — | — | — |
