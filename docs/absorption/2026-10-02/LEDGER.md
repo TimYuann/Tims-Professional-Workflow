@@ -113,3 +113,4 @@
 | READER-VERDICT | gate2：入口/装配层有限 PASS；两案未直接消费方法正文，不记完整正文/两名 fresh PASS；不宣效率/生产资格 | — | 已入库 | — | — | — |
 | B3-C3FIX | 98ba9b4（C3 step3 两条件+快照竞争反例） | — | 优先送 gate2 | — | — | — |
 | INT8 | deprecation 集成 f3ba9a00（core d77b9a27）；B3 七文件全入 core，依赖闭 | — | Oracle 知悉；held 仅 B2 Profile 指针 | — | — | — |
+| B2-ABC3 | 941a139（charter 最短启动 + rationale citation） | — | 送 gate2 队列 | — | — | — |
