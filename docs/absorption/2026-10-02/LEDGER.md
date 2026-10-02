@@ -117,3 +117,4 @@
 | R-ABC5 | ABC5 5/5（1/3限缩合并 2去重 4限缩 5合并）；双 code-quality SKILL 同字节；strongest-supported 聚合 | — | B1(MG1/2/3/4) B2(MG1) 已派 | — | — | — |
 | INT9 | 切片9 164c332f740378ea6c3325b52cd00f7360366d99（charters README/template + rationale citation） | core 见回执 | gate2 PASS 集成 | — | — | — |
 | READER-USE | reader2 continuation 专业使用观察（fixed f76a5955，adapter mapping 情境） | — | 进行中 | — | — | — |
+| B1-ABC3 | 8cdd399（MG1/2/3/5 定向蒸馏） | — | 送 gate2 队列 | — | — | — |
