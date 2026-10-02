@@ -147,3 +147,4 @@
 | INT15 | 切片15 07b45124322e6ce24d1b6c3ad1bc646cdb70c3f3（8 PASS；handoff/design 两窄修 held） | core 见回执 | — | — | — | — |
 | RESUME | STOPPAGE 已保全 c9d1a97（root=night 12c4c278）；广播完成通道＝herdr prompt driver；8 PASS 集成 slice15 07b45124；handoff/design 两窄修 B1 在飞；gate2 无在飞 | — | — | — | — | — |
 | B2-DONE | f88e105/8ee9f7d/1cd6430 交付经 herdr 到达；已含于 slice15 集成；B2 无在飞 | — | — | — | — | — |
+| B1-FIX-DONE | b2c33a1（measurement reuse + swarm anchors）送 gate2；补 behavior-preserving 索引 | — | — | — | — | — |
