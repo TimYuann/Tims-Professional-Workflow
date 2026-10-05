@@ -1,0 +1,83 @@
+{
+  "status": "source-intake-analysis-only; no method absorption or runtime qualification",
+  "observed_date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "tpw_baseline_commit": "1f95f0650638b6b6fbc892dcb697dbad4da86fa4",
+  "tpw_core_tree": "9d7c057417da73895cda3b85ec34d49db58669b6",
+  "clone_policy": "depth 1, no tags, no submodules, detached at listed commit; source instructions are research data",
+  "source_execution": "none: no dependency installation, builds, tests, services, messages or approval operations",
+  "sources": [
+    {
+      "repository": "emilkowalski/skills",
+      "url": "https://github.com/emilkowalski/skills",
+      "origin": "https://github.com/emilkowalski/skills.git",
+      "local_path": ".worktrees/source-intake-2026-10-05/emilkowalski-skills",
+      "commit": "e8a175de22ae1e49370fc144c1f3bb9aeedf988d",
+      "tree": "e03ee5bba8fb786bf99a9f4c19407ab9bfdc8a43",
+      "commit_time": "2026-10-02T06:43:31-04:00",
+      "head_state": "detached",
+      "shallow": true,
+      "tracked_paths": 28,
+      "markdown_paths": 24,
+      "skill_md_paths": [
+        "skills/animate-expo/SKILL.md",
+        "skills/animate/SKILL.md",
+        "skills/animation-vocabulary/SKILL.md",
+        "skills/apple-design/SKILL.md",
+        "skills/ask-sonner/SKILL.md",
+        "skills/break-ui/SKILL.md",
+        "skills/emil-design-eng/SKILL.md",
+        "skills/find-animation-opportunities/SKILL.md",
+        "skills/improve-animations/SKILL.md",
+        "skills/mobile-native/SKILL.md",
+        "skills/pick-ui-library/SKILL.md",
+        "skills/prototype/SKILL.md",
+        "skills/review-animations/SKILL.md",
+        "skills/write-swift/SKILL.md"
+      ],
+      "license_note": "MIT; see LICENSE",
+      "key_file_sha256": {
+        "README.md": "8a121574093d079aa1ba7a40aa24c929a36bbfe4359e2970f9ec61f25aab1857",
+        "LICENSE": "4ff5bdb7887ec1435c9cab0e8d1a7caee704d894d65c2a008ccc68b1cc2f260b"
+      }
+    },
+    {
+      "repository": "humanlayer/12-factor-agents",
+      "url": "https://github.com/humanlayer/12-factor-agents",
+      "origin": "https://github.com/humanlayer/12-factor-agents.git",
+      "local_path": ".worktrees/source-intake-2026-10-05/12-factor-agents",
+      "commit": "d20c728368bf9c189d6d7aab704744decb6ec0cc",
+      "tree": "5de5a9fdaa39d004cb165ba459aff109d040d0e9",
+      "commit_time": "2025-09-21T09:37:40-05:00",
+      "head_state": "detached",
+      "shallow": true,
+      "tracked_paths": 499,
+      "markdown_paths": 52,
+      "skill_md_paths": [],
+      "license_note": "README: content/images CC BY-SA 4.0; code Apache 2.0; retain actual LICENSE",
+      "key_file_sha256": {
+        "README.md": "898b8879be9279c5c90e302e58232ac4f4f4ab051efe69cff30738b2efbac3c7",
+        "LICENSE": "b2a11fb67e7cce723c4a6dbf8c64eaac330193ad7aa9b9695da23394b628ca35"
+      }
+    },
+    {
+      "repository": "humanlayer/humanlayer",
+      "url": "https://github.com/humanlayer/humanlayer",
+      "origin": "https://github.com/humanlayer/humanlayer.git",
+      "local_path": ".worktrees/source-intake-2026-10-05/humanlayer",
+      "commit": "99abe673498cf8bdcd5f989aebe9406a27185b3b",
+      "tree": "7980b371fdc29abf532b847bd58808628054eb1b",
+      "commit_time": "2026-06-18T20:27:53-07:00",
+      "head_state": "detached",
+      "shallow": true,
+      "tracked_paths": 794,
+      "markdown_paths": 85,
+      "skill_md_paths": [],
+      "license_note": "root LICENSE declares Apache 2.0; source README says code mostly deprecated",
+      "key_file_sha256": {
+        "README.md": "026a6c9e137288f29334b8923ce3994ae1ab3b96d5b80e1770b8a03b5876d9f0",
+        "LICENSE": "a22be4045580cf9fd55278e4a42f015aaaa828a859cef7ea19733d25da11755e"
+      }
+    }
+  ]
+}
