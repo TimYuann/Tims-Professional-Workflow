@@ -20,7 +20,9 @@ metadata:
 - 条件依赖：本目录内互相引用的导引（`guide-check-design` ↔ `guide-lesson-promotion`、`guide-professional-explanation` → `guide-redacted-evidence`、`guide-accessibility-observation` → `guide-test-evidence-quality`）在同一目录内可解析，无需跨目录、无需 symlink 别名推断。
 - 与入口的关系：入口按自身正文的实际条件依赖随包携带所需副本（见各入口 `SKILL.md`）；本根是**未随入口携带时**的公共取回点，不替代入口内的闭包。
 - 不随本根携带：`design-alternatives`／`cross-module-design` 等方法正文（它们是能力入口 `tpw-design-alternatives`／`tpw-cross-module-design`）；上游来源锚（出处记录，按上游 pin 取）。
-**正文内的 Status／评审语义**（如 “candidate”“not yet an accepted reference”“fixed-diff review”“尚未”“待审”）描述该正文在吸收批次中的**历史阶段**；**当前的适用与接受依据**是包接受记录 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Oracle 2026-10-03 接受，product `8ba69427…` / core `d0cbbfc8…`），全部 gate-reviewed 吸收增量已整合、无 held items。旧评审要求不对已接受对象重复；本包装不重开方法语义，也不由“已安装”推成“已接受”。
+**关于正文内的 Status／评审标注（时间身份）**：正文中 `candidate`、`not yet an accepted reference`、`fixed-diff review still applies` 一类标注，说明该正文在**吸收批次**中的评审阶段。对该批次已 gate-reviewed 并通过的对象，当前接受依据是 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Oracle 2026-10-03；product `8ba69427…` / core `d0cbbfc8…`）。该接受**只覆盖原接受对象本身**，不代表本包装、简介、资源可达性、安装状态或任何实际使用已经验证。
+
+**仍然现行有效、不因上述时间身份改写**：正文的适用条件与边界；权力限制（如“不产生 authority／trigger／gate”）；明确标为未经验证的实验性判断；以及明确 deferred／未采纳的分支（不晋升、也不复活）。本包装不重开方法语义，也不把“已安装”推成“已接受”。
 
 - 许可边界：本机自用；公开发行条款未定。上游 MIT 原文见 `THIRD-PARTY-NOTICES.md`。
 

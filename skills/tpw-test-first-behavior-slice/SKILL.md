@@ -21,7 +21,9 @@ metadata:
 - **边界指针**：正文未把职责外派给其他方法文件的指针。
 - **来源锚**（正文 Source anchors 段中的上游路径）：是出处记录，不是加载或执行本包的要求；需要这些能力时显式绑定其固定原件。
 
-**正文内的 Status／评审语义**（如 “candidate”“not yet an accepted reference”“fixed-diff review”“尚未”“待审”）描述该正文在吸收批次中的**历史阶段**；**当前的适用与接受依据**是包接受记录 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Oracle 2026-10-03 接受，product `8ba69427…` / core `d0cbbfc8…`），全部 gate-reviewed 吸收增量已整合、无 held items。旧评审要求不对已接受对象重复；本包装不重开方法语义，也不由“已安装”推成“已接受”。
+**关于正文内的 Status／评审标注（时间身份）**：正文中 `candidate`、`not yet an accepted reference`、`fixed-diff review still applies` 一类标注，说明该正文在**吸收批次**中的评审阶段。对该批次已 gate-reviewed 并通过的对象，当前接受依据是 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Oracle 2026-10-03；product `8ba69427…` / core `d0cbbfc8…`）。该接受**只覆盖原接受对象本身**，不代表本包装、简介、资源可达性、安装状态或任何实际使用已经验证。
+
+**仍然现行有效、不因上述时间身份改写**：正文的适用条件与边界；权力限制（如“不产生 authority／trigger／gate”）；明确标为未经验证的实验性判断；以及明确 deferred／未采纳的分支（不晋升、也不复活）。本包装不重开方法语义，也不把“已安装”推成“已接受”。
 
 `SOURCE.md` 记录固定 pin、逐项校验值与本地包装差异；`THIRD-PARTY-NOTICES.md` 保留上游 MIT 原文。本包许可边界：本机自用，公开发行条款未定。
 
