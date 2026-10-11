@@ -1,0 +1,147 @@
+---
+name: tpw-verification-harness-design
+description: "Design the verification harness for a claim, scoped to affected features and recipes. Use when a claim needs maintained verification; source-only checks do not claim live behaviour."
+license: Local self-use packaging only; no public distribution license granted; upstream MIT notices in THIRD-PARTY-NOTICES.md
+metadata:
+  package: tpw-skills-packaging-f5d6d054
+  status: local-use package
+  source-method: professional-workflow/methods/verification-harness-design.md
+  source-pin: f5d6d0547459eb15c40aec25617418d5ea4710e6
+  source-tree: 9d7c057417da73895cda3b85ec34d49db58669b6
+  source-sha256: ae9bafebd5209f8d134019a53ee3f1ebabf297a654806a0550b34f2e5b359c72
+---
+
+## 包装与资源边界（本机自用固定成品包）
+
+正文是固定 TPW 方法 `professional-workflow/methods/verification-harness-design.md` 的完整字节，成立于 `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；包装只增加本 frontmatter 与本节，不改正文。
+
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-agent-text.md`（写 agent-facing 文本时（经传递闭包））。
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-check-design.md`（写前该查什么（范围／真实入口／负控制）；UCBIP routing 中与本入口组合消费）。
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-lesson-promotion.md`（把经验提升为载具时（经 guide-check-design 传递））。
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-mock-adapter-choice.md`（选择跨依赖边界的测试替身／观察面时）。
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-professional-explanation.md`（解释机制／理由时）。
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-redacted-evidence.md`（输出／交接可能含敏感工件时；证据保管）。
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-test-evidence-quality.md`（判断所产证据能否支撑声明时）。
+- **边界指针**：正文未把职责外派给其他方法文件的指针。
+- **来源锚**（正文 Source anchors 段中的上游路径）：是出处记录，不是加载或执行本包的要求；需要这些能力时显式绑定其固定原件。
+
+`SOURCE.md` 记录固定 pin、逐项校验值与本地包装差异；`THIRD-PARTY-NOTICES.md` 保留上游 MIT 原文。本包许可边界：本机自用，公开发行条款未定。
+
+# Verification harness design · on-demand method (MG-5)
+
+- **Method owner:** F for the claim and its evidence; E for running the environment. The harness is an instrument, not a verdict.
+- **Status:** on-demand reference at a demonstrated gap (a scripted way to drive the real app/service and maintain it); a task Charter decides applicability. It adds no gate, test framework, or mandatory feature map.
+
+## Use
+
+Use when a claim about a real user-facing path needs evidence that only driving the actual app/service can provide and the repo has no scripted way to do it — or when such a harness has drifted. It complements, and does not replace: `behavior-claim-evaluation.md` (one applicable claim/verdict path), `guide-mock-adapter-choice.md` (which surface substitutes for which dependency), and `guide-redacted-evidence.md` (evidence custody). Fixture, pure-logic and internal setup evidence remain legitimate for the claims they fit; this method exists for the claims those cannot settle. A real leg is required only for the claims that need one, and the harness scope follows the delegation: a full pass across every feature is for a delegation that asked for exactly that. *(Source: cursor `ecc249f1…`, `pstack/skills/create-verification-skill/SKILL.md` L9–21; the claim-driven real-leg boundary is from the review and the R3 ruling.)*
+
+## Discover
+
+Interview the repository, not only the user; ask a person only for what the code cannot tell you *(Source: `create-verification-skill/SKILL.md` §1 L11–21)*:
+
+**Repo reality first.** Establish from the repository itself how it is actually run: the real package manager, wrapper, interpreter and entry commands (its scripts, task runner, lockfiles, CI config, container files — `make`, `pnpm`, `bun`, `cargo`, `pytest`, whatever it uses), not an assumed generic command such as `npm test`. The docs are a lead, not proof: follow the documented path literally where practical, and record whether it is accurate, a minor stale drift, a recoverable missing step, or a path that sends the reader wrong. Judge the **damage** of drift by whether the real path is still easy to recover, not by the existence of the drift. A cold start that fails within this run's budget means "no first success within this budget", not "the repo cannot start"; Docker/DB and other standard local prerequisites are friction, not failure; a missing credential, secret or infrastructure item is that surface unverified, named concretely. A lockfile, an occupied port or an existing repo process is a check lead, not proof of a defect; a scanner or static tool is a heuristic lead, not behavior evidence; and without a run, do not call the repo failed or succeeded. *(Source: cursor `ecc249f1…`, `agent-compatibility/skills/check-agent-compatibility/SKILL.md` and `agents/{startup,validation,docs-reliability,compatibility-scan}-review.md` — retained as judgment discipline, without its score model, fixed budgets or agent fan-out. Gate2 MG1 ruling.)*
+
+- **Surface:** what does a user actually touch (web UI, CLI/TUI, desktop app, API, mobile, library)? Pick the primary one, note the rest.
+- **Run:** how does the app start locally? Prefer the repo's own documented dev command. Note ports, env vars, seed data, auth.
+- **Drive:** how can an agent interact programmatically? Existing harnesses first (Playwright/Cypress specs, expect scripts, PTY helpers, curl-able endpoints, debug ports); only then a generic recipe.
+- **Observe:** what evidence can be captured (screenshots, terminal transcripts, response bodies, logs, exit codes, DB state)?
+- **Isolate:** can two instances run side by side (ports, data dirs, profiles)? If not, say so in the harness; refusing to double-drive a shared instance beats corrupting the user's session.
+
+If the checkout does not build or start as-is, fix that first or report it precisely before writing the harness: a harness written against a broken base teaches wrong steps. Creating scaffolding needed only because of an irrelevant missing asset is allowed when marked as scaffolding and removed in cleanup. *(Source: same section L21.)*
+
+## Recipe
+
+The harness must carry, from this repo rather than examples *(Source: §2 L25–32)*:
+
+- **Launch:** the exact command, how to tell it is ready (log line, port answering, prompt), and teardown; for a short-lived CLI/TUI, build once and start each drive in its own isolated session.
+- **Doctor:** one read-only check answering "is this instance worth driving?" — process up, right version/build, port owned by us, auth valid. Run it when the state is in question (a fresh instance, a fresh session, after a failed or surprising drive), not as a fixed gate before every action; where doctor cannot see the failure (a wedged UI on a healthy process), reset to a known state or relaunch rather than hoping. *(Source: same section L28; the review's doctor boundary.)*
+- **Drive:** the harness recipe with real selectors/commands; prefer stable handles (ARIA labels, data attributes, prompt strings, route paths) over coordinates and tab order.
+- **Evidence:** what to capture for a proof and where it goes. Proof standards: exercise the real user path, not internal setters or test-only endpoints; capture the action and the resulting state, not just the final screen; verify side effects (files written, rows inserted, messages sent) alongside what is visible; substitute/mock only where a production boundary already isolates the external system. **Record the feature, the entry point, and the build/environment the proof ran against**; a proof for one entry point does not cover a different (for example, skipped or unreachable) entry point, and another path must not be substituted for it. A save/status indicator is not evidence that state durably persisted: reopen it (or read it back through the real interface) before claiming persistence. A dry-run or test mode must be verified by observing what it actually skips (files, network, refs) rather than trusting its name — some dry-runs still touch the network.
+- **Cleanup:** how to tear down instances the run created; kill what you started, never by process name. Cleanup removes instances and scratch state, **never the evidence** — proof artifacts survive teardown at a named location. *(Source: same section L31.)*
+- **Helpers:** every shipped script is executable and its invocation is in the body; a helper the reader must reverse-engineer is not a helper. *(Source: same section L32.)*
+
+## Surface driving (execution)
+
+Choose the **real subject under test** — the actual command, workspace, page and version — and prefer the repo's own harness (its test/demo scripts, Playwright/Cypress/Storybook, expect/PTY helpers, Electron launch scripts) before assembling a temporary one. *(Source: cursor `ecc249f1…`, `cursor-team-kit/skills/control-cli/SKILL.md` and `control-ui/SKILL.md`; gate2 MG3 ruling.)*
+
+- **UI target selection:** with multiple windows sharing a debug port, select the page by a positive marker of the current app (its root selector, a known route/title), with a negative marker where needed — never guess by tab order. If no match can be established, list the actual titles/URLs/surfaces and report the ambiguity instead of driving a guessed target.
+- **Pick objects from a fresh structure.** Capture a snapshot/screenshot first, choose the target from the latest structure, perform one structural action, re-capture, and verify the expected state change. After navigation or a structural change, do not reuse a stale element reference; a coordinate-based click must follow a fresh capture and apply to that same fresh surface.
+- **One action, then wait on a concrete observable readiness.** Between actions, wait for a specific screen pattern, prompt or state (action → result), not a fixed sleep; a timed poll or timeout is not a defect by itself, but a blind sleep that merely masks a race is. Bundle multiple actions only where each step's preconditions and intermediate results are held by a stable interface and those intermediate results can still be observed.
+- **CLI/TUI:** keep a real PTY/session and a transcript; do not treat non-TTY or piped output as evidence of the interactive behavior. Capture the screen before interacting and after each change.
+- **Measurements:** performance/memory probes use the existing measurement rules (`behavior-claim-evaluation.md` §Method 3; `guide-test-evidence-quality.md`) rather than restating a performance policy. State the sampling and any interference — GC, stress or an inspector can change the phenomenon — and treat two heap snapshots as a lead, not proof of a leak or a root cause. Sensitive captures (screenshots, heap snapshots, real data) follow `guide-redacted-evidence.md` and the task's data/save authorization; where consent is missing, switch to a safe fixture or record the gap.
+- **Cleanup scope:** close only the sessions, processes, profiles and fixtures this run owns under its authorization; do not close or kill a browser or service the user shares (see §Cleanup and evidence). Do not add a dependency or open a remote-debug surface merely for a probe.
+
+### Adapter contract
+
+When a harness/adaptor drives a real app, the adapter declares its contract before it drives: *(Source: cursor `ecc249f1…`, `pstack/automations/benny/skills/reproduce-and-fix-issues/references/control-adapter.md`; no adapter or tool is ported. Gate2 G08.)*
+
+- **Report capabilities and identity up front.** Say what can and cannot be driven, and how to confirm this is the correct app/version/environment with a stable marker (distinguish the target from a similar window or a production instance). Where the identity, capability or isolation that this operation/claim actually needs is missing, close **that operation** and report the scope it leaves open — not the whole task; other legitimate local or captured evidence remains valid. No new Human actor or full-setup requirement is created as a default.
+- **Never manufacture the reported symptom.** Internal setters, direct storage writes, hidden methods or DOM injection may be used to arrange a precondition, but the symptom must come from the real user action on the real surface. **Record the real trigger, the discriminating state and the before/after objects**: the action/input that actually produces the symptom, the state that separates it from the expected behavior, and — for a fix comparison — the before and after objects under the same conditions. A local logic/mapping check remains legitimate for the claim it covers. *(Source: same reference; gate2 A4-DEF2 H09.)*
+- **Evidence is action plus resulting state**, with side effects (files/rows/messages) and a read-only cross-view where available; screenshots carry app identity, and a recording carries the discriminating terminal state. Translated environments (different OS/device/account) may support the mechanism tested, but the exact environment claim is not made.
+- Cleanup keeps the user's work and follows custody; it does not delete evidence and does not kill by process name.
+
+## Prove and limits
+
+- **Prove before handing over.** Run the harness's own instructions end to end once: launch, doctor, drive one mapped feature, capture evidence, clean up. After cleanup, confirm the evidence still exists where it was promised — a cleanup that eats the proof fails the step. Fix what fails and run cleanup after every failed iteration so broken attempts do not strand processes or ports. A harness that was never executed is a draft, not a deliverable. *(Source: §4 L38–40.)*
+- **Reproducing an existing fix** starts from a fixed old and new artifact on shared data/environment with an independent owner who is not competing on the fix. The baseline must actually reproduce the reported behavior (running it more than once is the source's illustration, not a universal bar); if the baseline is partial or impossible, record the real coverage it has instead of voiding other verified claims by default, and apply the same conditions to baseline and patched runs. A failure to start is an environment/check failure, not a product FAIL and not a reason to halt all tasks. Owning an artifact gives no permission to reply on the source thread, open a draft PR, or act in a tracker; a utility/debug bot is data, not a delegation. *(Source: `verify-existing-fix.md`; gate2 G08.)*
+- **Feature map — where the repo wants one.** One file per user-facing feature answering, from the user's point of view: what it is, how to reach it, how to drive it, and what observable end state proves it. The map records *how to observe*; it does not define what the behavior should be — B/C own the accepted behavior. When the product disagrees with the map, first check the accepted version; a mismatch is doc drift or a product regression, and updating the docs is not the default fix. Not every repo needs a map; this method does not require one. *(Source: §3 L34–36; `maintain-verification-skill/SKILL.md` §Edit scope L21, §Pass 5 L35.)*
+
+## Change-set checks (CI)
+
+When a change set has automated checks attached (CI jobs, required statuses), treat the **complete check set attached to this change set** as the status source — not one workflow's job list and not an old green run. *(Source: cursor `ecc249f1…`, `cursor-team-kit/skills/fix-ci/SKILL.md` and `loop-on-ci/SKILL.md`; retained without the forge-specific commands.)*
+
+- Read the current state first; diagnose a failed check before waiting on the rest. Extract the first actionable, load-bearing error; fix one failure cause per iteration; distinguish a downstream cascade from an independent cause. Prefer the smallest low-risk fix over a large refactor.
+- After every new fixed head (a push or an equivalent new revision), re-check the whole check set, which required statuses apply, and which commit each status is attached to: an older green does not cover a newer tip. **Pending is not green.**
+- Green means only that the checks that actually ran passed over the coverage they exercised; it grants no merge, release, or deployment permission, and it proves nothing about behavior outside that coverage.
+- Do not bypass a hook (for example `--no-verify`) to make progress and then present the result as fully green; where the project's valid rules allow an explicit bypass, record the skipped coverage and the basis. Never present a check that did not run as if it ran.
+- Scope: a failure clearly unrelated to this change whose real fix is already on the mainline may be integrated only inside the existing integration authorization and risk bounds, then re-checked; otherwise keep the original blocker or report it separately. Do not push or tag as an inherent part of reaching green — that follows the task's authorization, not this method.
+- No mandatory green loop for every task: this applies where the change set has checks and is being brought to a verifiable state. *(Gate2 MG3 ruling.)*
+
+## Combination verdicts and query failures
+
+Many real "may we proceed?" questions are a combination of necessary conditions, not one check. Keep each condition's own evidence and source, keep progress separate from terminal outcomes, and separate pending from a real blocker from a query that could not be made: *(Source: cursor `ecc249f1…`, `pstack/skills/poteto-mode/scripts/watch-pr/{types,policy,github}.ts`; scripts not ported. Gate2 G05.)*
+
+- **State the combination explicitly.** For example, "mergeable" = no conflict ∧ no unresolved review thread ∧ no failing required check ∧ the gate is open; each term is read from its own source. The example's conflict→thread→check→gate order is the source's actual priority, not a universal ordering: the necessary conditions and their priority come from the real host policy and the task's load-bearing risk. Report a main blocker while keeping the others visible rather than blending them into "not ready". *(Gate2 N-HARNESS.)*
+- **A rollup is only the check evidence it measured.** A forge merge-state of BLOCKED needs the actual host blocker/policy, and a passing rollup cannot by itself infer review-required clearance or unblock; advance only when all genuinely necessary conditions hold and the existing authorization supports it. The counterexample to preserve: a mechanical mapping that treats `BLOCKED` with `null`/`PENDING`/`EXPECTED`/`UNKNOWN` or a `REVIEW_REQUIRED`/code-review-gate as an allowed proof ("clear/OPEN") is not acceptable — an evidence-structure field is not the actual required policy being satisfied, and it cannot bypass the forge's blocking. A review gate is not a human approval and does not default to approved. A watcher may return "waiting on a reserved decision" rather than waiting forever, but it cannot release work. *(Gate2 G05 rejected rule and counterexamples; gate2 N-HARNESS.)*
+- **Query failure is an observation failure, not a product failure.** A structured parse, pagination, backoff and a bounded budget can support an observation; not every parse failure, missing key or non-zero exit is transient by default, and auth/refusal/semantic errors need a concrete fix or a return to their owner. The numeric backoff/exit values belong to the host, not this method. Older CI green or an automated review approval is not risk acceptance for the current object; READY is not merged and grants no release.
+
+## Maintain
+
+The unit of upkeep is the **feature**, not every sentence *(Source: `maintain-verification-skill/SKILL.md` L9–17)*. State the pass's object before working: which features/claims/recipes this maintenance covers and which are out of it, so a partial pass is not mistaken for a full audit.
+
+- Outcomes are **clean / changed / blocked** — work states, not the three-state verdict; say which one applies.
+- **Edit scope:** only the verification harness's own directory (skill body, feature files, its scripts). Never edit product code during the pass: a behavior the map describes that the app no longer does is either doc drift (fix the map) or a product regression (report it, do not paper over it in docs). *(Source: same file L21.)*
+- **Pass:** index hygiene (missing/extra/duplicate/dead entries); a read-only source wave per feature (how the feature works, likely drift with citations, one live recipe); reconcile (merge overlapping recipes, spot-check cited drift, sweep recent churn for missing surfaces); a **live pass** over the features this pass affects or whose claims need a real leg — the source wave can look clean and still miss runtime drift, so the live leg is required for the affected claims rather than for every feature, and a harness change re-drives the recipes it touched. Run across all features only when the delegation itself is a full-feature audit. A source-only check stays labeled source-only: it does not become a live pass by being reported, and a claim that needs the real path remains unverified if the path was not driven. Keep three invariants: doctor the instance when its state is in question, evidence survives every cleanup, and nothing a drive started outlives its usefulness; a doctor failure caused by harness drift is drift — fix it under edit scope and retry the affected path once. *(Source: §Pass L23–33; the affected-features/claims scoping and source-only labeling are the R3 gate ruling.)*
+- **Triage:** wrong/missing user-facing description → doc drift; behavior the harness cannot drive → harness gap (the fix is re-driven live before shipping); behavior actually broken → product gap, recorded for the owner and kept out of this change. *(Source: §Pass 5 L35.)*
+- A feature that cannot be reached is reported with its concrete prerequisite (auth, entitlement, OS, external state) and the route attempted; if the map omits that prerequisite, that is drift. *(Source: §Pass 4 L33.)*
+
+## Cleanup and evidence
+
+- Cleanup removes instances and scratch state; proof artifacts survive at a named location and are checked after teardown, not assumed. *(Source: `create-verification-skill/SKILL.md` L31; `maintain-verification-skill/SKILL.md` §Pass 4 L33.)*
+- Cleanup must not destroy evidence that custody requires; but raw sensitive retention and its expiry still follow `guide-redacted-evidence.md` and the task's policy — "never delete evidence" is not a reason to keep secrets.
+- Fixing a broken base, generating scaffolding, or cleaning another instance's residue requires existing action authorization; a broken environment is recorded UNVERIFIED rather than absorbed into the claim. *(Source: the review's broken-base/authorization boundary.)*
+
+## Limits
+
+- No test framework, no mandatory feature map, no requirement that every repo be driven live for every maintenance task, and no per-action health gate. The doctor is a state check, not a ritual. No fixed cold-start time budget, score or score formula is imported, and a scanner/static tool being unavailable is not a defect of the repository being examined. *(Gate2 MG1 ruling.)*
+- No adapter is required for every project, and no config budget number, mandatory video/screenshot set, pack path or commit-before-enable rule is imported; an environment that cannot be isolated does not erase legitimate captured/local narrow evidence — the isolation gap limits the specific claim that needed it, and beyond that it supports a "not trusted / needs human" conclusion only for that claim. *(Gate2 G08 / N-HARNESS.)*
+- Do not harden the source example's "never drive an instance this run did not start" into a universal ban: with real authorization and an isolated instance, an existing legitimate target may be used; the concern is only not corrupting a shared or unrelated session. *(Gate2 MG5 ruling.)*
+- The harness is evidence infrastructure: it does not set the claim, the threshold, the verdict, acceptance, or action permission. The accepted behavior stays with B/C; the task's policy and Charter define what evidence a claim requires; F designs and judges the evaluation. `behavior-claim-evaluation.md` is one applicable path within its own scope — not the sole owner of every claim, threshold, or verdict, and not a substitute for B/C's accepted behavior or the task's policy. *(The ownership scoping is the R3 gate ruling.)*
+- Substitution choice stays with `guide-mock-adapter-choice.md`; this method does not re-derive it.
+- Any harness that was generated but not executed is a draft; this method's own sources were read, not run, and their runtime behavior is not claimed here.
+
+## Source anchors
+
+| Source | Retained contribution |
+| --- | --- |
+| cursor-plugins `ecc249f1e306fc64ddf83c7bed16cacf7c2239db`, `pstack/skills/create-verification-skill/SKILL.md` (§1 Interview L11–21; §2 Generate L23–32; §3 Seed the feature map L34–36; §4 Prove L38–40; §5 Maintenance pointer L42–44) | The surface/run/drive/observe/isolate interview; launch/doctor/drive/evidence/cleanup/helpers; proof standards including dry-run observation; run-it-once and evidence-survives-cleanup; the optional feature map and its user-POV shape. |
+| cursor-plugins `ecc249f1…`, `pstack/skills/maintain-verification-skill/SKILL.md` (§Outcomes L11–17; §Edit scope L19–21; §Pass L23–37) | clean/changed/blocked as work states; edit-scope discipline (doc drift vs product regression); index hygiene, source wave, reconcile, live pass, the three pass invariants, triage. |
+| cursor-plugins `ecc249f1…`, `agent-compatibility/skills/check-agent-compatibility/SKILL.md` and `agent-compatibility/agents/{startup,validation,docs-reliability,compatibility-scan}-review.md` | Repo reality: real stack/wrapper/entry discovery, doc drift judged by recoverable damage, cold-start budget results as budget-relative, lockfile/port/process as leads, standard prerequisites as friction, scanner-unavailable ≠ repo defect, and no score model. *(Gate2 MG1.)* |
+| cursor-plugins `ecc249f1…`, `cursor-team-kit/skills/control-cli/SKILL.md` and `control-ui/SKILL.md` | Execution discipline: repo-native harness first; real command/workspace/page/version; positive app markers instead of tab order; fresh-structure target selection and no stale elements; one action then a concrete observable readiness; PTY/transcript for CLI; own-resource cleanup. *(Gate2 MG3.)* |
+| cursor-plugins `ecc249f1…`, `cursor-team-kit/skills/fix-ci/SKILL.md` and `loop-on-ci/SKILL.md` | The complete change-set check set as the status source; current state before waiting; one actionable failure per iteration; re-check the whole set and its commits after every new head; pending is not green; no hook bypass. *(Gate2 MG3.)* |
+| cursor-plugins `ecc249f1…`, `create-verification-skill/references/feature-map-example/README.md` and `create-note.md` | Entry-point granularity: record feature + entry + build/environment; a skipped entry is not replaced by another path; a save status is not durable persistence (reopen); cleanup keeps artifacts. *(Gate2 MG5.)* |
+| cursor-plugins `ecc249f1…`, `pstack/automations/benny/skills/reproduce-and-fix-issues/references/{control-adapter,verify-existing-fix}.md` | Adapter contract (capability/identity declaration scoped to what the operation/claim actually needs; a missing capability closes that operation and reports its scope rather than blocking the task; no manufactured symptoms; evidence action+state+side effects; translated environment labeling; custody-preserving cleanup) and the existing-fix reproduction pattern (fixed artifacts, shared conditions, real baseline, partial baseline keeps its coverage, start failure is not a product FAIL). No benny platform, config numbers or automation runner is imported. *(Gate2 G08 / N-HARNESS.)* |
+| cursor-plugins `ecc249f1…`, `pstack/skills/poteto-mode/scripts/watch-pr/{types,policy,github}.ts` | Combination-verdict discipline: explicit necessary-condition structure with conditions/priority from the real host policy (the source's order is an example, not universal), progress vs terminal, query failure as observation failure, host-owned numeric values; a rollup is only the check evidence it measured and BLOCKED needs the actual host blocker/policy. The BLOCKED+null/UNKNOWN/REVIEW_REQUIRED → allowed mapping, the code-review-gate-as-approval reading and the watcher are rejected/not ported. *(Gate2 G05 / N-HARNESS.)* |
+
+Authored additions: the claim-driven framing in Use, the doctor-as-state-check boundary, the "harness never executed is a draft" statement restated for this package, the cleanup-vs-custody sentence, the authorization boundary for scaffolding/other instances, the repo-reality judgment paragraph, the change-set CI discipline, the entry-point granularity for proofs, and the surface-driving execution discipline; plus the Limits.
