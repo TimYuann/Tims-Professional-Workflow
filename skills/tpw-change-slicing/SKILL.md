@@ -17,8 +17,13 @@ metadata:
 正文逐字节等于**历史固定对象** `professional-workflow/methods/change-slicing.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；**现行位置即本包**（该路径 2026-10-11 起已从工作流包摘出，仍可按 pin 取回）。包装只增加本 frontmatter 与本节，不改正文。
 
 - **读取型资源 / 实际条件依赖**：本入口不随包携带额外资源。
-- **边界指针**：正文未把职责外派给其他方法文件的指针。
+- **引用分类（按正文实际语义，不把文件名当强制加载）**：
+  - **职责指针（不强制读）**：`methods/bounded-composition.md`——共享写面／拓扑／干扰规则归属该入口；普通切片不因此加载。
+  - **出处／补充说明（不强制读）**：`methods/change-review.md` §Verdict object——该段规则已在正文内完整给出。
+  - **条件性规范依赖（触发时必读）**：`methods/cross-module-design.md` §Method 4——**删除或替换既有覆盖**时，必须按该规则先证明替代方案能覆盖原先接受的主张；该目标固定可达：`skills/tpw-cross-module-design/SKILL.md` §Method 4。只做普通切片时不需要读它。
 - **来源锚**（正文 Source anchors 段中的上游路径）：是出处记录，不是加载或执行本包的要求；需要这些能力时显式绑定其固定原件。
+
+**正文内的 Status／评审语义**（如 “candidate”“not yet an accepted reference”“fixed-diff review”“尚未”“待审”）描述该正文在吸收批次中的**历史阶段**；**当前的适用与接受依据**是包接受记录 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Oracle 2026-10-03 接受，product `8ba69427…` / core `d0cbbfc8…`），全部 gate-reviewed 吸收增量已整合、无 held items。旧评审要求不对已接受对象重复；本包装不重开方法语义，也不由“已安装”推成“已接受”。
 
 `SOURCE.md` 记录固定 pin、逐项校验值与本地包装差异；`THIRD-PARTY-NOTICES.md` 保留上游 MIT 原文。本包许可边界：本机自用，公开发行条款未定。
 

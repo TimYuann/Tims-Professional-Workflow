@@ -14,7 +14,7 @@
 1. 读 `docs/WORKFLOW-INTENT.md`（上层意图与术语）和 `docs/RESPONSIBILITY-BACKBONE.md`（责任边界接受冻结源；
    包内 `professional-workflow/authority/RESPONSIBILITY-BACKBONE.md` 是同字节的静态导出，不得手改）。
 2. 在 `professional-workflow/profiles/` 选择 Profile；按 `professional-workflow/charters/README.md` 填本次 Instance Charter；
-   按 `professional-workflow/methods/README.md` 只选择任务需要的方法；方法正文在仓根 `skills/` 成品批内（`skills/<entry>/SKILL.md`，与本包同一固定对象）。
+   按 `professional-workflow/methods/README.md` 只选择任务需要的方法；方法正文在 `skills/` 成品批内（`skills/<entry>/SKILL.md`）：TPW 来源发布包内的逻辑路径，同一次消费需同时固定 core 与 Skills（见 `professional-workflow/ADOPTION.md` §1）。
 3. 按 `professional-workflow/README.md` 的装配顺序生成任务启动文本；任务输入携带当前事实与固定引用。
 4. 交付状态、接受与证据入口：当前接受为 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（2026-10-03，Pro #2 PASS）；历史过程与证据在 `docs/overnight/2026-10-01/` 与 `docs/absorption/2026-10-02/`。
 

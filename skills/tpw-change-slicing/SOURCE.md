@@ -23,9 +23,11 @@
 
 携带规则：正文按文件名指向的资源（含传递的 guide→guide 引用，及已核的实际条件依赖）随包取回，保证同一固定包内可读；仅出处锚与“边界指针”不携带。
 
-## 边界指针（文件不随包）
+## 引用分类（文件不随包）
 
-- 无
+- 职责指针：`methods/bounded-composition.md` → `tpw-bounded-composition`（不强制读）
+- 出处／补充：`methods/change-review.md` §Verdict object（规则已在正文）
+- **条件性规范依赖**：`methods/cross-module-design.md` §Method 4 → `skills/tpw-cross-module-design/SKILL.md` §Method 4（删除/替换既有覆盖时必读；普通切片不读）
 
 ## 来源（本正文 + 随包资源的并集）
 

@@ -28,9 +28,9 @@ Method selection stays with [`../methods/README.md`](../methods/README.md) and t
 
 ## Assembly
 
-From the repository root, use the selected Profile, only the authority context the Charter needs, the filled Charter, its bound skills, and task-specific inputs. The example below shows the deterministic text order; the package intentionally has no schema validator or general permission engine.
+From the repository of the TPW source release, use the selected Profile, only the authority context the Charter needs, the filled Charter, its bound skills, and task-specific inputs. The example below shows the deterministic text order; the package intentionally has no schema validator or general permission engine.
 
-Path convention: `skills/…` resolves from the repository root; `profiles/…`, `charters/…`, `authority/…` and `methods/README.md` resolve from the `professional-workflow/` package root.
+Path convention: `skills/…` is a logical path inside the TPW source release — a consumer binds the actual root in its own entry point (see `ADOPTION.md` §1); `profiles/…`, `charters/…`, `authority/…` and `methods/README.md` resolve from the `professional-workflow/` package root.
 
 ```sh
 cat professional-workflow/profiles/implementation.md \

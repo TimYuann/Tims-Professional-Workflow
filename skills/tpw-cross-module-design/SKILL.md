@@ -20,6 +20,8 @@ metadata:
 - **条件读取的上游原件**：`references/DEEPENING.md`（上游 Matt 原件，逐字节保留）——只在需要原始依赖分类参考时读；其冲突以已接受适配为准，不自动采其删除建议。
 - **来源锚**（正文 Source anchors 段中的 testing-patterns、mocking 与上游 SKILL 路径）：是出处记录，不是加载或执行本包的要求；另需其独特能力时显式绑定实际固定版本。
 
+**正文内的 Status／评审语义**（如 “candidate”“not yet an accepted reference”“fixed-diff review”“尚未”“待审”）描述该正文在吸收批次中的**历史阶段**；**当前的适用与接受依据**是包接受记录 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Oracle 2026-10-03 接受，product `8ba69427…` / core `d0cbbfc8…`），全部 gate-reviewed 吸收增量已整合、无 held items。旧评审要求不对已接受对象重复；本包装不重开方法语义，也不由“已安装”推成“已接受”。
+
 `SOURCE.md` 记录固定 pin、逐项校验值与本地包装差异；`THIRD-PARTY-NOTICES.md` 保留上游 MIT 原文。本包许可边界：本机自用，公开发行条款未定。
 
 # Cross-module design method · M4 accepted reference

@@ -10,7 +10,7 @@
 - **Delegation source:** The concrete task request must grant planning authority and name the fixture or repository and task objective. This example grants no implementation or external action.
 - **Object scope:** The technical Plan and the specific system paths needed to establish current facts. Do not infer permission to change code or persistent data.
 - **Accepted inputs:** Versioned behavior/domain commitments and current source facts, each with owner and acceptance state.
-- **Applicable methods:** `skills/tpw-cross-module-design/SKILL.md` (repository-root relative; outside `professional-workflow/`). Accepted M4 source: commit `013659331c8c5f9f54b866b393972a03d7938773`, SHA-256 `30066c8b3ccee2b85e98c8bc36975f57161e2c93d0bd71c9c668b27bf79bae6f`; current package bytes are recorded in `methods/README.md` §Status and source trace and the night candidate manifest — a real task rebinds the current fixed object rather than copying a digest here. This method preserves B/C ownership and does not create implementation authority.
+- **Applicable methods:** `skills/tpw-cross-module-design/SKILL.md` (logical path inside the TPW source release, outside `professional-workflow/`; the consumer binds the actual root). Accepted M4 source: commit `013659331c8c5f9f54b866b393972a03d7938773`, SHA-256 `30066c8b3ccee2b85e98c8bc36975f57161e2c93d0bd71c9c668b27bf79bae6f`; current package bytes are recorded in `methods/README.md` §Status and source trace and the night candidate manifest — a real task rebinds the current fixed object rather than copying a digest here. This method preserves B/C ownership and does not create implementation authority.
 
 ## Work and limits
 

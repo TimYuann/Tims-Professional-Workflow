@@ -20,6 +20,8 @@ metadata:
 - **条件执行资源**：`scripts/hitl-loop.template.sh`（上游 Matt 原件，逐字节保留）。仅当人类操作确不可替代且获授权时用 Bash 运行；不自动执行、不因本包存在而取得执行许可。
 - **来源锚**（正文 Source anchors 段中的上游路径与指针，如 behavior-claim-evaluation、verify-existing-fix、trace-forensics）：是出处记录，不是加载或执行本包的要求；需要这些能力时在实际委托中显式绑定其固定原件，不把锚当作本包脚本。
 
+**正文内的 Status／评审语义**（如 “candidate”“not yet an accepted reference”“fixed-diff review”“尚未”“待审”）描述该正文在吸收批次中的**历史阶段**；**当前的适用与接受依据**是包接受记录 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Oracle 2026-10-03 接受，product `8ba69427…` / core `d0cbbfc8…`），全部 gate-reviewed 吸收增量已整合、无 held items。旧评审要求不对已接受对象重复；本包装不重开方法语义，也不由“已安装”推成“已接受”。
+
 `SOURCE.md` 记录固定 pin、逐项校验值与本地包装差异；`THIRD-PARTY-NOTICES.md` 保留上游 MIT 原文。本包许可边界：本机自用，公开发行条款未定。
 
 # Local defect feedback loop · M4 accepted reference

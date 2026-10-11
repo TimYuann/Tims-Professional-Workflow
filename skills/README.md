@@ -55,6 +55,12 @@
 
 `tpw-on-demand-guides/` 是非自动的按需导引根（`disable-model-invocation: true`，只能显式调用）：携带 9 份导引，供未被任何入口按依赖携带时按需读取；`guide-positioned-artifacts.md` 不在其中，它随其声明的依赖入口 `tpw-external-tool-operation` 携带。**固定批内十份导引全部可取**（逐份出现在至少一处：本根或对应入口）。
 
+## 消费身份与路径口径（2026-10-11 起）
+
+- **消费身份**＝TPW 来源仓 + core 固定对象（commit/tree）+ **包装 commit 或 `skills/` tree** + 消费侧实际根。core 子树固定对象**不能**唯一决定配套 Skills；各根的 `source-pin`／`source-tree` 只是**历史出处**，不替代消费身份。
+- **逻辑路径**：本 README 与包内文档写的 `skills/…` 是 **TPW 来源发布包内的逻辑路径**；下游在自有接入入口把它绑定到实际根（本机为不可变版本目录 `~/.agents/skill-versions/tpw/<包装commit>/skills/…`），**不按当前 cwd 或下游仓根解析**。Skill 内的随包资源按其自身目录相对解析，不经可移动别名另找版本。
+- **升级**：对照本任务实际消费的 core 与 Skills（入口 frontmatter／元数据、正文、随包资源）重核受影响的依据；不要求全批锁步升级，旧任务维持原固定引用。
+
 ## 与 professional-workflow 包的关系（2026-10-11 摘除后）
 
 - **正文在本批**：每个 `SKILL.md` 的正文段逐字节等于历史 pin `f5d6d054…` 下 `professional-workflow/methods/<stem>.md` 的内容；本批是该正文的现行位置。

@@ -2,7 +2,7 @@
 
 Profiles remain the owners of reusable responsibility mental models. This entry only routes: it owns the current method selection, not the method bodies. Since the 2026-10-11 extraction the bodies live byte-identical in the skill batch at the repository root (`skills/<entry>/SKILL.md`); the historical fixed objects remain retrievable at their pins (see §Status and source trace). Load one when the task Charter binds it; this list does not add applicability triggers, authority, or a fixed phase chain.
 
-**Path convention.** `skills/…` resolves from the repository root; `profiles/…`, `charters/…`, `authority/…` and this entry's own `methods/…` resolve from the `professional-workflow/` package root.
+**Path convention.** `skills/…` is a logical path **inside the TPW source release**; a consumer binds the actual root in its own entry point (for example the local immutable version directory) and it is never resolved against the current cwd or the consuming repository root. `profiles/…`, `charters/…`, `authority/…` and this entry's own `methods/…` resolve from the `professional-workflow/` package root.
 
 | Task need | Method file | Judgment focus |
 | --- | --- | --- |

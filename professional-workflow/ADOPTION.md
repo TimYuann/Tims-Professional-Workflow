@@ -6,18 +6,26 @@
 
 ## 1. 取包：固定 Git 版本直读，或复制 / vendor
 
-两种都合法，按项目条件选一种；先固定一个版本：**源仓库 + commit 或 tree（`professional-workflow/` 子树）+ 包内相对路径**。
+两种都合法，按项目条件选一种；先固定一个版本：**源仓库 + commit 或 tree（`professional-workflow/` 子树）+ 包内相对路径**。自 2026-10-11 方法正文摘出后，这只固定 core；消费身份还需覆盖 Skills（见下）。
+
+**消费身份（2026-10-11 起）**：core 子树固定对象**不能**唯一决定配套的 Skills。一次消费必须同时固定：
+
+- TPW 来源仓 + **core 固定对象**（commit/tree）＋复制位置（vendor 时）；
+- **包装 commit（或 `skills/` 子树对象）**：它决定入口的 frontmatter／元数据、正文与随包资源＋消费侧实际根（本机为不可变版本目录）；
+- 任务实际绑定的入口与条件资源路径。
+
+包内 `source-pin`／`source-tree` 只是**历史出处**，不替代上述消费身份；也不要把“已安装”推成“已接受”。
 
 ### A. 直接读取固定 Git 版本
 
 - 每次从固定对象读：`git show <commit>:professional-workflow/<path>`，或 `git show <tree>:<path>`（子树相对）；方法正文用 `git show <commit>:skills/<entry>/SKILL.md`。工程内已有 checkout 时，用同一 commit 读同一路径。
-- 路径约定：`skills/…` 以**仓根**为根解析；`profiles/…`、`charters/…`、`methods/…`、`authority/…` 以 `professional-workflow/` 为根解析。
+- 路径约定：`skills/…` 是 **TPW 来源发布包内的逻辑路径**，下游在自有接入入口把它绑定到实际根（例如本机不可变版本目录 `~/.agents/skill-versions/tpw/<包装commit>/skills/…`），**不按当前 cwd 或下游仓根猜测**；Skill 内的随包资源按其自身目录相对解析，不经可移动别名另找版本。`profiles/…`、`charters/…`、`methods/…`、`authority/…` 以 `professional-workflow/` 为根解析。
 - 引用与归属：Charter 的 Accepted inputs 写固定对象与所引方法路径；不写“最新 main”。
 - 更新：项目决定升级时选新的固定 commit/tree，记录新对象；只对照旧对象 diff 包内受影响文件（见 §4）。
 
 ### B. 复制 / vendor 到下游
 
-- 目录由项目决定：整包或子集、放哪里都行；保持路径可解析（相对复制根），改了布局就同步改 Charter 里的技能正文路径。**注意：方法正文不在本包内**（2026-10-11 摘出）——需要方法能力的下游要同时取 `professional-workflow/` 与所选 `skills/<entry>/`（同一固定 commit）；只取包内 Profiles/Charter 会拿不到正文。
+- 目录由项目决定：整包或子集、放哪里都行；保持路径可解析（相对复制根），改了布局就同步改 Charter 里的技能正文路径。**注意：方法正文不在 core 内**（2026-10-11 摘出）——需要方法能力的下游要同时固定 core 与所选 `skills/<entry>/`（同一包装 commit，或显式核过适用性的版本组合），或采用“vendor core ＋本机不可变 Skill 包”的消费边界；只取 core 会拿不到正文。
 - 来源记录：源仓库、commit/tree、复制的路径；项目已有 provenance/status 位置就写在那里，没有就写一小段来源块（不新增 schema）。需要字节身份时记 SHA-256。
 - 归属：保留复制字节里的来源锚点，以及 `authority/README.md`、`methods/README.md` 的来源/状态记录；不要剥掉上游署名。许可与所有权以仓库的实际记录为准，不从本文件推断。
 - 更新：从新的固定 commit 重新复制或对照 diff；本地改动单独记录（patch/commit），不让 vendored 副本与来源身份静默漂移。
@@ -62,9 +70,9 @@ cat professional-workflow/profiles/implementation.md \
 
 ## 4. 版本固定与升级
 
-- **固定 core：** 记录源仓库 + commit/tree + 包路径；Charter 与任务输入引用同一对象；vendor 时另记复制路径与来源。
+- **固定 core：** 记录源仓库 + commit/tree + 包路径；Charter 与任务输入引用同一对象；vendor 时另记复制路径与来源。**core 单独不构成一次消费身份**：同时记录包装 commit（或 `skills/` tree）与实际消费根（见 §1 消费身份）。
 - **固定任务输入：** 任务输入文件带当前事实与固定引用，与包版本分开记录；分支 tip / “最新”不是固定版本。
-- **升级：** 选新的固定对象 → 只 diff 包内两版 → 找出受影响的约定、方法、Charter 字段与假设 → 只重核这些，只重跑其有效性依赖被改约定的证据。旧证据不因换版自动成立，也不需要全量重评。
+- **升级：** 选新的固定对象 → **对照本任务实际消费的 core 与 Skills（入口 frontmatter／元数据、正文、随包资源）** ，找出受影响的约定、方法、Charter 字段与假设 → 只重核这些，只重跑其有效性依赖被改约定的证据。旧证据不因换版自动成立，也不需要全量重评；不要求全批锁步升级。
 - mutable `main` 不能偷换本次依据：任务内引用的 commit/tree 不变；要用新版本，先升级、再重核、再改 Charter。
 
 ## 5. 始终加载的短指针 vs 按需正文

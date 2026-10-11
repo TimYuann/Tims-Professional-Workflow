@@ -1,6 +1,6 @@
 ---
 name: tpw-verification-harness-design
-description: "Design the verification harness for a claim, scoped to affected features and recipes. Use when a claim needs maintained verification; source-only checks do not claim live behaviour."
+description: "Design the verification harness for a claim that needs evidence on a real path while the existing driving means are missing or drifting. Use when a harness must be built or repaired, not for ordinary verification that current means already support."
 license: Local self-use packaging only; no public distribution license granted; upstream MIT notices in THIRD-PARTY-NOTICES.md
 metadata:
   package: tpw-skills-packaging-f5d6d054
@@ -25,6 +25,8 @@ metadata:
 - **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-test-evidence-quality.md`（判断所产证据能否支撑声明时）。
 - **边界指针**：正文未把职责外派给其他方法文件的指针。
 - **来源锚**（正文 Source anchors 段中的上游路径）：是出处记录，不是加载或执行本包的要求；需要这些能力时显式绑定其固定原件。
+
+**正文内的 Status／评审语义**（如 “candidate”“not yet an accepted reference”“fixed-diff review”“尚未”“待审”）描述该正文在吸收批次中的**历史阶段**；**当前的适用与接受依据**是包接受记录 `docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`（Oracle 2026-10-03 接受，product `8ba69427…` / core `d0cbbfc8…`），全部 gate-reviewed 吸收增量已整合、无 held items。旧评审要求不对已接受对象重复；本包装不重开方法语义，也不由“已安装”推成“已接受”。
 
 `SOURCE.md` 记录固定 pin、逐项校验值与本地包装差异；`THIRD-PARTY-NOTICES.md` 保留上游 MIT 原文。本包许可边界：本机自用，公开发行条款未定。
 

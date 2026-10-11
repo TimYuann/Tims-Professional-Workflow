@@ -2,7 +2,7 @@
 
 State: **非规范示例，位于 core 之外。** 不授予权限，不构成固定流程，不证明真实项目结果。两个例子只说明：从固定包版本选判断、绑方法、填最小实例、装配启动文本，以及何时召回/升级。角色、对象、路径、命令都是可替换示例。
 
-读取约定：技能正文路径（`skills/…`）相对**仓根**；包内引用（`profiles/…`、`charters/…`、`methods/README.md`）相对 `professional-workflow/` 包根。接入时先在固定版本内确认文件存在与当前 claim（`methods/README.md` 与所选技能正文），再绑定。方法不在该版本就采用该版本已有合适依据，或明确未绑定；不伪绑、不用退役旧名（`path-trace`/`blast-radius`/`design-compare`/`drive-preview`）替代，也不造等价名。示例不复制 digest，真实任务绑当前固定对象。
+读取约定：技能正文路径（`skills/…`）是 **TPW 来源发布包内的逻辑路径**，下游由自有接入入口绑定实际根（不按 cwd 或下游仓根解析）；包内引用（`profiles/…`、`charters/…`、`methods/README.md`）相对 `professional-workflow/` 包根。接入时先在固定版本内确认文件存在与当前 claim（`methods/README.md` 与所选技能正文），再绑定。方法不在该版本就采用该版本已有合适依据，或明确未绑定；不伪绑、不用退役旧名（`path-trace`/`blast-radius`/`design-compare`/`drive-preview`）替代，也不造等价名。示例不复制 digest，真实任务绑当前固定对象。
 
 ## 例 1 · 局部缺陷修复（最少实例）
 
