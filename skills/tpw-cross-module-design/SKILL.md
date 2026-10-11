@@ -4,14 +4,14 @@ description: "Design shared technical commitments and observation surfaces when 
 license: Local self-use packaging only; no public distribution license granted; upstream MIT notices in THIRD-PARTY-NOTICES.md
 metadata:
   package: tpw-skills-packaging-f5d6d054
-  status: pending host review; not installed
+  status: local-use package
   source-method: professional-workflow/methods/cross-module-design.md
   source-pin: f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-tree: 9d7c057417da73895cda3b85ec34d49db58669b6
   source-sha256: 373ff499c9b56a8b5426046c017e7b9ab01770f75e670953489858438665a204
 ---
 
-## 包装与资源边界（本机自用包，待 review）
+## 包装与资源边界（本机自用固定成品包）
 
 正文是固定 TPW 方法 `professional-workflow/methods/cross-module-design.md` 的完整字节，成立于 `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；包装只增加本 frontmatter 与本节，不改正文。
 

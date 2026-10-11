@@ -1,6 +1,6 @@
 # 来源与包装身份 · tpw-cross-module-design
 
-**本包**：`tpw-skills-packaging-f5d6d054`，在 TPW 仓任务分支 `tpw-skills-packaging-2026-10-11` 上提交（自觉于 `main@89b5203d`，不改动 main）。本机自用包，待宿主 review，尚未安装。
+**本包**：`tpw-skills-packaging-f5d6d054`，在 TPW 仓任务分支 `tpw-skills-packaging-2026-10-11` 上提交（基于 `main@89b5203d`，不改动 main）。本机自用固定成品包；接受与安装状态由宿主的接收记录承载，不在本包内声明。
 
 ## 固定来源
 
@@ -19,7 +19,7 @@
 | --- | --- | --- |
 | `guide-mock-adapter-choice.md` | TPW 方法正文（读取型） | `professional-workflow/methods/guide-mock-adapter-choice.md`，SHA-256 `967f089fa57d7a803b6657836a1ba4610d27c60b0fe9342e96d9a268b0d7414e` |
 | `design-alternatives.md` | TPW 方法正文（读取型，真实方案分歧才读） | `professional-workflow/methods/design-alternatives.md`，SHA-256 `36653fe8d9f809831e7b1c0e4f92e093e54d735eef8864c0595c63af3849be7e` |
-| `references/DEEPENING.md` | **上游原件**（条件读取） | Matt `mattpocock-skills` @ `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`，`skills/engineering/codebase-design/DEEPENING.md`；SHA-256 `f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1`。冲突以已接受适配为准，不自动采其删除建议。 |
+| `references/DEEPENING.md` | **上游原件 + 一处导航链接适配**（条件读取） | 上游：Matt `mattpocock-skills` @ `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`，`skills/engineering/codebase-design/DEEPENING.md`，SHA-256 `f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1`；包装：SHA-256 `5176f5fcf2606d7d53d9d6d7560c489fc349571e65f03df8ec44862b1b7ed9f0`，差异仅首段导航链接 `[SKILL.md](SKILL.md)` → `[SKILL.md](../SKILL.md)`（否则在本目录下断链；未造空依赖）。冲突以已接受适配为准，不自动采其删除建议。 |
 | `THIRD-PARTY-NOTICES.md` | 上游许可原文 | Matt / Addy / pstack / cursor-team-kit 四份 MIT，逐条与各上游 `LICENSE` 文件核对一致 |
 
 ## 上游来源锚（正文 Source anchors 段，pin 已核）
@@ -31,11 +31,12 @@
 
 这些是**出处锚**：不要求为使用本包而重新加载上游正文；需要其独特能力时显式绑定实际固定版本。
 
-## 本地包装差异（仅此三类，正文未改）
+## 本地包装差异（仅此几类，正文未改）
 
 1. `SKILL.md` 的 YAML frontmatter（name／description／license／metadata）。
 2. `SKILL.md` 中新增的「包装与资源边界」一节。
 3. 新增 `SOURCE.md`、`THIRD-PARTY-NOTICES.md` 两个记录文件。
+4. `references/DEEPENING.md` 的一处导航链接适配（见上表；上游原件其余字节保留）。
 
 ## 许可边界
 

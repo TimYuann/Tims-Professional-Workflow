@@ -1,6 +1,6 @@
 # 来源与包装身份 · tpw-debug
 
-**本包**：`tpw-skills-packaging-f5d6d054`，在 TPW 仓任务分支 `tpw-skills-packaging-2026-10-11` 上提交（自觉于 `main@89b5203d`，不改动 main）。本机自用包，待宿主 review，尚未安装。
+**本包**：`tpw-skills-packaging-f5d6d054`，在 TPW 仓任务分支 `tpw-skills-packaging-2026-10-11` 上提交（基于 `main@89b5203d`，不改动 main）。本机自用固定成品包；接受与安装状态由宿主的接收记录承载，不在本包内声明。
 
 ## 固定来源
 

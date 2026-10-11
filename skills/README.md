@@ -9,6 +9,8 @@
 
 固定身份：源仓 pin `f5d6d0547459eb15c40aec25617418d5ea4710e6`，tree `9d7c057417da73895cda3b85ec34d49db58669b6`。两个 `SKILL.md` 的正文段是该 pin 下方法正文的**逐字节**内容（只前置 frontmatter 与「包装与资源边界」一节）。逐文件校验值见各根 `SOURCE.md`。
 
+随包资源同为逐字节副本，唯一例外：`tpw-cross-module-design/references/DEEPENING.md` 的一处导航链接 (`[SKILL.md](SKILL.md)` → `[SKILL.md](../SKILL.md)`)，上游原 hash 与包装 hash 均记录在该根 `SOURCE.md`。
+
 本包**不含**：42 方法的搬运、registry／upstreams 平台、上游仓库整体复制、公开发行许可。它只是两个技能的成品目录 + 记录。
 
 ## 安装（本机自用）
@@ -45,8 +47,8 @@
 | 检查 | 命令要点 | 结果 |
 | --- | --- | --- |
 | 正文逐字节 | 两个 `SKILL.md` 的正文段 SHA-256 与源方法文件比对 | 一致（`0feec14d…`／`373ff499…`） |
-| 资源逐字节 | 每个随包资源与其固定来源比对 SHA-256 | 一致（见各 `SOURCE.md`） |
-| 相对路径 | 对两个技能根声明的随包资源逐一断言存在（相对技能根），并扫描 `SKILL.md`／`SOURCE.md` 其余反引号路径 token 分类 | 随包资源 **10/10 可解析**；其余 34 条＝上游来源锚 33 + TPW 方法集引用 1（`methods/behavior-claim-evaluation.md`，在 pin 中存在），按设计不在本包解析 |
+| 资源逐字节 | 每个随包资源与其固定来源比对 SHA-256 | 一致；唯一例外 `references/DEEPENING.md`：一处导航链接适配（上游 `f3dd099c…`、包装 `5176f5fc…`） |
+| 相对路径 / 链接 | 对两个技能根声明的随包资源逐一断言存在；扫描 `skills/` 下**全部** Markdown（12 个）的显式相对链接并解析，剔除行内代码跨度中的示例 | 随包资源 **10/10** 可解析；相对链接 **1/1** 可解析（DEEPENING 的 `../SKILL.md`；另 4 处为记录文本的行内代码示例，不渲染）；其余 34 条反引号 token＝上游来源锚 33 + TPW 方法集引用 1（`methods/behavior-claim-evaluation.md`，在 pin 中存在），按设计不在本包解析 |
 | Bash 语法 | `bash -n tpw-debug/scripts/hitl-loop.template.sh` | 通过（未执行） |
 | 入口发现 | 用宿主静态解析扫描本目录，统计技能入口与诊断 | 恰好 2 个入口、0 诊断 |
 
