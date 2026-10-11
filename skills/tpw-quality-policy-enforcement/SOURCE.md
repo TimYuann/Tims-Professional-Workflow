@@ -25,11 +25,13 @@
 
 - 无
 
-## 上游来源锚（正文 Source anchors 段）
+## 来源（本正文 + 随包资源的并集）
 
-- `addyosmani-agent-skills` @ `2686b620fc1fed2e8f60c704839c766b8594c6b6`
+| 来源 | pin | 出现于 |
+| --- | --- | --- |
+| Addy | `addyosmani-agent-skills` @ `2686b620fc1fed2e8f60c704839c766b8594c6b6` | `quality-policy-enforcement.md` |
 
-这些是**出处锚**：不要求为使用本包而重新加载上游正文；需要其独特能力时显式绑定其固定版本。
+以上是**出处锚**：不要求为使用本包而重新加载上游正文；需要其独特能力时显式绑定其固定版本。`THIRD-PARTY-NOTICES.md` 按同一并集保留许可原文。
 
 ## 本地包装差异（仅此三类，正文未改）
 

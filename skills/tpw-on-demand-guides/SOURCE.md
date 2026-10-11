@@ -6,7 +6,7 @@
 
 | 项 | 值 |
 | --- | --- |
-| 方法源目录 | `professional-workflow/methods/guide-*.md`（10 份） |
+| 方法源目录 | `professional-workflow/methods/guide-*.md`（本根 9 份；第十份 `guide-positioned-artifacts.md` 随 `tpw-external-tool-operation` 入口） |
 | 源仓 pin | `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源树 tree | `9d7c057417da73895cda3b85ec34d49db58669b6` |
 
@@ -24,13 +24,13 @@
 | `guide-redacted-evidence.md` | `professional-workflow/methods/guide-redacted-evidence.md` | `0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335` |
 | `guide-test-evidence-quality.md` | `professional-workflow/methods/guide-test-evidence-quality.md` | `0ea7a4ec3c1cb5da3286ffe68aec4770f6da370f59a25cc58bcefe496e2063e6` |
 
-## 上游来源锚
+## 上游来源锚（本根 9 份导引的并集）
 
 - cursor-plugins `cursor-team-kit` @ `ecc249f1e306fc64ddf83c7bed16cacf7c2239db`
 - `mattpocock-skills` @ `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`
 - cursor-plugins `pstack` @ `ecc249f1e306fc64ddf83c7bed16cacf7c2239db`
 
-以上是导引正文标注的出处记录，不要求为使用本根而重新加载上游正文。
+以上是导引正文标注的出处记录，不要求为使用本根而重新加载上游正文；`THIRD-PARTY-NOTICES.md` 按同一并集保留许可原文。
 
 ## 本地包装差异（正文未改）
 

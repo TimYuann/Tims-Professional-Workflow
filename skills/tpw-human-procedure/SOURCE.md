@@ -25,11 +25,14 @@
 
 - 无
 
-## 上游来源锚（正文 Source anchors 段）
+## 来源（本正文 + 随包资源的并集）
 
-- `mattpocock-skills` @ `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`
+| 来源 | pin | 出现于 |
+| --- | --- | --- |
+| Matt | `mattpocock-skills` @ `c55ee46073ed923f86ce59a5eb3b6d895095d1b7` | `human-procedure.md`、`guide-redacted-evidence.md` |
+| cursor-team-kit | cursor-plugins `cursor-team-kit` @ `ecc249f1e306fc64ddf83c7bed16cacf7c2239db` | `guide-redacted-evidence.md` |
 
-这些是**出处锚**：不要求为使用本包而重新加载上游正文；需要其独特能力时显式绑定其固定版本。
+以上是**出处锚**：不要求为使用本包而重新加载上游正文；需要其独特能力时显式绑定其固定版本。`THIRD-PARTY-NOTICES.md` 按同一并集保留许可原文。
 
 ## 本地包装差异（仅此三类，正文未改）
 

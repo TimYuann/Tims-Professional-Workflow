@@ -51,7 +51,9 @@
 2. **边界指针（不随包）**：正文只做职责归属（如 `bounded-composition` 标注 “pointer only” 的 `handoff-and-resume.md`、`rationale-and-premise-review` 的互指 `local-defect-feedback-loop.md`、`architecture-survey` 词表锚 `cross-module-design.md`），不携带；按本批同名入口取。
 3. **上游来源锚（不随包）**：正文 Source anchors 段中的上游路径，属出处记录。
 
-`tpw-on-demand-guides/` 是非自动的按需导引根（`disable-model-invocation: true`，只能显式调用）：携带 9 份导引，供未被任何入口按依赖携带时按需读取；`guide-positioned-artifacts.md` 不在其中，它随其声明的依赖入口 `tpw-external-tool-operation` 携带。
+**来源与许可口径**：每根的 `SOURCE.md` 来源表与 `THIRD-PARTY-NOTICES.md` 都按**该根本正文 ＋ 全部随包资源**的来源**并集**生成（不只看主方法的 Source anchors）。例：`tpw-architecture-survey` 主方法只涉 Matt，但随包的 `guide-redacted-evidence`／`guide-agent-text`／`guide-lesson-promotion`／`guide-professional-explanation` 涉及 pstack 与 cursor-team-kit，因此其 NOTICES 覆盖 Matt ＋ pstack ＋ cursor-team-kit 三份 MIT；SOURCE 表逐项标出“出现于”哪些文件。
+
+`tpw-on-demand-guides/` 是非自动的按需导引根（`disable-model-invocation: true`，只能显式调用）：携带 9 份导引，供未被任何入口按依赖携带时按需读取；`guide-positioned-artifacts.md` 不在其中，它随其声明的依赖入口 `tpw-external-tool-operation` 携带。**固定批内十份导引全部可取**（逐份出现在至少一处：本根或对应入口）。
 
 ## 安装（本机自用）
 
@@ -80,18 +82,19 @@
 | 检查 | 方法 | 结果 |
 | --- | --- | --- |
 | 正文逐字节 | 32 个能力入口的正文段后缀 SHA-256 与源方法文件比对 | **32/32 一致** |
-| 资源逐字节 | 49 份随包资源副本（guide 副本 + 非 guide 依赖副本）与来源比对哈希 | 一致 |
-| 读取闭包 | 扫描入口自身与随包副本中的 `methods/<name>.md` 引用，断言在入口目录内可取回 | **仅 1 处已知残差**（见下） |
+| 资源逐字节 | 50 份随包资源副本（guide 副本 + 非 guide 依赖副本）与来源比对哈希 | 一致 |
+| 读取闭包 | 扫描入口自身与随包副本中的 `methods/<name>.md` 引用，断言在入口目录内可取回 | 无闭包缺口：唯一剩余的一处是 `tpw-debug` 正文的 Source 括注（来源锚，非读取依赖） |
 | Markdown 链接 | 扫描 `skills/` 下全部 Markdown（151 个）的显式相对链接，剔除行内代码跨度示例 | 真链接 **1/1** 可解析（`tpw-cross-module-design/references/DEEPENING.md` 的 `../SKILL.md`；上游 `f3dd099c…`／包装 `5176f5fc…`，属既有固定身份） |
 | Bash 语法 | `bash -n tpw-debug/scripts/hitl-loop.template.sh` | 通过（未执行） |
 | 入口发现 | 宿主静态解析（`loadSkillsFromDir`） | **33 入口 / 0 诊断**；其中 1 个标 `disable-model-invocation`（按需导引根）；描述均 ≤1024 字符 |
-| NOTICES | 每根按 Source anchors 子集生成、非空 | **33/33** |
+| NOTICES | 每根按「本正文 ＋ 随包资源」的来源**并集**生成、非空，并与上游 `LICENSE` 逐条核对 | **33/33** |
+| 尾随空行 | `git diff --cached --check`（新增文件） | 通过，无 EOF 多余空行 |
 
 未执行：HITL 模板、任何产品命令、任何网络或安装动作。
 
 ## 已知残差与未定（不兜底）
 
-1. **`tpw-debug` 冻结正文引用**：其正文 §Method 3 提到 `methods/behavior-claim-evaluation.md`；该入口是已安装固定身份，本轮**不改其字节**，因此该引用在入口内不可取回。本批已提供 `tpw-behavior-claim-evaluation` 入口覆盖该能力；若要入口内闭合，需要一次显式的新版本包装（不改正文、只加随包副本），等确认。
+1. **`tpw-debug` 的那处方法引用是来源锚，不是读取依赖**：正文 Root cause 段 “When stuck, instrument rather than guess” 一行的括注写作 `*(Source: same file; methods/behavior-claim-evaluation.md.)*`——它是出处标注，不要求 caller 去读，因此**不构成闭包缺口**，也不在入口内加副本；该能力本身由本批 `tpw-behavior-claim-evaluation` 入口提供。
 2. **`tpw-architecture-survey`／`tpw-bounded-composition`／`tpw-verification-harness-design` 的 `guide-check-design` 携带**依据 UCBIP `docs/active/engineering-method-routing.md` 的两个组合消费行（“症状明确、原因不明”与“改动非局部／修复位置有争议”）；其余组合关系未验证。
 3. **需求侧未验证**：多数入口在 UCBIP 旧链无引用，本轮属“整体成果”覆盖；不称全完成，不把 32 个入口当作需要全员同时读或自动激活。
 4. deferred 分支不晋升：`DESIGN-IT-TWICE` 与其并行 agent 数、S2 playbook 的控制/循环/模型/PR 默认、idempotency／retention 规则、`interrogate`／`code-review` lenses，均不随包。

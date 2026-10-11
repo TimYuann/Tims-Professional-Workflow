@@ -1,6 +1,6 @@
 ---
 name: tpw-on-demand-guides
-description: "On-demand support guides for TPW methods (redacted evidence, test-evidence quality, mock/adapter choice, change shape, agent text, professional explanation, pre-write check design, lesson promotion, accessibility observation, positioned artifacts). Not a method body; load only when a task explicitly needs one of these guides."
+description: "On-demand support guides for TPW methods (redacted evidence, test-evidence quality, mock/adapter choice, change shape, agent text, professional explanation, pre-write check design, lesson promotion, accessibility observation). Not a method body; load only when a task explicitly needs one of these guides."
 license: Local self-use packaging only; no public distribution license granted; upstream MIT notices in THIRD-PARTY-NOTICES.md
 disable-model-invocation: true
 metadata:
@@ -13,7 +13,7 @@ metadata:
 
 ## 这是什么（本机自用固定成品包 · 非自动）
 
-10 个 TPW 支持导引的**按需公共资源根**：它们不是能力方法，也不默认激活；只在任务/Charter 明确需要其中某一份时，按本目录内的文件名读取。本根以 `disable-model-invocation: true` 标为非自动入口，只能显式调用（`/skill:tpw-on-demand-guides`）。
+**九份** TPW 支持导引的**按需公共资源根**（固定批内十份导引全部可取：第十份 `guide-positioned-artifacts.md` 随其声明依赖的入口 `tpw-external-tool-operation` 携带）：它们不是能力方法，也不默认激活；只在任务/Charter 明确需要其中某一份时，按本目录内的文件名读取。本根以 `disable-model-invocation: true` 标为非自动入口，只能显式调用（`/skill:tpw-on-demand-guides`）。
 
 - 每份导引与 `professional-workflow/methods/<同名文件>`（pin `f5d6d0547459eb15c40aec25617418d5ea4710e6`，tree `9d7c057417da73895cda3b85ec34d49db58669b6`）**逐字节相同**；逐份 SHA-256 见 `SOURCE.md`。
 - 条件依赖：本目录内互相引用的导引（`guide-check-design` ↔ `guide-lesson-promotion`、`guide-professional-explanation` → `guide-redacted-evidence`、`guide-accessibility-observation` → `guide-test-evidence-quality`）在同一目录内可解析，无需跨目录、无需 symlink 别名推断。
