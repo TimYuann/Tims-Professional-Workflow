@@ -51,6 +51,8 @@
 2. **边界指针（不随包）**：正文只做职责归属（如 `bounded-composition` 标注 “pointer only” 的 `handoff-and-resume.md`、`rationale-and-premise-review` 的互指 `local-defect-feedback-loop.md`、`architecture-survey` 词表锚 `cross-module-design.md`），不携带；按本批同名入口取。
 3. **上游来源锚（不随包）**：正文 Source anchors 段中的上游路径，属出处记录。
 
+**三个 guide 的触发范围（旧判 + 更正）**：父与 F 早前判“`guide-check-design`／`guide-professional-explanation`／`guide-agent-text` 均有真实触发”，本批保留该旧判；R2 复核后将触发条件精确到：check-design＝选择／接线／依赖自动检查并判其真实入口可失败性；professional-explanation＝交付需要帮助一个人理解变化／机制／决定／状态（普通工程回报有理由不自动触发）；agent-text＝写／改被 agent 当作任务依据／规范／交接／提示的文稿（不是“收件者是 agent 就必读”）。各携带根的包装注解与本表已同步到该范围。全局安装的实际读取量只是证据，**不据此声称任何节省**（例如大体量导引的节省并未实现或验证）。
+
 **来源与许可口径**：每根的 `SOURCE.md` 来源表与 `THIRD-PARTY-NOTICES.md` 都按**该根本正文 ＋ 全部随包资源**的来源**并集**生成（不只看主方法的 Source anchors）。例：`tpw-architecture-survey` 主方法只涉 Matt，但随包的 `guide-redacted-evidence`／`guide-agent-text`／`guide-lesson-promotion`／`guide-professional-explanation` 涉及 pstack 与 cursor-team-kit，因此其 NOTICES 覆盖 Matt ＋ pstack ＋ cursor-team-kit 三份 MIT；SOURCE 表逐项标出“出现于”哪些文件。
 
 `tpw-on-demand-guides/` 是非自动的按需导引根（`disable-model-invocation: true`，只能显式调用）：携带 9 份导引，供未被任何入口按依赖携带时按需读取；`guide-positioned-artifacts.md` 不在其中，它随其声明的依赖入口 `tpw-external-tool-operation` 携带。**固定批内十份导引全部可取**（逐份出现在至少一处：本根或对应入口）。

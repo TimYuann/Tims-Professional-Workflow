@@ -16,8 +16,8 @@ metadata:
 
 正文逐字节等于**历史固定对象** `professional-workflow/methods/change-review.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；**现行位置即本包**（该路径 2026-10-11 起已从工作流包摘出，仍可按 pin 取回）。包装只增加本 frontmatter 与本节，不改正文。
 
-- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-agent-text.md`（写 agent-facing 文本时（经传递闭包））。
-- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-professional-explanation.md`（解释机制／理由时）。
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-agent-text.md`（写或修改会被 agent 当作任务依据／规范／交接／提示消费的文稿时（方法、Profile/Charter 条目、AGENTS.md/CLAUDE.md 行、spec、ticket、交接、运行时提示）；不因收件者是 agent 就必读）。
+- **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-professional-explanation.md`（需要帮助一个人理解某物（变化／子系统／决定／当前状态）而非接收状态报告时；普通工程回报／状态汇报有理由不自动触发）。
 - **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-redacted-evidence.md`（输出／交接可能含敏感工件时；证据保管）。
 - **边界指针**：正文未把职责外派给其他方法文件的指针。
 - **来源锚**（正文 Source anchors 段中的上游路径）：是出处记录，不是加载或执行本包的要求；需要这些能力时显式绑定其固定原件。

@@ -31,12 +31,12 @@ metadata:
 | 导引 | 用途 | 入口内副本 |
 | --- | --- | --- |
 | `guide-accessibility-observation.md` | 按需观察无障碍行为时 | 见对应入口「包装与资源边界」 |
-| `guide-agent-text.md` | 写 agent-facing 文本时（经传递闭包） | 见对应入口「包装与资源边界」 |
+| `guide-agent-text.md` | 写或修改会被 agent 当作任务依据／规范／交接／提示消费的文稿时（方法、Profile/Charter 条目、AGENTS.md/CLAUDE.md 行、spec、ticket、交接、运行时提示）；不因收件者是 agent 就必读 | 见对应入口「包装与资源边界」 |
 | `guide-change-shape.md` | 为读者塑造变更时 | 见对应入口「包装与资源边界」 |
-| `guide-check-design.md` | 写前该查什么（范围／真实入口／负控制）；UCBIP routing 中与本入口组合消费 | 见对应入口「包装与资源边界」 |
+| `guide-check-design.md` | 选择、接线或依赖某个自动检查时（linter 规则／pre-commit hook／CI job／guard 脚本／版本-一致性同步）；判它是否真会在目标违规上失败（真实入口＋负控制） | 见对应入口「包装与资源边界」 |
 | `guide-lesson-promotion.md` | 把经验提升为载具时（经 guide-check-design 传递） | 见对应入口「包装与资源边界」 |
 | `guide-mock-adapter-choice.md` | 选择跨依赖边界的测试替身／观察面时 | 见对应入口「包装与资源边界」 |
-| `guide-professional-explanation.md` | 解释机制／理由时 | 见对应入口「包装与资源边界」 |
+| `guide-professional-explanation.md` | 需要帮助一个人理解某物（变化／子系统／决定／当前状态）而非接收状态报告时；普通工程回报／状态汇报有理由不自动触发 | 见对应入口「包装与资源边界」 |
 | `guide-redacted-evidence.md` | 输出／交接可能含敏感工件时；证据保管 | 见对应入口「包装与资源边界」 |
 | `guide-test-evidence-quality.md` | 判断所产证据能否支撑声明时 | 见对应入口「包装与资源边界」 |
 
