@@ -5,7 +5,8 @@ license: Local self-use packaging only; no public distribution license granted; 
 metadata:
   package: tpw-skills-packaging-f5d6d054
   status: local-use package
-  source-method: professional-workflow/methods/decision-elicitation.md
+  method-location: this package (skills/tpw-decision-elicitation/SKILL.md)
+  source-method-historical: professional-workflow/methods/decision-elicitation.md @ f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-pin: f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-tree: 9d7c057417da73895cda3b85ec34d49db58669b6
   source-sha256: 5ce9b2939b4b2211a69ba6bee4042ec39211a01ec729d2ffaeb02183560a956d
@@ -13,7 +14,7 @@ metadata:
 
 ## 包装与资源边界（本机自用固定成品包）
 
-正文是固定 TPW 方法 `professional-workflow/methods/decision-elicitation.md` 的完整字节，成立于 `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；包装只增加本 frontmatter 与本节，不改正文。
+正文逐字节等于**历史固定对象** `professional-workflow/methods/decision-elicitation.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；**现行位置即本包**（该路径 2026-10-11 起已从工作流包摘出，仍可按 pin 取回）。包装只增加本 frontmatter 与本节，不改正文。
 
 - **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`behavior-claim-evaluation.md`（正文按条件指向该方法；随包取回，另见对应入口）。
 - **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-redacted-evidence.md`（输出／交接可能含敏感工件时；证据保管）。

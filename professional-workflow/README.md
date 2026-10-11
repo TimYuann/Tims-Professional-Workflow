@@ -6,14 +6,14 @@ This directory is a self-contained package containing the 2026-10-01 accepted 21
 
 1. Select a suitable [Profile](profiles/README.md) for the judgment needed.
 2. Fill an [Instance Charter](charters/README.md) with the current task's actual delegation, accepted inputs, object scope, handoff, evaluator and permitted actions.
-3. Consult the [method selection entry](methods/README.md). Bind only task-relevant method files in the task Charter; the Profile name alone does not activate them.
+3. Consult the [method selection entry](methods/README.md). Bind only task-relevant skills in the task Charter; the Profile name alone does not activate them. The method bodies themselves live in the skill batch at the repository root (`skills/<entry>/SKILL.md`; `skills/…` is repository-root relative) and are byte-identical to the accepted pin — this package routes to them and holds no method body.
    For another repository introducing or vendoring this package, start from [ADOPTION.md](ADOPTION.md) (fixed-commit read or vendor, minimal entry, pinning/upgrade, pure-text consumption).
-4. From this directory, assemble the Profile, any authority context the Charter needs, the filled Charter, its bound method files, and task-specific input in that order:
+4. From the repository root, assemble the Profile, any authority context the Charter needs, the filled Charter, its bound skills, and task-specific input in that order:
 
    ```sh
-   cat profiles/implementation.md \
-       charters/examples/implementation-local-fix.md \
-       methods/local-defect-feedback-loop.md \
+   cat professional-workflow/profiles/implementation.md \
+       professional-workflow/charters/examples/implementation-local-fix.md \
+       skills/tpw-debug/SKILL.md \
        path/to/current-task-input.md
    ```
 
@@ -21,7 +21,7 @@ The output is startup prompt text. Replace the illustrative Charter and task-inp
 
 ## Package state
 
-The Profile content is the M1 accepted input at checkpoint `429a78b`; the method bodies and selection entry were accepted at M4 commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. M1–M5 labels in this package describe those snapshots and are not current acceptance; historical M5 snapshot bytes remain identified in `methods/README.md`. Current status: the prior baselines are accepted as recorded (M6 delivery 2026-10-01 `M6-FINAL-ACCEPTANCE.md`; 21-file corrected baseline `ABSORB-FINAL-ACCEPTANCE.md`, identity in `ABSORB-CORRECTED-CORE-MANIFEST.md` Rev.7). The 2026-10-02 absorption product was accepted by Oracle on 2026-10-03 (Pro #1 RETURN → three fixes → Pro #2 PASS) at product `8ba69427105d09b3efa1d3a5f28182d4243b5fea` / core `d0cbbfc8b56f588c183efdf8b6d503d9131b5f58` (`docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`). The status-synced object that records this pointer carries a new Git identity; historical labels still describe only their own snapshots. Each task Charter binds any method it uses; this package grants no downstream authorization.
+The Profile content is the M1 accepted input at checkpoint `429a78b`; the method selection entry and its method bodies were accepted at M4 commit `013659331c8c5f9f54b866b393972a03d7938773`, tree `2fc8db5e9bbd0a2c37888282c89c2328505fddee`. On 2026-10-11 those bodies were extracted from this package to the skill batch at the repository root (`skills/`), byte-identical to pin `f5d6d0547459eb15c40aec25617418d5ea4710e6`; this package keeps the selection entry and routes to them, and the historical objects remain retrievable at their pins. M1–M5 labels in this package describe those snapshots and are not current acceptance; historical M5 snapshot bytes remain identified in `methods/README.md`. Current status: the prior baselines are accepted as recorded (M6 delivery 2026-10-01 `M6-FINAL-ACCEPTANCE.md`; 21-file corrected baseline `ABSORB-FINAL-ACCEPTANCE.md`, identity in `ABSORB-CORRECTED-CORE-MANIFEST.md` Rev.7). The 2026-10-02 absorption product was accepted by Oracle on 2026-10-03 (Pro #1 RETURN → three fixes → Pro #2 PASS) at product `8ba69427105d09b3efa1d3a5f28182d4243b5fea` / core `d0cbbfc8b56f588c183efdf8b6d503d9131b5f58` (`docs/absorption/2026-10-02/FINAL-ACCEPTANCE.md`). The status-synced object that records this pointer carries a new Git identity; historical labels still describe only their own snapshots. Each task Charter binds any method it uses; this package grants no downstream authorization.
 
 Nothing in this directory alone grants decision authority, permission to change an object, risk acceptance, or permission for a consequential action.
 

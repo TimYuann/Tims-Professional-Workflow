@@ -4,9 +4,11 @@
 
 ## 固定来源
 
+正文的**现行位置**是本包 `SKILL.md`；下表历史对象用于身份与取回。
+
 | 项 | 值 |
 | --- | --- |
-| 方法源路径 | `professional-workflow/methods/local-defect-feedback-loop.md` |
+| 方法源路径（历史固定对象） | `professional-workflow/methods/local-defect-feedback-loop.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源仓 pin | `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源树 tree | `9d7c057417da73895cda3b85ec34d49db58669b6` |
 | 正文 SHA-256 | `0feec14d81db315262f79a9709a67b08d621d8833e3e28ad9c55beedc90a8bd2` |
@@ -17,8 +19,8 @@
 
 | 资源 | 性质 | 身份 / 校验 |
 | --- | --- | --- |
-| `guide-redacted-evidence.md` | TPW 方法正文（读取型） | `professional-workflow/methods/guide-redacted-evidence.md`，SHA-256 `0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335` |
-| `guide-test-evidence-quality.md` | TPW 方法正文（读取型） | `professional-workflow/methods/guide-test-evidence-quality.md`，SHA-256 `0ea7a4ec3c1cb5da3286ffe68aec4770f6da370f59a25cc58bcefe496e2063e6` |
+| `guide-redacted-evidence.md` | TPW 方法正文（读取型） | 历史固定对象 `professional-workflow/methods/guide-redacted-evidence.md` @ `f5d6d054`；现行副本即本目录 `guide-redacted-evidence.md`；SHA-256 0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335` |
+| `guide-test-evidence-quality.md` | TPW 方法正文（读取型） | 历史固定对象 `professional-workflow/methods/guide-test-evidence-quality.md` @ `f5d6d054`；现行副本即本目录 `guide-test-evidence-quality.md`；SHA-256 0ea7a4ec3c1cb5da3286ffe68aec4770f6da370f59a25cc58bcefe496e2063e6` |
 | `scripts/hitl-loop.template.sh` | **上游原件**（条件执行） | Matt `mattpocock-skills` @ `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`，`skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh`；SHA-256 `35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503`。仅人类操作确不可替代且获授权时运行。 |
 | `THIRD-PARTY-NOTICES.md` | 上游许可原文 | Matt / Addy / pstack / cursor-team-kit 四份 MIT，逐条与各上游 `LICENSE` 文件核对一致 |
 

@@ -4,20 +4,22 @@
 
 ## 固定来源
 
+正文的**现行位置**是本包 `SKILL.md`；下表历史对象用于身份与取回。
+
 | 项 | 值 |
 | --- | --- |
-| 方法源路径 | `professional-workflow/methods/behavior-preserving-change.md` |
+| 方法源路径（历史固定对象） | `professional-workflow/methods/behavior-preserving-change.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源仓 pin | `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源树 tree | `9d7c057417da73895cda3b85ec34d49db58669b6` |
 | 正文 SHA-256 | `e635088e3372031ed6a1b89bf80d5c62c1d5b2a6848ab0a7c5cf3545ec485e64` |
 
-正文逐字节保留：本包 `SKILL.md` 的正文段（自第一行标题起至文件末）与该 SHA-256 一致。另已核源仓 `main@89b5203d` 与 pin `f5d6d054` 的 `professional-workflow/` 子树零差异。
+正文逐字节保留：本包 `SKILL.md` 的正文段（自第一行标题起至文件末）与该 SHA-256 一致。**现行位置即本包**；历史固定对象为 `professional-workflow/methods/… @ f5d6d0547459eb15c40aec25617418d5ea4710e6`（2026-10-11 起正文已从工作流包摘出，仍可按该 pin 取回）。
 
 ## 随包资源及其独立身份
 
 | 资源 | 性质 | 身份 / 校验 |
 | --- | --- | --- |
-| `guide-change-shape.md` | TPW guide（读取型） | `professional-workflow/methods/guide-change-shape.md`，SHA-256 `56e1e40edb7ccdf01d32d1e73aa66e612e59c273c3c8f302eeaa86620810eb2d` |
+| `guide-change-shape.md` | TPW guide（读取型） | 历史固定对象 `professional-workflow/methods/guide-change-shape.md` @ `f5d6d054`；现行副本即本目录 `guide-change-shape.md`；SHA-256 56e1e40edb7ccdf01d32d1e73aa66e612e59c273c3c8f302eeaa86620810eb2d` |
 
 携带规则：正文按文件名指向的资源（含传递的 guide→guide 引用，及已核的实际条件依赖）随包取回，保证同一固定包内可读；仅出处锚与“边界指针”不携带。
 

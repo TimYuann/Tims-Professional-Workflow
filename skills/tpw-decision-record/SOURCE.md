@@ -4,14 +4,16 @@
 
 ## 固定来源
 
+正文的**现行位置**是本包 `SKILL.md`；下表历史对象用于身份与取回。
+
 | 项 | 值 |
 | --- | --- |
-| 方法源路径 | `professional-workflow/methods/decision-record.md` |
+| 方法源路径（历史固定对象） | `professional-workflow/methods/decision-record.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源仓 pin | `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源树 tree | `9d7c057417da73895cda3b85ec34d49db58669b6` |
 | 正文 SHA-256 | `7fdc4a510ebd39f71200e32a852fa4132e70f62173553b2b49cc7ca85492f59b` |
 
-正文逐字节保留：本包 `SKILL.md` 的正文段（自第一行标题起至文件末）与该 SHA-256 一致。另已核源仓 `main@89b5203d` 与 pin `f5d6d054` 的 `professional-workflow/` 子树零差异。
+正文逐字节保留：本包 `SKILL.md` 的正文段（自第一行标题起至文件末）与该 SHA-256 一致。**现行位置即本包**；历史固定对象为 `professional-workflow/methods/… @ f5d6d0547459eb15c40aec25617418d5ea4710e6`（2026-10-11 起正文已从工作流包摘出，仍可按该 pin 取回）。
 
 ## 随包资源及其独立身份
 

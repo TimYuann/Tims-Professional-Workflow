@@ -4,9 +4,11 @@
 
 ## 固定来源
 
+正文的**现行位置**是本包 `SKILL.md`；下表历史对象用于身份与取回。
+
 | 项 | 值 |
 | --- | --- |
-| 方法源路径 | `professional-workflow/methods/cross-module-design.md` |
+| 方法源路径（历史固定对象） | `professional-workflow/methods/cross-module-design.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源仓 pin | `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源树 tree | `9d7c057417da73895cda3b85ec34d49db58669b6` |
 | 正文 SHA-256 | `373ff499c9b56a8b5426046c017e7b9ab01770f75e670953489858438665a204` |
@@ -17,8 +19,8 @@
 
 | 资源 | 性质 | 身份 / 校验 |
 | --- | --- | --- |
-| `guide-mock-adapter-choice.md` | TPW 方法正文（读取型） | `professional-workflow/methods/guide-mock-adapter-choice.md`，SHA-256 `967f089fa57d7a803b6657836a1ba4610d27c60b0fe9342e96d9a268b0d7414e` |
-| `design-alternatives.md` | TPW 方法正文（读取型，真实方案分歧才读） | `professional-workflow/methods/design-alternatives.md`，SHA-256 `36653fe8d9f809831e7b1c0e4f92e093e54d735eef8864c0595c63af3849be7e` |
+| `guide-mock-adapter-choice.md` | TPW 方法正文（读取型） | 历史固定对象 `professional-workflow/methods/guide-mock-adapter-choice.md` @ `f5d6d054`；现行副本即本目录 `guide-mock-adapter-choice.md`；SHA-256 967f089fa57d7a803b6657836a1ba4610d27c60b0fe9342e96d9a268b0d7414e` |
+| `design-alternatives.md` | TPW 方法正文（读取型，真实方案分歧才读） | 历史固定对象 `professional-workflow/methods/design-alternatives.md` @ `f5d6d054`；现行副本即本目录 `design-alternatives.md`；SHA-256 36653fe8d9f809831e7b1c0e4f92e093e54d735eef8864c0595c63af3849be7e` |
 | `references/DEEPENING.md` | **上游原件 + 一处导航链接适配**（条件读取） | 上游：Matt `mattpocock-skills` @ `c55ee46073ed923f86ce59a5eb3b6d895095d1b7`，`skills/engineering/codebase-design/DEEPENING.md`，SHA-256 `f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1`；包装：SHA-256 `5176f5fcf2606d7d53d9d6d7560c489fc349571e65f03df8ec44862b1b7ed9f0`，差异仅首段导航链接 `[SKILL.md](SKILL.md)` → `[SKILL.md](../SKILL.md)`（否则在本目录下断链；未造空依赖）。冲突以已接受适配为准，不自动采其删除建议。 |
 | `THIRD-PARTY-NOTICES.md` | 上游许可原文 | Matt / Addy / pstack / cursor-team-kit 四份 MIT，逐条与各上游 `LICENSE` 文件核对一致 |
 

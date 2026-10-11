@@ -5,7 +5,8 @@ license: Local self-use packaging only; no public distribution license granted; 
 metadata:
   package: tpw-skills-packaging-f5d6d054
   status: local-use package
-  source-method: professional-workflow/methods/trust-boundary-and-actions.md
+  method-location: this package (skills/tpw-trust-boundary-and-actions/SKILL.md)
+  source-method-historical: professional-workflow/methods/trust-boundary-and-actions.md @ f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-pin: f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-tree: 9d7c057417da73895cda3b85ec34d49db58669b6
   source-sha256: bb1877e2ac61c383ce9f67c0a3bb5841751346a40ca46a7eb92d29c5931d0ce3
@@ -13,7 +14,7 @@ metadata:
 
 ## 包装与资源边界（本机自用固定成品包）
 
-正文是固定 TPW 方法 `professional-workflow/methods/trust-boundary-and-actions.md` 的完整字节，成立于 `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；包装只增加本 frontmatter 与本节，不改正文。
+正文逐字节等于**历史固定对象** `professional-workflow/methods/trust-boundary-and-actions.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；**现行位置即本包**（该路径 2026-10-11 起已从工作流包摘出，仍可按 pin 取回）。包装只增加本 frontmatter 与本节，不改正文。
 
 - **读取型资源 / 实际条件依赖**（随包提供，路径相对本技能目录）：`guide-redacted-evidence.md`（输出／交接可能含敏感工件时；证据保管）。
 - **边界指针**：正文未把职责外派给其他方法文件的指针。

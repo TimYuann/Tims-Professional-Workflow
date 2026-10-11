@@ -43,4 +43,4 @@ A–F 是判断函数索引，不是执行序号；不要求六种固定岗位�
 
 ## 方法绑定状态
 
-"按需方法入口"只写方法需要，不含 Skill 正文；方法正文与当前选择入口由 `methods/README.md` 拥有（M4/M5 历史快照见其 §Status and source trace）。
+"按需方法入口"只写方法需要，不含 Skill 正文；方法正文在 `skills/` 成品批内（`skills/tpw-*/SKILL.md`，与历史 pin 同字节）；方法选择入口由 `methods/README.md` 拥有（M4/M5 历史快照见其 §Status and source trace）。

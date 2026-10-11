@@ -6,7 +6,8 @@ disable-model-invocation: true
 metadata:
   package: tpw-skills-packaging-f5d6d054
   status: local-use package
-  source-set: professional-workflow/methods/guide-*.md
+  method-location: this package (skills/tpw-on-demand-guides/)
+  source-set-historical: professional-workflow/methods/guide-*.md @ f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-pin: f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-tree: 9d7c057417da73895cda3b85ec34d49db58669b6
 ---
@@ -15,7 +16,7 @@ metadata:
 
 **九份** TPW 支持导引的**按需公共资源根**（固定批内十份导引全部可取：第十份 `guide-positioned-artifacts.md` 随其声明依赖的入口 `tpw-external-tool-operation` 携带）：它们不是能力方法，也不默认激活；只在任务/Charter 明确需要其中某一份时，按本目录内的文件名读取。本根以 `disable-model-invocation: true` 标为非自动入口，只能显式调用（`/skill:tpw-on-demand-guides`）。
 
-- 每份导引与 `professional-workflow/methods/<同名文件>`（pin `f5d6d0547459eb15c40aec25617418d5ea4710e6`，tree `9d7c057417da73895cda3b85ec34d49db58669b6`）**逐字节相同**；逐份 SHA-256 见 `SOURCE.md`。
+- 每份导引逐字节等于**历史固定对象** `professional-workflow/methods/<同名文件>` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；**现行位置即本根**（该目录 2026-10-11 起已从工作流包摘出，仍可按 pin 取回）；逐份 SHA-256 见 `SOURCE.md`。
 - 条件依赖：本目录内互相引用的导引（`guide-check-design` ↔ `guide-lesson-promotion`、`guide-professional-explanation` → `guide-redacted-evidence`、`guide-accessibility-observation` → `guide-test-evidence-quality`）在同一目录内可解析，无需跨目录、无需 symlink 别名推断。
 - 与入口的关系：入口按自身正文的实际条件依赖随包携带所需副本（见各入口 `SKILL.md`）；本根是**未随入口携带时**的公共取回点，不替代入口内的闭包。
 - 不随本根携带：`design-alternatives`／`cross-module-design` 等方法正文（它们是能力入口 `tpw-design-alternatives`／`tpw-cross-module-design`）；上游来源锚（出处记录，按上游 pin 取）。

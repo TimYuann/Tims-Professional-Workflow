@@ -5,7 +5,8 @@ license: Local self-use packaging only; no public distribution license granted; 
 metadata:
   package: tpw-skills-packaging-f5d6d054
   status: local-use package
-  source-method: professional-workflow/methods/cross-module-design.md
+  method-location: this package (skills/tpw-cross-module-design/SKILL.md)
+  source-method-historical: professional-workflow/methods/cross-module-design.md @ f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-pin: f5d6d0547459eb15c40aec25617418d5ea4710e6
   source-tree: 9d7c057417da73895cda3b85ec34d49db58669b6
   source-sha256: 373ff499c9b56a8b5426046c017e7b9ab01770f75e670953489858438665a204
@@ -13,7 +14,7 @@ metadata:
 
 ## 包装与资源边界（本机自用固定成品包）
 
-正文是固定 TPW 方法 `professional-workflow/methods/cross-module-design.md` 的完整字节，成立于 `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；包装只增加本 frontmatter 与本节，不改正文。
+正文逐字节等于**历史固定对象** `professional-workflow/methods/cross-module-design.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6`（tree `9d7c057417da73895cda3b85ec34d49db58669b6`）；**现行位置即本包**（该路径 2026-10-11 起已从工作流包摘出，仍可按 pin 取回）。包装只增加本 frontmatter 与本节，不改正文。
 
 - **读取型资源**（按需读，随包提供，路径相对本技能目录）：`guide-mock-adapter-choice.md`（依赖／观察面分支）；`design-alternatives.md`（真实方案分歧才读）。二者均为 TPW 方法正文的同字节副本。
 - **条件读取的上游原件**：`references/DEEPENING.md`（上游 Matt 原件，逐字节保留）——只在需要原始依赖分类参考时读；其冲突以已接受适配为准，不自动采其删除建议。

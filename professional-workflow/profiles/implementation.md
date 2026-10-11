@@ -35,9 +35,9 @@
 
 ## 按需方法入口（候选）
 
-- 行为切片测试优先方法：`methods/test-first-behavior-slice.md`（先失败、失败原因核对、单行为小步、观察面选择）。
-- 小步切片/依赖排序方法：`methods/change-slicing.md`（每项可独立展示或验证、阻塞边、宽重构例外）。
-- 测试证据质量参照：`methods/guide-test-evidence-quality.md`（期望值来源、耦合与弱信号；判定映射不变）。
-- 调试方法：从可复现观察定位根因，先证据后修改（`methods/local-defect-feedback-loop.md`）。
-- 测试接缝选择方法：在承诺不变的前提下选局部可测边界（`methods/test-first-behavior-slice.md` §Surface choice）。
-- 绑定状态：方法正文与当前选择入口由 `methods/README.md` 拥有；本预设不含方法正文。
+- 行为切片测试优先方法：`skills/tpw-test-first-behavior-slice/SKILL.md`（先失败、失败原因核对、单行为小步、观察面选择）。
+- 小步切片/依赖排序方法：`skills/tpw-change-slicing/SKILL.md`（每项可独立展示或验证、阻塞边、宽重构例外）。
+- 测试证据质量参照：`skills/tpw-on-demand-guides/guide-test-evidence-quality.md`（期望值来源、耦合与弱信号；判定映射不变）。
+- 调试方法：从可复现观察定位根因，先证据后修改（`skills/tpw-debug/SKILL.md`）。
+- 测试接缝选择方法：在承诺不变的前提下选局部可测边界（`skills/tpw-test-first-behavior-slice/SKILL.md` §Surface choice）。
+- 绑定状态：方法正文在 `skills/` 成品批内（`skills/tpw-*/SKILL.md`，与历史 pin 同字节）；方法选择入口由 `methods/README.md` 拥有；本预设不含方法正文。

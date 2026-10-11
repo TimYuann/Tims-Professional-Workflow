@@ -1,6 +1,6 @@
 # TPW 工程方法 · 本机自用固定成品批
 
-本目录是 TPW 既有方法的原生成品批：**32 个能力入口**（一个能力方法一个入口）＋ **1 个非自动的按需导引根**（`tpw-on-demand-guides`）。正文逐字节取自 TPW 固定方法集，供宿主按固定对象安装使用。装配顺序、Profile/Charter/authority（`professional-workflow/`）**不是**技能入口，仍由 TPW 包自身承担。
+本目录是 TPW 既有方法的原生成品批：**32 个能力入口**（一个能力方法一个入口）＋ **1 个非自动的按需导引根**（`tpw-on-demand-guides`）。**自 2026-10-11 起，方法正文的现行位置就是本目录**：`professional-workflow/` 包保留 Profiles／Charter／authority／ADOPTION 与选择入口，并路由到本批。装配顺序、Profile/Charter/authority 不是技能入口，仍由 TPW 包自身承担。
 
 固定身份：源仓 pin `f5d6d0547459eb15c40aec25617418d5ea4710e6`，tree `9d7c057417da73895cda3b85ec34d49db58669b6`。每个入口的 `SKILL.md` ＝ frontmatter ＋「包装与资源边界」一节 ＋ 该方法正文的**完整字节**。逐文件校验值见各根 `SOURCE.md`。
 
@@ -8,40 +8,40 @@
 
 ## 入口清单（32 个能力入口）
 
-| 入口 | 方法正文 | 随包读取资源 |
+| 入口 | 历史源（固定对象；现行正文即本根 `SKILL.md`） | 随包读取资源 |
 | --- | --- | --- |
-| `tpw-agent-facing-cli-contract` | `professional-workflow/methods/agent-facing-cli-contract.md` | — |
-| `tpw-architecture-survey` | `professional-workflow/methods/architecture-survey.md` | guide-check-design.md, guide-lesson-promotion.md, guide-agent-text.md, guide-professional-explanation.md, guide-redacted-evidence.md |
-| `tpw-behavior-claim-evaluation` | `professional-workflow/methods/behavior-claim-evaluation.md` | guide-redacted-evidence.md, guide-test-evidence-quality.md |
-| `tpw-behavior-contract-examples` | `professional-workflow/methods/behavior-contract-examples.md` | — |
-| `tpw-behavior-preserving-change` | `professional-workflow/methods/behavior-preserving-change.md` | guide-change-shape.md |
-| `tpw-bounded-composition` | `professional-workflow/methods/bounded-composition.md` | guide-check-design.md, guide-lesson-promotion.md, guide-agent-text.md, guide-professional-explanation.md, guide-redacted-evidence.md |
-| `tpw-bounded-prototype` | `professional-workflow/methods/bounded-prototype.md` | — |
-| `tpw-change-review` | `professional-workflow/methods/change-review.md` | guide-agent-text.md, guide-professional-explanation.md, guide-redacted-evidence.md |
-| `tpw-change-slicing` | `professional-workflow/methods/change-slicing.md` | — |
-| `tpw-cross-module-design` | `professional-workflow/methods/cross-module-design.md` | guide-mock-adapter-choice.md（＋既有 `design-alternatives.md`，固定身份） |
-| `tpw-debug` | `professional-workflow/methods/local-defect-feedback-loop.md` | guide-redacted-evidence.md, guide-test-evidence-quality.md |
-| `tpw-decision-elicitation` | `professional-workflow/methods/decision-elicitation.md` | behavior-claim-evaluation.md, guide-redacted-evidence.md, guide-test-evidence-quality.md |
-| `tpw-decision-record` | `professional-workflow/methods/decision-record.md` | — |
-| `tpw-deprecation-and-migration` | `professional-workflow/methods/deprecation-and-migration.md` | — |
-| `tpw-design-alternatives` | `professional-workflow/methods/design-alternatives.md` | guide-mock-adapter-choice.md |
-| `tpw-domain-language` | `professional-workflow/methods/domain-language.md` | — |
-| `tpw-domain-state-and-invariants` | `professional-workflow/methods/domain-state-and-invariants.md` | — |
-| `tpw-external-tool-operation` | `professional-workflow/methods/external-tool-operation.md` | guide-positioned-artifacts.md, guide-redacted-evidence.md |
-| `tpw-handoff-and-resume` | `professional-workflow/methods/handoff-and-resume.md` | guide-redacted-evidence.md |
-| `tpw-human-procedure` | `professional-workflow/methods/human-procedure.md` | guide-redacted-evidence.md |
-| `tpw-interface-contract-and-retry` | `professional-workflow/methods/interface-contract-and-retry.md` | — |
-| `tpw-merge-conflict-resolution` | `professional-workflow/methods/merge-conflict-resolution.md` | — |
-| `tpw-observability-design` | `professional-workflow/methods/observability-design.md` | guide-redacted-evidence.md |
-| `tpw-performance-and-neutrality` | `professional-workflow/methods/performance-and-neutrality.md` | — |
-| `tpw-professional-learning` | `professional-workflow/methods/professional-learning.md` | guide-professional-explanation.md, guide-redacted-evidence.md |
-| `tpw-quality-policy-enforcement` | `professional-workflow/methods/quality-policy-enforcement.md` | — |
-| `tpw-rationale-and-premise-review` | `professional-workflow/methods/rationale-and-premise-review.md` | — |
-| `tpw-release-and-recovery` | `professional-workflow/methods/release-and-recovery.md` | — |
-| `tpw-test-first-behavior-slice` | `professional-workflow/methods/test-first-behavior-slice.md` | guide-mock-adapter-choice.md, guide-test-evidence-quality.md |
-| `tpw-trust-boundary-and-actions` | `professional-workflow/methods/trust-boundary-and-actions.md` | guide-redacted-evidence.md |
-| `tpw-uncertainty-planning` | `professional-workflow/methods/uncertainty-planning.md` | — |
-| `tpw-verification-harness-design` | `professional-workflow/methods/verification-harness-design.md` | guide-check-design.md, guide-lesson-promotion.md, guide-agent-text.md, guide-mock-adapter-choice.md, guide-professional-explanation.md, guide-redacted-evidence.md, guide-test-evidence-quality.md |
+| `tpw-agent-facing-cli-contract` | `methods/agent-facing-cli-contract.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-architecture-survey` | `methods/architecture-survey.md` @ `f5d6d054`（历史固定对象） | guide-check-design.md, guide-lesson-promotion.md, guide-agent-text.md, guide-professional-explanation.md, guide-redacted-evidence.md |
+| `tpw-behavior-claim-evaluation` | `methods/behavior-claim-evaluation.md` @ `f5d6d054`（历史固定对象） | guide-redacted-evidence.md, guide-test-evidence-quality.md |
+| `tpw-behavior-contract-examples` | `methods/behavior-contract-examples.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-behavior-preserving-change` | `methods/behavior-preserving-change.md` @ `f5d6d054`（历史固定对象） | guide-change-shape.md |
+| `tpw-bounded-composition` | `methods/bounded-composition.md` @ `f5d6d054`（历史固定对象） | guide-check-design.md, guide-lesson-promotion.md, guide-agent-text.md, guide-professional-explanation.md, guide-redacted-evidence.md |
+| `tpw-bounded-prototype` | `methods/bounded-prototype.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-change-review` | `methods/change-review.md` @ `f5d6d054`（历史固定对象） | guide-agent-text.md, guide-professional-explanation.md, guide-redacted-evidence.md |
+| `tpw-change-slicing` | `methods/change-slicing.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-cross-module-design` | `methods/cross-module-design.md` @ `f5d6d054`（历史固定对象） | guide-mock-adapter-choice.md（＋既有 `design-alternatives.md`，固定身份） |
+| `tpw-debug` | `methods/local-defect-feedback-loop.md` @ `f5d6d054`（历史固定对象） | guide-redacted-evidence.md, guide-test-evidence-quality.md |
+| `tpw-decision-elicitation` | `methods/decision-elicitation.md` @ `f5d6d054`（历史固定对象） | behavior-claim-evaluation.md, guide-redacted-evidence.md, guide-test-evidence-quality.md |
+| `tpw-decision-record` | `methods/decision-record.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-deprecation-and-migration` | `methods/deprecation-and-migration.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-design-alternatives` | `methods/design-alternatives.md` @ `f5d6d054`（历史固定对象） | guide-mock-adapter-choice.md |
+| `tpw-domain-language` | `methods/domain-language.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-domain-state-and-invariants` | `methods/domain-state-and-invariants.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-external-tool-operation` | `methods/external-tool-operation.md` @ `f5d6d054`（历史固定对象） | guide-positioned-artifacts.md, guide-redacted-evidence.md |
+| `tpw-handoff-and-resume` | `methods/handoff-and-resume.md` @ `f5d6d054`（历史固定对象） | guide-redacted-evidence.md |
+| `tpw-human-procedure` | `methods/human-procedure.md` @ `f5d6d054`（历史固定对象） | guide-redacted-evidence.md |
+| `tpw-interface-contract-and-retry` | `methods/interface-contract-and-retry.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-merge-conflict-resolution` | `methods/merge-conflict-resolution.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-observability-design` | `methods/observability-design.md` @ `f5d6d054`（历史固定对象） | guide-redacted-evidence.md |
+| `tpw-performance-and-neutrality` | `methods/performance-and-neutrality.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-professional-learning` | `methods/professional-learning.md` @ `f5d6d054`（历史固定对象） | guide-professional-explanation.md, guide-redacted-evidence.md |
+| `tpw-quality-policy-enforcement` | `methods/quality-policy-enforcement.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-rationale-and-premise-review` | `methods/rationale-and-premise-review.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-release-and-recovery` | `methods/release-and-recovery.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-test-first-behavior-slice` | `methods/test-first-behavior-slice.md` @ `f5d6d054`（历史固定对象） | guide-mock-adapter-choice.md, guide-test-evidence-quality.md |
+| `tpw-trust-boundary-and-actions` | `methods/trust-boundary-and-actions.md` @ `f5d6d054`（历史固定对象） | guide-redacted-evidence.md |
+| `tpw-uncertainty-planning` | `methods/uncertainty-planning.md` @ `f5d6d054`（历史固定对象） | — |
+| `tpw-verification-harness-design` | `methods/verification-harness-design.md` @ `f5d6d054`（历史固定对象） | guide-check-design.md, guide-lesson-promotion.md, guide-agent-text.md, guide-mock-adapter-choice.md, guide-professional-explanation.md, guide-redacted-evidence.md, guide-test-evidence-quality.md |
 
 ## 资源携带规则（实际依赖 vs 指针 vs 锚）
 
@@ -54,6 +54,13 @@
 **来源与许可口径**：每根的 `SOURCE.md` 来源表与 `THIRD-PARTY-NOTICES.md` 都按**该根本正文 ＋ 全部随包资源**的来源**并集**生成（不只看主方法的 Source anchors）。例：`tpw-architecture-survey` 主方法只涉 Matt，但随包的 `guide-redacted-evidence`／`guide-agent-text`／`guide-lesson-promotion`／`guide-professional-explanation` 涉及 pstack 与 cursor-team-kit，因此其 NOTICES 覆盖 Matt ＋ pstack ＋ cursor-team-kit 三份 MIT；SOURCE 表逐项标出“出现于”哪些文件。
 
 `tpw-on-demand-guides/` 是非自动的按需导引根（`disable-model-invocation: true`，只能显式调用）：携带 9 份导引，供未被任何入口按依赖携带时按需读取；`guide-positioned-artifacts.md` 不在其中，它随其声明的依赖入口 `tpw-external-tool-operation` 携带。**固定批内十份导引全部可取**（逐份出现在至少一处：本根或对应入口）。
+
+## 与 professional-workflow 包的关系（2026-10-11 摘除后）
+
+- **正文在本批**：每个 `SKILL.md` 的正文段逐字节等于历史 pin `f5d6d054…` 下 `professional-workflow/methods/<stem>.md` 的内容；本批是该正文的现行位置。
+- **包内只保留选择与路由**：`professional-workflow/methods/README.md` 是选方法入口（不含正文），各表指向本批路径；`profiles/`、`charters/`、`authority/`、`ADOPTION.md`、包 README 与 `adoption-examples/` 已同步改为绑定 `skills/<entry>/SKILL.md`（`skills/…` 以**仓根**解析；包内引用仍以 `professional-workflow/` 为根）。
+- **历史可取回**：摘除后的 `professional-workflow/methods/*.md` 仍可按 pin `f5d6d054…`（以及更早的 M4/M5 对象）从 Git 取回；本批各根 `SOURCE.md` 把该路径标为历史固定对象。现行指南不再指向已摘目录。
+- **条件资源不丢**：每个入口按实际依赖随包携带 guide／非 guide 依赖副本；未随入口携带的导引在 `tpw-on-demand-guides` 内可取；来源与许可按“正文＋随包资源”并集记录。
 
 ## 安装（本机自用）
 
@@ -87,6 +94,8 @@
 | Markdown 链接 | 扫描 `skills/` 下全部 Markdown（151 个）的显式相对链接，剔除行内代码跨度示例 | 真链接 **1/1** 可解析（`tpw-cross-module-design/references/DEEPENING.md` 的 `../SKILL.md`；上游 `f3dd099c…`／包装 `5176f5fc…`，属既有固定身份） |
 | Bash 语法 | `bash -n tpw-debug/scripts/hitl-loop.template.sh` | 通过（未执行） |
 | 入口发现 | 宿主静态解析（`loadSkillsFromDir`） | **33 入口 / 0 诊断**；其中 1 个标 `disable-model-invocation`（按需导引根）；描述均 ≤1024 字符 |
+| 无悬挂引用 | 扫描现行文档（包内 ＋ 根 README ＋ adoption-examples ＋ 本 README）中对 `professional-workflow/methods/<正文>.md` 的引用，要求已标历史固定对象 | 0 条未标历史的正文引用 |
+| 本批路径可解析 | 现行文档中出现的 `skills/<entry>/…` 路径逐一断言存在 | 全部可解析 |
 | NOTICES | 每根按「本正文 ＋ 随包资源」的来源**并集**生成、非空，并与上游 `LICENSE` 逐条核对 | **33/33** |
 | 尾随空行 | `git diff --cached --check`（新增文件） | 通过，无 EOF 多余空行 |
 

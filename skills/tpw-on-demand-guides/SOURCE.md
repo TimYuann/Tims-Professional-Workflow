@@ -4,6 +4,8 @@
 
 ## 固定来源
 
+正文的**现行位置**是本包 `SKILL.md`；下表历史对象用于身份与取回。
+
 | 项 | 值 |
 | --- | --- |
 | 方法源目录 | `professional-workflow/methods/guide-*.md`（本根 9 份；第十份 `guide-positioned-artifacts.md` 随 `tpw-external-tool-operation` 入口） |
@@ -14,15 +16,15 @@
 
 | 资源 | 来源路径 | SHA-256 |
 | --- | --- | --- |
-| `guide-accessibility-observation.md` | `professional-workflow/methods/guide-accessibility-observation.md` | `e08ef8c3b0048ab364d2ad03e4e5780195a56d64d219c0b8e1373c9f4f8e0551` |
-| `guide-agent-text.md` | `professional-workflow/methods/guide-agent-text.md` | `9b97dc57f9b363977c2db3506429a3d27a34ec6824d561e3700588e8627948e5` |
-| `guide-change-shape.md` | `professional-workflow/methods/guide-change-shape.md` | `56e1e40edb7ccdf01d32d1e73aa66e612e59c273c3c8f302eeaa86620810eb2d` |
-| `guide-check-design.md` | `professional-workflow/methods/guide-check-design.md` | `5a13dcaea0c87e76a1c005cf4b41ae486a243009359e93612a3d230d20487a8e` |
-| `guide-lesson-promotion.md` | `professional-workflow/methods/guide-lesson-promotion.md` | `82bcd49e3235fd96b8ab515942b6cd8acbe444cd516207e0fdc1c70cd1b024e5` |
-| `guide-mock-adapter-choice.md` | `professional-workflow/methods/guide-mock-adapter-choice.md` | `967f089fa57d7a803b6657836a1ba4610d27c60b0fe9342e96d9a268b0d7414e` |
-| `guide-professional-explanation.md` | `professional-workflow/methods/guide-professional-explanation.md` | `7a79d708454eec70f9462400a20611c0794ceb4fb609f91c6bf8271d98632d28` |
-| `guide-redacted-evidence.md` | `professional-workflow/methods/guide-redacted-evidence.md` | `0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335` |
-| `guide-test-evidence-quality.md` | `professional-workflow/methods/guide-test-evidence-quality.md` | `0ea7a4ec3c1cb5da3286ffe68aec4770f6da370f59a25cc58bcefe496e2063e6` |
+| `guide-accessibility-observation.md` | 历史固定对象 `professional-workflow/methods/guide-accessibility-observation.md` @ `f5d6d054`；现行副本即本目录 `guide-accessibility-observation.md` | `e08ef8c3b0048ab364d2ad03e4e5780195a56d64d219c0b8e1373c9f4f8e0551` |
+| `guide-agent-text.md` | 历史固定对象 `professional-workflow/methods/guide-agent-text.md` @ `f5d6d054`；现行副本即本目录 `guide-agent-text.md` | `9b97dc57f9b363977c2db3506429a3d27a34ec6824d561e3700588e8627948e5` |
+| `guide-change-shape.md` | 历史固定对象 `professional-workflow/methods/guide-change-shape.md` @ `f5d6d054`；现行副本即本目录 `guide-change-shape.md` | `56e1e40edb7ccdf01d32d1e73aa66e612e59c273c3c8f302eeaa86620810eb2d` |
+| `guide-check-design.md` | 历史固定对象 `professional-workflow/methods/guide-check-design.md` @ `f5d6d054`；现行副本即本目录 `guide-check-design.md` | `5a13dcaea0c87e76a1c005cf4b41ae486a243009359e93612a3d230d20487a8e` |
+| `guide-lesson-promotion.md` | 历史固定对象 `professional-workflow/methods/guide-lesson-promotion.md` @ `f5d6d054`；现行副本即本目录 `guide-lesson-promotion.md` | `82bcd49e3235fd96b8ab515942b6cd8acbe444cd516207e0fdc1c70cd1b024e5` |
+| `guide-mock-adapter-choice.md` | 历史固定对象 `professional-workflow/methods/guide-mock-adapter-choice.md` @ `f5d6d054`；现行副本即本目录 `guide-mock-adapter-choice.md` | `967f089fa57d7a803b6657836a1ba4610d27c60b0fe9342e96d9a268b0d7414e` |
+| `guide-professional-explanation.md` | 历史固定对象 `professional-workflow/methods/guide-professional-explanation.md` @ `f5d6d054`；现行副本即本目录 `guide-professional-explanation.md` | `7a79d708454eec70f9462400a20611c0794ceb4fb609f91c6bf8271d98632d28` |
+| `guide-redacted-evidence.md` | 历史固定对象 `professional-workflow/methods/guide-redacted-evidence.md` @ `f5d6d054`；现行副本即本目录 `guide-redacted-evidence.md` | `0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335` |
+| `guide-test-evidence-quality.md` | 历史固定对象 `professional-workflow/methods/guide-test-evidence-quality.md` @ `f5d6d054`；现行副本即本目录 `guide-test-evidence-quality.md` | `0ea7a4ec3c1cb5da3286ffe68aec4770f6da370f59a25cc58bcefe496e2063e6` |
 
 ## 上游来源锚（本根 9 份导引的并集）
 

@@ -124,7 +124,7 @@ Task / outcome:     <bounded task in UCBIP>
 Delegation source:  <the UCBIP task card / Driver write-window record that grants it; none here>
 Object scope:       <read set, write set, explicit boundary>
 Accepted inputs:    <downstream card, contract/current-truth refs, evidence refs, versions>
-Applicable methods: <exact methods/ path(s), or none>
+Applicable methods: <exact skill path(s) such as skills/tpw-debug/SKILL.md, or none>
 Responsibility:     <the judgment actually delegated>
 Preserve / do not:  <accepted commitments; product source only in an independent worktree>
 Deliver:            <candidate/object + evidence + residuals>

@@ -4,24 +4,26 @@
 
 ## 固定来源
 
+正文的**现行位置**是本包 `SKILL.md`；下表历史对象用于身份与取回。
+
 | 项 | 值 |
 | --- | --- |
-| 方法源路径 | `professional-workflow/methods/bounded-composition.md` |
+| 方法源路径（历史固定对象） | `professional-workflow/methods/bounded-composition.md` @ `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源仓 pin | `f5d6d0547459eb15c40aec25617418d5ea4710e6` |
 | 源树 tree | `9d7c057417da73895cda3b85ec34d49db58669b6` |
 | 正文 SHA-256 | `aa80e19358560d0542310e8bbc14bcb98f98d9a6e54558701a7a1036c8be0644` |
 
-正文逐字节保留：本包 `SKILL.md` 的正文段（自第一行标题起至文件末）与该 SHA-256 一致。另已核源仓 `main@89b5203d` 与 pin `f5d6d054` 的 `professional-workflow/` 子树零差异。
+正文逐字节保留：本包 `SKILL.md` 的正文段（自第一行标题起至文件末）与该 SHA-256 一致。**现行位置即本包**；历史固定对象为 `professional-workflow/methods/… @ f5d6d0547459eb15c40aec25617418d5ea4710e6`（2026-10-11 起正文已从工作流包摘出，仍可按该 pin 取回）。
 
 ## 随包资源及其独立身份
 
 | 资源 | 性质 | 身份 / 校验 |
 | --- | --- | --- |
-| `guide-agent-text.md` | TPW guide（读取型） | `professional-workflow/methods/guide-agent-text.md`，SHA-256 `9b97dc57f9b363977c2db3506429a3d27a34ec6824d561e3700588e8627948e5` |
-| `guide-check-design.md` | TPW guide（读取型） | `professional-workflow/methods/guide-check-design.md`，SHA-256 `5a13dcaea0c87e76a1c005cf4b41ae486a243009359e93612a3d230d20487a8e` |
-| `guide-lesson-promotion.md` | TPW guide（读取型） | `professional-workflow/methods/guide-lesson-promotion.md`，SHA-256 `82bcd49e3235fd96b8ab515942b6cd8acbe444cd516207e0fdc1c70cd1b024e5` |
-| `guide-professional-explanation.md` | TPW guide（读取型） | `professional-workflow/methods/guide-professional-explanation.md`，SHA-256 `7a79d708454eec70f9462400a20611c0794ceb4fb609f91c6bf8271d98632d28` |
-| `guide-redacted-evidence.md` | TPW guide（读取型） | `professional-workflow/methods/guide-redacted-evidence.md`，SHA-256 `0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335` |
+| `guide-agent-text.md` | TPW guide（读取型） | 历史固定对象 `professional-workflow/methods/guide-agent-text.md` @ `f5d6d054`；现行副本即本目录 `guide-agent-text.md`；SHA-256 9b97dc57f9b363977c2db3506429a3d27a34ec6824d561e3700588e8627948e5` |
+| `guide-check-design.md` | TPW guide（读取型） | 历史固定对象 `professional-workflow/methods/guide-check-design.md` @ `f5d6d054`；现行副本即本目录 `guide-check-design.md`；SHA-256 5a13dcaea0c87e76a1c005cf4b41ae486a243009359e93612a3d230d20487a8e` |
+| `guide-lesson-promotion.md` | TPW guide（读取型） | 历史固定对象 `professional-workflow/methods/guide-lesson-promotion.md` @ `f5d6d054`；现行副本即本目录 `guide-lesson-promotion.md`；SHA-256 82bcd49e3235fd96b8ab515942b6cd8acbe444cd516207e0fdc1c70cd1b024e5` |
+| `guide-professional-explanation.md` | TPW guide（读取型） | 历史固定对象 `professional-workflow/methods/guide-professional-explanation.md` @ `f5d6d054`；现行副本即本目录 `guide-professional-explanation.md`；SHA-256 7a79d708454eec70f9462400a20611c0794ceb4fb609f91c6bf8271d98632d28` |
+| `guide-redacted-evidence.md` | TPW guide（读取型） | 历史固定对象 `professional-workflow/methods/guide-redacted-evidence.md` @ `f5d6d054`；现行副本即本目录 `guide-redacted-evidence.md`；SHA-256 0abd46cec7198ae97671dbc03e428be559cd75927537a9bd06ebd2c63aef5335` |
 
 携带规则：正文按文件名指向的资源（含传递的 guide→guide 引用，及已核的实际条件依赖）随包取回，保证同一固定包内可读；仅出处锚与“边界指针”不携带。
 

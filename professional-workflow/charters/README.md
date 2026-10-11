@@ -28,22 +28,24 @@ Method selection stays with [`../methods/README.md`](../methods/README.md) and t
 
 ## Assembly
 
-From the `professional-workflow/` package root, use the selected Profile, only the authority context the Charter needs, the filled Charter, its method files, and task-specific inputs. The example below shows the deterministic text order; the package intentionally has no schema validator or general permission engine.
+From the repository root, use the selected Profile, only the authority context the Charter needs, the filled Charter, its bound skills, and task-specific inputs. The example below shows the deterministic text order; the package intentionally has no schema validator or general permission engine.
+
+Path convention: `skills/…` resolves from the repository root; `profiles/…`, `charters/…`, `authority/…` and `methods/README.md` resolve from the `professional-workflow/` package root.
 
 ```sh
-cat profiles/implementation.md \
-    charters/examples/implementation-local-fix.md \
-    methods/local-defect-feedback-loop.md \
+cat professional-workflow/profiles/implementation.md \
+    professional-workflow/charters/examples/implementation-local-fix.md \
+    skills/tpw-debug/SKILL.md \
     path/to/current-task-input.md
 ```
 
-For a cross-module technical Plan, use `profiles/technical-planning.md`, include the bundled Backbone when its responsibility boundary matters, bind `charters/examples/technical-planning-cross-module.md`, and include `methods/cross-module-design.md` before the task inputs.
+For a cross-module technical Plan, use `professional-workflow/profiles/technical-planning.md`, include the bundled Backbone when its responsibility boundary matters, bind `professional-workflow/charters/examples/technical-planning-cross-module.md`, and include `skills/tpw-cross-module-design/SKILL.md` before the task inputs.
 
 ```sh
-cat profiles/technical-planning.md \
-    authority/RESPONSIBILITY-BACKBONE.md \
-    charters/examples/technical-planning-cross-module.md \
-    methods/cross-module-design.md \
+cat professional-workflow/profiles/technical-planning.md \
+    professional-workflow/authority/RESPONSIBILITY-BACKBONE.md \
+    professional-workflow/charters/examples/technical-planning-cross-module.md \
+    skills/tpw-cross-module-design/SKILL.md \
     path/to/current-task-input.md
 ```
 
